@@ -747,14 +747,17 @@ wide, over the local server.
 | Requests | 4 | 3 (HTML, CSS, JS) plus the favicon |
 | Fonts | 0 external | 0 |
 | Web fonts | 0 | 0 |
-| Layout shift | 0 | 0 |
-| Largest contentful paint | < 1.5 s on 4G | 1.8 s under Lighthouse's simulated 4G |
+| Layout shift | 0 | 0 to 0.011 |
+| Largest contentful paint | < 1.5 s on 4G | 1.8 s, every run |
+| Accessibility, best practices, SEO | 100 each | 100 each, both palettes |
 
-The two points Lighthouse loses are its own simulated-throttling numbers for
-first paint and the interactivity proxy, on a page with three requests, no
-images, no fonts and 70 ms of blocking time. Both go away on a real connection
-and neither is a defect in the page. The reasons are written down here because
-the gate says "100 or the reason".
+The performance score moves between 85 and 98 from run to run while every other
+category stays at 100. That is Lighthouse's simulated 4G throttling measuring
+its own overhead on a page with three requests, no images and no fonts, not a
+defect in the page: the same run reports a 1.8 s largest contentful paint in
+every palette, and the blocking time varies with the machine rather than with
+the page. The gate is "100, or the reason", and the reason is written down
+here instead of being averaged away.
 
 - No web font, no icon library: six glyphs as inline `<symbol>`, referenced with
   `use`. An icon font for six glyphs is absurd.
