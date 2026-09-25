@@ -134,8 +134,7 @@
             <a href="#seguridad">Seguridad</a>
           </div>
         </details>
-        <button class="btn btn--ghost" type="button" data-open-login>Iniciar sesión</button>
-        <button class="btn btn--primary" type="button" data-open-login>Empezar</button>
+        <a class="btn btn--primary" href="mailto:hola@pautia.app?subject=Lista%20de%20espera%20de%20Pautia">Lista de espera</a>
       </div>
     </div>
   </header>
@@ -152,10 +151,11 @@
             número de WhatsApp. Responde lo que te escriben, agenda citas, confirma
             pedidos y te avisa cuando hace falta que intervengas. Tú sigues al mando.</p>
           <div class="hero__cta">
-            <button class="btn btn--primary" type="button" data-open-login>Empezar ahora</button>
+            <a class="btn btn--primary" href="mailto:hola@pautia.app?subject=Lista%20de%20espera%20de%20Pautia">Lista de espera</a>
             <a class="btn btn--ghost" href="#como-funciona">Ver cómo funciona</a>
           </div>
-          <p class="hero__note">Sin instalar nada. Sin cambiar tu número.</p>
+          <p class="hero__note">Estamos preparando la plataforma. Escríbenos y te avisamos
+            en cuanto esté.</p>
         </div>
 
         <div class="mock" aria-hidden="true">
@@ -417,7 +417,7 @@
               </p>
               <p class="price__note note--monthly">Se renueva cada mes.</p>
               <p class="price__note note--yearly">Un solo cobro de XX € al año.</p>
-              <button class="btn btn--ghost plan__cta" type="button" data-open-login>Empezar</button>
+              <a class="btn btn--ghost plan__cta" href="mailto:hola@pautia.app?subject=Lista%20de%20espera%20de%20Pautia">Lista de espera</a>
               <dl class="plan__rows">
                 <div class="row">
                   <dt class="row__key">Números de WhatsApp</dt>
@@ -455,7 +455,7 @@
               </p>
               <p class="price__note note--monthly">Se renueva cada mes.</p>
               <p class="price__note note--yearly">Un solo cobro de XX € al año.</p>
-              <button class="btn btn--primary plan__cta" type="button" data-open-login>Empezar</button>
+              <a class="btn btn--primary plan__cta" href="mailto:hola@pautia.app?subject=Lista%20de%20espera%20de%20Pautia">Lista de espera</a>
               <dl class="plan__rows">
                 <div class="row">
                   <dt class="row__key">Números de WhatsApp</dt>
@@ -490,7 +490,7 @@
               </p>
               <p class="price__note note--monthly">Se renueva cada mes.</p>
               <p class="price__note note--yearly">Un solo cobro de XX € al año.</p>
-              <button class="btn btn--ghost plan__cta" type="button" data-open-login>Empezar</button>
+              <a class="btn btn--ghost plan__cta" href="mailto:hola@pautia.app?subject=Lista%20de%20espera%20de%20Pautia">Lista de espera</a>
               <dl class="plan__rows">
                 <div class="row">
                   <dt class="row__key">Números de WhatsApp</dt>
@@ -571,10 +571,10 @@
           <details>
             <summary>¿Y si mi número es baneado por WhatsApp?</summary>
             <p class="faq__answer">Ninguna herramienta puede prometer que eso no pase, y esta
-              tampoco. Lo que sí hacemos: no mandamos mensajes masivos, no iniciamos
-              conversaciones no solicitadas, y limitamos el ritmo de envío para que tu cuenta
-              se comporte como la de una persona. Si ocurre, lo revisamos contigo y decides
-              qué hacemos.</p>
+              tampoco. Lo que sí hace Pautia es comportarse como una persona: no manda
+              mensajes masivos, no inicia conversaciones que nadie pidió, y modula el ritmo
+              de las respuestas. Eso reduce muchísimo el riesgo de que un número sea
+              bloqueado.</p>
           </details>
 
           <!-- faq questions that need a phase:
@@ -614,10 +614,10 @@
     <!-- 12. Final CTA -->
     <section class="cta">
       <div class="wrap">
-        <h2>Empieza hoy a contestar a todos</h2>
-        <p>Conecta tu número, cuéntanos qué necesita tu negocio, y déjalo contestando
-          mientras duermes.</p>
-        <button class="btn btn--primary" type="button" data-open-login>Empezar ahora</button>
+        <h2>Entra en la lista de espera</h2>
+        <p>Estamos preparando la plataforma. Cuando abramos, te avisamos por correo y
+          entras primero.</p>
+        <a class="btn btn--primary" href="mailto:hola@pautia.app?subject=Lista%20de%20espera%20de%20Pautia">Lista de espera</a>
       </div>
     </section>
   </main>
@@ -659,40 +659,6 @@
     </div>
   </footer>
 
-  <!-- 14. Login dialog -->
-  <dialog class="dialog" id="login" aria-labelledby="login-t">
-    <form class="dialog__form" method="post" action="/api/auth/login">
-      <div class="dialog__head">
-        <h2 id="login-t">Entra a Pautia</h2>
-        <button class="dialog__close" type="button" data-close aria-label="Cerrar">×</button>
-      </div>
-
-      <p class="dialog__msg" data-msg tabindex="-1" role="status" aria-live="polite"></p>
-
-      <label for="correo">Correo</label>
-      <input id="correo" name="email" type="email" autocomplete="username" required>
-
-      <label for="clave">Contraseña</label>
-      <input id="clave" name="password" type="password" autocomplete="current-password"
-        required>
-
-      <!-- The account service has a second step. The state is reserved and
-           hidden so nobody builds it early by accident, and so the dialog does
-           not change shape when it arrives. -->
-      <div hidden data-step="2fa">
-        <label for="codigo">Código de verificación</label>
-        <input id="codigo" name="code" type="text" inputmode="numeric" autocomplete="one-time-code"
-          disabled>
-      </div>
-
-      <button class="btn btn--primary btn--block dialog__submit" type="submit">Entrar</button>
-
-      <p class="dialog__foot">
-        <a href="mailto:hola@pautia.app">¿Olvidaste tu contraseña o no tienes cuenta?
-          Escríbenos</a>
-      </p>
-    </form>
-  </dialog>
 
   <script src="/assets/main.js"></script>
 </body>

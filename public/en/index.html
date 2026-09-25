@@ -134,8 +134,7 @@
             <a href="#security">Security</a>
           </div>
         </details>
-        <button class="btn btn--ghost" type="button" data-open-login>Log in</button>
-        <button class="btn btn--primary" type="button" data-open-login>Start</button>
+        <a class="btn btn--primary" href="mailto:hola@pautia.app?subject=Waitlist%20for%20Pautia">Join the waitlist</a>
       </div>
     </div>
   </header>
@@ -152,10 +151,11 @@
             what people write, books appointments, confirms orders, and tells you when a
             person is needed. You stay in control.</p>
           <div class="hero__cta">
-            <button class="btn btn--primary" type="button" data-open-login>Start now</button>
+            <a class="btn btn--primary" href="mailto:hola@pautia.app?subject=Waitlist%20for%20Pautia">Join the waitlist</a>
             <a class="btn btn--ghost" href="#how">See how it works</a>
           </div>
-          <p class="hero__note">Nothing to install. Same number as always.</p>
+          <p class="hero__note">We are finishing the platform. Write to us and we will let
+            you know as soon as it is ready.</p>
         </div>
 
         <div class="mock" aria-hidden="true">
@@ -418,7 +418,7 @@
               </p>
               <p class="price__note note--monthly">Billed every month.</p>
               <p class="price__note note--yearly">One charge of XX € per year.</p>
-              <button class="btn btn--ghost plan__cta" type="button" data-open-login>Start</button>
+              <a class="btn btn--ghost plan__cta" href="mailto:hola@pautia.app?subject=Waitlist%20for%20Pautia">Join the waitlist</a>
               <dl class="plan__rows">
                 <div class="row">
                   <dt class="row__key">WhatsApp numbers</dt>
@@ -456,7 +456,7 @@
               </p>
               <p class="price__note note--monthly">Billed every month.</p>
               <p class="price__note note--yearly">One charge of XX € per year.</p>
-              <button class="btn btn--primary plan__cta" type="button" data-open-login>Start</button>
+              <a class="btn btn--primary plan__cta" href="mailto:hola@pautia.app?subject=Waitlist%20for%20Pautia">Join the waitlist</a>
               <dl class="plan__rows">
                 <div class="row">
                   <dt class="row__key">WhatsApp numbers</dt>
@@ -491,7 +491,7 @@
               </p>
               <p class="price__note note--monthly">Billed every month.</p>
               <p class="price__note note--yearly">One charge of XX € per year.</p>
-              <button class="btn btn--ghost plan__cta" type="button" data-open-login>Start</button>
+              <a class="btn btn--ghost plan__cta" href="mailto:hola@pautia.app?subject=Waitlist%20for%20Pautia">Join the waitlist</a>
               <dl class="plan__rows">
                 <div class="row">
                   <dt class="row__key">WhatsApp numbers</dt>
@@ -571,9 +571,9 @@
           <details>
             <summary>What if WhatsApp bans my number?</summary>
             <p class="faq__answer">No tool can promise that won't happen, and this one doesn't
-              either. What we do do: no mass messages, no unsolicited conversations, and the
-              send rate is limited so your account behaves like a person's. If it happens, we
-              look at it with you and you decide.</p>
+              either. What Pautia does do is behave like a person: no mass messages, no
+              conversations nobody started, and the pace of the replies is modulated. That
+              greatly reduces the risk of a number being banned.</p>
           </details>
 
           <!-- faq questions that need a phase:
@@ -613,10 +613,10 @@
     <!-- 12. Final CTA -->
     <section class="cta">
       <div class="wrap">
-        <h2>Start answering everyone today</h2>
-        <p>Connect your number, tell us what your business needs, and leave it answering
-          while you sleep.</p>
-        <button class="btn btn--primary" type="button" data-open-login>Start now</button>
+        <h2>Join the waitlist</h2>
+        <p>We are finishing the platform. When we open, we write to you and you get in
+          first.</p>
+        <a class="btn btn--primary" href="mailto:hola@pautia.app?subject=Waitlist%20for%20Pautia">Join the waitlist</a>
       </div>
     </section>
   </main>
@@ -658,40 +658,6 @@
     </div>
   </footer>
 
-  <!-- 14. Login dialog -->
-  <dialog class="dialog" id="login" aria-labelledby="login-t">
-    <form class="dialog__form" method="post" action="/api/auth/login">
-      <div class="dialog__head">
-        <h2 id="login-t">Log in to Pautia</h2>
-        <button class="dialog__close" type="button" data-close aria-label="Close">×</button>
-      </div>
-
-      <p class="dialog__msg" data-msg tabindex="-1" role="status"></p>
-
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" autocomplete="username" required>
-
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" autocomplete="current-password"
-        required>
-
-      <!-- The account service has a second step. The state is reserved and
-           hidden so nobody builds it early by accident, and so the dialog does
-           not change shape when it arrives. -->
-      <div hidden data-step="2fa">
-        <label for="code">Verification code</label>
-        <input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code"
-          disabled>
-      </div>
-
-      <button class="btn btn--primary btn--block dialog__submit" type="submit">Log in</button>
-
-      <p class="dialog__foot">
-        <a href="mailto:hola@pautia.app">Forgot your password or don't have an account? Write to
-          us</a>
-      </p>
-    </form>
-  </dialog>
 
   <script src="/assets/main.js"></script>
 </body>
