@@ -396,10 +396,10 @@
         <div class="plans">
           <fieldset class="plans__switch">
             <legend class="sr-only">Periodo de pago</legend>
-            <input class="plans__radio" type="radio" name="periodo" id="periodo-mensual" checked>
-            <label class="plans__seg" for="periodo-mensual">Mensual</label>
-            <input class="plans__radio" type="radio" name="periodo" id="periodo-anual">
-            <label class="plans__seg" for="periodo-anual">Anual <span
+            <input class="plans__radio" type="radio" name="periodo" id="period-monthly" checked>
+            <label class="plans__seg" for="period-monthly">Mensual</label>
+            <input class="plans__radio" type="radio" name="periodo" id="period-yearly">
+            <label class="plans__seg" for="period-yearly">Anual <span
                 class="plans__save">2 meses gratis</span></label>
           </fieldset>
 
@@ -415,7 +415,8 @@
                 <span class="price__amount">XX €</span>
                 <span class="price__unit">al mes, pagando el año</span>
               </p>
-              <p class="price__note">Se renueva cada mes.</p>
+              <p class="price__note note--monthly">Se renueva cada mes.</p>
+              <p class="price__note note--yearly">Un solo cobro de XX € al año.</p>
               <button class="btn btn--ghost plan__cta" type="button" data-open-login>Empezar</button>
               <dl class="plan__rows">
                 <div class="row">
@@ -452,7 +453,8 @@
                 <span class="price__amount">XX €</span>
                 <span class="price__unit">al mes, pagando el año</span>
               </p>
-              <p class="price__note">Un solo cobro de XX € al año.</p>
+              <p class="price__note note--monthly">Se renueva cada mes.</p>
+              <p class="price__note note--yearly">Un solo cobro de XX € al año.</p>
               <button class="btn btn--primary plan__cta" type="button" data-open-login>Empezar</button>
               <dl class="plan__rows">
                 <div class="row">
@@ -486,7 +488,8 @@
                 <span class="price__amount">XX €</span>
                 <span class="price__unit">al mes, pagando el año</span>
               </p>
-              <p class="price__note">Un solo cobro de XX € al año.</p>
+              <p class="price__note note--monthly">Se renueva cada mes.</p>
+              <p class="price__note note--yearly">Un solo cobro de XX € al año.</p>
               <button class="btn btn--ghost plan__cta" type="button" data-open-login>Empezar</button>
               <dl class="plan__rows">
                 <div class="row">

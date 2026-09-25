@@ -7,6 +7,7 @@
   --brand-600: #0e7c6b;
   --brand-700: #0b6459;
   --brand-100: #e6f4f1;
+  --on-brand: #ffffff;
   --amber-500: #f59e0b;
   --ink-900: #0b1220;
   --ink-700: #263243;
@@ -59,6 +60,7 @@
     --brand-600: #2fb39c;
     --brand-700: #57c9b4;
     --brand-100: #10312b;
+    --on-brand: #06231e;
     --amber-500: #fbbf24;
     --ink-900: #eef2f7;
     --ink-700: #c7d2df;
@@ -268,12 +270,12 @@ ol {
 
 .btn--primary {
   background: var(--brand-600);
-  color: #fff;
+  color: var(--on-brand);
 }
 
 .btn--primary:hover {
   background: var(--brand-700);
-  color: #fff;
+  color: var(--on-brand);
 }
 
 .btn--ghost {
@@ -480,7 +482,7 @@ ol {
   height: 36px;
   background: var(--brand-600);
   border-radius: var(--radius-pill);
-  color: #fff;
+  color: var(--on-brand);
 }
 
 .mock__who {
@@ -520,7 +522,7 @@ ol {
   justify-self: end;
   background: var(--brand-600);
   border-bottom-right-radius: 4px;
-  color: #fff;
+  color: var(--on-brand);
 }
 
 .mock__caption {
@@ -643,6 +645,12 @@ ol {
 .split {
   display: grid;
   gap: var(--space-4);
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .split__col {
@@ -844,18 +852,25 @@ ol {
 }
 
 /* The monthly and the annual price are both in the HTML for the crawler, and
-   the switch between them is CSS: two radios and no script. */
+   the switch between them is CSS: two radios and no script. The ids are the
+   same in both languages so this rule is written once. */
 
-.price--yearly {
+.price--yearly,
+.note--yearly {
   display: none;
 }
 
-.plans:has(#periodo-anual:checked) .price--monthly {
+.plans:has(#period-yearly:checked) .price--monthly,
+.plans:has(#period-yearly:checked) .note--monthly {
   display: none;
 }
 
-.plans:has(#periodo-anual:checked) .price--yearly {
+.plans:has(#period-yearly:checked) .price--yearly {
   display: flex;
+}
+
+.plans:has(#period-yearly:checked) .note--yearly {
+  display: block;
 }
 
 .plan__cta {

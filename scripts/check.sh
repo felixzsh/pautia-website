@@ -22,11 +22,11 @@ fi
 
 # 2. Unfinished work. The markers are case sensitive on purpose: "todo" is a
 #    Spanish word, and a check that fires on it is a check nobody reads.
-if grep -rnE '\bTODO\b|\bFIXME\b|\bXXX\b' public/; then
+if grep -rnI -E '\bTODO\b|\bFIXME\b|\bXXX\b' public/; then
   fail "unfinished marker in public/"
 fi
 
-if grep -rniE 'lorem ipsum|placeholder' public/; then
+if grep -rniI -E 'lorem ipsum|placeholder' public/; then
   fail "placeholder text in public/"
 fi
 
