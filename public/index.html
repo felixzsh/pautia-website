@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pautia — Agentes de IA para tu WhatsApp</title>
+  <meta name="description"
+    content="Un agente de IA en tu WhatsApp de siempre. Responde lo que te escriben, agenda, confirma y te avisa cuando hace falta.">
+  <link rel="canonical" href="https://pautia.app/">
+  <link rel="alternate" hreflang="es" href="https://pautia.app/">
+  <link rel="alternate" hreflang="en" href="https://pautia.app/en/">
+  <link rel="alternate" hreflang="x-default" href="https://pautia.app/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Pautia">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Pautia — Agentes de IA para tu WhatsApp">
+  <meta property="og:description"
+    content="Un agente de IA en tu WhatsApp de siempre. Responde lo que te escriben, agenda, confirma y te avisa cuando hace falta.">
+  <meta property="og:url" content="https://pautia.app/">
+  <meta property="og:image" content="https://pautia.app/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0e7c6b" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/assets/styles.css">
+
+  <script>
+    // One language redirect, before the page paints. The manual choice wins and
+    // is remembered for the session; see assets/main.js.
+    (() => {
+      try {
+        if (sessionStorage.getItem("pautia:lang")) return;
+        const here = document.documentElement.lang;
+        const want = (navigator.language || "es").toLowerCase().startsWith("en")
+          ? "en"
+          : "es";
+        if (want !== here) {
+          sessionStorage.setItem("pautia:lang", want);
+          location.replace(want === "en" ? "/en/" + location.hash : "/" + location.hash);
+        }
+      } catch {}
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Pautia",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "url": "https://pautia.app/",
+    "inLanguage": "es",
+    "description": "Agente de inteligencia artificial en el número de WhatsApp que ya usas: responde, agenda, confirma y avisa cuando hace falta que intervenga una persona.",
+    "offers": [
+      { "@type": "Offer", "name": "Básico", "priceCurrency": "EUR", "price": "0", "description": "Precio pendiente." },
+      { "@type": "Offer", "name": "Pro", "priceCurrency": "EUR", "price": "0", "description": "Precio pendiente." },
+      { "@type": "Offer", "name": "Negocio", "priceCurrency": "EUR", "price": "0", "description": "Precio pendiente." }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <!-- Icon set. Six glyphs, drawn once, referenced with use. -->
+  <svg width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <g id="i-pautia" fill="currentColor" stroke="none">
+        <circle cx="12" cy="5.6" r="2.6" />
+        <path d="M12 8.9 3.6 20.4h16.8L12 8.9Z" />
+        <path d="M2.4 10.2 6.2 12.6M21.6 10.2 17.8 12.6" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </g>
+      <g id="i-moon" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+        <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z" />
+      </g>
+      <g id="i-note" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M6 3h8l4 4v14H6zM14 3v4h4M9 13h6M9 17h4" />
+      </g>
+      <g id="i-wave" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M3 12h4l2-5 3 10 2-5h7" />
+      </g>
+      <g id="i-inbox" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M4 13h4l1.5 3h5L16 13h4M4 13 6 5h12l2 8v6H4z" />
+      </g>
+      <g id="i-plug" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M9 3v6M15 3v6M6 9h12v3a6 6 0 0 1-12 0zM12 18v3" />
+      </g>
+      <g id="i-cloud" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M7 18a4 4 0 0 1 0-8 5.5 5.5 0 0 1 10.6 1.4A3.5 3.5 0 0 1 17.5 18z" />
+      </g>
+      <g id="i-shield" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+        <path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z" />
+      </g>
+      <g id="i-check" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M4 12.5 9 17.5 20 6.5" />
+      </g>
+    </defs>
+  </svg>
+
+  <header class="header">
+    <div class="wrap header__row">
+      <a class="brand" href="/">
+        <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true">
+          <use href="#i-pautia" />
+        </svg>
+        Pautia
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#planes">Planes</a>
+        <a href="#preguntas">Preguntas</a>
+        <a href="#seguridad">Seguridad</a>
+      </nav>
+
+      <div class="header__actions">
+        <details class="nav-toggle">
+          <summary class="nav-toggle__summary">Menú</summary>
+          <div class="nav-toggle__body">
+            <a href="#como-funciona">Cómo funciona</a>
+            <a href="#planes">Planes</a>
+            <a href="#preguntas">Preguntas</a>
+            <a href="#seguridad">Seguridad</a>
+          </div>
+        </details>
+        <button class="btn btn--ghost" type="button" data-open-login>Iniciar sesión</button>
+        <button class="btn btn--primary" type="button" data-open-login>Empezar</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- 2. Hero -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div>
+          <p class="eyebrow">Agentes de IA para WhatsApp</p>
+          <h1>Que tu negocio responda siempre, incluso a las 3 de la mañana</h1>
+          <p class="hero__sub">Pautia conecta un agente de inteligencia artificial a tu
+            número de WhatsApp. Responde lo que te escriben, agenda citas, confirma
+            pedidos y te avisa cuando hace falta que intervengas. Tú sigues al mando.</p>
+          <div class="hero__cta">
+            <button class="btn btn--primary" type="button" data-open-login>Empezar ahora</button>
+            <a class="btn btn--ghost" href="#como-funciona">Ver cómo funciona</a>
+          </div>
+          <p class="hero__note">Sin instalar nada. Sin cambiar tu número.</p>
+        </div>
+
+        <div class="mock" aria-hidden="true">
+          <div class="mock__head">
+            <span class="mock__avatar">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <use href="#i-pautia" />
+              </svg>
+            </span>
+            <span>
+              <span class="mock__who">Pautia · Taller Aurora</span><br>
+              <span class="mock__state">en línea</span>
+            </span>
+          </div>
+          <div class="mock__thread">
+            <p class="bubble bubble--in">¿Me apartan una mesa para el sábado a las 8?</p>
+            <p class="bubble bubble--out">Claro. ¿A nombre de quién y para cuántas personas?</p>
+            <p class="bubble bubble--in">Ana, cuatro personas</p>
+            <p class="bubble bubble--out">Listo, Ana: mesa para cuatro el sábado a las 20:00. ¿Confirmas?</p>
+          </div>
+          <p class="mock__caption">Ejemplo de conversación</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. The problem -->
+    <section class="section section--sub" id="problema">
+      <div class="wrap problem__grid">
+        <div>
+          <h2 id="problema-t">Cuando te escriben fuera de horario, ya hablaron con
+            otros tres</h2>
+          <p class="lede" style="margin-top:var(--space-4)">La mayoría de las ventas de un
+            negocio no se pierden por precio: se pierden porque nadie contestó a tiempo. Hoy
+            tu número solo atiende cuando alguien está sentado frente a la pantalla.</p>
+        </div>
+        <div>
+          <p class="say">Escriben a las 23:00 y contestas mañana.</p>
+          <p class="say">Mientras tanto ya escribieron a otros tres negocios.</p>
+          <p class="say">Y en temporada se te juntan las mismas preguntas siempre.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. How it works -->
+    <section class="section" id="como-funciona">
+      <div class="wrap">
+        <div class="section__head">
+          <h2 id="como-funciona-t">Tres pasos, y ya</h2>
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <h3>Conectas tu WhatsApp</h3>
+            <p>Escaneas un QR desde tu celular y listo: Pautia responde con el número que ya
+              usabas. No necesitas un número nuevo, ni cambiar de aplicación, ni avisarle a
+              nadie.</p>
+          </li>
+          <li class="step">
+            <h3>Nos cuentas cómo debe trabajar</h3>
+            <p>Horarios, catálogo, preguntas frecuentes, lo que tiene que hacer y lo que no.
+              Nos lo describes y lo dejamos configurado por ti.</p>
+          </li>
+          <li class="step">
+            <h3>Pautia trabaja en la nube</h3>
+            <p>Contesta solo a quien te escribe, con el ritmo de una persona, y lo hace sin
+              que tengas una computadora encendida.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 6. Features -->
+    <section class="section section--sub" id="funciones">
+      <div class="wrap">
+        <div class="section__head">
+          <h2 id="funciones-t">Lo que hace, en corto</h2>
+        </div>
+        <div class="cards cards--3">
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-moon" />
+            </svg>
+            <h3>Responde de noche y los fines</h3>
+            <p>El número no tiene horario. Atiende mientras tú duermes, en días festivos y
+              en tu hora de comida.</p>
+          </article>
+
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-note" />
+            </svg>
+            <h3>Contesta con lo que escribiste</h3>
+            <p>Las respuestas están escritas de antemano, con variantes, para que nadie
+              reciba dos veces la misma frase.</p>
+          </article>
+
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-wave" />
+            </svg>
+            <h3>No parece un robot</h3>
+            <p>Espera antes de leer, escribe a su ritmo y cambia lo que dice. Los envíos
+              masivos y no solicitados no existen.</p>
+          </article>
+
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-inbox" />
+            </svg>
+            <h3>Nadie recibe mensajes que no pidió</h3>
+            <p>Pautia solo responde a quien te escribe. No inicia conversaciones masivas ni
+              promociones por su cuenta.</p>
+          </article>
+
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-plug" />
+            </svg>
+            <h3>Conecta tus herramientas</h3>
+            <p>Agenda, inventario o el sistema que uses: Pautia consulta tus datos y contesta
+              con lo que le devuelven.</p>
+          </article>
+
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-cloud" />
+            </svg>
+            <h3>Sin instalar nada</h3>
+            <p>No hay programas que instalar ni equipos que mantener. Pautia trabaja en la
+              nube, también de madrugada.</p>
+          </article>
+
+          <!-- block:feature-intent
+               Needs the confidence routing phase before this is true.
+               "Entiende lo que escriben": la persona no tiene que repetir el
+               comando, aunque escriba mal o abrevie. LANDING.md, claims table. -->
+
+          <!-- block:feature-takeover
+               Needs the manual takeover phase.
+               "Te pasas el control cuando quieres": respondes a mano, el agente
+               se apaga en esa conversación y vuelve cuando terminas. -->
+
+          <!-- block:feature-history
+               Needs the live API and the dashboard.
+               "Queda todo registrado": con lo que se pidió, qué se respondió y por
+               qué, para revisarlo, exportarlo y borrarlo. -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. The AI, honestly -->
+    <section class="section" id="sin-caja-negra">
+      <div class="wrap">
+        <div class="section__head">
+          <h2 id="sin-caja-negra-t">Sin caja negra</h2>
+          <p>Esto es lo que el agente hace, y esto es lo que no va a hacer nunca. Preferimos
+            que lo leas antes de contratar.</p>
+        </div>
+        <div class="split">
+          <div class="split__col split__col--yes">
+            <span class="split__label">Lo que sí hace</span>
+            <h3>Trabaja con lo que le diste</h3>
+            <p>Responde con mensajes que configuramos contigo, con variantes para que no
+              suene a máquina. Si necesita un dato de tus sistemas, lo consulta y usa la
+              respuesta real, no una inventada.</p>
+          </div>
+          <div class="split__col split__col--no">
+            <span class="split__label">Lo que nunca va a hacer</span>
+            <h3>Nada por su cuenta</h3>
+            <p>No inicia conversaciones que nadie empezó, no manda mensajes masivos, y no
+              improvisa una respuesta: si no tiene una escrita para eso, no la inventa.</p>
+          </div>
+        </div>
+
+        <!-- block:ai-honest-extended
+             These three need the confidence routing, policy and opt-in
+             generation phases:
+             "Si no está seguro, no contesta": cuando la confianza no alcanza, el
+             caso pasa a una persona y te avisa.
+             "Si activas la redacción con IA, todo pasa por tus reglas".
+             "Puedes desactivarlo". -->
+      </div>
+    </section>
+
+    <!-- 8. Use cases -->
+    <section class="section section--sub" id="casos">
+      <div class="wrap">
+        <div class="section__head">
+          <h2 id="casos-t">Para negocios como el tuyo</h2>
+        </div>
+        <div class="usecases">
+          <article class="usecase">
+            <h3>Citas y reservas</h3>
+            <p>Dentistas, clínicas, salones y talleres: toma la cita, la confirma y recuerda
+              el día anterior.</p>
+          </article>
+          <article class="usecase">
+            <h3>Ventas y cotizaciones</h3>
+            <p>Recibe la consulta, pregunta lo que le falta y te pasa el cierre a ti.</p>
+          </article>
+          <article class="usecase">
+            <h3>Soporte posventa</h3>
+            <p>Estado del pedido, guía de uso y resolución de dudas sin que nadie tenga que
+              abrir el correo.</p>
+          </article>
+          <article class="usecase">
+            <h3>Rastreo de pedidos</h3>
+            <p>Avisos de salida, entrega y firma, uno por mensaje y sin que tengas que
+              contestarlos a mano.</p>
+          </article>
+          <article class="usecase">
+            <h3>Recordatorios</h3>
+            <p>Cita de mañana, pago pendiente, renovación o el documento que falta.</p>
+          </article>
+          <article class="usecase">
+            <h3>Preguntas frecuentes</h3>
+            <p>Horarios, ubicación, precios y formas de pago: las que te preguntan siempre,
+              contestadas siempre.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Plans -->
+    <section class="section" id="planes">
+      <div class="wrap">
+        <div class="section__head">
+          <h2 id="planes-t">Elige el plan que necesitas hoy</h2>
+        </div>
+
+        <ul class="plans__shared">
+          <li>Conectas el número de WhatsApp que ya usas, con un QR.</li>
+          <li>Respuestas 24/7, con el ritmo y los límites de tu plan.</li>
+          <li>Todo lo configuramos contigo: reglas, respuestas y horarios.</li>
+          <li>Cada cuenta vive aislada, y los datos se pueden exportar y borrar.</li>
+          <li>Soporte por correo, en español.</li>
+        </ul>
+
+        <div class="plans">
+          <fieldset class="plans__switch">
+            <legend class="sr-only">Periodo de pago</legend>
+            <input class="plans__radio" type="radio" name="periodo" id="periodo-mensual" checked>
+            <label class="plans__seg" for="periodo-mensual">Mensual</label>
+            <input class="plans__radio" type="radio" name="periodo" id="periodo-anual">
+            <label class="plans__seg" for="periodo-anual">Anual <span
+                class="plans__save">2 meses gratis</span></label>
+          </fieldset>
+
+          <div class="plans__grid">
+            <article class="plan">
+              <h3 class="plan__name">Básico</h3>
+              <p class="plan__pitch">Para empezar a contestar.</p>
+              <p class="price price--monthly">
+                <span class="price__amount">XX €</span>
+                <span class="price__unit">al mes</span>
+              </p>
+              <p class="price price--yearly">
+                <span class="price__amount">XX €</span>
+                <span class="price__unit">al mes, pagando el año</span>
+              </p>
+              <p class="price__note">Se renueva cada mes.</p>
+              <button class="btn btn--ghost plan__cta" type="button" data-open-login>Empezar</button>
+              <dl class="plan__rows">
+                <div class="row">
+                  <dt class="row__key">Números de WhatsApp</dt>
+                  <dd class="row__value">1</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Mensajes al mes</dt>
+                  <dd class="row__value">1,000</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Flujos configurados</dt>
+                  <dd class="row__value">2</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Soporte</dt>
+                  <dd class="row__value">Por correo</dd>
+                </div>
+                <!-- plan rows that need a phase: historial en días, integraciones
+                     con sistemas, control humano por conversación, onboarding
+                     asistido. LANDING.md, claims table. -->
+              </dl>
+            </article>
+
+            <article class="plan plan--top">
+              <span class="plan__tag">El más elegido</span>
+              <h3 class="plan__name">Pro</h3>
+              <p class="plan__pitch">Para negocios con clientes.</p>
+              <p class="price price--monthly">
+                <span class="price__amount">XX €</span>
+                <span class="price__unit">al mes</span>
+              </p>
+              <p class="price price--yearly">
+                <span class="price__amount">XX €</span>
+                <span class="price__unit">al mes, pagando el año</span>
+              </p>
+              <p class="price__note">Un solo cobro de XX € al año.</p>
+              <button class="btn btn--primary plan__cta" type="button" data-open-login>Empezar</button>
+              <dl class="plan__rows">
+                <div class="row">
+                  <dt class="row__key">Números de WhatsApp</dt>
+                  <dd class="row__value">3</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Mensajes al mes</dt>
+                  <dd class="row__value">5,000</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Flujos configurados</dt>
+                  <dd class="row__value">10</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Soporte</dt>
+                  <dd class="row__value">Prioritario</dd>
+                </div>
+                <!-- plan rows that need a phase: same as Básico. -->
+              </dl>
+            </article>
+
+            <article class="plan">
+              <h3 class="plan__name">Negocio</h3>
+              <p class="plan__pitch">Para varios locales o equipos.</p>
+              <p class="price price--monthly">
+                <span class="price__amount">XX €</span>
+                <span class="price__unit">al mes</span>
+              </p>
+              <p class="price price--yearly">
+                <span class="price__amount">XX €</span>
+                <span class="price__unit">al mes, pagando el año</span>
+              </p>
+              <p class="price__note">Un solo cobro de XX € al año.</p>
+              <button class="btn btn--ghost plan__cta" type="button" data-open-login>Empezar</button>
+              <dl class="plan__rows">
+                <div class="row">
+                  <dt class="row__key">Números de WhatsApp</dt>
+                  <dd class="row__value">10</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Mensajes al mes</dt>
+                  <dd class="row__value">25,000</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Flujos configurados</dt>
+                  <dd class="row__value">Ilimitados</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Soporte</dt>
+                  <dd class="row__value">Prioritario y llamada</dd>
+                </div>
+                <!-- plan rows that need a phase: same as Básico. -->
+              </dl>
+            </article>
+          </div>
+        </div>
+
+        <p class="plans__note">Los límites cuentan los mensajes que envías, no los que
+          recibes. Si llegas al límite, el agente deja de responder antes que dejar a un
+          cliente sin respuesta, y nos escribes y lo subimos.</p>
+      </div>
+    </section>
+
+    <!-- 10. FAQ -->
+    <section class="section section--sub" id="preguntas">
+      <div class="wrap">
+        <div class="section__head">
+          <h2 id="preguntas-t">Preguntas honestas</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>¿Necesito un número de WhatsApp nuevo?</summary>
+            <p class="faq__answer">No. Conectas el número que ya usas, sea personal o de
+              empresa, y puedes conectar más de uno si contratas un plan mayor.</p>
+          </details>
+
+          <details>
+            <summary>¿Qué pasa si mi cuenta pide una verificación extra?</summary>
+            <p class="faq__answer">Algunas cuentas de WhatsApp exigen una confirmación en el
+              teléfono cada vez que se conecta un equipo nuevo. Si la tuya la pide, te lo
+              decimos antes de que contrates, y si resulta que no se puede automatizar te lo
+              decimos también.</p>
+          </details>
+
+          <details>
+            <summary>¿La IA puede mandar lo que quiera?</summary>
+            <p class="faq__answer">No. Las respuestas son las que configuramos contigo y las
+              reglas que tú pones. Pautia nunca inicia una conversación que el cliente no empezó
+              y nunca manda mensajes masivos.</p>
+          </details>
+
+          <details>
+            <summary>¿Puedo cambiar precios u horarios sin que se caiga nada?</summary>
+            <p class="faq__answer">Sí: los cambios se aplican en caliente, sin dejar de
+              responder. Hoy los aplicamos nosotros. Nos escribes, cambias un precio o un
+              horario, y sigue funcionando.</p>
+          </details>
+
+          <details>
+            <summary>¿Qué pasa con mis datos?</summary>
+            <p class="faq__answer">Cada cuenta vive aislada de las demás: lo que pasa en una
+              no se mezcla con otra. Y esta página no usa cookies ni rastreadores.</p>
+          </details>
+
+          <details>
+            <summary>¿Necesito saber programar?</summary>
+            <p class="faq__answer">No. Nos cuentas qué necesita tu negocio y lo dejamos
+              configurado por ti. Hoy lo hacemos nosotros, y en unos meses lo vas a poder
+              hacer tú sin pedir ayuda.</p>
+          </details>
+
+          <details>
+            <summary>¿Y si mi número es baneado por WhatsApp?</summary>
+            <p class="faq__answer">Ninguna herramienta puede prometer que eso no pase, y esta
+              tampoco. Lo que sí hacemos: no mandamos mensajes masivos, no iniciamos
+              conversaciones no solicitadas, y limitamos el ritmo de envío para que tu cuenta
+              se comporte como la de una persona. Si ocurre, lo revisamos contigo y decides
+              qué hacemos.</p>
+          </details>
+
+          <!-- faq questions that need a phase:
+               "¿Puedo revisar lo que respondió?" (live API and dashboard),
+               "¿Puedo cancelar?" (commercial policy, still undecided),
+               "¿Puedo exportar y borrar mis datos?" (data operations). -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Privacy and data -->
+    <section class="section" id="seguridad">
+      <div class="wrap">
+        <div class="section__head">
+          <h2 id="seguridad-t">Tus datos, con reglas claras</h2>
+        </div>
+        <dl class="facts">
+          <div class="fact">
+            <dt>Aislamiento</dt>
+            <dd>Cada cuenta vive en su propio espacio, aislada de las demás. Las
+              conversaciones de un cliente nunca se mezclan con las de otro.</dd>
+          </div>
+          <div class="fact">
+            <dt>Sin cookies aquí</dt>
+            <dd>Esta página no usa cookies, rastreadores ni scripts de terceros. Puedes
+              leerla con las conexiones externas bloqueadas.</dd>
+          </div>
+          <!-- fact:export, fact:delete
+               "Lo tuyo es tuyo: lo puedes exportar cuando quieras" and "borrar tu
+               cuenta y tus conversaciones es una operación, no una tarea de
+               soporte" need the data operations phase. The legal pages carry the
+               commitment in the meantime. -->
+        </dl>
+      </div>
+    </section>
+
+    <!-- 12. Final CTA -->
+    <section class="cta">
+      <div class="wrap">
+        <h2>Empieza hoy a contestar a todos</h2>
+        <p>Conecta tu número, cuéntanos qué necesita tu negocio, y déjalo contestando
+          mientras duermes.</p>
+        <button class="btn btn--primary" type="button" data-open-login>Empezar ahora</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div>
+          <h3>Producto</h3>
+          <ul>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#planes">Planes</a></li>
+            <li><a href="#seguridad">Seguridad</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Ayuda</h3>
+          <ul>
+            <li><a href="#preguntas">Preguntas frecuentes</a></li>
+            <li><a href="mailto:hola@pautia.app">Escríbenos</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="/legal/privacidad.html">Privacidad</a></li>
+            <li><a href="/legal/terminos.html">Términos</a></li>
+            <li><a href="/legal/cookies.html">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© <span data-year>2026</span> Pautia</p>
+        <p class="footer__lang">
+          <a href="/" hreflang="es" data-lang="es" aria-current="true">Español</a>
+          <a href="/en/" hreflang="en" data-lang="en">English</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 14. Login dialog -->
+  <dialog class="dialog" id="login" aria-labelledby="login-t">
+    <form class="dialog__form" method="post" action="/api/auth/login">
+      <div class="dialog__head">
+        <h2 id="login-t">Entra a Pautia</h2>
+        <button class="dialog__close" type="button" data-close aria-label="Cerrar">×</button>
+      </div>
+
+      <p class="dialog__msg" data-msg tabindex="-1" role="status" aria-live="polite"></p>
+
+      <label for="correo">Correo</label>
+      <input id="correo" name="email" type="email" autocomplete="username" required>
+
+      <label for="clave">Contraseña</label>
+      <input id="clave" name="password" type="password" autocomplete="current-password"
+        required>
+
+      <!-- The account service has a second step. The state is reserved and
+           hidden so nobody builds it early by accident, and so the dialog does
+           not change shape when it arrives. -->
+      <div hidden data-step="2fa">
+        <label for="codigo">Código de verificación</label>
+        <input id="codigo" name="code" type="text" inputmode="numeric" autocomplete="one-time-code"
+          disabled>
+      </div>
+
+      <button class="btn btn--primary btn--block dialog__submit" type="submit">Entrar</button>
+
+      <p class="dialog__foot">
+        <a href="mailto:hola@pautia.app">¿Olvidaste tu contraseña o no tienes cuenta?
+          Escríbenos</a>
+      </p>
+    </form>
+  </dialog>
+
+  <script src="/assets/main.js"></script>
+</body>
+
+</html>
