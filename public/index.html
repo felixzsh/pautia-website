@@ -120,6 +120,19 @@
         stroke-linejoin="round">
         <path d="M4 12.5 9 17.5 20 6.5" />
       </g>
+      <g id="i-history" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2" />
+      </g>
+      <g id="i-flow" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M4 6h4l3 12 3-12h6M4 18h4M14 6h6" />
+      </g>
+      <g id="i-sliders" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M4 7h9M17 7h3M4 12h3M11 12h9M4 17h11M19 17h1" />
+        <circle cx="15" cy="7" r="2" /><circle cx="9" cy="12" r="2" />
+        <circle cx="17" cy="17" r="2" />
+      </g>
     </defs>
   </svg>
 
@@ -164,8 +177,9 @@
           <p class="eyebrow">Agentes de IA para WhatsApp</p>
           <h1>Que tu negocio responda siempre, incluso a las 3 de la mañana</h1>
           <p class="hero__sub">Pautia conecta un agente de inteligencia artificial a tu
-            número de WhatsApp. Responde lo que te escriben, agenda citas y confirma
-            pedidos, con el ritmo de una persona. Tú sigues al mando.</p>
+            número de WhatsApp. Parte de las conversaciones que ya tienes para proponer
+            qué te preguntan tus clientes, y contesta desde el primer día. Tú lo ajustas y
+            sigues al mando.</p>
           <div class="hero__cta">
             <a class="btn btn--primary"
           href="mailto:hola@pautia.app?subject=Lista%20de%20espera%20de%20Pautia">Lista de espera</a>
@@ -221,24 +235,25 @@
     <section class="section" id="como-funciona">
       <div class="wrap">
         <div class="section__head">
-          <h2 id="como-funciona-t">Tres pasos, y ya</h2>
+          <h2 id="como-funciona-t">De tu número a un bot que contesta, en tres pasos</h2>
         </div>
         <ol class="steps">
           <li class="step">
             <h3>Conectas tu WhatsApp</h3>
-            <p>Escaneas un QR desde tu celular y listo: Pautia responde con el número que ya
-              usabas. No necesitas un número nuevo, ni cambiar de aplicación, ni avisarle a
-              nadie.</p>
+            <p>Escaneas un QR desde tu celular y Pautia entra en el número que ya usabas. Si
+              nos autorizas, de paso importa el historial de tu cuenta: con eso tiene
+              material real para trabajar.</p>
           </li>
           <li class="step">
-            <h3>Nos cuentas cómo debe trabajar</h3>
-            <p>Horarios, catálogo, preguntas frecuentes, lo que tiene que hacer y lo que no.
-              Nos lo describes y lo dejamos configurado por ti.</p>
+            <h3>Ves el grafo y lo ajustas</h3>
+            <p>Pautia propone un grafo con lo que tus clientes ya te preguntan. Tú lo ves
+              como un diagrama, cambias las reglas, lo conectas a tu agenda o tu inventario
+              y lo pruebas antes de publicarlo. Este paso no se salta.</p>
           </li>
           <li class="step">
-            <h3>Pautia trabaja en la nube</h3>
-            <p>Contesta solo a quien te escribe, con el ritmo de una persona, y lo hace sin
-              que tengas una computadora encendida.</p>
+            <h3>Arrancas el agente</h3>
+            <p>Nada responde hasta que tú lo enciendes. Desde ahí contesta solo en base al
+              grafo que revisaste, y lo cambias cuando quieras.</p>
           </li>
         </ol>
       </div>
@@ -305,6 +320,34 @@
               nube, también de madrugada.</p>
           </article>
 
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-history" />
+            </svg>
+            <h3>No empiezas de cero</h3>
+            <p>El primer borrador sale de las conversaciones que tu cuenta ya tiene, con
+              las preguntas que tus clientes ya te hicieron. Solo si tú lo autorizas.</p>
+          </article>
+
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-flow" />
+            </svg>
+            <h3>Lo ves antes de que salga</h3>
+            <p>El grafo es un diagrama que puedes leer, y hay un simulador para probar
+              conversaciones antes de publicarlas. Nada llega a tus clientes sin que lo hayas
+              visto.</p>
+          </article>
+
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-sliders" />
+            </svg>
+            <h3>Lo cambias cuando quieras</h3>
+            <p>Un precio, un horario, una respuesta nueva. Lo ajustas y sigue funcionando,
+              sin esperar a que nadie lo haga por ti.</p>
+          </article>
+
           <!-- block:feature-intent
                Needs the confidence routing phase before this is true.
                "Entiende lo que escriben": la persona no tiene que repetir el
@@ -327,23 +370,23 @@
     <section class="section" id="sin-caja-negra">
       <div class="wrap">
         <div class="section__head">
-          <h2 id="sin-caja-negra-t">Sin caja negra</h2>
-          <p>Esto es lo que el agente hace, y esto es lo que no va a hacer nunca. Preferimos
-            que lo leas antes de contratar.</p>
+          <h2 id="sin-caja-negra-t">Determinista, impulsado por IA</h2>
+          <p>El grafo tiene tus reglas, tus respuestas y tus límites. La IA elige dentro de
+            él, nunca fuera. Esto es lo que hace, y esto es lo que nunca va a hacer.</p>
         </div>
         <div class="split">
           <div class="split__col split__col--yes">
             <span class="split__label">Lo que sí hace</span>
-            <h3>Trabaja con lo que le diste</h3>
-            <p>Responde con mensajes que configuramos contigo, con variantes para que no
-              suene a máquina. Si necesita un dato de tus sistemas, lo consulta y usa la
-              respuesta real, no una inventada.</p>
+            <h3>Una IA que elige dentro de tu grafo</h3>
+            <p>Entiende lo que te escriben y elige cuál de tus respuestas encaja, a quién le
+              habla y qué herramienta usar. Si necesita un dato, lo consulta a tus sistemas y
+              usa la respuesta real.</p>
           </div>
           <div class="split__col split__col--no">
             <span class="split__label">Lo que nunca va a hacer</span>
-            <h3>Nada por su cuenta</h3>
-            <p>No inicia conversaciones que nadie empezó, no manda mensajes masivos, y no
-              improvisa una respuesta: si no tiene una escrita para eso, no la inventa.</p>
+            <h3>Nada que no esté en el grafo</h3>
+            <p>No inventa respuestas que no escribiste, no inventa herramientas, no manda
+              mensajes por su cuenta y no inicia conversaciones que nadie empezó.</p>
           </div>
         </div>
 
@@ -587,9 +630,9 @@
 
           <details>
             <summary>¿Necesito saber programar?</summary>
-            <p class="faq__answer">No. Nos cuentas qué necesita tu negocio y lo dejamos
-              configurado por ti. Hoy lo hacemos nosotros, y en unos meses lo vas a poder
-              hacer tú sin pedir ayuda.</p>
+            <p class="faq__answer">No. Empiezas con las conversaciones que tu cuenta ya
+              tiene, ves el resultado como un diagrama y cambias lo que quieras tú mismo. Si
+              en algún momento prefieres que lo hagamos nosotros, también.</p>
           </details>
 
           <details>

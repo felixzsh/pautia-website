@@ -309,66 +309,102 @@ in here as measured facts with the date and the source.
 
 ### 5. How it works
 
-Three numbered steps, vertical on mobile, horizontal above `900px`, each with a
-line, a title, and a paragraph of at most 40 words.
+Three numbered steps, vertical on mobile, three across above `900px`. This is the
+block that changed the most, and in one word: **nobody behind Pautia configures
+anything**. The earlier draft of this plan had step 2 as "you tell us how it
+should work and we set it up", which describes a service, not a product: it does
+not scale past the first ten customers, and it is not why anyone would pay.
 
-1. `Conectas tu WhatsApp` — `Escaneas un QR desde tu celular o escribes un
-   código de 8 dígitos. Ya está: Pautia responde con el número que ya usabas. No
-   necesitas un número nuevo ni cambiar nada.`
-2. `Le dices cómo debe comportarse` — `Horarios, catálogo, preguntas
-   frecuentes, lo que tiene que hacer y lo que no: lo describes y lo sigue. Si
-   cambias un precio o un horario, lo ajustas y sigue funcionando.`
-3. `Pautia trabaja y tú tomas el control` — `Te avisa de lo importante. En
-   cualquier momento entras tú, respondes a mano, y el agente se calla mientras
-   estés ahí.`
+The product starts from the customer's own history, proposes a graph from it, and
+lets them correct it. Three steps, and the second one is the whole idea:
 
-Step 2 is the one that depends on the editor. Until the editor ships, the page
-can say `lo describes` only if the description happens somewhere real. The
-launch-safe phrasing is `lo configuras` and step 2 keeps the same shape; see
-`Claims guardrail`.
+1. `Conectas tu WhatsApp` — `Escaneas un QR desde tu celular y Pautia entra en el
+   número que ya usabas. Si nos autorizas, de paso importa el historial de tu
+   cuenta: con eso tiene material real para trabajar.`
+2. `Ves el grafo y lo ajustas` — `Pautia propone un grafo con lo que tus clientes
+   ya te preguntan. Tú lo ves como un diagrama, cambias las reglas, lo conectas
+   a tu agenda o tu inventario y lo pruebas antes de publicarlo. Este paso no se
+   salta.`
+3. `Arrancas el agente` — `Nada responde hasta que tú lo enciendes. Desde ahí
+   contesta solo en base al grafo que revisaste, y lo cambias cuando quieras.`
+
+Step 1 covers both the pairing and the history import on purpose: they are one
+moment for the customer (scan a QR) and the import is what makes step 2 possible.
+Splitting them into two steps would make the page say "connect, then configure"
+and land back on a service.
+
+Step 2 is the one the product cannot skip, and the page says so: `Este paso no se
+salta.` A draft nobody reviews is not the product, and a bot answering a business
+from a machine-made guess nobody looked at is the thing customers are afraid of.
+Step 3 is where the customer takes the responsibility: the agent answers on its
+own from a graph a human approved.
+
+`Si nos autorizas` is not decoration. History ingestion is opt-in and off by
+default, so the page says so twice: in the step and in the feature card. A
+customer whose whole inbox is their data should be told who reads it.
+
+There is no eight-digit pairing code in step 1. It is a planned pairing method,
+not a shipped one.
 
 ### 6. Features
 
-Eight cards in a 2x4 grid, each an icon, a title, and two lines. Order is by
-what the customer feels first, not by how hard it was to build.
+Nine cards in a 3x3 grid, each an icon, a title, and two lines. Order is by what
+the customer feels first, not by how hard it was to build. Six describe what the
+runtime does; the last three describe the loop that replaces a human configurator
+— the draft from the history, the review, and the edit.
 
 1. `Responde de noche y los fines` — `El número no tiene horario. Atiende
    mientras tú duermes, en días festivos, en tu hora de comida.`
-2. `Entiende lo que escriben` — `No necesitas repetir el mismo comando. Entiende
-   la intención, aunque la persona escriba mal o abrevie.`
-3. `Contesta lo que tú escribiste` — `Por defecto responde con mensajes que tú
-   redactaste, con variantes, para que no suene a máquina.`
-4. `Tú decides qué puede y qué no` — `Reglas por conversación, por horario, por
-   cliente. Nada sale hacia tus clientes sin pasar por ellas.`
-5. `Te pasas el control cuando quieres` — `Respondes tú a mano y el agente se
-   apaga en esa conversación. Cuando vuelves, sigue como si nada.`
-6. `No parece un robot` — `Espera antes de leer, escribe con su ritmo y no
-   manda el mismo texto a todo el mundo. Los envíos masivos y no solicitados
-   no existen.`
-7. `Conecta tus herramientas` — `Agenda, inventario o lo que uses: Pautia consulta
-   tus sistemas y responde con lo que le devuelven.`
-8. `Queda todo registrado` — `Cada conversación queda en el historial con lo que
-   se pidió, lo que se respondió y por qué. Puedes revisarlo, exportarlo y
-   borrarlo.`
+2. `Contesta con lo que escribiste` — `Las respuestas están escritas de
+   antemano, con variantes, para que nadie reciba dos veces la misma frase.`
+3. `No parece un robot` — `Espera antes de leer, escribe a su ritmo y cambia lo
+   que dice. Los envíos masivos y no solicitados no existen.`
+4. `Nadie recibe mensajes que no pidió` — `Pautia solo responde a quien te
+   escribe. No inicia conversaciones masivas ni promociones por su cuenta.`
+5. `Conecta tus herramientas` — `Agenda, inventario o el sistema que uses: Pautia
+   consulta tus datos y contesta con lo que le devuelven.`
+6. `Sin instalar nada` — `No hay programas que instalar ni equipos que mantener.
+   Pautia trabaja en la nube, también de madrugada.`
+7. `No empiezas de cero` — `El primer borrador sale de las conversaciones que tu
+   cuenta ya tiene, con las preguntas que tus clientes ya te hicieron. Solo si
+   tú lo autorizas.`
+8. `Lo ves antes de que salga` — `El grafo es un diagrama que puedes leer, y hay
+   un simulador para probar conversaciones antes de publicarlas. Nada llega a
+   tus clientes sin que lo hayas visto.`
+9. `Lo cambias cuando quieras` — `Un precio, un horario, una respuesta nueva. Lo
+   ajustas y sigue funcionando, sin esperar a que nadie lo haga por ti.`
 
-### 7. The AI, honestly
+Cards 7, 8 and 9 are the ones that need a phase, and they are the ones that make
+the product worth buying. They are marked as such in `Claims guardrail` and they
+are the exact text to comment out if the page ever has to ship before those
+phases do.
 
-The section every competitor hides and every serious buyer reads. H2: `La IA
-ayuda, no manda`.
+### 7. Deterministic, powered by AI
 
-- `Por defecto no inventa nada` — `Las respuestas son las que tú escribiste. La
-  IA decide cuál usar y a quién, no qué decir.`
-- `Si no está seguro, no contesta` — `Cuando la confianza no alcanza, el caso
-  pasa a una persona y te avisa. Fallar es una opción válida.`
-- `Si activas la redacción con IA, todo pasa por tus reglas` — `Se puede
-  activar la generación de respuestas, y aun así cada respuesta se valida con
-  tus reglas antes de enviarse.`
-- `Puedes desactivarlo` — `Volver al modo de respuestas escritas por ti es un
-  ajuste, no una migración.`
+The section every competitor hides and every serious buyer reads, and the one
+that says what the product actually is. H2: `Determinista, impulsado por IA`.
+Two columns, one for what it does and one for what it will never do, the second
+inverted so the contrast is impossible to miss.
 
-Every claim here is checkable against the routing and policy phases. This
-section is the reason the page can be read by someone technical and not feel
-marketed at.
+- `Lo que sí hace` — `Una IA que elige dentro de tu grafo` — `Entiende lo que te
+  escriben y elige cuál de tus respuestas encaja, a quién le habla y qué
+  herramienta usar. Si necesita un dato, lo consulta a tus sistemas y usa la
+  respuesta real.`
+- `Lo que nunca va a hacer` — `Nada que no esté en el grafo` — `No inventa
+  respuestas que no escribiste, no inventa herramientas, no manda mensajes por
+  su cuenta y no inicia conversaciones que nadie empezó.`
+
+This is the shape of the engine underneath, told as a benefit: the graph is the
+state machine and it is deterministic, the model makes confidence-bearing
+decisions inside it, and the replies are the ones the customer wrote. An agent
+that can write whatever it wants is the fear; a graph the customer can read is
+the answer. Anyone technical who reads this section should conclude the opposite
+of what the competitor's copy would have them conclude.
+
+Written and not shipped, because the routing and policy phases have to deliver
+them: `Si no está seguro, no contesta` (the case goes to a person and you are
+told), `Si activas la redacción con IA, todo pasa por tus reglas`, and
+`Puedes desactivarlo`. They are in the source as comments.
 
 ### 8. Use cases
 
@@ -644,17 +680,17 @@ markup nor in the rendered text, and turning it on is uncommenting it.
 | 6 F6 | Sin instalar nada | hosting | yes |
 | 7 yes | Trabaja con lo que le diste | prescribed replies, request steps | yes |
 | 7 no | Nada por su cuenta | pacing, no unsolicited | yes |
-| 9 | Mensajes al mes, contados | outbound ceiling | yes |
-| 9 | Al llegar al límite deja de responder | storage pause, limit set | yes |
-| 10 FAQ 1 | Sirve tu número, no uno nuevo | pairing | yes |
-| 10 FAQ 2 | Te lo decimos si pide verificación | a disclosure policy, not a feature | yes |
-| 10 FAQ 3 | No manda lo que sea | prescribed replies, rules | yes |
-| 10 FAQ 4 | Cambiamos sin dejar de responder | hot reload, applied by us | yes |
-| 10 FAQ 5 | Cuentas aisladas, sin cookies | isolation, no trackers | yes |
-| 10 FAQ 6 | No necesitas saber programar | an operations promise | yes |
-| 10 FAQ 7 | El comportamiento humano reduce el riesgo | pacing policy | yes |
-| 11 | Aislamiento entre cuentas | scope isolation | yes |
-| 11 | Sin cookies ni rastreadores | true by construction | yes |
+| 9 | Mensajes al mes, contados | outbound ceiling | built |
+| 9 | Al llegar al límite deja de responder | storage pause, limit set | built |
+| 10 FAQ 1 | Sirve tu número, no uno nuevo | pairing | built |
+| 10 FAQ 2 | Te lo decimos si pide verificación | a disclosure policy, not a feature | built |
+| 10 FAQ 3 | No manda lo que sea | prescribed replies, rules | built |
+| 10 FAQ 4 | Cambiamos sin dejar de responder | hot reload, applied by us | built |
+| 10 FAQ 5 | Cuentas aisladas, sin cookies | isolation, no trackers | built |
+| 10 FAQ 6 | No necesitas saber programar | editor, review loop | Phase 15 |
+| 10 FAQ 7 | El comportamiento humano reduce el riesgo | pacing policy | built |
+| 11 | Aislamiento entre cuentas | scope isolation | built |
+| 11 | Sin cookies ni rastreadores | true by construction | built |
 
 Not on the page, each waiting for a phase:
 

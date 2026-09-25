@@ -120,6 +120,19 @@
         stroke-linejoin="round">
         <path d="M4 12.5 9 17.5 20 6.5" />
       </g>
+      <g id="i-history" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2" />
+      </g>
+      <g id="i-flow" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M4 6h4l3 12 3-12h6M4 18h4M14 6h6" />
+      </g>
+      <g id="i-sliders" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M4 7h9M17 7h3M4 12h3M11 12h9M4 17h11M19 17h1" />
+        <circle cx="15" cy="7" r="2" /><circle cx="9" cy="12" r="2" />
+        <circle cx="17" cy="17" r="2" />
+      </g>
     </defs>
   </svg>
 
@@ -163,9 +176,9 @@
         <div>
           <p class="eyebrow">AI agents for WhatsApp</p>
           <h1>Your business answers every time, even at 3 in the morning</h1>
-          <p class="hero__sub">Pautia connects an AI agent to your WhatsApp number. It answers
-            what people write, books appointments and confirms orders, at a human pace. You
-            stay in control.</p>
+          <p class="hero__sub">Pautia connects an AI agent to your WhatsApp number. It starts
+            from the conversations you already have to work out what your customers ask, and
+            answers from the first day. You adjust it and you stay in control.</p>
           <div class="hero__cta">
             <a class="btn btn--primary"
           href="mailto:hola@pautia.app?subject=Waitlist%20for%20Pautia">Join the waitlist</a>
@@ -221,23 +234,25 @@
     <section class="section" id="how">
       <div class="wrap">
         <div class="section__head">
-          <h2 id="how-t">Three steps, that's it</h2>
+          <h2 id="how-t">From your number to a bot that answers, in three steps</h2>
         </div>
         <ol class="steps">
           <li class="step">
             <h3>You connect your WhatsApp</h3>
-            <p>You scan a QR from your phone and that's it: Pautia answers on the number you
-              already had. No new number, no new app, nobody to tell.</p>
+            <p>You scan a QR from your phone and Pautia is on the number you already had. If
+              you allow it, it imports your account's history on the way in: that gives it
+              real material to work with.</p>
           </li>
           <li class="step">
-            <h3>You tell us how it should work</h3>
-            <p>Opening hours, catalogue, frequent questions, what to do and what never to do.
-              You describe it and we set it up for you.</p>
+            <h3>You see the graph and adjust it</h3>
+            <p>Pautia drafts a graph from what your customers already ask. You see it as a
+              diagram, change the rules, connect it to your calendar or your stock, and try
+              it before publishing. This step does not get skipped.</p>
           </li>
           <li class="step">
-            <h3>Pautia works in the cloud</h3>
-            <p>It only replies to whoever writes, at a human pace, and it does it without you
-              keeping a computer on.</p>
+            <h3>You start the agent</h3>
+            <p>Nothing answers until you turn it on. From then on it answers on its own, from
+              the graph you reviewed, and you change it whenever you want.</p>
           </li>
         </ol>
       </div>
@@ -304,6 +319,34 @@
               at 3am too.</p>
           </article>
 
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-history" />
+            </svg>
+            <h3>You don't start from zero</h3>
+            <p>The first draft comes from the conversations your account already has, with
+              the questions your customers already asked. Only if you allow it.</p>
+          </article>
+
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-flow" />
+            </svg>
+            <h3>You see it before it goes out</h3>
+            <p>The graph is a diagram you can read, and there is a simulator to try
+              conversations before publishing them. Nothing reaches your customers before you
+              have seen it.</p>
+          </article>
+
+          <article class="card">
+            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#i-sliders" />
+            </svg>
+            <h3>You change it whenever you want</h3>
+            <p>A price, an opening hour, a new answer. You change it and it keeps working,
+              without waiting for somebody else to do it for you.</p>
+          </article>
+
           <!-- block:feature-intent
                Needs the confidence routing phase before this is true.
                "It understands what people write": nobody has to repeat the
@@ -327,24 +370,23 @@
     <section class="section" id="no-black-box">
       <div class="wrap">
         <div class="section__head">
-          <h2 id="no-black-box-t">No black box</h2>
-          <p>This is what the agent does, and what it will never do. We'd rather you read it
-            before you buy.</p>
+          <h2 id="no-black-box-t">Deterministic, powered by AI</h2>
+          <p>The graph holds your rules, your answers and your limits. The AI chooses inside
+            it, never outside it. This is what it does, and what it will never do.</p>
         </div>
         <div class="split">
           <div class="split__col split__col--yes">
             <span class="split__label">What it does do</span>
-            <h3>It works with what you gave it</h3>
-            <p>It replies with messages we set up with you, with variants so it doesn't sound
-              like a machine. When it needs data from your systems, it looks it up and uses the
-              real answer, not an invented one.</p>
+            <h3>An AI that chooses inside your graph</h3>
+            <p>It understands what people write and picks which of your answers fits, who to
+              talk to and which tool to use. When it needs data, it queries your systems and
+              uses the real answer.</p>
           </div>
           <div class="split__col split__col--no">
             <span class="split__label">What it will never do</span>
-            <h3>Nothing on its own</h3>
-            <p>It never starts conversations nobody started, never sends mass messages, and
-              never makes up an answer: if it doesn't have a written one, it doesn't invent
-              it.</p>
+            <h3>Anything that is not in the graph</h3>
+            <p>It never invents an answer you didn't write, never invents tools, never sends
+              a message on its own, and never starts a conversation nobody started.</p>
           </div>
         </div>
 
@@ -588,8 +630,9 @@
 
           <details>
             <summary>Do I need to know how to code?</summary>
-            <p class="faq__answer">No. Tell us what your business needs and we set it up for
-              you. Today we do it, and in a few months you'll be able to do it yourself.</p>
+            <p class="faq__answer">No. You start with the conversations your account already
+              has, see the result as a diagram, and change whatever you want yourself. And if
+              at some point you would rather we did it, that works too.</p>
           </details>
 
           <details>
