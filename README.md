@@ -4,6 +4,42 @@ The public face of the product: landing page, signup, and login. Its login hands
 the browser a scoped session on the platform, and lets the platform show the
 dashboard.
 
+The landing page is built. `LANDING.md` is its plan, and the page follows it:
+the structure, the copy, the three plans, and the claims each block is allowed
+to make. Read that before changing anything a customer sees.
+
+## The landing page
+
+Static files under `public/`, with no build step, no dependencies and no
+framework. The whole interactive surface is two radio buttons, two `<details>`
+elements and one short language redirect.
+
+```
+make serve           # http://127.0.0.1:8080, Spanish; /en/ for English
+make check           # greps: forbidden words, markers, links, language drift
+make check-browser   # playwright: console, overflow, switch, keyboard
+make og              # redraw the social card after a brand change
+```
+
+`make check-browser` is a developer tool and needs playwright and a running
+server. The page itself needs neither.
+
+Three rules the page is built on, and the reason it is not a mockup:
+
+- **No claim without a counter behind it.** Every promise the page makes is
+  listed in `LANDING.md` under `Claims guardrail` with the phase that has to
+  deliver it. A claim that needs a phase nobody has finished is in the source
+  as a comment, not in the rendered page.
+- **No fabricated proof.** No invented statistics, no testimonials, no customer
+  logos, and a brand-independent page: this repository may mention the platform, and
+  nothing a customer reads does.
+- **The way in is honest.** There is no account service yet, so there is no
+  login form. Every call to action is one link to the waitlist. When signup
+  exists, that link becomes the form.
+
+Open with a server, never by double-clicking `index.html`: the asset paths are
+absolute, exactly as they are in production.
+
 ## Scope
 
 - Landing page and pricing.
@@ -37,4 +73,5 @@ the contract spike owned by `the backend repository/spikes`.
 
 ## Status
 
-Planning. No code yet.
+The landing page is built and verified locally. Nothing is deployed: no domain,
+no DNS, and the legal pages are `noindex` shells.

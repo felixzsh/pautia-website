@@ -1,5 +1,9 @@
 # Plan
 
+The public page is built and has its own plan: `LANDING.md`. It owns the
+structure, the copy, the three plans, and the claims each block is allowed to
+make. This file owns the phases of the product around it.
+
 ## Phase 0 — Join the contract spike
 
 A landing stub and the redirect, against a development the platform. The spike itself

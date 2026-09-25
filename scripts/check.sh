@@ -14,9 +14,8 @@ fail() {
 
 # 1. Words that must never reach a customer's screen. Checked against the source
 #    and not only the rendered text, because a comment is where they hide.
-if grep -rniE \
-  'whatsmeow|yaml|chatbot|no-code|framework|runtime|self-hosted|open source|sin c[oó]digo|scope' \
-  public/; then
+if grep -rniE 'whatsmeow|yaml|chatbot|no-code|framework|runtime' \
+  public/ || grep -rniE 'self-hosted|open source|sin c[oó]digo|scope' public/; then
   fail "forbidden word in public/"
 fi
 

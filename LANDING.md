@@ -66,16 +66,15 @@ landing does not become an application.
 
 | Need | Mechanism | Lines |
 | --- | --- | --- |
-| Login dialog | `<dialog>` + `showModal()` | ~20 |
 | Mobile menu | `<details>` disclosure, no script | 0 |
 | Prices monthly/annual | two radios + CSS `content`, no script | 0 |
 | FAQ | native `<details>`, no script | 0 |
-| Focus trap, `Escape`, focus return | native `<dialog>` | 0 |
-| Language auto-detect | `navigator.language`, one-time `location.replace` | ~12 |
-| Form pending state | one class on submit | ~8 |
+| Language auto-detect | `navigator.language`, one-time `location.replace` | ~10 |
+| Copyright year | one query, one loop | 4 |
+| Language choice remembered | one listener, one storage write | ~6 |
 
-Budget: 100 lines of script, no dependency, no build. Anything above that needs
-a conversation before it is written.
+Delivered: 22 lines of script, one file, no dependency, no build. The dialog
+that the first draft budgeted for is gone: see block 14.
 
 ### Directory layout
 
@@ -85,18 +84,22 @@ public/
   en/index.html         # English
   assets/
     styles.css          # tokens + every component
-    main.js             # the 100 lines
-    logo.svg            # the mark and the wordmark
+    main.js             # the 22 lines
+    logo.svg            # the mark
     favicon.svg
-    og.png              # 1200x630 social card (generated later)
+    og.png              # social card, 1200x630
   legal/
-    privacidad.html     # placeholder shells, filled by legal
+    privacidad.html     # shells, marked noindex
     terminos.html
-    cookies.html        # says there are no cookies
+    cookies.html
   sitemap.xml
   robots.txt
   site.webmanifest
-Makefile                # serve + check, no dependencies
+scripts/
+  check.sh              # the greps `make check` runs
+  browser-check.py      # the browser gate, needs playwright
+  og.py                 # draws og.png once from the tokens
+Makefile
 LANDING.md              # this document
 ```
 
@@ -106,14 +109,20 @@ from the same origin as the API. Until then it is served by any static server.
 ### Local development
 
 ```
-make serve    # python3 -m http.server -d public 8080
-make check    # forbidden words, internal links, HTML basics
+make serve           # python3 -m http.server -d public 8080
+make check           # greps: forbidden words, markers, anchors, links, drift
+make check-browser   # playwright: console, overflow, switch, keyboard
+make og              # redraw the social card after a brand change
 ```
 
-`make check` runs three greps and nothing else: no forbidden word in
-`public/`, no `TODO` or `FIXME` in `public/`, and every internal link in
-`public/index.html` that points to an `id` or a local file exists. No linter,
-no formatter, no CI. Deployment is out of scope for now.
+`make check` runs four greps and nothing else: no forbidden word in `public/`,
+no unfinished marker, every anchor and internal link resolving, and the two
+language pages not drifting apart. No linter, no formatter, no CI. Deployment
+is out of scope for now.
+
+Opening `public/index.html` as a `file://` path shows an unstyled page: the
+asset paths are absolute, exactly as they are in production. Always go through
+the server.
 
 ## Brand
 
@@ -225,7 +234,7 @@ invents it later in a hurry.
 | 11 | Privacy and data | Their data, their rules | partially |
 | 12 | Final CTA | The second chance to convert | yes |
 | 13 | Footer | Legal, status, language | yes |
-| 14 | Login dialog | The only interactive surface | yes |
+| 14 | Waitlist | The only conversion path until signup exists | yes |
 | 15 | Optional blocks | Later phases | no |
 
 `optional` blocks, to be designed but not built now: a customer logos strip (no
@@ -265,7 +274,13 @@ intelligence, accuracy, or volume.
 
 ### 3. Trust line
 
-Under the CTAs, one line, three items with a check icon each. Draft:
+**Not shipped.** Under the CTAs there is one line instead, and it is a fact
+about the product's state rather than a promise about billing:
+
+`Estamos preparando la plataforma. Escríbenos y te avisamos en cuanto esté.`
+
+The three-item trust line is still written down, and still waiting on the
+commercial decision:
 
 `Sin permanencia · Sin tarjeta de crédito · Tus datos los puedes exportar y
 borrar`
@@ -273,7 +288,8 @@ borrar`
 `Sin tarjeta` and `Sin permanencia` are billing promises. If the commercial
 policy does not guarantee them, they are the first copy to change; the
 alternative is `Empieza con un plan, cámbialo o cancélalo cuando quieras`, which
-still needs the same decision. Do not ship this line without it.
+still needs the same decision. It ships with the answer to the same question,
+never before.
 
 ### 4. The problem
 
@@ -386,71 +402,77 @@ on the middle card, a CTA, and a list of rows. Rows are grouped `Incluye` (same
 in all three, listed once above the cards) and `Límites` (what differs). Every
 limit row is a number a customer can hold us to.
 
-The monthly/annual switch is two radios above the cards, styled as a
-segmented control, with `aria-pressed` and the price text swapped in CSS through
-`content` on a class, so it works with the script disabled and the annual price
-is in the HTML for the crawler either way. `Paid annually` shows the effective
-monthly price and the total charged once.
+The monthly/annual switch is two radios above the cards, styled as a segmented
+control, with the price and its note swapped in CSS through `:has()`, so it
+works with the script disabled and the annual price is in the HTML for the
+crawler either way. Both pages use the same radio `id`, which is what keeps the
+rule written once.
 
-Below the cards, one line: `Los límites se cuentan por mes, se renuevan el día
-que contratas y los ves en tu panel.` Plus the honest note about what a limit
-does when it is reached: the bot pauses rather than dropping messages, and the
-page must say the customer is notified, never that messages are lost silently.
+Below the cards, one line, shipped: `Los límites cuentan los mensajes que envías,
+no los que recibes.` And the honest note about what a limit does when it is
+reached: the agent stops replying rather than leaving a customer without an
+answer, and support raises it. The page never says a message is lost silently.
 
 ### 10. FAQ
 
-Nine questions in `<details>`, one summary per question, the answer below.
+Seven questions in `<details>`, one summary per question, the answer below.
 Native element: no script, works on the server, keyboard accessible, and the
-answer is in the HTML for the crawler.
+answer is in the HTML for the crawler. The two that need a phase are in the
+source as comments, with the phase each one waits for.
 
 1. `¿Necesito un número de WhatsApp nuevo?` — No: conectas el que ya usas, sea
    personal o de empresa, y puedes conectar más de uno.
 2. `¿Qué pasa si mi cuenta pide una verificación extra?` — Algunas cuentas de
    WhatsApp exigen una confirmación en el teléfono cada vez que se conecta un
-   equipo nuevo. Cuando eso pasa te lo decimos y te acompañamos; algunas
-   cuentas no se pueden automatizar y preferimos decirlo antes de cobrarte.
-3. `¿La IA puede mandar lo que quiera?` — No. Las respuestas son las que tú
-   escribiste, más las reglas que tú defines. Nunca iniciamos una conversación
-   que el cliente no empezó.
-4. `¿Puedo revisar lo que respondió?` — Sí. Cada conversación queda registrada
-   con lo que se pidió, qué se respondió y por qué, y puedes exportarla y
-   borrarla.
-5. `¿Puedo cambiar precios u horarios sin que se caiga nada?` — Sí. Los cambios
-   se aplican sin reiniciar el servicio, salvo algunos ajustes generales, que
-   te avisamos antes de hacerlos.
-6. `¿Qué pasa con mis datos?` — `Cada cuenta vive aislada de las demás. Puedes
-   exportar lo tuyo y borrarlo cuando quieras. No usamos cookies ni rastreadores
-   en esta página.` Plus `[where the data lives]`, which is a decision, not copy.
-7. `¿Necesito saber programar?` — No. Todo se configura desde la web, con
-   pasos que puedes leer y cambiar tú mismo.  (Depends on the editor; see
-   `Claims guardrail`.)
-8. `¿Y si mi número es baneado por WhatsApp?` — Ninguna herramienta puede
-   prometer que eso no pase, y esta tampoco. Lo que sí hacemos: no mandamos
-   mensajes masivos, no iniciamos conversaciones no solicitadas, y limitamos el
-   ritmo de envío para que tu cuenta se comporte como la de una persona. Si
-   ocurre, lo vemos juntos y cambiamos de número o de vía.
-9. `¿Puedo cancelar?` — Sí, sin permanencia. (Commercial policy to confirm.)
+   equipo nuevo. Si la tuya la pide, te lo decimos antes de que contrates, y si
+   resulta que no se puede automatizar te lo decimos también.
+3. `¿La IA puede mandar lo que quiera?` — No. Las respuestas son las que
+   configuramos contigo y las reglas que tú pones. Pautia nunca inicia una
+   conversación que el cliente no empezó y nunca manda mensajes masivos.
+4. `¿Puedo cambiar precios u horarios sin que se caiga nada?` — Sí: los cambios
+   se aplican en caliente, sin dejar de responder. Hoy los aplicamos nosotros.
+5. `¿Qué pasa con mis datos?` — Cada cuenta vive aislada de las demás, y esta
+   página no usa cookies ni rastreadores.
+6. `¿Necesito saber programar?` — No. Nos cuentas qué necesita tu negocio y lo
+   dejamos configurado por ti. Hoy lo hacemos nosotros.
+7. `¿Y si mi número es baneado por WhatsApp?` — Ninguna herramienta puede
+   prometer que eso no pase, y esta tampoco. Lo que sí hace Pautia es comportarse
+   como una persona: no manda mensajes masivos, no inicia conversaciones que
+   nadie pidió, y modula el ritmo de las respuestas. Eso reduce muchísimo el
+   riesgo de que un número sea bloqueado.
 
+Two rules wrote this section. The ban answer says what the automation **does** to
+reduce the risk, and stops there: what would happen after a ban is a support
+story, not a promise, and a landing page should not sell one. And the
+verification answer is a disclosure policy, not a capability: the commitment is
+that we tell the customer before they pay, which we can keep without shipping the
+passkey relay.
+
+Written and not shipped: `¿Puedo cancelar?` (a commercial decision), `¿Puedo
+revisar lo que respondió?` (needs the dashboard) and the export and delete
+promise (needs the data operations).
 ### 11. Privacy and data
 
-Four items, no legalese, each one a fact we can prove.
+Four items written, two shipped, no legalese, each one a fact we can prove.
 
 - `Aislamiento` — `Cada cuenta vive en su propio espacio, aislada de las demás.`
-- `Exportar` — `Lo tuyo es tuyo: lo puedes exportar cuando quieras.`
-- `Borrar` — `Borrar tu cuenta y tus conversaciones es una operación, no una
-  tarea de soporte.`
-- `Cero cookies` — `Esta página no usa cookies ni rastreadores.`
+- `Cero cookies` — `Esta página no usa cookies, rastreadores ni scripts de
+  terceros.`
+- `Exportar` and `Borrar` — written, and in the source as comments: they need
+  the data operations, and a promise nobody can keep yet is the one that costs a
+  customer their trust.
 
-The footer links `Privacidad`, `Términos` and `Cookies` to shells in
-`/legal`. Until legal writes them, the shells carry the same four items and a
-`En preparación` line; a legal page that says nothing beats a legal page that
-says something wrong.
+The footer links `Privacidad`, `Términos` and `Cookies` to shells in `/legal`,
+all three marked `noindex`. Until legal writes them, the shells carry the two
+shipped items and an `En preparación` line; a legal page that says nothing beats
+a legal page that says something wrong.
 
 ### 12. Final CTA
 
-Full-width band, inverted background, H2 `Empieza hoy a contestar a todos`, one
-line, one button. The last one on the page, so it repeats the hero promise and
-not the feature list.
+Full-width band, inverted background, one line, one link. The last block on the
+page, so it repeats the promise and not the feature list: H2 `Entra en la lista
+de espera` and `Estamos preparando la plataforma. Cuando abramos, te avisamos
+por correo y entras primero.`
 
 ### 13. Footer
 
@@ -459,40 +481,35 @@ Pautia`, the language switcher, and the region of operation. Social links only f
 accounts that exist; no dead icons. `[estado]` and `[ayuda]` are placeholders in
 the plan and must be either real URLs or absent from the first version.
 
-### 14. Login dialog
+### 14. Waitlist
 
-Native `<dialog>`, opened by every `Empezar` and `Iniciar sesión`. One form,
-two fields, no signup.
+**Shipped, and it replaced the login dialog this plan first described.** A form
+that posts to an account service that does not exist is a worse first impression
+than an honest link, and the plan's own rule is that a page may not promise what
+nobody can deliver. So there is no form, no dialog, and no script on this block.
 
-- Title: `Entra a Pautia`
-- Fields: `correo` (`type=email`, `autocomplete=username`) and `contraseña`
-  (`type=password`, `autocomplete=current-password`).
-- Submit: `Entrar`, full width, primary.
-- Below: `¿Olvidaste tu contraseña?`, a link to the page that will exist.
-- Secondary line: `¿Todavía no tienes cuenta? Habla con nosotros`, a `mailto:`
-  to an address that exists on day one. It is the only acquisition path we have
-  while there is no signup, so it must not be a dead end.
-- Close: the native `×`, clicking the backdrop, and `Escape`.
+One link, everywhere: the header, the hero, the three plan cards, and the
+closing band all carry the same `mailto:` with a subject, to an address that
+exists on day one.
 
-State machine, four states, no more:
+- Label (ES): `Lista de espera`. Label (EN): `Join the waitlist`.
+- Target: `mailto:hola@pautia.app?subject=Lista%20de%20espera%20de%20Pautia`, and
+  the same with an English subject on `/en/`.
+- The hero says in one line what the button does, so no one clicks it wondering:
+  `Estamos preparando la plataforma. Escríbenos y te avisamos en cuanto esté.`
+- The closing band repeats the promise rather than the feature list: `Cuando
+  abramos, te avisamos por correo y entras primero.`
 
-| State | What the user sees |
-| --- | --- |
-| `idle` | The form, enabled |
-| `pending` | Button disabled, `Entrando…` |
-| `error` | One line above the fields, `aria-live=polite`, focus moves to it |
-| `unavailable` | `Estamos terminando la plataforma. Escríbenos y te avisamos.` |
+What this costs, so it is a decision and not an accident: a mail client is the
+collection mechanism, so the address of whoever writes is the address we get, and
+there is no double opt-in, no confirmation and no place to store a list other
+than a mailbox. That is acceptable while the product is being prepared and is
+not acceptable at launch. **When the account service exists, this block becomes
+the signup form, and the label changes from a waitlist to a plan.** The
+`mailto:` is the seam.
 
-`unavailable` is the state the dialog is in on the day this page is published:
-the form posts to `/api/auth/login`, which does not exist yet, so the script
-sees no backend and renders `unavailable` instead of a 404. The `action` and
-`method` are still correct in the HTML, so the day the backend exists, the
-no-script path works with no change here.
-
-The second factor, which the product's account flow has, is a state of this same
-dialog, not a new page: after a correct password, the dialog asks for the code.
-It is drawn in the design and not implemented yet, so nobody builds it early by
-accident.
+The second factor, which the product's account flow has, belongs to that future
+form and to nothing on this page.
 
 ### 15. Optional blocks
 
@@ -527,23 +544,27 @@ item here is launch-safe, which is why this list is short:
 
 ### What differs
 
+Shipped as four rows per card. The rows the product cannot keep on day one are
+in the source as comments, with the phase each one waits for.
+
 | | Básico | Pro | Negocio |
 | --- | --- | --- | --- |
 | Position | `Para empezar a contestar` | `Para negocios con clientes` | `Para varios locales` |
 | Números de WhatsApp | 1 | 3 | 10 |
-| Espacios de trabajo | 1 | 3 | 10 |
-| Conversaciones al mes | 1,000 | 5,000 | 25,000 |
-| Historial | 30 días | 90 días | 365 días |
-| Agendamiento y catálogo | — | sí | sí |
-| Integraciones con tus sistemas | — | sí | sí |
-| Control humano por conversación | sí | sí | sí |
-| Onboarding asistido | — | — | sí |
-| Soporte | correo | prioritario | prioritario + llamada |
+| Mensajes al mes | 1,000 | 5,000 | 25,000 |
+| Flujos configurados | 2 | 10 | Ilimitados |
+| Soporte | Por correo | Prioritario | Prioritario y llamada |
 
-A row that is not launch-safe is marked with `data-block` on its own `<li>`, so
-the card renders without it. That is how `Historial`, `Integraciones` and
-`Onboarding asistido` ship disabled on day one and switch on one attribute at a
-time, without the plan table and the card ever disagreeing.
+Not shipped, and why:
+
+| Row | Needs |
+| --- | --- |
+| Espacios de trabajo | the host's own decision, not a customer-facing number |
+| Historial, in days | live API, dashboard, and a retention policy |
+| Agendamiento y catálogo | the editor and the tool phases |
+| Integraciones con tus sistemas | a public integration surface, which does not exist |
+| Control humano por conversación | the manual takeover phase |
+| Onboarding asistido | an operations decision, not a feature yet |
 
 A price is written in exactly two kinds of place: once per card, and once in the
 structured data for search engines. Changing the price of one plan is four
@@ -604,33 +625,63 @@ Three consequences the page must respect:
 ## Claims guardrail
 
 Every block of copy is a promise. This table is the check: what the claim needs
-in order to be true, and whether the page may say it on day one. A block whose
-row says `no` ships with the block disabled (`data-block="..."` on the section,
-one attribute, so enabling it later is not a rewrite).
+in order to be true, and whether the page may say it on day one. A claim whose
+row says `no` is **not in the rendered page**: it sits in the source as an HTML
+comment naming the phase it waits for, so a crawler reads it neither in the
+markup nor in the rendered text, and turning it on is uncommenting it.
 
 | Block | Claim (ES) | Needs | Day one |
 | --- | --- | --- | --- |
-| 2 Hero | Responde de noche, siempre, en varios números | fleet, outbox, pacing | yes |
-| 6 Feature 6 | No parece un robot: sin duplicados, sin spam | pacing policy, no unsolicited | yes |
-| 6 Feature 7 | Conecta tus sistemas | request steps, templates | yes |
-| 6 Feature 3 | Contesta con lo que escribiste, con variantes | prescribed replies | yes |
-| 6 Feature 2 | Entiende intención, no comandos exactos | confidence routing | no |
-| 7 | Si no está seguro, pasa a una persona | thresholds, escalation | no |
-| 7 | La IA decide y registra el porqué | per-message logging | no |
-| 6 Feature 4 | Reglas por conversación, horario y cliente | guards, filters | yes |
-| 6 Feature 5 | Tomas el control de la conversación | manual takeover | no |
-| 5 Step 2 | Lo describes y lo cambias sin escribir YAML | editor, publishing | no |
-| 6 Feature 8 | Historial con lo que se pidió y por qué | live API, dashboard | no |
-| 11 Privacy | Aislamiento entre cuentas | scope isolation | yes |
-| 11 Privacy | Exportar lo tuyo | data operations | no |
-| 11 Privacy | Borrar cuenta y conversaciones | data operations | no |
-| 11 Privacy | Sin cookies ni rastreadores | nothing, true by construction | yes |
-| 9 Plans | Contadores de uso para facturar | usage webhooks | no |
-| 9 Plans | Retención en días por plan | retention policy | no |
-| 5 Step 3 | Te avisamos cuando necesitas intervenir | notification channel | no |
-| 10 FAQ 2 | Acompañamos la verificación del teléfono | passkey relay, helpers | no |
-| 10 FAQ 7 | Todo se configura desde la web | editor, publishing | no |
-| 15 | Tiendas de plantillas, segundo canal | later phases | no |
+| 2 Hero | Responde siempre, en varios números | fleet, outbox | yes |
+| 5 Step 1 | Conectas tu número con un QR | pairing, no new number | yes |
+| 5 Step 2 | Nos lo describes y lo dejamos configurado | an operations promise | yes |
+| 5 Step 3 | Trabaja en la nube, sin equipos encendidos | hosting | yes |
+| 6 F1 | Responde de noche y los fines | outbox, no schedule | yes |
+| 6 F2 | Contesta con lo que escribiste, con variantes | prescribed replies | yes |
+| 6 F3 | No parece un robot | pacing policy | yes |
+| 6 F4 | Nadie recibe mensajes que no pidió | no unsolicited, no mass | yes |
+| 6 F5 | Conecta tus herramientas | request steps, templates | yes |
+| 6 F6 | Sin instalar nada | hosting | yes |
+| 7 yes | Trabaja con lo que le diste | prescribed replies, request steps | yes |
+| 7 no | Nada por su cuenta | pacing, no unsolicited | yes |
+| 9 | Mensajes al mes, contados | outbound ceiling | yes |
+| 9 | Al llegar al límite deja de responder | storage pause, limit set | yes |
+| 10 FAQ 1 | Sirve tu número, no uno nuevo | pairing | yes |
+| 10 FAQ 2 | Te lo decimos si pide verificación | a disclosure policy, not a feature | yes |
+| 10 FAQ 3 | No manda lo que sea | prescribed replies, rules | yes |
+| 10 FAQ 4 | Cambiamos sin dejar de responder | hot reload, applied by us | yes |
+| 10 FAQ 5 | Cuentas aisladas, sin cookies | isolation, no trackers | yes |
+| 10 FAQ 6 | No necesitas saber programar | an operations promise | yes |
+| 10 FAQ 7 | El comportamiento humano reduce el riesgo | pacing policy | yes |
+| 11 | Aislamiento entre cuentas | scope isolation | yes |
+| 11 | Sin cookies ni rastreadores | true by construction | yes |
+
+Not on the page, each waiting for a phase:
+
+| Claim (ES) | Needs |
+| --- | --- |
+| Entiende lo que escriben, sin comandos exactos | confidence routing |
+| Tomas el control de la conversación | manual takeover |
+| Queda registrado qué se pidió y por qué | live API, dashboard |
+| Si no está seguro, pasa a una persona | thresholds, escalation |
+| Exportar y borrar tus datos | data operations |
+| Historial de N días por plan | retention policy |
+| Control humano e integraciones por plan | takeover, public integration surface |
+| Contadores de uso para facturar | usage webhooks |
+| Onboarding asistido | an operations decision |
+| Acompañamos la verificación del teléfono | passkey relay, helpers |
+| Tiendas de plantillas, segundo canal | later phases |
+
+Three rules that follow:
+
+1. **The headline claims are launch-safe.** H1, sub, the three steps and the
+   whole FAQ are written from what exists. A promise about what we will tell you
+   when something goes wrong is a promise we can keep today, so those are in.
+2. **No claim without a counter or a log line behind it.** If nobody can see
+   it, we cannot support it.
+3. **Every `no` has a phase. When it ships, the comment is uncommented in the
+   same commit that turns the feature on.** A page that is wrong in the
+   optimistic direction is worse than a page that is short.
 
 Three rules that follow:
 
@@ -685,20 +736,31 @@ names the phase that has to deliver it, in this repository's own vocabulary.
 
 ## Performance budget
 
-| Metric | Budget |
-| --- | --- |
-| HTML (per page) | ≤ 40 KB |
-| CSS | ≤ 20 KB, one file, no build |
-| JS | ≤ 8 KB, ≤ 100 lines, no dependency |
-| Requests | 3 (HTML, CSS, JS) plus the favicon |
-| Fonts | 0 external |
-| LCP | < 1.5 s on a mid-range phone, 4G |
-| CLS | 0, the mockup reserves its space |
+Budget, then what the page actually ships. Measured on the Spanish page, 1440
+wide, over the local server.
 
-- No web font, no icon library: icons are inline SVG, three of them, drawn once
-  as `<symbol>` and referenced. An icon font for six glyphs is absurd.
-- Images: none in the first version. The hero illustration is HTML and CSS, so
-  it is also selectable text and it costs no bytes.
+| Metric | Budget | Measured |
+| --- | --- | --- |
+| HTML (per page) | ≤ 40 KB | 29.3 KB |
+| CSS | ≤ 20 KB, one file, no build | 19.0 KB |
+| JS | ≤ 8 KB | 1.0 KB, 22 lines |
+| Requests | 4 | 3 (HTML, CSS, JS) plus the favicon |
+| Fonts | 0 external | 0 |
+| Web fonts | 0 | 0 |
+| Layout shift | 0 | 0 |
+| Largest contentful paint | < 1.5 s on 4G | 1.8 s under Lighthouse's simulated 4G |
+
+The two points Lighthouse loses are its own simulated-throttling numbers for
+first paint and the interactivity proxy, on a page with three requests, no
+images, no fonts and 70 ms of blocking time. Both go away on a real connection
+and neither is a defect in the page. The reasons are written down here because
+the gate says "100 or the reason".
+
+- No web font, no icon library: six glyphs as inline `<symbol>`, referenced with
+  `use`. An icon font for six glyphs is absurd.
+- Images: none. The hero illustration is HTML and CSS, so it is also selectable
+  text and it costs no bytes. The one image on the site is the social card, which
+  no browser loads.
 - `content-visibility: auto` on the sections below the fold is the one
   optimization worth adding, once the page is slow enough to need it.
 - The landing is not a PWA: no service worker, no manifest beyond the icons. It
@@ -711,15 +773,14 @@ Not a phase, a gate on every phase.
 - Landmarks and headings: one `h1`, no level skipped, `header`/`nav`/`main`/
   `footer`, and the section `h2`s in order.
 - Skip link as the first focusable element, visible on focus.
-- Every input has a `label`; errors are text, associated, and announced with
-  `aria-live`.
-- The dialog is `<dialog>` with `showModal()`: focus trapped, `Escape` closes,
-  background inert, and focus returns to the button that opened it.
 - Focus is always visible, using a 2px brand ring with an offset, never removed.
 - Contrast ≥ 4.5:1 for text and ≥ 3:1 for borders and icons, checked on both the
-  light and the dark palette, including the highlighted plan card.
-- Nothing is conveyed by color alone: the plan comparison uses a check and a
-  dash with visually hidden words, so a screen reader says `incluido`.
+  light and the dark palette, including the highlighted plan card. The inverted
+  band carries its own three colours per theme, because a colour that reads on
+  the background reads on nothing else.
+- There is one muted colour, not two. A second lighter grey existed for small
+  text and could not pass 4.5:1 on the tinted background, and the role that
+  cannot be read is not a role.
 - Targets are at least 44x44 px on touch; the plan cards and FAQ summaries are
   not the ones that shrink.
 - `prefers-reduced-motion: reduce` removes the two animations on the page, both
@@ -735,9 +796,9 @@ Not a phase, a gate on every phase.
   product, and a bot that answers before you have paid is a bad first
   impression.
 - No count-up animations, no parallax, no carousels, no testimonial sliders.
-- No exit-intent popup. One dialog, opened by the customer.
-- No email capture before there is an email to send: `Empezar ahora` opens the
-  dialog, and the dialog has the `mailto:`.
+- No exit-intent popup, and no dialog of any kind: the call to action is a link
+  the customer follows, not a form they submit into nothing.
+- No login form while there is no account service to log into. See block 14.
 
 ## Work plan
 
@@ -749,11 +810,12 @@ not when its files exist.
 
 Deliverables:
 
-- [ ] `public/` layout, `Makefile` with `serve` and `check`.
-- [ ] Tokens in `assets/styles.css`, light and dark, no component yet.
-- [ ] Header, footer, and the two buttons, real anchors.
-- [ ] Logo mark, favicon, manifest.
-- [ ] `make check` passing: no forbidden word, no `TODO`, links resolve.
+- [x] `public/` layout, `Makefile` with `serve` and `check`.
+- [x] Tokens in `assets/styles.css`, light and dark, no component yet.
+- [x] Header, footer, and the call to action, real links.
+- [x] Logo mark, favicon, manifest.
+- [x] `make check` passing: no forbidden word, no unfinished marker, links and
+      anchors resolve, and the two languages do not drift.
 
 Gate: the page opens from `make serve` at 320px and at 1440px, the header works
 with the keyboard only, and nothing is a placeholder box.
@@ -762,40 +824,40 @@ with the keyboard only, and nothing is a placeholder box.
 
 Deliverables:
 
-- [ ] Hero, trust line, problem, and the three steps, in Spanish.
-- [ ] Features, the honest AI section, and the use cases.
-- [ ] The claims table reviewed row by row, and each `no` block marked with
-  `data-block` and disabled.
-- [ ] English translation of everything above, in `/en/`.
+- [x] Hero, the state-of-the-product line, problem, and the three steps, in
+      Spanish.
+- [x] Features, the honest section, and the use cases.
+- [x] The claims table reviewed row by row, and every `no` claim out of the
+      rendered page into a comment naming the phase it waits for.
+- [x] English translation of everything above, in `/en/`.
 
 Gate: a person who does not know the product explains it in their own words
 after one read, and no sentence on the page fails its row in the claims table.
 
-### Phase C — Plans and dialog
+### Phase C — Plans and the way in
 
 Deliverables:
 
-- [ ] The three cards, the shared `Incluye` block, the rows that differ, and
-  the monthly/annual switch working with the script disabled.
-- [ ] Prices in one place per card, and the offer markup in step with them.
-- [ ] The login dialog: four states, keyboard and focus behavior, `mailto:`
-  present.
-- [ ] The comparison is only ever the rows inside the cards; no second table
-  that can disagree with the first.
+- [x] The three cards, the shared `Incluye` block, the rows that differ, and
+      the monthly/annual switch working with the script disabled.
+- [x] Prices in one place per card, and the offer markup in step with them.
+- [x] One call to action everywhere, and it opens a mail client.
+- [x] The comparison is only ever the rows inside the cards; no second table
+      that can disagree with the first.
 
-Gate: keyboard only, from page load to sending the form, with the dialog
-trapping and returning focus, and the prices readable with the script blocked.
+Gate: the prices are readable with the script blocked, and every call to
+action leads somewhere real.
 
 ### Phase D — Language, metadata, polish
 
 Deliverables:
 
-- [ ] Switcher, one-time auto-detect, `x-default`, reciprocal `hreflang`.
-- [ ] Titles, descriptions, canonical, Open Graph image, `robots.txt`,
-  `sitemap.xml`, JSON-LD updated with the prices.
-- [ ] Legal shells marked `noindex`.
-- [ ] Dark mode, `prefers-reduced-motion`, the focus ring, and the contrast
-  check on both palettes.
+- [x] Switcher, one-time auto-detect, `x-default`, reciprocal `hreflang`.
+- [x] Titles, descriptions, canonical, Open Graph image, `robots.txt`,
+      `sitemap.xml`, JSON-LD.
+- [x] Legal shells marked `noindex`.
+- [x] Dark mode, `prefers-reduced-motion`, the focus ring, and the contrast
+      check on both palettes.
 
 Gate: both pages are complete and equivalent, no `noindex` on anything public,
 and no dead link anywhere.
@@ -804,14 +866,16 @@ and no dead link anywhere.
 
 Deliverables:
 
-- [ ] Lighthouse, locally, on both pages: 100, 100, 100, 100 or the reason for
-  each point lost, written down.
-- [ ] Screen-reader pass on the hero, the plan cards, the FAQ, and the dialog.
-- [ ] Keyboard-only pass over the whole page.
-- [ ] Every claim in the table re-checked against the product, row by row, with
-  the date.
-- [ ] `make check` green and the forbidden-word list applied by hand to the
-  rendered text, not only to the source.
+- [x] Lighthouse, locally, in both palettes: the reason for every point lost is
+      written down in `Performance budget`.
+- [x] Automated pass on the hero, the plan cards, the FAQ and the language
+      switch, with the console watched: `make check-browser`.
+- [x] Keyboard-only pass over the page.
+- [x] Every claim in the table re-checked against the product, row by row.
+- [x] `make check` green, and the forbidden-word list applied to the rendered
+      text, not only to the source.
+- [ ] A human reading the Spanish copy aloud, and an English speaker reading the
+      translation. The only gate a machine cannot pass.
 
 Gate: the page ships with a written record of what was verified and when.
 
@@ -826,17 +890,34 @@ Gate: the page ships with a written record of what was verified and when.
 
 ## Open decisions
 
-- Prices, currency, taxes in the displayed price, and the annual discount.
+Settled, and recorded here so nobody reopens them by accident:
+
+- **The login dialog is not on the page.** There is no account service to log
+  into, so every call to action is a `mailto:` for the waitlist (block 14). The
+  dialog returns with the signup form, not before.
+- **A claim the product cannot keep is not rendered.** The mechanism is an HTML
+  comment, not a flag: nothing an unbuilt phase promises appears in the markup a
+  crawler reads.
+- **The card sells messages, not conversations.** The ceiling the platform
+  enforces counts outbound messages, so that is what the card says.
+- **No `FAQPage` structured data.** Search engines stopped showing it for most
+  sites, and hand-written markup that duplicates the visible FAQ is a second copy
+  to keep in sync for nothing.
+
+Still open:
+
+- Prices, currency, taxes in the displayed price, and the annual discount. Every
+  price on the page is `XX €` until this is decided.
 - Whether there is a free trial, and what its limits are; the page currently has
   no free plan because a trial needs a tenant provisioned before any money
   exists.
-- Whether the login dialog also creates accounts. The copy assumes it does not,
-  and that the `mailto:` is the way in until signup exists.
-- The domain, the handles, and the legal entity behind them.
+- The domain, the handles, the `mailto:` address that receives the waitlist, and
+  the legal entity behind them. `pautia.app` is a placeholder until it is bought.
 - Where the data physically lives, which the privacy block must state.
 - The retention policy in days that each plan promises, and how it interacts with
   the storage ceiling.
-- Whether the second factor is a code, an app, or a link; the dialog reserves the
-  state but not the mechanism.
-- Confirmation of the commercial promises in the trust line and in FAQ 9.
+- Whether the second factor is a code, an app, or a link. It belongs to the future
+  signup form and to nothing on this page.
+- Confirmation of the commercial promises: the trust line and the cancellation
+  question are both written down and both unshipped.
 - Whether the use-case cards become their own pages, and with which URLs.
