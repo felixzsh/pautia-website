@@ -23,8 +23,8 @@ OUT.mkdir(parents=True, exist_ok=True)
 # What the headline says in each language, so a dictionary that loads half way
 # or a swap that misses a key cannot pass unnoticed.
 HEADLINES = {
-    "en": "An agent for your business's WhatsApp",
-    "es": "Un agente para el WhatsApp de tu negocio",
+    "en": "Predictable agents for your business",
+    "es": "Agentes predecibles para tu negocio",
 }
 
 problems = []
