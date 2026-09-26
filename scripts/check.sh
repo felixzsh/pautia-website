@@ -21,7 +21,14 @@ if grep -rniE 'chatbot|no-code|framework|runtime|self-hosted|open source|sin c[o
   fail "forbidden word in public/"
 fi
 
-# 2. Unfinished work. The markers are case sensitive on purpose: "todo" is a
+# 2. The long dash. In prose it reads as copy written by a machine, and this page
+#    is written by hand: a comma between clauses, a middle dot between parts of a
+#    title.
+if grep -rn '—' public/; then
+  fail "em dash in public/"
+fi
+
+# 3. Unfinished work. The markers are case sensitive on purpose: "todo" is a
 #    Spanish word, and a check that fires on it is a check nobody reads.
 if grep -rnI -E '\bTODO\b|\bFIXME\b|\bXXX\b' public/; then
   fail "unfinished marker in public/"
@@ -31,7 +38,7 @@ if grep -rniI -E 'lorem ipsum|placeholder' public/; then
   fail "placeholder text in public/"
 fi
 
-# 3. The page exists, and its anchors and internal links resolve.
+# 4. The page exists, and its anchors and internal links resolve.
 page=public/index.html
 [ -f "$page" ] || fail "missing $page"
 
@@ -47,7 +54,7 @@ for link in $(grep -o 'href="/[^"]*"' "$page" | sed 's/href="//; s/"//' | sort -
   [ -e "public$link" ] || fail "$page: $link does not exist"
 done
 
-# 4. Every language the page lists is a file that is there, and the other way
+# 5. Every language the page lists is a file that is there, and the other way
 #    round: a translation nobody offers, or one the page never loads, is a file
 #    that will rot.
 listed=$(sed -n '/<script type="application\/json" id="languages">/,/<\/script>/p' "$page" \
