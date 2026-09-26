@@ -87,15 +87,15 @@ with sync_playwright() as p:
                 device_scale_factor=1,
                 locale=locale,
             )
-            # The browser language must not decide anything: one URL, one page, and
-            # English until the visitor says otherwise.
+            # The browser language must not decide anything: one URL, one page, in
+            # the language the page is written in until the visitor says otherwise.
             page = ctx.new_page()
             errors = []
             page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
             page.on("pageerror", lambda e: errors.append(str(e)))
             page.goto(f"{BASE}/", wait_until="networkidle")
-            if page.locator("html").get_attribute("lang") != "en":
-                problems.append(f"{name}-{label}: the page opened in the wrong language")
+            if page.locator("html").get_attribute("lang") != "es":
+                problems.append(f"{name}-{label}: the page did not open in Spanish")
 
             # The header shows its links or the button that stands in for them,
             # never both and never neither.
@@ -134,44 +134,48 @@ with sync_playwright() as p:
                     f"{name}-{label}: panels with no contrast against their section: {flat}"
                 )
 
-            if name == "es":
-                # Both menus are the same component, so both are opened and
-                # measured here: the panel has to fit what is inside it, hang
-                # from its own button and close when the visitor clicks away.
-                menus = page.locator("[data-menu]")
-                if menus.count() < 2:
-                    problems.append(f"{name}-{label}: the header has no language picker")
-                for which in ("nav", "lang"):
-                    menu = page.locator(f'[data-menu="{which}"]')
-                    if not menu.count():
-                        continue
-                    if not menu.locator(".menu__summary").is_visible():
-                        continue      # the nav menu is for small screens only
-                    menu.locator(".menu__summary").click()
-                    box = fits(menu, which, name, label, problems)
-                    if which == "lang":
-                        if box.locator("[data-lang-option]").count() < 2:
-                            problems.append(
-                                f"{name}-{label}: the picker lists no languages"
-                            )
-                        page.screenshot(path=str(OUT / f"picker-{label}.png"))
-                        # A click away closes it; escape closes it too.
-                        page.mouse.click(20, 400)
-                        if menu.evaluate("m => m.open"):
-                            problems.append(
-                                f"{name}-{label}: the picker stays open after a click away"
-                            )
-                        menu.locator(".menu__summary").click()
-                        page.keyboard.press("Escape")
-                        if menu.evaluate("m => m.open"):
-                            problems.append(f"{name}-{label}: escape does not close the picker")
-                        menu.locator(".menu__summary").click()
-                        page.locator('[data-menu="lang"] [data-lang-option="es"]').click()
-                        page.wait_for_function(
-                            "() => document.documentElement.lang === 'es'", timeout=5000
+            # Both menus are the same component, so both are opened and
+            # measured here: the panel has to fit what is inside it, hang
+            # from its own button and close when the visitor clicks away. The
+            # picker switches the page in English and does nothing in Spanish,
+            # which is the state the page starts in.
+            menus = page.locator("[data-menu]")
+            if menus.count() < 2:
+                problems.append(f"{name}-{label}: the header has no language picker")
+            for which in ("nav", "lang"):
+                menu = page.locator(f'[data-menu="{which}"]')
+                if not menu.count():
+                    continue
+                if not menu.locator(".menu__summary").is_visible():
+                    continue      # the nav menu is for small screens only
+                menu.locator(".menu__summary").click()
+                box = fits(menu, which, name, label, problems)
+                if which == "lang":
+                    if box.locator("[data-lang-option]").count() < 2:
+                        problems.append(
+                            f"{name}-{label}: the picker lists no languages"
                         )
-                        if page.url != f"{BASE}/":
-                            problems.append(f"{name}-{label}: switching navigated away")
+                    page.screenshot(path=str(OUT / f"picker-{label}.png"))
+                    # A click away closes it; escape closes it too.
+                    page.mouse.click(20, 400)
+                    if menu.evaluate("m => m.open"):
+                        problems.append(
+                            f"{name}-{label}: the picker stays open after a click away"
+                        )
+                    menu.locator(".menu__summary").click()
+                    page.keyboard.press("Escape")
+                    if menu.evaluate("m => m.open"):
+                        problems.append(f"{name}-{label}: escape does not close the picker")
+                    menu.locator(".menu__summary").click()
+                    page.locator(
+                        f'[data-menu="lang"] [data-lang-option="{name}"]'
+                    ).click()
+                    page.wait_for_function(
+                        "() => document.documentElement.lang === '%s'" % name,
+                        timeout=5000,
+                    )
+                    if page.url != f"{BASE}/":
+                        problems.append(f"{name}-{label}: switching navigated away")
 
             page.wait_for_function(
                 "() => document.documentElement.lang === '%s'" % name, timeout=5000
@@ -280,8 +284,8 @@ with sync_playwright() as p:
     served = page.content()
     if served.count('<article class="plan') != 4:
         problems.append("no script: the page does not render its four plans")
-    if "<h1" not in served or "An agent for your business" not in served:
-        problems.append("no script: the page is not readable in English")
+    if "<h1" not in served or "Agentes predecibles para tu negocio" not in served:
+        problems.append("no script: the page is not readable without a script")
     if 'class="lang"' in served:
         problems.append("no script: a language picker that cannot work is in the page")
     page.screenshot(path=str(OUT / "no-js.png"), full_page=True)
