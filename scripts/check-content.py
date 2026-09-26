@@ -151,7 +151,7 @@ for card, offer, monthly in zip(cards, offers, (9, 39, 79)):
     assert f'${annual * 12:.2f}' in card
 
 # The limits of the three priced plans, in the order the page lists them:
-# concurrent agents first, because that is the question a customer asks first.
+# active agents first, because that is the question a customer asks first.
 # Every language has to sell the same quantity; the thousands mark is a language
 # detail, so only the digits are compared.
 ROWS = (
