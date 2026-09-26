@@ -16,7 +16,7 @@ elements and one short language redirect.
 
 ```
 make serve           # http://127.0.0.1:8080, Spanish; /en/ for English
-make check           # greps: forbidden words, markers, links, language drift
+make check           # links, language drift, copy and USD pricing consistency
 make check-browser   # playwright: console, overflow, switch, keyboard
 make og              # redraw the social card after a brand change
 ```

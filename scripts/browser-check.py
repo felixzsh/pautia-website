@@ -43,18 +43,22 @@ def budget(page, url):
 with sync_playwright() as p:
     browser = p.chromium.launch()
     for width, label in ((1440, "desktop"), (390, "mobile")):
-        ctx = browser.new_context(
-            viewport={"width": width, "height": 900},
-            device_scale_factor=1,
-            locale="es-ES",
-        )
-        page = ctx.new_page()
-        errors = []
-        page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
-        page.on("pageerror", lambda e: errors.append(str(e)))
-
-        for name, url in (("es", f"{BASE}/"), ("en", f"{BASE}/en/")):
+        for name, locale, url in (
+            ("es", "es-ES", f"{BASE}/"),
+            ("en", "en-US", f"{BASE}/en/"),
+        ):
+            ctx = browser.new_context(
+                viewport={"width": width, "height": 900},
+                device_scale_factor=1,
+                locale=locale,
+            )
+            page = ctx.new_page()
+            errors = []
+            page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
+            page.on("pageerror", lambda e: errors.append(str(e)))
             page.goto(url, wait_until="networkidle")
+            if page.url != url or page.locator("html").get_attribute("lang") != name:
+                problems.append(f"{name}-{label}: wrong language or redirect")
             page.screenshot(path=str(OUT / f"{name}-{label}.png"), full_page=True)
 
             b = budget(page, url)
@@ -98,9 +102,9 @@ with sync_playwright() as p:
             if not page.locator(".faq details").first.evaluate("d => d.open"):
                 problems.append(f"{name}-{label}: FAQ did not open with the keyboard")
 
-        if errors:
-            problems.append(f"{label}: console errors {errors}")
-        ctx.close()
+            if errors:
+                problems.append(f"{name}-{label}: console errors {errors}")
+            ctx.close()
 
     # dark mode
     ctx = browser.new_context(color_scheme="dark", viewport={"width": 1440, "height": 900})

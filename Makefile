@@ -7,6 +7,7 @@ serve:
 
 check:
 	@sh scripts/check.sh
+	@python3 scripts/check-content.py
 
 check-browser:
 	@python3 scripts/browser-check.py

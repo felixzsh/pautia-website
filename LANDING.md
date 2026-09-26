@@ -7,9 +7,33 @@ to pass. It is not a contract: the copy moves as the product moves, and every
 claim it makes is checked against the phase that has to deliver it
 (`Claims guardrail`).
 
-The product behind it is still being prepared. This page is therefore written
-twice over: what we may say the day we launch, and what may only appear after a
-phase ships. Nothing on the page may promise something no phase will build.
+The public copy describes the finished product; the waitlist makes clear that
+it is not available for purchase yet. `public/index.html` and `public/en/index.html`
+are the authoritative copy when an older example in this document differs.
+
+## Current pitch
+
+**Pautia turns your existing WhatsApp conversations into a suggested customer
+support flow.** Connecting your number is easy. Importing history is optional;
+if you choose it, AI suggests prepared answers and actions from your real
+conversations. You review and adjust the flow, connect your services, test it,
+choose working hours and only then activate the agent. AI helps select the
+approved path; prepared replies are the default. Free-form generation is an
+explicit option, never the starting mode.
+
+In customer-facing copy use `flujo de atención` / `support flow`, not `grafo`,
+`graph`, `determinista` or `deterministic`. Never frame overnight availability
+or 24/7 as the reason to buy. Offer all-day coverage only as one possible
+schedule. A separate account-care section explains delays, timing variation,
+read receipts, typing indicators, reply variants, per-sender limits and no
+unsolicited bulk messaging. These measures may reduce risk, not prevent bans.
+
+**Product dependency:** the platform's current bot settings have pacing and rate
+limits but no business-hours schedule. Before offering configurable schedules
+for sale, an authorized project must design and implement that capability.
+The editor and history-based draft come from ROADMAP Phases 15–16; the AI
+routing and prescribed replies come from PLAN Phase 8. Nothing in this repo
+implements those features; this is a landing for the finished product.
 
 `PLAN.md` keeps the phases of the whole product and does not change because of
 this document. This document is the landing page, in detail.
@@ -129,10 +153,10 @@ the server.
 **Pautia.** A lighthouse: always on, visible from far away, first to arrive, and
 boringly reliable. It says the product's promise without claiming intelligence.
 
-- Positioning: the business that answers its customers at 3am, without hiring
-  for the night shift.
-- Tagline (ES): `Que tu negocio responda siempre.`
-- Tagline (EN): `Your business always answers.`
+- Positioning: a WhatsApp agent shaped by your real customer conversations,
+  reviewed and activated on your terms.
+- Tagline (ES): `Tu WhatsApp, a tu manera.`
+- Tagline (EN): `Your WhatsApp, on your terms.`
 - Support line (ES): `Un agente de IA en tu WhatsApp de siempre.`
 - Name must be checked for availability: `pautia.com`, `pautia.ai`, `pautia.app`,
   `getpautia.com`, and the handle on the networks we would post to. A name we
@@ -255,156 +279,63 @@ the header height so an anchored section is not hidden behind it.
 
 ### 2. Hero
 
-Two columns above `900px`, one below. Left is the copy, right is an
-illustration: a conversation mockup built in HTML and CSS, not a screenshot.
+H1 (ES): `De tus conversaciones, a una atención que se parece a ti`.
+H1 (EN): `Turn your conversations into support that sounds like you`.
+The subtitle explains the opt-in import, the AI-suggested support flow, human
+review, service connections and choosing when the agent responds. The CTA is
+still a waitlist, not checkout. The mock conversation is illustrative.
 
-- Eyebrow: `Agentes de IA para WhatsApp`
-- H1: `Que tu negocio responda siempre, incluso a las 3 de la mañana`
-- Sub: `Pautia conecta un agente de inteligencia artificial a tu número de
-  WhatsApp. Responde lo que te escriben, agenda citas, confirma pedidos y te
-  avisa cuando hace falta que intervengas. Tú sigues al mando.`
-- Primary: `Empezar ahora` (opens the dialog)
-- Secondary: `Ver cómo funciona` (anchor, no JS)
+### 3. State of the product
 
-English: `An AI agent on your existing WhatsApp number. It answers, books,
-confirms, and hands you the conversations that need you. You stay in charge.`
-
-The H1 is the only place the product promises availability. It does not promise
-intelligence, accuracy, or volume.
-
-### 3. Trust line
-
-**Not shipped.** Under the CTAs there is one line instead, and it is a fact
-about the product's state rather than a promise about billing:
-
-`Estamos preparando la plataforma. Escríbenos y te avisamos en cuanto esté.`
-
-The three-item trust line is still written down, and still waiting on the
-commercial decision:
-
-`Sin permanencia · Sin tarjeta de crédito · Tus datos los puedes exportar y
-borrar`
-
-`Sin tarjeta` and `Sin permanencia` are billing promises. If the commercial
-policy does not guarantee them, they are the first copy to change; the
-alternative is `Empieza con un plan, cámbialo o cancélalo cuando quieras`, which
-still needs the same decision. It ships with the answer to the same question,
-never before.
+Under the CTA, the page says it is being prepared. There is no claim about
+free trials, cancellation, or credit cards until those policies are settled.
 
 ### 4. The problem
 
-Left: H2 and a paragraph. Right: three short cards, each a sentence a customer
-would say out loud.
-
-- H2: `Cuando te escriben fuera de horario, ya hablaron con otros tres`
-- Body: `La mayoría de las ventas de un negocio no se pierden por precio: se
-  pierden porque nadie contestó a tiempo. Hoy tu número solo atiende cuando
-  alguien está sentado frente a la pantalla.`
-- Card 1: `Escriben a las 23:00 y contestas mañana.` Card 2: `Mientras tanto ya
-  escribieron a otros tres negocios.` Card 3: `Y en temporada se te juntan las
-  mismas preguntas siempre.`
-
-No statistics. When we have real numbers from the product's own usage, they go
-in here as measured facts with the date and the source.
+`No empieces con un bot que no conoce tu negocio`: the existing conversations
+are the starting material, not an empty template. No unmeasured claims about
+lost sales, competing businesses or unanswered late-night messages.
 
 ### 5. How it works
 
-Three numbered steps, vertical on mobile, three across above `900px`. This is the
-block that changed the most, and in one word: **nobody behind Pautia configures
-anything**. The earlier draft of this plan had step 2 as "you tell us how it
-should work and we set it up", which describes a service, not a product: it does
-not scale past the first ten customers, and it is not why anyone would pay.
+Three steps in both languages:
 
-The product starts from the customer's own history, proposes a graph from it, and
-lets them correct it. Three steps, and the second one is the whole idea:
+1. **Connect WhatsApp:** pair your existing number; history import is opt-in.
+   AI analyzes real conversations to suggest answers and actions.
+2. **Review the support flow:** approve or adjust suggestions, connect your
+   calendar, inventory or other services, and test before publishing.
+3. **Start the agent:** nothing answers until you activate it; it follows the
+   flow you approved, during the hours you chose.
 
-1. `Conectas tu WhatsApp` — `Escaneas un QR desde tu celular y Pautia entra en el
-   número que ya usabas. Si nos autorizas, de paso importa el historial de tu
-   cuenta: con eso tiene material real para trabajar.`
-2. `Ves el grafo y lo ajustas` — `Pautia propone un grafo con lo que tus clientes
-   ya te preguntan. Tú lo ves como un diagrama, cambias las reglas, lo conectas
-   a tu agenda o tu inventario y lo pruebas antes de publicarlo. Este paso no se
-   salta.`
-3. `Arrancas el agente` — `Nada responde hasta que tú lo enciendes. Desde ahí
-   contesta solo en base al grafo que revisaste, y lo cambias cuando quieras.`
-
-Step 1 covers both the pairing and the history import on purpose: they are one
-moment for the customer (scan a QR) and the import is what makes step 2 possible.
-Splitting them into two steps would make the page say "connect, then configure"
-and land back on a service.
-
-Step 2 is the one the product cannot skip, and the page says so: `Este paso no se
-salta.` A draft nobody reviews is not the product, and a bot answering a business
-from a machine-made guess nobody looked at is the thing customers are afraid of.
-Step 3 is where the customer takes the responsibility: the agent answers on its
-own from a graph a human approved.
-
-`Si nos autorizas` is not decoration. History ingestion is opt-in and off by
-default, so the page says so twice: in the step and in the feature card. A
-customer whose whole inbox is their data should be told who reads it.
-
-There is no eight-digit pairing code in step 1. It is a planned pairing method,
-not a shipped one.
+The customer sees a `flujo de atención` / `support flow`, not an implementation
+term for the conversation state machine. Importing history requires consent
+and the available history depends on what WhatsApp provides.
 
 ### 6. Features
 
-Nine cards in a 3x3 grid, each an icon, a title, and two lines. Order is by what
-the customer feels first, not by how hard it was to build. Six describe what the
-runtime does; the last three describe the loop that replaces a human configurator
-— the draft from the history, the review, and the edit.
+Nine cards, three columns on desktop. They cover configurable hours,
+prewritten reply variants, pacing, no unsolicited outreach, connections to
+customer services, hosted operation, an AI-suggested first draft, review in a
+visual editor and customer-managed changes. Night-time availability is merely
+an optional schedule, never the pitch.
 
-1. `Responde de noche y los fines` — `El número no tiene horario. Atiende
-   mientras tú duermes, en días festivos, en tu hora de comida.`
-2. `Contesta con lo que escribiste` — `Las respuestas están escritas de
-   antemano, con variantes, para que nadie reciba dos veces la misma frase.`
-3. `No parece un robot` — `Espera antes de leer, escribe a su ritmo y cambia lo
-   que dice. Los envíos masivos y no solicitados no existen.`
-4. `Nadie recibe mensajes que no pidió` — `Pautia solo responde a quien te
-   escribe. No inicia conversaciones masivas ni promociones por su cuenta.`
-5. `Conecta tus herramientas` — `Agenda, inventario o el sistema que uses: Pautia
-   consulta tus datos y contesta con lo que le devuelven.`
-6. `Sin instalar nada` — `No hay programas que instalar ni equipos que mantener.
-   Pautia trabaja en la nube, también de madrugada.`
-7. `No empiezas de cero` — `El primer borrador sale de las conversaciones que tu
-   cuenta ya tiene, con las preguntas que tus clientes ya te hicieron. Solo si
-   tú lo autorizas.`
-8. `Lo ves antes de que salga` — `El grafo es un diagrama que puedes leer, y hay
-   un simulador para probar conversaciones antes de publicarlas. Nada llega a
-   tus clientes sin que lo hayas visto.`
-9. `Lo cambias cuando quieras` — `Un precio, un horario, una respuesta nueva. Lo
-   ajustas y sigue funcionando, sin esperar a que nadie lo haga por ti.`
+### 7. AI within the customer's rules
 
-Cards 7, 8 and 9 are the ones that need a phase, and they are the ones that make
-the product worth buying. They are marked as such in `Claims guardrail` and they
-are the exact text to comment out if the page ever has to ship before those
-phases do.
+`La IA propone. Tú decides qué puede hacer.` The AI recommends a flow and
+recognizes which approved path fits a message; prepared responses are the
+default. Free-form AI writing is an explicit opt-in governed by the customer's
+rules. Avoid absolute claims such as "the model can never generate text" that
+would contradict this optional mode.
 
-### 7. Deterministic, powered by AI
+### Account care
 
-The section every competitor hides and every serious buyer reads, and the one
-that says what the product actually is. H2: `Determinista, impulsado por IA`.
-Two columns, one for what it does and one for what it will never do, the second
-inverted so the contrast is impossible to miss.
-
-- `Lo que sí hace` — `Una IA que elige dentro de tu grafo` — `Entiende lo que te
-  escriben y elige cuál de tus respuestas encaja, a quién le habla y qué
-  herramienta usar. Si necesita un dato, lo consulta a tus sistemas y usa la
-  respuesta real.`
-- `Lo que nunca va a hacer` — `Nada que no esté en el grafo` — `No inventa
-  respuestas que no escribiste, no inventa herramientas, no manda mensajes por
-  su cuenta y no inicia conversaciones que nadie empezó.`
-
-This is the shape of the engine underneath, told as a benefit: the graph is the
-state machine and it is deterministic, the model makes confidence-bearing
-decisions inside it, and the replies are the ones the customer wrote. An agent
-that can write whatever it wants is the fear; a graph the customer can read is
-the answer. Anyone technical who reads this section should conclude the opposite
-of what the competitor's copy would have them conclude.
-
-Written and not shipped, because the routing and policy phases have to deliver
-them: `Si no está seguro, no contesta` (the case goes to a person and you are
-told), `Si activas la redacción con IA, todo pasa por tus reglas`, and
-`Puedes desactivarlo`. They are in the source as comments.
+A separate section between pricing and FAQ explains configurable hours,
+reading and reply delays, random timing variation, read receipts, typing
+indicators, alternative phrasings, sender and account rate limits, and no
+unsolicited mass messaging. These controls may reduce risk but do not prevent
+account restrictions. The FAQ stays brief and links here, without discussing
+what happens after a ban. See ADR 0011 for implemented pacing and the open
+schedule dependency under `Current pitch`.
 
 ### 8. Use cases
 
@@ -569,26 +500,26 @@ because the generic set is a default, not a decision.
 
 ### What every plan includes
 
-Stated once, above the three cards, so it is not repeated nine times. Every
-item here is launch-safe, which is why this list is short:
+Stated once, above the three cards, so it is not repeated nine times. This
+describes the finished product, not capabilities ready to sell today:
 
-- Conectas el número de WhatsApp que ya usas, con QR o código.
-- Respuestas 24/7, con el ritmo y los límites de tu plan.
-- Tus reglas: qué contesta, qué no, y a quién.
-- Aislamiento entre cuentas, y exportación de tus datos.
+- Conectas el número de WhatsApp que ya usas con un QR.
+- La IA propone un flujo a partir del historial, solo si decides importarlo.
+- Tú revisas las respuestas, acciones y horarios antes de activarlo.
+- Las conversaciones de cada cuenta permanecen separadas.
 - Soporte por correo, en español.
 
 ### What differs
 
-Shipped as four rows per card. The rows the product cannot keep on day one are
-in the source as comments, with the phase each one waits for.
+Four rows per card. Further differences require commercial decisions, not
+more speculative marketing copy.
 
 | | Básico | Pro | Negocio |
 | --- | --- | --- | --- |
 | Position | `Para empezar a contestar` | `Para negocios con clientes` | `Para varios locales` |
 | Números de WhatsApp | 1 | 3 | 10 |
 | Mensajes al mes | 1,000 | 5,000 | 25,000 |
-| Flujos configurados | 2 | 10 | Ilimitados |
+| Flujos configurados | 2 | 10 | 50 |
 | Soporte | Por correo | Prioritario | Prioritario y llamada |
 
 Not shipped, and why:
@@ -609,19 +540,18 @@ is the author's.
 
 ### Prices
 
-Placeholders, to be replaced by the commercial decision. The annual price is
-the monthly one times ten, which is the standard framing of two months free, and
-the switch shows both.
+Recommended starting prices, all in USD. Annual billing is 30% off twelve
+monthly payments, charged once per year. No taxes are implied until the
+commercial policy is defined.
 
 | | Básico | Pro | Negocio |
 | --- | --- | --- | --- |
-| Mensual | `XX €` / `XX $` | `XX` | `XX` |
-| Anual (mensual equivalente) | `XX` | `XX` | `XX` |
-| Anual (total una vez) | `XXX` | `XXX` | `XXX` |
+| Monthly | $39 | $99 | $249 |
+| Annual (monthly equivalent) | $27.30 | $69.30 | $174.30 |
+| Annual (one charge) | $327.60 | $831.60 | $2,091.60 |
 
-Open, and it changes the page: currency, whether taxes are included in the
-displayed price, the exchange rate for a second currency, and whether the annual
-discount is ten months or a fixed percentage.
+Open before launch: whether displayed prices include taxes and whether these
+recommended prices remain the final commercial prices.
 
 ### How a plan becomes platform limits
 
@@ -660,87 +590,32 @@ Three consequences the page must respect:
 
 ## Claims guardrail
 
-Every block of copy is a promise. This table is the check: what the claim needs
-in order to be true, and whether the page may say it on day one. A claim whose
-row says `no` is **not in the rendered page**: it sits in the source as an HTML
-comment naming the phase it waits for, so a crawler reads it neither in the
-markup nor in the rendered text, and turning it on is uncommenting it.
+This waitlist describes the **finished product**, not the present implementation.
+Do not open checkout until the promises below are delivered and tested:
 
-| Block | Claim (ES) | Needs | Day one |
-| --- | --- | --- | --- |
-| 2 Hero | Responde siempre, en varios números | fleet, outbox | yes |
-| 5 Step 1 | Conectas tu número con un QR | pairing, no new number | yes |
-| 5 Step 2 | Nos lo describes y lo dejamos configurado | an operations promise | yes |
-| 5 Step 3 | Trabaja en la nube, sin equipos encendidos | hosting | yes |
-| 6 F1 | Responde de noche y los fines | outbox, no schedule | yes |
-| 6 F2 | Contesta con lo que escribiste, con variantes | prescribed replies | yes |
-| 6 F3 | No parece un robot | pacing policy | yes |
-| 6 F4 | Nadie recibe mensajes que no pidió | no unsolicited, no mass | yes |
-| 6 F5 | Conecta tus herramientas | request steps, templates | yes |
-| 6 F6 | Sin instalar nada | hosting | yes |
-| 7 yes | Trabaja con lo que le diste | prescribed replies, request steps | yes |
-| 7 no | Nada por su cuenta | pacing, no unsolicited | yes |
-| 9 | Mensajes al mes, contados | outbound ceiling | built |
-| 9 | Al llegar al límite deja de responder | storage pause, limit set | built |
-| 10 FAQ 1 | Sirve tu número, no uno nuevo | pairing | built |
-| 10 FAQ 2 | Te lo decimos si pide verificación | a disclosure policy, not a feature | built |
-| 10 FAQ 3 | No manda lo que sea | prescribed replies, rules | built |
-| 10 FAQ 4 | Cambiamos sin dejar de responder | hot reload, applied by us | built |
-| 10 FAQ 5 | Cuentas aisladas, sin cookies | isolation, no trackers | built |
-| 10 FAQ 6 | No necesitas saber programar | editor, review loop | Phase 15 |
-| 10 FAQ 7 | El comportamiento humano reduce el riesgo | pacing policy | built |
-| 11 | Aislamiento entre cuentas | scope isolation | built |
-| 11 | Sin cookies ni rastreadores | true by construction | built |
-
-Not on the page, each waiting for a phase:
-
-| Claim (ES) | Needs |
+| Customer-facing claim | Dependency |
 | --- | --- |
-| Entiende lo que escriben, sin comandos exactos | confidence routing |
-| Tomas el control de la conversación | manual takeover |
-| Queda registrado qué se pidió y por qué | live API, dashboard |
-| Si no está seguro, pasa a una persona | thresholds, escalation |
-| Exportar y borrar tus datos | data operations |
-| Historial de N días por plan | retention policy |
-| Control humano e integraciones por plan | takeover, public integration surface |
-| Contadores de uso para facturar | usage webhooks |
-| Onboarding asistido | an operations decision |
-| Acompañamos la verificación del teléfono | passkey relay, helpers |
-| Tiendas de plantillas, segundo canal | later phases |
+| AI proposes a flow from opt-in chat history | ROADMAP Phase 16 |
+| Visual review, simulation and self-service edits | ROADMAP Phase 15 |
+| AI selects approved paths and prewritten answers | PLAN Phase 8 |
+| Customer chooses business hours | **Not yet planned in the engine** |
+| Optional free-form AI writing is rule-bound | PLAN Phase 8 |
+| Pacing, read receipts, typing, variants and limits | ADR 0011 |
+| Monthly message and storage ceilings | PLAN Phase 7 |
 
-Three rules that follow:
-
-1. **The headline claims are launch-safe.** H1, sub, the three steps and the
-   whole FAQ are written from what exists. A promise about what we will tell you
-   when something goes wrong is a promise we can keep today, so those are in.
-2. **No claim without a counter or a log line behind it.** If nobody can see
-   it, we cannot support it.
-3. **Every `no` has a phase. When it ships, the comment is uncommented in the
-   same commit that turns the feature on.** A page that is wrong in the
-   optimistic direction is worse than a page that is short.
-
-Three rules that follow:
-
-1. **The headline claims are launch-safe.** H1, sub, and the three-step section
-   use only what exists. The attractive claims live in blocks marked `no`, so
-   turning the product on is turning a switch on.
-2. **No claim without a counter or a log line behind it.** If nobody can see
-   it, we cannot support it.
-3. **Every `no` has a phase. When it ships, the row becomes `yes` in the same
-   commit that turns the block on.** A page that is wrong in the optimistic
-   direction is worse than a page that is short.
-
-The page is written in Spanish, so the claim column is quoted in Spanish; `Needs`
-names the phase that has to deliver it, in this repository's own vocabulary.
+The account-care section says these controls can reduce risk, never that they
+prevent a restriction or that a particular percentage reduction is proven.
+The history import is opt-in, and the provider may not offer every chat.
+The customer, not an employee of Pautia, reviews and approves the result before
+activating the agent. The three plan prices are proposals until sales open.
 
 ## SEO and metadata
 
 - `lang` on each page: `es` and `en`, never a single document with two languages.
-- Title (ES): `Pautia — Agentes de IA para tu WhatsApp` (37 characters).
-- Description (ES): `Un agente de IA en tu WhatsApp de siempre. Responde lo que
-  te escriben, agenda, confirma y te avisa cuando hace falta.` (118 characters,
-  inside the limit). The English one is a translation of the same two sentences,
-  measured the same way.
+- Title (ES): `Pautia — Tu atención en WhatsApp, a tu manera`.
+- Description (ES): `Conecta tu WhatsApp. Pautia usa IA para proponerte un flujo
+  de atención basado en tus conversaciones. Revísalo, ajústalo y decide cuándo
+  responde.` English metadata makes the equivalent claims.
 - Canonical per page, `hreflang` with `es`, `en`, and `x-default` pointing at
   Spanish, reciprocal, in both heads.
 - Open Graph and Twitter card with one shared image, `1200x630`, the mark, the
@@ -934,9 +809,9 @@ Settled, and recorded here so nobody reopens them by accident:
 - **The login dialog is not on the page.** There is no account service to log
   into, so every call to action is a `mailto:` for the waitlist (block 14). The
   dialog returns with the signup form, not before.
-- **A claim the product cannot keep is not rendered.** The mechanism is an HTML
-  comment, not a flag: nothing an unbuilt phase promises appears in the markup a
-  crawler reads.
+- **The page presents the finished product, not today's backend.** The waitlist
+  prevents purchase while the editor, AI-assisted onboarding and configurable
+  schedules remain unfinished. Recheck every claim before opening sales.
 - **The card sells messages, not conversations.** The ceiling the platform
   enforces counts outbound messages, so that is what the card says.
 - **No `FAQPage` structured data.** Search engines stopped showing it for most
@@ -945,8 +820,8 @@ Settled, and recorded here so nobody reopens them by accident:
 
 Still open:
 
-- Prices, currency, taxes in the displayed price, and the annual discount. Every
-  price on the page is `XX €` until this is decided.
+- Recommended USD prices are $39, $99 and $249 monthly; annual billing is
+  30% off. Confirm final prices and tax treatment before opening sales.
 - Whether there is a free trial, and what its limits are; the page currently has
   no free plan because a trial needs a tenant provisioned before any money
   exists.
