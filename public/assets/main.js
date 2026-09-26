@@ -119,16 +119,6 @@
     // figure the author chose ($9) must come back exactly as it is, not as the
     // arithmetic of multiplying by one ($9,00).
     const converted = currency === "USD" ? 0 : rate();
-    const amounts = [...document.querySelectorAll(".price__amount[data-money]")];
-    const figures = amounts.map((node) =>
-      money(Number(node.dataset.usd) * converted, currency));
-
-    // One card decides for all: when an amount runs past four figures, every
-    // price puts its currency on a line of its own, so the price stops being one
-    // long shout and the table below the three cards stays level.
-    const stacked = converted
-      && figures.some((figure) => figure.replace(/\D/g, "").length >= 6);
-
     for (const node of document.querySelectorAll("[data-money]")) {
       const dollars = node.dataset.usdText || node.textContent;
       // The replacement is a function on purpose: a "$" inside it would be read
@@ -138,11 +128,17 @@
         continue;
       }
       const figure = money(Number(node.dataset.usd) * converted, currency);
-      node.textContent = dollars.replace(/[$€]\s?[\d][\d.,]*/, () =>
-        prefix(currency) + figure);
-      if (stacked && node.classList.contains("price__amount")) {
-        node.innerHTML = `<span class="price__symbol">${symbolOf(currency)}</span>`
+      if (node.classList.contains("price__amount")) {
+        // The currency reads as a label in front of the figure, in the small
+        // grey, so the money is the only thing shouting and the price takes less
+        // room on the card: MX$159,04, MX$1.219,30.
+        const symbol = symbolOf(currency);
+        node.innerHTML = `<span class="price__symbol">${symbol}</span>`
+          + (/^[A-Za-z]{3,}$/.test(symbol) ? " " : "")
           + `<span class="price__number">${figure}</span>`;
+      } else {
+        node.textContent = dollars.replace(/[$€]\s?[\d][\d.,]*/, () =>
+          prefix(currency) + figure);
       }
     }
 

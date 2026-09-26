@@ -345,9 +345,9 @@ with sync_playwright() as p:
     if set(money) != {"MXN"}:
         problems.append(f"currency: the structured data still says {money}")
 
-    # A long amount puts its currency on a line of its own, and all three cards
-    # do it together so the tables under them stay level.
-    stacked = page.evaluate("""() => {
+    # A converted price carries its currency as a small label in front of the
+    # figure, and the three cards stay level with each other.
+    labelled = page.evaluate("""() => {
       const cards = [...document.querySelectorAll('.plans__grid .plan:not(.plan--wide)')];
       return {
         symbols: cards.filter((card) => card.querySelector('.price--monthly .price__symbol')).length,
@@ -355,10 +355,10 @@ with sync_playwright() as p:
           card.querySelector('.plan__rows').getBoundingClientRect().top)))].length,
       };
     }""")
-    if stacked["symbols"] != 3:
-        problems.append(f"currency: {stacked['symbols']} of 3 prices put the currency above")
-    if stacked["tables"] != 1:
-        problems.append("currency: the tables do not line up once the price is long")
+    if labelled["symbols"] != 3:
+        problems.append(f"currency: {labelled['symbols']} of 3 prices name their currency")
+    if labelled["tables"] != 1:
+        problems.append("currency: the three tables do not line up in this currency")
     if "pautia:currency=MXN" not in page.evaluate("() => document.cookie"):
         problems.append("currency: the choice was not written down")
     page.reload(wait_until="networkidle")
@@ -407,7 +407,7 @@ with sync_playwright() as p:
       symbols: document.querySelectorAll('.price__symbol').length,
     })""")
     if back["symbols"]:
-        problems.append("currency: the currency stayed above the price in dollars")
+        problems.append("currency: the dollar prices carry a currency label")
     if back["prices"] != ["$9", "$39", "$69"]:
         problems.append(f"currency: the dollar prices came back as {back['prices']}")
     ctx.close()
