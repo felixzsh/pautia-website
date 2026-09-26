@@ -62,17 +62,17 @@
       { "@type": "Offer",
         "name": "Basic",
         "priceCurrency": "USD",
-        "price": "39",
+        "price": "9",
         "description": "Proposed monthly price." },
       { "@type": "Offer",
         "name": "Pro",
         "priceCurrency": "USD",
-        "price": "99",
+        "price": "39",
         "description": "Proposed monthly price." },
       { "@type": "Offer",
-        "name": "Business",
+        "name": "Plus",
         "priceCurrency": "USD",
-        "price": "249",
+        "price": "79",
         "description": "Proposed monthly price." }
     ]
   }
@@ -436,7 +436,6 @@
           <li>AI suggests a flow from your history, if you choose to import it.</li>
           <li>You review the answers, actions and hours before turning it on.</li>
           <li>Each account keeps its conversations separate from everyone else's.</li>
-          <li>Email support, in Spanish and English.</li>
         </ul>
 
         <div class="plans">
@@ -454,6 +453,50 @@
               <h3 class="plan__name">Basic</h3>
               <p class="plan__pitch">To start answering.</p>
               <p class="price price--monthly">
+                <span class="price__amount">$9</span>
+                <span class="price__unit">per month</span>
+              </p>
+              <p class="price price--yearly">
+                <span class="price__amount">$6.30</span>
+                <span class="price__unit">per month, billed yearly</span>
+              </p>
+              <p class="price__note note--monthly">Billed every month.</p>
+              <p class="price__note note--yearly">One charge of $75.60 per year.</p>
+              <a class="btn btn--ghost plan__cta"
+                href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia">
+                Join the waitlist</a>
+              <dl class="plan__rows">
+                <div class="row">
+                  <dt class="row__key">Declared agents</dt>
+                  <dd class="row__value">5</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Concurrent agents</dt>
+                  <dd class="row__value">1</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Declared actions</dt>
+                  <dd class="row__value">150</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Outgoing messages per month</dt>
+                  <dd class="row__value">3,000</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Message storage</dt>
+                  <dd class="row__value">50 MB</dd>
+                </div>
+                <!-- plan rows that need a phase: retention in days, integrations,
+                     human control per conversation, assisted onboarding.
+                     The internal plan, claims table. -->
+              </dl>
+            </article>
+
+            <article class="plan plan--top">
+              <span class="plan__tag">Recommended</span>
+              <h3 class="plan__name">Pro</h3>
+              <p class="plan__pitch">For businesses with customers.</p>
+              <p class="price price--monthly">
                 <span class="price__amount">$39</span>
                 <span class="price__unit">per month</span>
               </p>
@@ -463,65 +506,70 @@
               </p>
               <p class="price__note note--monthly">Billed every month.</p>
               <p class="price__note note--yearly">One charge of $327.60 per year.</p>
-              <a class="btn btn--ghost plan__cta"
-                href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia">
-                Join the waitlist</a>
-              <dl class="plan__rows">
-                <div class="row">
-                  <dt class="row__key">WhatsApp numbers</dt>
-                  <dd class="row__value">1</dd>
-                </div>
-                <div class="row">
-                  <dt class="row__key">Messages per month</dt>
-                  <dd class="row__value">1,000</dd>
-                </div>
-                <div class="row">
-                  <dt class="row__key">Configured flows</dt>
-                  <dd class="row__value">2</dd>
-                </div>
-                <div class="row">
-                  <dt class="row__key">Support</dt>
-                  <dd class="row__value">By email</dd>
-                </div>
-                <!-- plan rows that need a phase: retention in days, integrations,
-                     human control per conversation, assisted onboarding.
-                     LANDING.md, claims table. -->
-              </dl>
-            </article>
-
-            <article class="plan plan--top">
-              <span class="plan__tag">Recommended</span>
-              <h3 class="plan__name">Pro</h3>
-              <p class="plan__pitch">For businesses with customers.</p>
-              <p class="price price--monthly">
-                <span class="price__amount">$99</span>
-                <span class="price__unit">per month</span>
-              </p>
-              <p class="price price--yearly">
-                <span class="price__amount">$69.30</span>
-                <span class="price__unit">per month, billed yearly</span>
-              </p>
-              <p class="price__note note--monthly">Billed every month.</p>
-              <p class="price__note note--yearly">One charge of $831.60 per year.</p>
               <a class="btn btn--primary plan__cta"
                 href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia">
                 Join the waitlist</a>
               <dl class="plan__rows">
                 <div class="row">
-                  <dt class="row__key">WhatsApp numbers</dt>
-                  <dd class="row__value">3</dd>
+                  <dt class="row__key">Declared agents</dt>
+                  <dd class="row__value">50</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key">Messages per month</dt>
-                  <dd class="row__value">5,000</dd>
+                  <dt class="row__key">Concurrent agents</dt>
+                  <dd class="row__value">5</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key">Configured flows</dt>
+                  <dt class="row__key">Declared actions</dt>
+                  <dd class="row__value">500</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Outgoing messages per month</dt>
+                  <dd class="row__value">15,000</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Message storage</dt>
+                  <dd class="row__value">250 MB</dd>
+                </div>
+                <!-- plan rows that need a phase: same as Basic. -->
+              </dl>
+            </article>
+
+            <article class="plan">
+              <h3 class="plan__name">Plus</h3>
+              <p class="plan__pitch">For several locations or teams.</p>
+              <p class="price price--monthly">
+                <span class="price__amount">$79</span>
+                <span class="price__unit">per month</span>
+              </p>
+              <p class="price price--yearly">
+                <span class="price__amount">$55.30</span>
+                <span class="price__unit">per month, billed yearly</span>
+              </p>
+              <p class="price__note note--monthly">Billed every month.</p>
+              <p class="price__note note--yearly">One charge of $663.60 per year.</p>
+              <a class="btn btn--ghost plan__cta"
+                href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia">
+                Join the waitlist</a>
+              <dl class="plan__rows">
+                <div class="row">
+                  <dt class="row__key">Declared agents</dt>
+                  <dd class="row__value">100</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Concurrent agents</dt>
                   <dd class="row__value">10</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key">Support</dt>
-                  <dd class="row__value">Priority</dd>
+                  <dt class="row__key">Declared actions</dt>
+                  <dd class="row__value">1,000</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Outgoing messages per month</dt>
+                  <dd class="row__value">30,000</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Message storage</dt>
+                  <dd class="row__value">500 MB</dd>
                 </div>
                 <!-- plan rows that need a phase: same as Basic. -->
               </dl>
@@ -529,36 +577,44 @@
 
             <article class="plan">
               <h3 class="plan__name">Business</h3>
-              <p class="plan__pitch">For several locations or teams.</p>
+              <p class="plan__pitch">Tailored, with the team on it.</p>
               <p class="price price--monthly">
-                <span class="price__amount">$249</span>
-                <span class="price__unit">per month</span>
+                <span class="price__amount price__amount--text">On request</span>
+                <span class="price__unit">depending on what you need</span>
               </p>
               <p class="price price--yearly">
-                <span class="price__amount">$174.30</span>
-                <span class="price__unit">per month, billed yearly</span>
+                <span class="price__amount price__amount--text">On request</span>
+                <span class="price__unit">with the limits you set</span>
               </p>
-              <p class="price__note note--monthly">Billed every month.</p>
-              <p class="price__note note--yearly">One charge of $2091.60 per year.</p>
+              <p class="price__note note--monthly">No fixed price: we define it with you.</p>
+              <p class="price__note note--yearly">No fixed price: we define it with you.</p>
               <a class="btn btn--ghost plan__cta"
                 href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia">
                 Join the waitlist</a>
               <dl class="plan__rows">
                 <div class="row">
-                  <dt class="row__key">WhatsApp numbers</dt>
-                  <dd class="row__value">10</dd>
+                  <dt class="row__key">Declared agents</dt>
+                  <dd class="row__value">Tailored</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key">Messages per month</dt>
-                  <dd class="row__value">25,000</dd>
+                  <dt class="row__key">Concurrent agents</dt>
+                  <dd class="row__value">Tailored</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key">Configured flows</dt>
-                  <dd class="row__value">50</dd>
+                  <dt class="row__key">Declared actions</dt>
+                  <dd class="row__value">Tailored</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key">Support</dt>
-                  <dd class="row__value">Priority and a call</dd>
+                  <dt class="row__key">Outgoing messages per month</dt>
+                  <dd class="row__value">Tailored</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Message storage</dt>
+                  <dd class="row__value">Tailored</dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">Personalized attention</dt>
+                  <dd class="row__value">With the team</dd>
                 </div>
                 <!-- plan rows that need a phase: same as Basic. -->
               </dl>
@@ -566,8 +622,26 @@
           </div>
         </div>
 
-        <p class="plans__note">Limits count sent messages, not conversations. When the
+        <p class="plans__note">A declared agent is one you define and keep ready; a
+          concurrent one is the one that can be answering at that moment. You can declare
+          more than you run, and turn them on in shifts.</p>
+
+        <p class="plans__note">Limits count outgoing messages, not conversations. When the
           maximum is reached, the agent stops sending replies until capacity is available.</p>
+
+        <dl class="facts">
+          <div class="fact">
+            <dt>Text only</dt>
+            <dd>Storage keeps the text of the messages only. We do not store images, audio,
+              video or any other media file.</dd>
+          </div>
+          <div class="fact">
+            <dt>You can export</dt>
+            <dd>When storage fills up, you export your messages and delete them to make room
+              for the new ones. The capacity is small on purpose; the history is yours and it
+              leaves with you.</dd>
+          </div>
+        </dl>
       </div>
     </section>
 

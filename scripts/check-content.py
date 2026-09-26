@@ -26,16 +26,16 @@ class Page(HTMLParser):
             self.in_json = False
 
 
-for filename, phrases in (
-    ("public/index.html", ("desde cero", "importar", "sin programar")),
-    ("public/en/index.html", ("from scratch", "import", "without coding")),
+for filename, phrases, thousands in (
+    ("public/index.html", ("desde cero", "importar", "sin programar"), "."),
+    ("public/en/index.html", ("from scratch", "import", "without coding"), ","),
 ):
     html = Path(filename).read_text()
     page = Page()
     page.feed(html)
     offers = json.loads(page.json)["offers"]
     cards = re.findall(r'<article class="plan(?: plan--top)?">.*?</article>', html, re.S)
-    assert len(cards) == len(offers) == 3, filename
+    assert len(cards) == 4 and len(offers) == 3, filename
     assert html.count('<li class="step">') == 3, filename
     visible = re.sub(r"<!--.*?-->", "", html, flags=re.S)
     assert all(phrase in visible for phrase in phrases), filename
@@ -45,11 +45,28 @@ for filename, phrases in (
         re.I,
     ), filename
 
-    for card, offer, monthly in zip(cards, offers, (39, 99, 249)):
+    for card, offer, monthly in zip(cards, offers, (9, 39, 79)):
         annual = Decimal(monthly) * Decimal("0.70")
         assert offer["priceCurrency"] == "USD" and offer["price"] == str(monthly)
         assert f'class="price__amount">${monthly}<' in card
         assert f'class="price__amount">${annual:.2f}<' in card
         assert f'${annual * 12:.2f}' in card
+
+    # Declared agents, concurrent agents, declared actions, outgoing messages and
+    # message storage, in that order. The last plan is quoted, not counted.
+    def group(value):
+        return f"{value:,}".replace(",", thousands) if isinstance(value, int) else value
+
+    limits = [[group(n) for n in row] for row in (
+        (5, 1, 150, 3000, "50 MB"),
+        (50, 5, 500, 15000, "250 MB"),
+        (100, 10, 1000, 30000, "500 MB"),
+    )]
+    for card, expected in zip(cards, limits):
+        values = re.findall(r'<dd class="row__value">([^<]*)</dd>', card)
+        assert values == expected, (filename, values, expected)
+
+    quoted = re.findall(r'<dd class="row__value">([^<]*)</dd>', cards[3])
+    assert len(quoted) == 6, filename  # the five limits plus personalized attention
 
 print("Bilingual prices, structured data and pitch: OK")

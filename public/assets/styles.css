@@ -781,7 +781,7 @@ ol {
 
 @media (min-width: 900px) {
   .plans__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -835,6 +835,12 @@ ol {
   font-weight: 650;
   letter-spacing: -0.03em;
   line-height: 1;
+}
+
+.price__amount--text {
+  font-size: var(--step-2);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
 }
 
 .price__unit {
