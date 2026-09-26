@@ -781,7 +781,7 @@ ol {
 
 @media (min-width: 900px) {
   .plans__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -798,6 +798,49 @@ ol {
 .plan--top {
   border-color: var(--brand-600);
   box-shadow: var(--shadow-2);
+}
+
+/* The quoted plan is a band under the three priced ones: it spans every column
+   and reads left to right, so it does not repeat limits it already inherits. */
+.plan--wide {
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: var(--space-4) var(--space-6);
+}
+
+@media (min-width: 760px) {
+  .plan--wide {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .plan--wide .plan__lead {
+    flex: 0 1 320px;
+  }
+
+  .plan--wide .plan__pitch {
+    min-height: 0;
+  }
+
+  .plan--wide .plan__quote {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  .plan--wide .price,
+  .plan--wide .price__note {
+    margin-top: 0;
+  }
+
+  .plan--wide .plan__quote .price__note {
+    margin-top: var(--space-1);
+  }
+
+  .plan--wide .plan__cta {
+    flex: 0 0 auto;
+    margin-top: 0;
+  }
 }
 
 .plan__tag {

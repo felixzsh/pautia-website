@@ -34,7 +34,7 @@ for filename, phrases, thousands in (
     page = Page()
     page.feed(html)
     offers = json.loads(page.json)["offers"]
-    cards = re.findall(r'<article class="plan(?: plan--top)?">.*?</article>', html, re.S)
+    cards = re.findall(r'<article class="plan(?: plan--\w+)?">.*?</article>', html, re.S)
     assert len(cards) == 4 and len(offers) == 3, filename
     assert html.count('<li class="step">') == 3, filename
     visible = re.sub(r"<!--.*?-->", "", html, flags=re.S)
@@ -66,7 +66,9 @@ for filename, phrases, thousands in (
         values = re.findall(r'<dd class="row__value">([^<]*)</dd>', card)
         assert values == expected, (filename, values, expected)
 
-    quoted = re.findall(r'<dd class="row__value">([^<]*)</dd>', cards[3])
-    assert len(quoted) == 6, filename  # the five limits plus personalized attention
+    # The quoted plan sits under the three priced ones and inherits them, so it
+    # repeats no limit.
+    assert 'plan--wide' in cards[3], filename
+    assert "row__value" not in cards[3], filename
 
 print("Bilingual prices, structured data and pitch: OK")
