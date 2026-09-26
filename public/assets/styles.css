@@ -1042,6 +1042,12 @@ ol {
   font-weight: 650;
 }
 
+/* The card that recommends itself carries a tag; the others reserve the same
+   room with the same box, hidden, so every plan starts on the same line. */
+.plan__tag--blank {
+  visibility: hidden;
+}
+
 .plan__name {
   font-size: var(--step-2);
 }

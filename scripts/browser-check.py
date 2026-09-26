@@ -226,6 +226,17 @@ with sync_playwright() as p:
                 problems.append(f"{name}-{label}: the period switch is {bar['centred']}px off centre")
             if bar["gap"] > 24:
                 problems.append(f"{name}-{label}: {bar['gap']}px between the controls and the plans")
+            # Every card starts on the same line, whether or not it wears the
+            # "Recommended" tag: the ones without it reserve the same room.
+            # (Only when the cards sit side by side: stacked, each one starts its
+            # own row and lining up means nothing.)
+            starts = page.evaluate("""() => [...document.querySelectorAll(
+              '.plans__grid .plan:not(.plan--wide)'
+            )].map((card) => Math.round(
+              card.querySelector('.plan__name').getBoundingClientRect().top))""")
+            if width >= 900 and len(set(starts)) > 1:
+                problems.append(f"{name}-{label}: the plan names do not line up: {starts}")
+
             if width >= 640 and (abs(bar["sameHeight"]) > 2 or abs(bar["sameTop"]) > 2):
                 problems.append(
                     f"{name}-{label}: the two controls do not line up: "
