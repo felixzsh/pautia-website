@@ -18,8 +18,7 @@ support flow.** Connecting your number is easy. Importing history is optional;
 if you choose it, AI suggests prepared answers and actions from your real
 conversations. You review and adjust the flow, connect your services, test it,
 choose working hours and only then activate the agent. AI helps select the
-approved path; prepared replies are the default. Free-form generation is an
-explicit option, never the starting mode.
+approved path; replies come from text you reviewed, not AI-written messages.
 
 In customer-facing copy use `flujo de atención` / `support flow`, not `grafo`,
 `graph`, `determinista` or `deterministic`. Never frame overnight availability
@@ -315,17 +314,16 @@ and the available history depends on what WhatsApp provides.
 
 Nine cards, three columns on desktop. They cover configurable hours,
 prewritten reply variants, pacing, no unsolicited outreach, connections to
-customer services, hosted operation, an AI-suggested first draft, review in a
+customer services, your existing number, an AI-suggested first draft, review in a
 visual editor and customer-managed changes. Night-time availability is merely
 an optional schedule, never the pitch.
 
 ### 7. AI within the customer's rules
 
 `La IA propone. Tú decides qué puede hacer.` The AI recommends a flow and
-recognizes which approved path fits a message; prepared responses are the
-default. Free-form AI writing is an explicit opt-in governed by the customer's
-rules. Avoid absolute claims such as "the model can never generate text" that
-would contradict this optional mode.
+recognizes which approved path fits a message. It chooses approved responses
+and actions, rather than writing new replies to customers. The page does not
+advertise the optional text-generation capability that exists in the engine.
 
 ### Account care
 
@@ -599,7 +597,7 @@ Do not open checkout until the promises below are delivered and tested:
 | Visual review, simulation and self-service edits | ROADMAP Phase 15 |
 | AI selects approved paths and prewritten answers | PLAN Phase 8 |
 | Customer chooses business hours | **Not yet planned in the engine** |
-| Optional free-form AI writing is rule-bound | PLAN Phase 8 |
+| AI selects approved replies and actions | PLAN Phase 8 |
 | Pacing, read receipts, typing, variants and limits | ADR 0011 |
 | Monthly message and storage ceilings | PLAN Phase 7 |
 
