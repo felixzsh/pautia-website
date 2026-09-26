@@ -151,6 +151,19 @@ with sync_playwright() as p:
                 problems.append(
                     f"{name}-{label}: headline is {page.locator('h1').inner_text()!r}"
                 )
+
+            # A limit is one thing on one line: "50 MB", never "50" over "MB".
+            split = page.evaluate("""() => {
+              const bad = [];
+              for (const value of document.querySelectorAll('.row__value')) {
+                const range = document.createRange();
+                range.selectNodeContents(value);
+                if (range.getClientRects().length > 1) bad.push(value.textContent.trim());
+              }
+              return bad;
+            }""")
+            if split:
+                problems.append(f"{name}-{label}: a plan value wraps: {split}")
             page.screenshot(path=str(OUT / f"{name}-{label}.png"), full_page=True)
 
             b = budget(page, f"{BASE}/")

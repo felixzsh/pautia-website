@@ -881,13 +881,16 @@ ol {
 
 .plans__grid {
   display: grid;
+  /* minmax(0, 1fr), not 1fr: a track may not grow past its content, because
+     Spanish is longer than English and would push the grid past the viewport. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-5);
   align-items: start;
 }
 
 @media (min-width: 900px) {
   .plans__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -1051,9 +1054,13 @@ ol {
 }
 
 .row__value {
+  /* "50 MB" is one thing, not two: it never breaks, and the label is what wraps
+     if the row gets tight. */
+  flex: 0 0 auto;
   color: var(--ink-900);
   font-weight: 600;
   text-align: right;
+  white-space: nowrap;
 }
 
 .plans__note {
