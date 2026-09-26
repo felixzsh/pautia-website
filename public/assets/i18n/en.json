@@ -181,7 +181,7 @@
   "problem.say.2": "The difference is where you begin, not what the agent can do.",
   "security-t.h2.0": "Your data, clear rules",
   "security.dd.0": "Every account lives in its own space, isolated from the others. One customer's conversations never mix with another's.",
-  "security.dd.1": "This page uses no cookies, no trackers and no third-party scripts. You can read it with external connections blocked.",
+  "security.dd.1": "This page uses no cookies, no trackers and no third-party scripts. Its only external call is the exchange rate you see next to each price; with external connections blocked you can still read it, minus that number.",
   "security.dt.0": "Isolation",
   "security.dt.1": "No cookies here",
   "usecases-t.h2.0": "For businesses like yours",

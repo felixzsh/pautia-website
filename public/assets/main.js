@@ -19,6 +19,55 @@
     node.textContent = year;
   }
 
+  /* What each price is in pesos, at the day's rate. Prices are always in
+     dollars; the caption is an approximation, and an approximation nobody can
+     fetch is worse than no number at all, so if the rate never arrives the
+     caption never appears. One request a day, kept in localStorage. */
+  const RATE = { key: "pautia:rate", url: "https://open.er-api.com/v6/latest/USD",
+                 day: 86400000 };
+
+  let lastRate = 0;
+
+  function pesos(rate) {
+    lastRate = rate;
+    const thousands = document.documentElement.lang === "es" ? "." : ",";
+    for (const price of document.querySelectorAll(".price__amount")) {
+      const amount = parseFloat(price.textContent.replace(/[^0-9.]/g, ""));
+      if (!amount) continue;                    // "Custom price"
+      let note = price.parentNode.querySelector(".price__mxn");
+      if (!note) {
+        note = document.createElement("span");
+        note.className = "price__mxn";
+        price.parentNode.append(note);
+      }
+      // Written again whenever the language changes, so the thousands mark
+      // agrees with the table: 1.396 in Spanish, 1,396 in English.
+      note.textContent = "≈ " + Math.floor(amount * rate)
+        .toString().replace(/\B(?=(\d{3})+(?!\d))/g, thousands) + " MXN";
+    }
+  }
+
+  function exchangeRate() {
+    let cached = null;
+    try {
+      cached = JSON.parse(localStorage.getItem(RATE.key));
+    } catch {}
+    if (cached && Date.now() - cached.at < RATE.day) return pesos(cached.mxn);
+    fetch(RATE.url, { credentials: "omit" })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => {
+        const mxn = data && data.result === "success" && data.rates.MXN;
+        if (!mxn) return;
+        try {
+          localStorage.setItem(RATE.key, JSON.stringify({ at: Date.now(), mxn }));
+        } catch {}
+        pesos(mxn);
+      })
+      .catch(() => {});
+  }
+
+  exchangeRate();
+
   const list = JSON.parse(document.getElementById("languages").textContent);
   const page = document.documentElement;
   const strings = {};         // file name -> { key: text }
@@ -41,6 +90,7 @@
   function paint(lang) {
     const table = strings[lang.file] || {};
     page.lang = lang.code;
+    if (lastRate) pesos(lastRate);
     shown = lang.code;
 
     for (const node of document.querySelectorAll("[data-i18n]")) {

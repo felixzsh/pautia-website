@@ -982,8 +982,19 @@ ol {
 .price {
   display: flex;
   align-items: baseline;
+  /* The peso note joins the line when there is room for it and goes under it
+     when there is not: a price must never be pushed out of its card. */
+  flex-wrap: wrap;
   gap: var(--space-2);
   margin-top: var(--space-5);
+}
+
+.price__mxn {
+  align-self: flex-start;
+  color: var(--ink-500);
+  font-size: var(--step--1);
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 .price__amount {

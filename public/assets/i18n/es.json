@@ -181,7 +181,7 @@
   "problem.say.2": "La diferencia es el punto de partida, no lo que puede hacer el agente.",
   "security-t.h2.0": "Tus datos, con reglas claras",
   "security.dd.0": "Cada cuenta vive en su propio espacio, aislada de las demás. Las conversaciones de un cliente nunca se mezclan con las de otro.",
-  "security.dd.1": "Esta página no usa cookies, rastreadores ni scripts de terceros. Puedes leerla con las conexiones externas bloqueadas.",
+  "security.dd.1": "Esta página no usa cookies, rastreadores ni scripts de terceros. Su única llamada externa es el tipo de cambio que ves junto a cada precio; con las conexiones bloqueadas se lee igual, sin esa cifra.",
   "security.dt.0": "Aislamiento",
   "security.dt.1": "Sin cookies aquí",
   "usecases-t.h2.0": "Para negocios como el tuyo",

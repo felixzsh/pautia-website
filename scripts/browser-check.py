@@ -197,6 +197,31 @@ with sync_playwright() as p:
             }""")
             if split:
                 problems.append(f"{name}-{label}: a plan value wraps: {split}")
+
+            # The peso note under each price: written only if the rate arrived,
+            # and then with the thousands mark this language writes. The rate is
+            # external, so a network that is down must not fail the check.
+            notes = page.evaluate("""() => {
+              const bad = [];
+              for (const price of document.querySelectorAll('.price__amount')) {
+                const amount = parseFloat(price.textContent.replace(/[^0-9.]/g, ''));
+                const note = price.parentNode.querySelector('.price__mxn');
+                if (!note) continue;
+                const thousands = document.documentElement.lang === 'es' ? '.' : ',';
+                const shown = note.textContent.match(/[\\d,.]+/);
+                const cached = JSON.parse(localStorage.getItem('pautia:rate') || '{}');
+                const expected = shown && cached.mxn
+                  ? Math.floor(amount * cached.mxn).toLocaleString('en-US')
+                    .replace(/,/g, thousands)
+                  : null;
+                if (!shown || (expected && shown[0] !== expected)) {
+                  bad.push(price.textContent.trim() + ' -> ' + note.textContent);
+                }
+              }
+              return bad;
+            }""")
+            if notes:
+                problems.append(f"{name}-{label}: a wrong peso note: {notes}")
             page.screenshot(path=str(OUT / f"{name}-{label}.png"), full_page=True)
 
             b = budget(page, f"{BASE}/")
