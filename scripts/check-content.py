@@ -9,9 +9,13 @@ languages never drift apart on the numbers.
 
 import json
 import re
+import sys
 from decimal import Decimal
 from html.parser import HTMLParser
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+import i18n
 
 PAGE = Path("public/index.html")
 I18N = Path("public/assets/i18n")
@@ -66,23 +70,30 @@ class Page(HTMLParser):
 
 
 page = Page()
-page.feed(PAGE.read_text())
+html = PAGE.read_text()
+page.feed(html)
 languages = json.loads(page.json["languages"])
-source = languages[0]
-assert "file" not in source, "the first language is the page itself, it has no file"
+
+# The first language is the one the page is written in, and its dictionary is
+# written from the page by scripts/i18n.py, so the two cannot drift.
+source = i18n.page_language(html)
+assert languages[0]["code"] == source, "the list and the page disagree on the language"
+generated = i18n.written(i18n.extract(html))
+own = I18N / languages[0]["file"]
+assert own.exists(), f"missing {own}: run make i18n"
+assert own.read_text() == generated, f"{own} is out of date: run make i18n"
 
 strings = {}
-for lang in languages[1:]:
+for lang in languages:
     path = I18N / lang["file"]
     assert path.exists(), f"{lang['code']}: {path} is listed but missing"
     strings[lang["code"]] = json.loads(path.read_text())
 
 # Every file in the folder is a language the page offers, and the other way round.
 on_disk = {p.name for p in I18N.glob("*.json")}
-listed = {lang["file"] for lang in languages[1:]}
+listed = {lang["file"] for lang in languages}
 assert on_disk == listed, f"language files and list differ: {on_disk ^ listed}"
 
-html = PAGE.read_text()
 visible = re.sub(r"<!--.*?-->", "", html, flags=re.S)
 keys = set(page.keys) | {key for _, key in page.attr_keys}
 
@@ -125,9 +136,9 @@ for card, offer, monthly in zip(cards, offers, (9, 39, 79)):
     assert f'class="price__amount">${annual:.2f}<' in card
     assert f'${annual * 12:.2f}' in card
 
-# The limits of the three priced plans, in the order the page lists them. The
-# quantity is the same everywhere; the thousands mark is a language detail, so
-# only the digits are compared.
+# The limits of the three priced plans, in the order the page lists them. Every
+# language has to sell the same quantity; the thousands mark is a language
+# detail, so only the digits are compared.
 ROWS = (
     (5, 1, 200, 3000, "50 MB"),
     (50, 5, 1000, 15000, "250 MB"),
@@ -144,11 +155,9 @@ for card, row in zip(cards, ROWS):
     assert len(keys) == 5, keys
     for key, value in zip(keys, row):
         expected = f"{value:,}" if isinstance(value, int) else value
-        shown = re.search(
-            r'data-i18n="%s">([^<]*)</dd>' % re.escape(key), card).group(1)
-        assert digits(shown) == digits(expected), (key, shown, expected)
         for code, table in strings.items():
-            assert digits(table[key]) == digits(expected), (code, key, table[key])
+            assert digits(table[key]) == digits(expected), \
+                (code, key, table[key], expected)
 
 # The fourth plan is quoted, not counted, and sells nothing yet.
 assert "plan--wide" in cards[3]

@@ -27,28 +27,29 @@
   <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="/assets/styles.css">
 
-  <!-- The languages this page speaks. The first one is the language the page is
-       written in, and it needs no file: it is right there in the markup, which is
-       also what a visitor without JavaScript reads. Every other language is one
-       JSON file in /assets/i18n, and a key it does not translate falls back to
-       English. To add a language: write the file, add it to this list. -->
+  <!-- The languages this page speaks, all of them a file in /assets/i18n. The
+       first one is the language the page is written in, and its file is written
+       by `make i18n` from this page, so the two can never drift. A key a
+       language does not translate keeps the text already in the markup, so a
+       half-translated language degrades to the page's own instead of leaving
+       holes. To add a language: write its file, add it to this list. -->
   <script type="application/json" id="languages">
     [
-      { "code": "en", "name": "English" },
+      { "code": "en", "name": "English", "file": "en.json" },
       { "code": "es", "name": "Español", "file": "es.json" }
     ]
   </script>
 
   <script>
-    // The language the visitor chose, read before the page paints so the
-    // dictionary is already on its way when the first text needs it. The swap
-    // itself lives in assets/main.js, with everything else.
+    // The language the visitor chose, read before the page paints so its
+    // dictionary is already on its way when the first text needs it. The page's
+    // own language is the text already in the markup, so it needs no file.
     (() => {
       try {
         const want = localStorage.getItem("pautia:lang");
         const list = JSON.parse(document.getElementById("languages").textContent);
-        const lang = list.find((l) => l.code === want && l.file);
-        if (!lang) return;
+        const lang = list.find((l) => l.code === want);
+        if (!lang || lang === list[0]) return;
         document.documentElement.dataset.lang = lang.code;
         const link = document.createElement("link");
         link.rel = "preload";

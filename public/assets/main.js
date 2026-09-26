@@ -1,13 +1,13 @@
 /* Pautia landing page. Two behaviors, no dependencies and no libraries: the
    copyright year, and the language.
 
-   The page is written in the first language of the list in its head, and every
-   text another language translates carries a data-i18n key. Switching puts the
-   strings of that language in their place, in the page the visitor is already
-   reading: no navigation, no reload, and the price switch and the open answers
-   stay as they were. A key a language does not translate keeps the text already
-   in the markup, so a half-translated language degrades to English instead of
-   leaving holes. */
+   Every language is a file in /assets/i18n, including the one the page is
+   written in, and every text a language translates carries a data-i18n key.
+   Switching puts the strings of that language in their place, in the page the
+   visitor is already reading: no navigation, no reload, and the price switch
+   and the open answers stay as they were. A key a language does not translate
+   keeps the text already in the markup, so a half-translated language degrades
+   to the page's own instead of leaving holes. */
 
 (() => {
   "use strict";
@@ -21,8 +21,9 @@
 
   const list = JSON.parse(document.getElementById("languages").textContent);
   const page = document.documentElement;
-  const loaded = {};          // file name -> { key: text }
-  let wanted = list[0].code;  // what the visitor asked for, loads included
+  const strings = {};         // file name -> { key: text }
+  let wanted = list[0].code;  // what the visitor asked for, fetches included
+  let shown = list[0].code;   // what the page is saying right now
 
   function remember(code) {
     try {
@@ -30,19 +31,26 @@
     } catch {}
   }
 
-  function paint(lang) {
-    const strings = loaded[lang.file] || null;
-    if (lang.file && !strings) return false;
+  function mark(code) {
+    for (const link of document.querySelectorAll("[data-lang-option]")) {
+      link.setAttribute("aria-current",
+        link.dataset.langOption === code ? "true" : "false");
+    }
+  }
 
+  function paint(lang) {
+    const table = strings[lang.file] || {};
     page.lang = lang.code;
+    shown = lang.code;
+
     for (const node of document.querySelectorAll("[data-i18n]")) {
-      const text = strings && strings[node.dataset.i18n];
+      const text = table[node.dataset.i18n];
       if (text) node.textContent = text;
     }
     for (const node of document.querySelectorAll("[data-i18n-attrs]")) {
       for (const pair of node.dataset.i18nAttrs.split(",")) {
         const [attr, key] = pair.split(":");
-        const text = strings && strings[key];
+        const text = table[key];
         if (text) node.setAttribute(attr, text);
       }
     }
@@ -51,29 +59,25 @@
     if (data) {
       const schema = JSON.parse(data.textContent);
       schema.inLanguage = lang.code;
-      const description = strings && strings["meta.description"];
-      if (description) schema.description = description;
+      if (table["meta.description"]) schema.description = table["meta.description"];
       data.textContent = JSON.stringify(schema, null, 2);
     }
 
-    for (const link of document.querySelectorAll("[data-lang-option]")) {
-      link.setAttribute("aria-current",
-        link.dataset.langOption === lang.code ? "true" : "false");
-    }
-    return true;
+    mark(lang.code);
   }
 
   function apply(code) {
     const lang = list.find((item) => item.code === code) || list[0];
     wanted = lang.code;
     remember(lang.code);
-    if (paint(lang) || !lang.file) return;
+    if (lang.code === shown) return;           // the page is already saying it
+    if (strings[lang.file]) return paint(lang);
 
     fetch(`/assets/i18n/${lang.file}`, { credentials: "omit" })
       .then((response) => (response.ok ? response.json() : null))
-      .then((strings) => {
-        if (!strings) return;
-        loaded[lang.file] = strings;
+      .then((table) => {
+        if (!table) return;
+        strings[lang.file] = table;
         // The visitor may have picked another language while this was in flight.
         if (wanted === lang.code) paint(lang);
       })
@@ -113,6 +117,9 @@
   }
 
   picker();
-  // The head already decided which language was asked for and preloaded it.
-  apply(page.dataset.lang || list[0].code);
+  mark(shown);
+  // The page already says its own language, so there is nothing to fetch unless
+  // the visitor asked for another one before.
+  const stored = page.dataset.lang;
+  if (stored) apply(stored);
 })();

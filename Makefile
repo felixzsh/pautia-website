@@ -12,7 +12,10 @@ check:
 check-browser:
 	@python3 scripts/browser-check.py
 
+i18n:
+	@python3 scripts/i18n.py
+
 og:
 	@python3 scripts/og.py
 
-.PHONY: serve check check-browser og
+.PHONY: serve check check-browser i18n og

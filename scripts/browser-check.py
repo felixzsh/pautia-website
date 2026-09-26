@@ -151,20 +151,29 @@ with sync_playwright() as p:
     page.screenshot(path=str(OUT / "dark.png"))
     ctx.close()
 
-    # The choice survives a reload, and the page is whole without any script.
+    # The choice survives a reload, and coming back to a language the page was
+    # not written in puts its text back, not only its lang attribute. This is the
+    # round trip that used to pass while the page stayed in the other language.
     ctx = browser.new_context(viewport={"width": 1280, "height": 900})
     page = ctx.new_page()
     page.goto(f"{BASE}/", wait_until="networkidle")
     page.locator(".lang__summary").click()
     page.locator('[data-lang-option="es"]').click()
     page.wait_for_function("() => document.documentElement.lang === 'es'", timeout=5000)
+    if page.locator("h1").inner_text().strip() != HEADLINES["es"]:
+        problems.append("round trip: switching to Spanish left the text in English")
     page.reload(wait_until="networkidle")
-    if page.locator("html").get_attribute("lang") != "es":
+    if page.locator("html").get_attribute("lang") != "es" \
+            or page.locator("h1").inner_text().strip() != HEADLINES["es"]:
         problems.append("reload: the chosen language was forgotten")
     page.locator(".lang__summary").click()
     page.locator('[data-lang-option="en"]').click()
-    if page.locator("html").get_attribute("lang") != "en":
-        problems.append("back to English did not take")
+    page.wait_for_function("() => document.documentElement.lang === 'en'", timeout=5000)
+    if page.locator("h1").inner_text().strip() != HEADLINES["en"]:
+        problems.append("round trip: coming back to English left the text in Spanish")
+    page.reload(wait_until="networkidle")
+    if page.locator("h1").inner_text().strip() != HEADLINES["en"]:
+        problems.append("reload: English did not come back")
     ctx.close()
 
     ctx = browser.new_context(java_script_enabled=False,

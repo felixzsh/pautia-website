@@ -24,16 +24,27 @@ to stay green.
 ## Languages
 
 One page, one URL, every text translated in place. The page is written in the
-first language of the list in its head (English), which is also what a visitor
-without JavaScript reads. Each other language is one file in
+first language of the list in its head, and that English is also what a visitor
+without JavaScript reads. Every language, that one included, is a file in
 `public/assets/i18n/`, and the picker in the header swaps the text of the page
 the visitor is already reading: no navigation, no reload, and the price switch
 and the open answers stay as they were.
 
+```
+make i18n            # rewrite the dictionary of the page's own language
+```
+
+`en.json` is written by that command from the page itself, the same way `og.png`
+is drawn by `make og`, so the two copies of the same text cannot drift: change
+the English in `index.html`, run `make i18n`, and `make check` fails until you
+do. The other languages are written by hand, because a translation cannot be
+generated.
+
 **To add a language:** write `public/assets/i18n/<code>.json` with the same keys
-as `es.json`, and add it to the list in the head of `index.html`. Nothing else.
-A key the new file leaves out keeps the English, so a half-finished translation
-degrades instead of breaking, and `make check` tells you which keys are missing.
+as `en.json`, and add it to the list in the head of `index.html`. Nothing else.
+A key the new file leaves out keeps the text already in the markup, so a
+half-finished translation degrades instead of breaking, and `make check` tells
+you which keys are missing.
 
 To translate a new string that appears in the page, give its element a
 `data-i18n="<key>"` and add the key to every language file. The element must hold
