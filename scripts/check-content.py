@@ -131,9 +131,19 @@ for code, table in strings.items():
         r"self-hosted|open source|sin c[oó]digo",
         blob, re.I), f"{code}: a dictionary says something the page may not"
 
-# The claims the page makes, in the language it is written in.
-for phrase in ("from scratch", "import", "without coding"):
-    assert phrase in visible, phrase
+# The claims a customer has to read, in every language that carries them. Checked
+# in the dictionaries and not in the markup, because either of them can be the
+# one the page is written in.
+CLAIMS = {
+    "es": ("desde cero", "import", "sin programar"),
+    "en": ("from scratch", "import", "without coding"),
+}
+for code, table in strings.items():
+    if code not in CLAIMS:
+        continue
+    blob = " ".join(table.values()).lower()
+    for phrase in CLAIMS[code]:
+        assert phrase in blob, f"{code}: the page stopped claiming {phrase!r}"
 
 offers = json.loads(
     re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S).group(1)
@@ -177,9 +187,12 @@ for card, row in zip(cards, ROWS):
 # The fourth plan is quoted, not counted, and sells nothing yet.
 assert "plan--wide" in cards[3]
 assert "row__value" not in cards[3]
-assert "Custom price" in cards[3]
+# The quoted plan says its price in the language the page is written in.
+assert strings[languages[0]["code"]]["plans.price-amount.0"] in cards[3]
 assert "plan__cta" not in visible, "no card sells anything until there is a checkout"
-assert "Billed every month" not in visible
+renewal = ("Se renueva cada mes", "Billed every month")
+assert not any(phrase in visible for phrase in renewal), \
+    "a monthly note that says what the switch already says"
 
 print(f"{len(page.keys)} textos y {len(page.attr_keys)} atributos con clave, "
       f"traducidos en {', '.join(f'{c} ({len(t)})' for c, t in strings.items())}: OK")

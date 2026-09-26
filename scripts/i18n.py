@@ -6,7 +6,7 @@ it as a dictionary too, so that every language is a file and none of them is a
 special case. Rather than keep two copies of the same text in two places by
 hand, this writes the file from the page:
 
-    make i18n            # rewrite public/assets/i18n/en.json
+    make i18n            # rewrite the dictionary of the default language
     python3 i18n.py --check   # say whether the file is up to date
 
 The other languages are written by hand: a translation cannot be generated.
