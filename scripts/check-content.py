@@ -103,6 +103,20 @@ for code, table in strings.items():
     orphans = sorted(set(table) - keys)
     assert not orphans, f"{code}: {len(orphans)} keys the page never reads: {orphans[:5]}"
 
+# A phrase in two or more words that reads the same in both languages is prose
+# nobody translated. Numbers, units and single words like "Legal" are allowed to
+# be the same: they belong to both languages.
+english = strings[languages[0]["code"]]
+for code, table in strings.items():
+    if code == languages[0]["code"]:
+        continue
+    untranslated = sorted(
+        key for key, value in table.items()
+        if value == english[key] and len(re.findall(r"[A-Za-z]+", value)) >= 2
+    )
+    assert not untranslated, \
+        f"{code}: prose that never changed language: {untranslated[:5]}"
+
 # A key whose element holds markup would lose that markup on every swap, so the
 # page is written with the text in its own element instead.
 for key in sorted(page.markup):
