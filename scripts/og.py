@@ -24,24 +24,27 @@ def font(name, size):
 
 
 def mark(draw, x, y, scale, color):
-    """The brand mark: a lamp and its beam, same geometry as the inline SVG."""
-    draw.ellipse(
-        (x + 8.4 * scale, y, x + 15.6 * scale, y + 5.2 * scale), fill=color
-    )
-    draw.polygon(
-        [
-            (x + 12 * scale, y + 3.3 * scale),
-            (x + 3.6 * scale, y + 14.8 * scale),
-            (x + 20.4 * scale, y + 14.8 * scale),
-        ],
-        fill=color,
-    )
-    for x1, x2 in ((2.4, 6.2), (21.6, 17.8)):
+    """The brand mark: a script, in order, decided in advance. Same geometry as
+    the inline SVG: three lines of decreasing width."""
+    width = int(2.6 * scale)
+    for dy, length in ((6.6, 16.0), (12.0, 11.5), (17.4, 7.0)):
         draw.line(
-            (x + x1 * scale, y + 6.4 * scale, x + x2 * scale, y + 7.0 * scale),
+            (
+                x + 4 * scale,
+                y + dy * scale,
+                x + (4 + length) * scale,
+                y + dy * scale,
+            ),
             fill=color,
-            width=int(1.4 * scale),
+            width=width,
         )
+        # Round the caps the same way stroke-linecap="round" does in the SVG.
+        for cx in (x + 4 * scale, x + (4 + length) * scale):
+            draw.ellipse(
+                (cx - width / 2, y + dy * scale - width / 2,
+                 cx + width / 2, y + dy * scale + width / 2),
+                fill=color,
+            )
 
 
 image = Image.new("RGB", (W, H), INK)

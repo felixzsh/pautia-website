@@ -152,17 +152,24 @@ the server.
 
 ## Brand
 
-**Pautia.** A lighthouse: always on, visible from far away, first to arrive, and
-boringly reliable. It says the product's promise without claiming intelligence.
+**Pautia.** *Pauta* (the rules you set) + *-ia*. The name says the promise in
+one breath: the agent decides, but it acts inside the guidelines the business
+approved. Chosen over the previous candidate (a lighthouse, `Pautia`) because it
+carries the product's real differentiator instead of a metaphor about uptime,
+and because `pautia.app` was available to buy.
 
 - Positioning: a WhatsApp agent that replies and acts through a visual flow
   controlled by the business; chat import is an optional shortcut.
 - Tagline (ES): `Un agente para el WhatsApp de tu negocio.`
 - Tagline (EN): `An agent for your business's WhatsApp.`
 - Support line (ES): `Un agente de IA en tu WhatsApp de siempre.`
-- Name must be checked for availability: `pautia.com`, `pautia.ai`, `pautia.app`,
-  `getpautia.com`, and the handle on the networks we would post to. A name we
-  cannot get is worth less than a name we can say out loud on a call.
+- Domain: `pautia.app` (bought on Cloudflare). Sending domain for transactional
+  mail: a subdomain such as `envio.pautia.app`, because Cloudflare Email Routing
+  and Resend both need MX records and would clash on the root.
+- Waitlist address: `lista@pautia.app`, forwarded to a personal mailbox. It is
+  the fallback channel only; the real waitlist is the questionnaire form.
+- The mark is three lines of decreasing width: a script, in order, decided in
+  advance. Not a lightbulb and not a robot.
 
 ### Voice
 
@@ -464,7 +471,7 @@ closing band all carry the same `mailto:` with a subject, to an address that
 exists on day one.
 
 - Label (ES): `Lista de espera`. Label (EN): `Join the waitlist`.
-- Target: `mailto:hola@pautia.app?subject=Lista%20de%20espera%20de%20Pautia`, and
+- Target: `mailto:lista@pautia.app?subject=Lista%20de%20espera%20de%20Pautia`, and
   the same with an English subject on `/en/`.
 - The hero says in one line what the button does, so no one clicks it wondering:
   `Estamos preparando la plataforma. Escríbenos y te avisamos en cuanto esté.`
