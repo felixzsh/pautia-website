@@ -425,6 +425,13 @@ ol {
   font-weight: 650;
 }
 
+/* The navigation fits the header until it stops fitting, and then its links
+   become a button. The button is the shared menu component above; this is the
+   only thing that differs about it. */
+.nav-toggle {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .nav {
     display: none;
@@ -432,7 +439,6 @@ ol {
 
   .nav-toggle {
     display: block;
-    position: relative;
   }
 }
 

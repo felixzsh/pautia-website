@@ -97,6 +97,14 @@ with sync_playwright() as p:
             if page.locator("html").get_attribute("lang") != "en":
                 problems.append(f"{name}-{label}: the page opened in the wrong language")
 
+            # The header shows its links or the button that stands in for them,
+            # never both and never neither.
+            links = page.locator(".nav").first.is_visible()
+            button = page.locator('[data-menu="nav"] .menu__summary').is_visible()
+            if links == button:
+                shown = "the links and the menu button" if links else "neither"
+                problems.append(f"{name}-{label}: header shows {shown}")
+
             if name == "es":
                 # Both menus are the same component, so both are opened and
                 # measured here: the panel has to fit what is inside it, hang
