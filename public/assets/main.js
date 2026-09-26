@@ -69,9 +69,14 @@
 
   // "RON 8", but "MX$159": a symbol goes against the number, an abbreviation of
   // three letters or more reads better with a space.
-  function prefix(code) {
+  function symbolOf(code) {
     const found = CURRENCIES.find((item) => item.code === code) || CURRENCIES[0];
-    return /^[A-Za-z]{3,}$/.test(found.symbol) ? `${found.symbol} ` : found.symbol;
+    return found.symbol;
+  }
+
+  function prefix(code) {
+    const symbol = symbolOf(code);
+    return /^[A-Za-z]{3,}$/.test(symbol) ? `${symbol} ` : symbol;
   }
 
   // The amount exactly as the rate says it, to the cent, with the page's own
@@ -110,15 +115,35 @@
   }
 
   function prices() {
-    const converted = rate();
+    // The dollar is not a conversion: the page is already written in it, and a
+    // figure the author chose ($9) must come back exactly as it is, not as the
+    // arithmetic of multiplying by one ($9,00).
+    const converted = currency === "USD" ? 0 : rate();
+    const amounts = [...document.querySelectorAll(".price__amount[data-money]")];
+    const figures = amounts.map((node) =>
+      money(Number(node.dataset.usd) * converted, currency));
+
+    // One card decides for all: when an amount runs past four figures, every
+    // price puts its currency on a line of its own, so the price stops being one
+    // long shout and the table below the three cards stays level.
+    const stacked = converted
+      && figures.some((figure) => figure.replace(/\D/g, "").length >= 6);
+
     for (const node of document.querySelectorAll("[data-money]")) {
       const dollars = node.dataset.usdText || node.textContent;
       // The replacement is a function on purpose: a "$" inside it would be read
       // as a reference to a capture group and eaten.
-      node.textContent = !converted
-        ? dollars                                     // no rate yet: stay in dollars
-        : dollars.replace(/[$€]\s?[\d][\d.,]*/, () =>
-            prefix(currency) + money(Number(node.dataset.usd) * converted, currency));
+      if (!converted) {
+        node.textContent = dollars;                   // no rate yet: stay in dollars
+        continue;
+      }
+      const figure = money(Number(node.dataset.usd) * converted, currency);
+      node.textContent = dollars.replace(/[$€]\s?[\d][\d.,]*/, () =>
+        prefix(currency) + figure);
+      if (stacked && node.classList.contains("price__amount")) {
+        node.innerHTML = `<span class="price__symbol">${symbolOf(currency)}</span>`
+          + `<span class="price__number">${figure}</span>`;
+      }
     }
 
     // The structured data describes what the visitor is looking at.

@@ -344,6 +344,21 @@ with sync_playwright() as p:
     ).offers.map((offer) => offer.priceCurrency)""")
     if set(money) != {"MXN"}:
         problems.append(f"currency: the structured data still says {money}")
+
+    # A long amount puts its currency on a line of its own, and all three cards
+    # do it together so the tables under them stay level.
+    stacked = page.evaluate("""() => {
+      const cards = [...document.querySelectorAll('.plans__grid .plan:not(.plan--wide)')];
+      return {
+        symbols: cards.filter((card) => card.querySelector('.price--monthly .price__symbol')).length,
+        tables: [...new Set(cards.map((card) => Math.round(
+          card.querySelector('.plan__rows').getBoundingClientRect().top)))].length,
+      };
+    }""")
+    if stacked["symbols"] != 3:
+        problems.append(f"currency: {stacked['symbols']} of 3 prices put the currency above")
+    if stacked["tables"] != 1:
+        problems.append("currency: the tables do not line up once the price is long")
     if "pautia:currency=MXN" not in page.evaluate("() => document.cookie"):
         problems.append("currency: the choice was not written down")
     page.reload(wait_until="networkidle")
@@ -384,6 +399,17 @@ with sync_playwright() as p:
         "() => document.querySelector('.price__amount').textContent.startsWith('$')",
         timeout=8000,
     )
+    # Back in dollars the figure is the one the page was written with, not the
+    # arithmetic of multiplying by one: "$9", never "$9,00".
+    back = page.evaluate("""() => ({
+      prices: [...document.querySelectorAll('.plans__grid .plan:not(.plan--wide)')]
+        .map((card) => card.querySelector('.price--monthly .price__amount').textContent),
+      symbols: document.querySelectorAll('.price__symbol').length,
+    })""")
+    if back["symbols"]:
+        problems.append("currency: the currency stayed above the price in dollars")
+    if back["prices"] != ["$9", "$39", "$69"]:
+        problems.append(f"currency: the dollar prices came back as {back['prices']}")
     ctx.close()
 
     ctx = browser.new_context(java_script_enabled=False,

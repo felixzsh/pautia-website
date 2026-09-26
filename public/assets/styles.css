@@ -1069,12 +1069,18 @@ ol {
   margin-top: var(--space-5);
 }
 
-.price__mxn {
-  align-self: flex-start;
+/* When an amount is long, the currency sits above it: a small label over the
+   figure, so the price is not one wide shout and the three cards keep their
+   tables level. Only the converting side builds these two. */
+.price__symbol,
+.price__number {
+  display: block;
+}
+
+.price__symbol {
   color: var(--ink-500);
-  font-size: var(--step--1);
-  font-weight: 400;
-  letter-spacing: 0;
+  font-size: var(--step-1);
+  font-weight: 650;
 }
 
 .price__amount {
