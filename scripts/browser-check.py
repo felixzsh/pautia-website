@@ -198,30 +198,40 @@ with sync_playwright() as p:
             if split:
                 problems.append(f"{name}-{label}: a plan value wraps: {split}")
 
-            # The peso note under each price: written only if the rate arrived,
-            # and then with the thousands mark this language writes. The rate is
-            # external, so a network that is down must not fail the check.
-            notes = page.evaluate("""() => {
-              const bad = [];
-              for (const price of document.querySelectorAll('.price__amount')) {
-                const amount = parseFloat(price.textContent.replace(/[^0-9.]/g, ''));
-                const note = price.parentNode.querySelector('.price__mxn');
-                if (!note) continue;
-                const thousands = document.documentElement.lang === 'es' ? '.' : ',';
-                const shown = note.textContent.match(/[\\d,.]+/);
-                const cached = JSON.parse(localStorage.getItem('pautia:rate') || '{}');
-                const expected = shown && cached.mxn
-                  ? Math.floor(amount * cached.mxn).toLocaleString('en-US')
-                    .replace(/,/g, thousands)
-                  : null;
-                if (!shown || (expected && shown[0] !== expected)) {
-                  bad.push(price.textContent.trim() + ' -> ' + note.textContent);
-                }
-              }
-              return bad;
+            # The controls over the table: the period switch centred, the
+            # currency on the right, the two the same size on one line, and
+            # neither of them a section of its own above the cards.
+            bar = page.evaluate("""() => {
+              const bar = document.querySelector('.plans__bar');
+              const wrap = bar.closest('.wrap');
+              const box = (el) => el.getBoundingClientRect();
+              const toggle = box(bar.querySelector('.plans__switch'));
+              const money = box(bar.querySelector('[data-menu="currency"]'));
+              return {
+                centred: Math.round((toggle.left + toggle.width / 2)
+                  - (wrap.left + wrap.width / 2)),
+                sameHeight: Math.round(toggle.height - money.height),
+                sameTop: Math.round(toggle.top - money.top),
+                gap: Math.round(box(document.querySelector('.plans__grid')).top
+                  - box(bar).bottom),
+                options: document.querySelectorAll('[data-currency-option]').length,
+                shown: document.querySelector('[data-currency-shown]').textContent,
+              };
             }""")
-            if notes:
-                problems.append(f"{name}-{label}: a wrong peso note: {notes}")
+            if bar["options"] < 10 or bar["shown"] not in page.evaluate(
+                    "() => [...document.querySelectorAll('[data-currency-option]')]"
+                    ".map(o => o.dataset.currencyOption)"):
+                problems.append(f"{name}-{label}: the currency selector is not a selector")
+            if abs(bar["centred"]) > 2:
+                problems.append(f"{name}-{label}: the period switch is {bar['centred']}px off centre")
+            if bar["gap"] > 24:
+                problems.append(f"{name}-{label}: {bar['gap']}px between the controls and the plans")
+            if width >= 640 and (abs(bar["sameHeight"]) > 2 or abs(bar["sameTop"]) > 2):
+                problems.append(
+                    f"{name}-{label}: the two controls do not line up: "
+                    f"{bar['sameHeight']}px of height, {bar['sameTop']}px of top"
+                )
+
             page.screenshot(path=str(OUT / f"{name}-{label}.png"), full_page=True)
 
             b = budget(page, f"{BASE}/")
@@ -299,6 +309,43 @@ with sync_playwright() as p:
     page.reload(wait_until="networkidle")
     if page.locator("h1").inner_text().strip() != HEADLINES["en"]:
         problems.append("reload: English did not come back")
+    ctx.close()
+
+    # The currency: chosen by hand, marked, applied to every price and to the
+    # structured data, and remembered for the next visit.
+    ctx = browser.new_context(viewport={"width": 1280, "height": 900}, locale="es-MX")
+    page = ctx.new_page()
+    page.goto(f"{BASE}/", wait_until="networkidle")
+    page.locator('[data-menu="currency"] .menu__summary').click()
+    page.locator('[data-currency-option="MXN"]').click()
+    page.wait_for_function(
+        "() => document.querySelector('.price__amount').textContent.startsWith('MX$')",
+        timeout=8000,
+    )
+    # Only the figures that carry a base convert: the quoted plan says "Custom
+    # price" and has no number to convert.
+    shown = page.evaluate("""() => [...document.querySelectorAll('.price--monthly [data-money]')]
+      .map((node) => node.textContent)""")
+    if not shown or not all(price.startswith("MX$") for price in shown):
+        problems.append(f"currency: the prices did not take the symbol: {shown}")
+    money = page.evaluate("""() => JSON.parse(document.querySelector(
+        'script[type="application/ld+json"]').textContent
+    ).offers.map((offer) => offer.priceCurrency)""")
+    if set(money) != {"MXN"}:
+        problems.append(f"currency: the structured data still says {money}")
+    if "pautia:currency=MXN" not in page.evaluate("() => document.cookie"):
+        problems.append("currency: the choice was not written down")
+    page.reload(wait_until="networkidle")
+    page.wait_for_function(
+        "() => document.querySelector('.price__amount').textContent.startsWith('MX$')",
+        timeout=8000,
+    )
+    page.locator('[data-menu="currency"] .menu__summary').click()
+    page.locator('[data-currency-option="USD"]').click()
+    page.wait_for_function(
+        "() => document.querySelector('.price__amount').textContent.startsWith('$')",
+        timeout=8000,
+    )
     ctx.close()
 
     ctx = browser.new_context(java_script_enabled=False,

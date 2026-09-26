@@ -156,9 +156,17 @@ assert len(offers) == 3, f"offers: {len(offers)}"
 for card, offer, monthly in zip(cards, offers, (9, 39, 79)):
     annual = Decimal(monthly) * Decimal("0.80")
     assert offer["priceCurrency"] == "USD" and offer["price"] == str(monthly)
-    assert f'class="price__amount">${monthly}<' in card
-    assert f'class="price__amount">${annual:.2f}<' in card
+    assert f'data-usd="${monthly}"' not in card          # the base is an attribute
+    assert f'data-money data-usd="{monthly}">${monthly}<' in card
+    assert f'data-money data-usd="{annual:.2f}">${annual:.2f}<' in card
     assert f'${annual * 12:.2f}' in card
+
+# Every figure carries the dollars it starts from, and the number it shows is
+# that same figure: a conversion that drifted from what was written would price
+# the page twice.
+for base, shown in re.findall(r'data-money data-usd="([\d.]+)"[^>]*>([^<]*)<', html):
+    token = re.search(r"[\d.]+", shown)
+    assert token and token.group(0) == base, (base, shown)
 
 # The limits of the three priced plans, in the order the page lists them:
 # active agents first, because that is the question a customer asks first.

@@ -132,6 +132,10 @@
         stroke-linejoin="round">
         <path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M12 8v4l3 2" />
       </g>
+      <g id="i-chevron" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="m6 9 6 6 6-6" />
+      </g>
       <g id="i-globe" fill="none" stroke="currentColor" stroke-width="1.8"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.6 9.5h16.8M3.6 14.5h16.8" />
@@ -178,7 +182,8 @@
         <!-- The language picker. assets/main.js fills it from the list in the head
              and swaps the text of the page; without JavaScript there is nothing to
              switch, so there is no button either. -->
-        <div data-lang-picker></div>
+        <div data-lang-picker aria-label="Idioma"
+             data-i18n-attrs="aria-label:lang.picker-label"></div>
         <a class="btn btn--primary"
           href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia" data-i18n="header.btn.0">Lista de espera</a>
       </div>
@@ -460,7 +465,8 @@
         </ul>
 
         <div class="plans">
-          <fieldset class="plans__switch">
+          <div class="plans__bar">
+            <fieldset class="plans__switch">
             <legend class="sr-only" data-i18n="plans.sr-only.0">Periodo de pago</legend>
             <input class="plans__radio" type="radio" name="period" id="period-monthly" checked>
             <label class="plans__seg" for="period-monthly" data-i18n="period-monthly.plans-seg.0">Mensual</label>
@@ -469,19 +475,26 @@
                 data-i18n="period-yearly.plans-seg.0">Anual</span> <span
                 class="plans__save" data-i18n="period-yearly.plans-save.0">20 % de descuento</span></label>
           </fieldset>
+            <!-- The currency: filled in by the script from the country the edge
+                 saw, and from what the visitor picks. -->
+            <div class="currency" data-currency-picker
+                 aria-label="Moneda"
+                 data-i18n-attrs="aria-label:plans.currency-label"></div>
+          </div>
 
           <div class="plans__grid">
             <article class="plan">
               <h3 class="plan__name" data-i18n="plans.plan-name.0">Básico</h3>
               <p class="plan__pitch" data-i18n="plans.plan-pitch.0">Para empezar a contestar.</p>
               <p class="price price--monthly">
-                <span class="price__amount">$9</span>
+                <span class="price__amount" data-money data-usd="9">$9</span>
+                <span class="price__unit" data-i18n="plans.price-unit.0">al mes</span>
               </p>
               <p class="price price--yearly">
-                <span class="price__amount">$7.20</span>
+                <span class="price__amount" data-money data-usd="7.20">$7.20</span>
                 <span class="price__unit" data-i18n="plans.price-unit.1">al mes, pagando el año</span>
               </p>
-              <p class="price__note note--yearly" data-i18n="plans.price-note.0">Un solo cobro de $86.40 al año.</p>
+              <p class="price__note note--yearly" data-i18n="plans.price-note.0" data-money data-usd="86.40">Un solo cobro de $86.40 al año.</p>
               <!-- Buy button: uncomment when checkout exists and point
                    it at the plan. Until then the header carries the
                    waitlist, and that is enough to say what to do. -->
@@ -519,13 +532,14 @@
               <h3 class="plan__name" data-i18n="plans.plan-name.1">Estándar</h3>
               <p class="plan__pitch" data-i18n="plans.plan-pitch.1">Para negocios con clientes.</p>
               <p class="price price--monthly">
-                <span class="price__amount">$39</span>
+                <span class="price__amount" data-money data-usd="39">$39</span>
+                <span class="price__unit" data-i18n="plans.price-unit.2">al mes</span>
               </p>
               <p class="price price--yearly">
-                <span class="price__amount">$31.20</span>
+                <span class="price__amount" data-money data-usd="31.20">$31.20</span>
                 <span class="price__unit" data-i18n="plans.price-unit.3">al mes, pagando el año</span>
               </p>
-              <p class="price__note note--yearly" data-i18n="plans.price-note.1">Un solo cobro de $374.40 al año.</p>
+              <p class="price__note note--yearly" data-i18n="plans.price-note.1" data-money data-usd="374.40">Un solo cobro de $374.40 al año.</p>
               <!-- Buy button: uncomment when checkout exists and point
                    it at the plan. Until then the header carries the
                    waitlist, and that is enough to say what to do. -->
@@ -560,13 +574,14 @@
               <h3 class="plan__name" data-i18n="plans.plan-name.2">Profesional</h3>
               <p class="plan__pitch" data-i18n="plans.plan-pitch.2">Para varios locales o equipos.</p>
               <p class="price price--monthly">
-                <span class="price__amount">$79</span>
+                <span class="price__amount" data-money data-usd="79">$79</span>
+                <span class="price__unit" data-i18n="plans.price-unit.4">al mes</span>
               </p>
               <p class="price price--yearly">
-                <span class="price__amount">$63.20</span>
+                <span class="price__amount" data-money data-usd="63.20">$63.20</span>
                 <span class="price__unit" data-i18n="plans.price-unit.5">al mes, pagando el año</span>
               </p>
-              <p class="price__note note--yearly" data-i18n="plans.price-note.2">Un solo cobro de $758.40 al año.</p>
+              <p class="price__note note--yearly" data-i18n="plans.price-note.2" data-money data-usd="758.40">Un solo cobro de $758.40 al año.</p>
               <!-- Buy button: uncomment when checkout exists and point
                    it at the plan. Until then the header carries the
                    waitlist, and that is enough to say what to do. -->
@@ -764,9 +779,10 @@
           </div>
           <div class="fact">
             <dt data-i18n="security.dt.1">Sin cookies aquí</dt>
-            <dd data-i18n="security.dd.1">Esta página no usa cookies, rastreadores ni scripts de
-              terceros. Su única llamada externa es el tipo de cambio que ves junto a
-              cada precio; con las conexiones bloqueadas se lee igual, sin esa cifra.</dd>
+            <dd data-i18n="security.dd.1">Esta página no usa rastreadores ni scripts de terceros.
+              Guarda dos cookies propias, para recordar tu idioma y tu moneda, y hace
+              una sola llamada externa, el tipo de cambio, y sólo si eliges una moneda
+              distinta del dólar: con las conexiones bloqueadas se lee igual.</dd>
           </div>
           <!-- fact:export, fact:delete
                "What's yours is yours: you can export it whenever you want" and

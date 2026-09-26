@@ -837,6 +837,80 @@ ol {
 
 /* Plans */
 
+/* The period switch sits in the middle and the currency at the far right of the
+   same line: three columns, the two outside ones the same width, so the middle
+   one really is the middle whatever the currency is called. On a narrow screen
+   there is no room for both, and they stack with the switch still centred. */
+
+.plans__bar {
+  display: grid;
+  gap: var(--space-3);
+  /* Close to the cards: the switch and the currency are part of the table they
+     announce, not a section of their own. */
+  margin-bottom: var(--space-4);
+}
+
+/* Whatever they carry below themselves belongs to the bar, not to each control,
+   or the gap doubles and the two stop lining up. Named as well as inherited,
+   because .plans__switch carries its own margin further down the file. */
+.plans__bar .plans__switch,
+.plans__bar .currency,
+.plans__bar > * {
+  margin-bottom: 0;
+}
+
+.plans__bar > :first-child {
+  justify-self: center;
+}
+
+/* The currency is the menu component with room for sixteen of them, wearing the
+   same pill as the period switch so the two read as one line of controls. */
+.currency {
+  justify-self: end;
+  flex: 0 0 auto;
+  padding: var(--space-1);
+  background: var(--bg-sub);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+}
+
+.currency .menu__summary {
+  gap: var(--space-2);
+  /* The height of a segment on the other side of the line, so both boxes are the
+     same box and their tops meet. */
+  min-height: 42px;
+  padding: 0 var(--space-4);
+  color: var(--ink-900);
+  font-weight: 650;
+}
+
+.currency .menu__summary:hover {
+  background: var(--bg);
+}
+
+.currency .menu__body--tall {
+  max-height: 18rem;
+  overflow-y: auto;
+}
+
+.currency .menu__item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+@media (min-width: 640px) {
+  .plans__bar {
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .plans__bar > :first-child {
+    grid-column: 2;
+  }
+}
+
 .plans__switch {
   display: inline-flex;
   gap: var(--space-1);
