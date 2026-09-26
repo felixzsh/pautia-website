@@ -58,17 +58,23 @@ for filename, phrases, thousands in (
         return f"{value:,}".replace(",", thousands) if isinstance(value, int) else value
 
     limits = [[group(n) for n in row] for row in (
-        (5, 1, 150, 3000, "50 MB"),
-        (50, 5, 500, 15000, "250 MB"),
-        (100, 10, 1000, 30000, "500 MB"),
+        (5, 1, 200, 3000, "50 MB"),
+        (50, 5, 1000, 15000, "250 MB"),
+        (100, 10, 2000, 30000, "500 MB"),
     )]
     for card, expected in zip(cards, limits):
         values = re.findall(r'<dd class="row__value">([^<]*)</dd>', card)
         assert values == expected, (filename, values, expected)
 
-    # The quoted plan sits under the three priced ones and inherits them, so it
-    # repeats no limit.
+    # The custom-priced plan sits under the three priced ones and inherits them,
+    # so it repeats no limit.
     assert 'plan--wide' in cards[3], filename
     assert "row__value" not in cards[3], filename
+    assert cards[3].count("Custom price") == 2, filename  # one per billing period
+
+    # No card sells anything yet: the header carries the waitlist, and the buy
+    # button waits in a comment until there is a checkout to point it at.
+    assert "plan__cta" not in visible, filename
+    assert visible.count("Se renueva cada mes" if thousands == "." else "Billed every month") == 0, filename
 
 print("Bilingual prices, structured data and pitch: OK")
