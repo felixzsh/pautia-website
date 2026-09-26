@@ -30,6 +30,36 @@ HEADLINES = {
 problems = []
 
 
+def fits(menu, which, name, label, problems):
+    """A menu panel has to be as wide as its items and hang from its own button.
+
+    Both were wrong once: the mobile navigation stretched to the width of the
+    screen and left its links floating in an empty box, and the picker opened
+    above the button that opened it.
+    """
+    panel = menu.locator(".menu__body")
+    box = panel.bounding_box()
+    button = menu.locator(".menu__summary").bounding_box()
+    if not box or not button:
+        problems.append(f"{name}-{label}: the {which} panel did not open")
+        return panel
+    if box["y"] < button["y"] + button["height"] - 1:
+        problems.append(f"{name}-{label}: the {which} panel does not open below its button")
+
+    widest = max((item.bounding_box() or {}).get("width", 0)
+                 for item in panel.locator(".menu__item").all())
+    padding = panel.evaluate(
+        "p => parseFloat(getComputedStyle(p).paddingLeft)"
+        " + parseFloat(getComputedStyle(p).paddingRight)"
+    )
+    if box["width"] > widest + padding + 2:
+        problems.append(
+            f"{name}-{label}: the {which} panel is {round(box['width'])}px wide for"
+            f" {round(widest)}px of text"
+        )
+    return panel
+
+
 def budget(page, url):
     sizes = page.evaluate(
         """() => {
@@ -68,27 +98,43 @@ with sync_playwright() as p:
                 problems.append(f"{name}-{label}: the page opened in the wrong language")
 
             if name == "es":
-                picker = page.locator(".lang")
-                if not picker.count():
-                    problems.append(f"{name}-{label}: no language picker in the header")
-                else:
-                    page.locator(".lang__summary").click()
-                    body = page.locator(".lang__body")
-                    box = body.bounding_box()
-                    button = page.locator(".lang__summary").bounding_box()
-                    if not box or box["y"] < button["y"] + button["height"] - 1:
-                        problems.append(
-                            f"{name}-{label}: the picker does not open below the button"
+                # Both menus are the same component, so both are opened and
+                # measured here: the panel has to fit what is inside it, hang
+                # from its own button and close when the visitor clicks away.
+                menus = page.locator("[data-menu]")
+                if menus.count() < 2:
+                    problems.append(f"{name}-{label}: the header has no language picker")
+                for which in ("nav", "lang"):
+                    menu = page.locator(f'[data-menu="{which}"]')
+                    if not menu.count():
+                        continue
+                    if not menu.locator(".menu__summary").is_visible():
+                        continue      # the nav menu is for small screens only
+                    menu.locator(".menu__summary").click()
+                    box = fits(menu, which, name, label, problems)
+                    if which == "lang":
+                        if box.locator("[data-lang-option]").count() < 2:
+                            problems.append(
+                                f"{name}-{label}: the picker lists no languages"
+                            )
+                        page.screenshot(path=str(OUT / f"picker-{label}.png"))
+                        # A click away closes it; escape closes it too.
+                        page.mouse.click(20, 400)
+                        if menu.evaluate("m => m.open"):
+                            problems.append(
+                                f"{name}-{label}: the picker stays open after a click away"
+                            )
+                        menu.locator(".menu__summary").click()
+                        page.keyboard.press("Escape")
+                        if menu.evaluate("m => m.open"):
+                            problems.append(f"{name}-{label}: escape does not close the picker")
+                        menu.locator(".menu__summary").click()
+                        page.locator('[data-menu="lang"] [data-lang-option="es"]').click()
+                        page.wait_for_function(
+                            "() => document.documentElement.lang === 'es'", timeout=5000
                         )
-                    if body.locator("[data-lang-option]").count() < 2:
-                        problems.append(f"{name}-{label}: the picker lists no languages")
-                    page.screenshot(path=str(OUT / "picker.png"))
-                    page.locator('[data-lang-option="es"]').click()
-                    page.wait_for_function(
-                        "() => document.documentElement.lang === 'es'", timeout=5000
-                    )
-                    if page.url != f"{BASE}/":
-                        problems.append(f"{name}-{label}: switching navigated away")
+                        if page.url != f"{BASE}/":
+                            problems.append(f"{name}-{label}: switching navigated away")
 
             page.wait_for_function(
                 "() => document.documentElement.lang === '%s'" % name, timeout=5000
@@ -157,8 +203,8 @@ with sync_playwright() as p:
     ctx = browser.new_context(viewport={"width": 1280, "height": 900})
     page = ctx.new_page()
     page.goto(f"{BASE}/", wait_until="networkidle")
-    page.locator(".lang__summary").click()
-    page.locator('[data-lang-option="es"]').click()
+    page.locator('[data-menu="lang"] .menu__summary').click()
+    page.locator('[data-menu="lang"] [data-lang-option="es"]').click()
     page.wait_for_function("() => document.documentElement.lang === 'es'", timeout=5000)
     if page.locator("h1").inner_text().strip() != HEADLINES["es"]:
         problems.append("round trip: switching to Spanish left the text in English")
@@ -166,8 +212,8 @@ with sync_playwright() as p:
     if page.locator("html").get_attribute("lang") != "es" \
             or page.locator("h1").inner_text().strip() != HEADLINES["es"]:
         problems.append("reload: the chosen language was forgotten")
-    page.locator(".lang__summary").click()
-    page.locator('[data-lang-option="en"]').click()
+    page.locator('[data-menu="lang"] .menu__summary').click()
+    page.locator('[data-menu="lang"] [data-lang-option="en"]').click()
     page.wait_for_function("() => document.documentElement.lang === 'en'", timeout=5000)
     if page.locator("h1").inner_text().strip() != HEADLINES["en"]:
         problems.append("round trip: coming back to English left the text in Spanish")

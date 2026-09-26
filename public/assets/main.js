@@ -84,13 +84,54 @@
       .catch(() => {});
   }
 
+  /* Menus. The mobile navigation and the language picker are the same
+     component: a details element, one class for the panel and one for its
+     items. A details element already opens, closes and takes the keyboard; what
+     it does not do is close when the visitor clicks away, close on escape, stay
+     out of the way of the other menu, or close after picking something. All four
+     are here, once, for every menu on the page. */
+  function menus() {
+    const all = () => document.querySelectorAll("[data-menu]");
+
+    document.addEventListener("pointerdown", (event) => {
+      for (const menu of all()) {
+        if (menu.open && !menu.contains(event.target)) menu.open = false;
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      for (const menu of all()) {
+        if (!menu.open) continue;
+        menu.open = false;
+        menu.querySelector("summary").focus();
+      }
+    });
+
+    // Picking something closes the menu it came from, in either menu.
+    document.addEventListener("click", (event) => {
+      const item = event.target.closest(".menu__item");
+      if (item) item.closest("[data-menu]").open = false;
+    });
+
+    for (const menu of all()) {
+      menu.addEventListener("toggle", () => {
+        if (!menu.open) return;
+        for (const other of all()) {
+          if (other !== menu) other.open = false;
+        }
+      });
+    }
+  }
+
   function picker() {
     const host = document.querySelector("[data-lang-picker]");
     if (!host) return;
     const details = document.createElement("details");
-    details.className = "lang";
+    details.className = "menu";
+    details.dataset.menu = "lang";
     const summary = document.createElement("summary");
-    summary.className = "lang__summary";
+    summary.className = "menu__summary";
     summary.setAttribute("aria-label", "Language");
     summary.title = "Language";
     summary.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
@@ -98,16 +139,15 @@
     details.append(summary);
 
     const body = document.createElement("div");
-    body.className = "lang__body";
+    body.className = "menu__body";
     for (const lang of list) {
       const link = document.createElement("a");
       link.href = "#";
-      link.className = "lang__option";
+      link.className = "menu__item";
       link.dataset.langOption = lang.code;
       link.textContent = lang.name;
       link.addEventListener("click", (event) => {
         event.preventDefault();
-        details.open = false;
         apply(lang.code);
       });
       body.append(link);
@@ -117,6 +157,7 @@
   }
 
   picker();
+  menus();
   mark(shown);
   // The page already says its own language, so there is nothing to fetch unless
   // the visitor asked for another one before.

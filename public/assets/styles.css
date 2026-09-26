@@ -352,49 +352,77 @@ ol {
   gap: var(--space-3);
 }
 
-.nav-toggle {
-  display: none;
+/* Menus. The mobile navigation and the language picker are the same component:
+   one class for the panel, one for its items, one behaviour. A details element,
+   so it opens and closes with the keyboard and needs no script; the script only
+   adds what a details element does not do by itself. */
+
+.menu {
+  position: relative;
+  flex: 0 0 auto;
 }
 
-.nav-toggle__summary {
+.menu__summary {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: var(--space-2) var(--space-4);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-m);
-  color: var(--ink-900);
-  font-size: var(--step-0);
-  font-weight: 600;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-s);
+  color: var(--ink-700);
   cursor: pointer;
   list-style: none;
+  white-space: nowrap;
 }
 
-.nav-toggle__summary::-webkit-details-marker {
+.menu__summary::-webkit-details-marker {
   display: none;
 }
 
-.nav-toggle__body {
+.menu__summary:hover {
+  background: var(--bg-sub);
+  color: var(--ink-900);
+}
+
+.menu__summary svg {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+
+/* The panel is as wide as what is inside it and never wider than the screen, so
+   the items are not left floating in an empty box. It hangs from the button that
+   opened it, which is what makes both menus read the same. */
+.menu__body {
   position: absolute;
-  inset: var(--header-h) var(--space-4) auto var(--space-4);
+  top: calc(100% + var(--space-2));
+  right: 0;
+  z-index: 1;
   display: grid;
   gap: var(--space-1);
-  padding: var(--space-3);
+  width: max-content;
+  max-width: calc(100vw - var(--space-4) * 2);
+  padding: var(--space-2);
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: var(--radius-m);
   box-shadow: var(--shadow-2);
 }
 
-.nav-toggle__body a {
-  padding: var(--space-3);
+.menu__item {
+  display: block;
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-s);
   color: var(--ink-900);
   text-decoration: none;
+  white-space: nowrap;
 }
 
-.nav-toggle__body a:hover {
+.menu__item:hover {
   background: var(--bg-sub);
+}
+
+.menu__item[aria-current="true"] {
+  font-weight: 650;
 }
 
 @media (max-width: 900px) {
