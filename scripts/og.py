@@ -58,19 +58,19 @@ mark(draw, 80, 70, 2.6, TEAL)
 draw.text((80, 155), "Pautia", font=font("LiberationSans-Bold.ttf", 104), fill=WHITE)
 draw.text(
     (86, 300),
-    "Tu WhatsApp, a tu manera.",
-    font=font("LiberationSans-Regular.ttf", 50),
+    "Un agente para el WhatsApp de tu negocio",
+    font=font("LiberationSans-Regular.ttf", 42),
     fill=WHITE,
 )
 draw.text(
     (86, 372),
-    "Tus conversaciones inspiran un flujo de atención con IA.",
+    "Responde y actúa siguiendo el flujo visual que apruebas.",
     font=font("LiberationSans-Regular.ttf", 30),
     fill=MUTED,
 )
 draw.text(
     (86, 414),
-    "Tú lo revisas, decides cuándo responde y lo activas.",
+    "Importa chats si quieres, o crea el flujo desde cero.",
     font=font("LiberationSans-Regular.ttf", 30),
     fill=MUTED,
 )

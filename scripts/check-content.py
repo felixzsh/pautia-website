@@ -26,7 +26,10 @@ class Page(HTMLParser):
             self.in_json = False
 
 
-for filename in ("public/index.html", "public/en/index.html"):
+for filename, phrases in (
+    ("public/index.html", ("desde cero", "importar", "sin programar")),
+    ("public/en/index.html", ("from scratch", "import", "without coding")),
+):
     html = Path(filename).read_text()
     page = Page()
     page.feed(html)
@@ -35,6 +38,7 @@ for filename in ("public/index.html", "public/en/index.html"):
     assert len(cards) == len(offers) == 3, filename
     assert html.count('<li class="step">') == 3, filename
     visible = re.sub(r"<!--.*?-->", "", html, flags=re.S)
+    assert all(phrase in visible for phrase in phrases), filename
     assert not re.search(
         r"24/7|3 de la mañana|3 in the morning|grafo|graph|determinist",
         visible,

@@ -13,12 +13,15 @@ are the authoritative copy when an older example in this document differs.
 
 ## Current pitch
 
-**Pautia turns your existing WhatsApp conversations into a suggested customer
-support flow.** Connecting your number is easy. Importing history is optional;
-if you choose it, AI suggests prepared answers and actions from your real
-conversations. You review and adjust the flow, connect your services, test it,
-choose working hours and only then activate the agent. AI helps select the
-approved path; replies come from text you reviewed, not AI-written messages.
+**Pautia gives the business an agent for its existing WhatsApp number.** AI
+interprets incoming messages and follows a visual support flow to select an
+approved reply or run an approved action. The team can build that flow from
+scratch in the visual editor without programming. Importing existing chats is
+strictly optional: with consent, AI uses them to suggest a first draft of
+answers and actions. Without importing, the agent has the same capabilities;
+only the head start is lost. The team reviews and tests the flow, connects
+services, chooses working hours and activates the agent. Replies come from
+approved text and service data, not AI-written messages.
 
 In customer-facing copy use `flujo de atención` / `support flow`, not `grafo`,
 `graph`, `determinista` or `deterministic`. Never frame overnight availability
@@ -152,10 +155,10 @@ the server.
 **Pautia.** A lighthouse: always on, visible from far away, first to arrive, and
 boringly reliable. It says the product's promise without claiming intelligence.
 
-- Positioning: a WhatsApp agent shaped by your real customer conversations,
-  reviewed and activated on your terms.
-- Tagline (ES): `Tu WhatsApp, a tu manera.`
-- Tagline (EN): `Your WhatsApp, on your terms.`
+- Positioning: a WhatsApp agent that replies and acts through a visual flow
+  controlled by the business; chat import is an optional shortcut.
+- Tagline (ES): `Un agente para el WhatsApp de tu negocio.`
+- Tagline (EN): `An agent for your business's WhatsApp.`
 - Support line (ES): `Un agente de IA en tu WhatsApp de siempre.`
 - Name must be checked for availability: `pautia.com`, `pautia.ai`, `pautia.app`,
   `getpautia.com`, and the handle on the networks we would post to. A name we
@@ -163,7 +166,8 @@ boringly reliable. It says the product's promise without claiming intelligence.
 
 ### Voice
 
-- Spanish, informal `tú`, neutral country: no regionalisms, no `vosotros`.
+- Address the business and its team, not an individual's personality. Spanish
+  remains neutral and informal when a direct instruction is useful.
 - Short sentences. Second person, present tense, concrete nouns.
 - Numbers only when they are measured. The page invents no statistics, no
   testimonials, and no customer logos until they are real; a placeholder logo
@@ -278,11 +282,12 @@ the header height so an anchored section is not hidden behind it.
 
 ### 2. Hero
 
-H1 (ES): `De tus conversaciones, a una atención que se parece a ti`.
-H1 (EN): `Turn your conversations into support that sounds like you`.
-The subtitle explains the opt-in import, the AI-suggested support flow, human
-review, service connections and choosing when the agent responds. The CTA is
-still a waitlist, not checkout. The mock conversation is illustrative.
+H1 (ES): `Un agente para el WhatsApp de tu negocio`.
+H1 (EN): `An agent for your business's WhatsApp`.
+The subtitle explains how AI follows a visual flow to respond or act on each
+incoming message. The business can build it from scratch without programming
+or optionally import chats for an AI-suggested draft. The CTA remains a waitlist,
+not checkout. The mock conversation is illustrative.
 
 ### 3. State of the product
 
@@ -291,18 +296,19 @@ free trials, cancellation, or credit cards until those policies are settled.
 
 ### 4. The problem
 
-`No empieces con un bot que no conoce tu negocio`: the existing conversations
-are the starting material, not an empty template. No unmeasured claims about
-lost sales, competing businesses or unanswered late-night messages.
+`Empieza con tus chats. O empieza desde cero.` Chat import is one way to build
+the first draft, not a prerequisite. No unmeasured claims about lost sales,
+competing businesses or unanswered late-night messages.
 
 ### 5. How it works
 
 Three steps in both languages:
 
-1. **Connect WhatsApp:** pair your existing number; history import is opt-in.
-   AI analyzes real conversations to suggest answers and actions.
-2. **Review the support flow:** approve or adjust suggestions, connect your
-   calendar, inventory or other services, and test before publishing.
+1. **Connect WhatsApp:** pair the business's existing number; chat import is
+   opt-in and gives AI material for an initial suggestion.
+2. **Review the support flow:** start from that draft or build it from scratch
+   in the visual editor, without programming. Connect the business's services
+   and test before publishing.
 3. **Start the agent:** nothing answers until you activate it; it follows the
    flow you approved, during the hours you chose.
 
@@ -610,10 +616,10 @@ activating the agent. The three plan prices are proposals until sales open.
 ## SEO and metadata
 
 - `lang` on each page: `es` and `en`, never a single document with two languages.
-- Title (ES): `Pautia — Tu atención en WhatsApp, a tu manera`.
-- Description (ES): `Conecta tu WhatsApp. Pautia usa IA para proponerte un flujo
-  de atención basado en tus conversaciones. Revísalo, ajústalo y decide cuándo
-  responde.` English metadata makes the equivalent claims.
+- Title (ES): `Pautia — Un agente para el WhatsApp de tu negocio`.
+- Description (ES): `Un agente que responde y actúa por el WhatsApp de tu
+  negocio. Diseña su flujo visualmente o importa tus chats para recibir una
+  propuesta inicial.` English metadata makes the equivalent claims.
 - Canonical per page, `hreflang` with `es`, `en`, and `x-default` pointing at
   Spanish, reciprocal, in both heads.
 - Open Graph and Twitter card with one shared image, `1200x630`, the mark, the
