@@ -153,7 +153,7 @@ offers = json.loads(
 cards = re.findall(r'<article class="plan(?: plan--\w+)?">.*?</article>', html, re.S)
 assert len(cards) == 4, f"plan cards: {len(cards)}"
 assert len(offers) == 3, f"offers: {len(offers)}"
-for card, offer, monthly in zip(cards, offers, (9, 39, 79)):
+for card, offer, monthly in zip(cards, offers, (9, 39, 69)):
     annual = Decimal(monthly) * Decimal("0.80")
     assert offer["priceCurrency"] == "USD" and offer["price"] == str(monthly)
     assert f'data-usd="${monthly}"' not in card          # the base is an attribute
