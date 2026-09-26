@@ -105,6 +105,35 @@ with sync_playwright() as p:
                 shown = "the links and the menu button" if links else "neither"
                 problems.append(f"{name}-{label}: header shows {shown}")
 
+            # The sections alternate between two backgrounds, and a card is the
+            # colour its section is not: a panel painted like its section
+            # disappears into it, which three of them did. A plain section has no
+            # background of its own, so the walk climbs to the one it really shows.
+            flat = page.evaluate("""() => {
+              const shown = (el) => {
+                let node = el;
+                while (node) {
+                  const bg = getComputedStyle(node).backgroundColor;
+                  if (bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') return bg;
+                  node = node.parentElement;
+                }
+                return '';
+              };
+              const bad = [];
+              for (const panel of document.querySelectorAll(
+                     '.card, .usecase, .plan, .fact')) {
+                const section = panel.closest('section');
+                if (shown(section) === shown(panel)) {
+                  bad.push(panel.className + ' in #' + section.id);
+                }
+              }
+              return bad;
+            }""")
+            if flat:
+                problems.append(
+                    f"{name}-{label}: panels with no contrast against their section: {flat}"
+                )
+
             if name == "es":
                 # Both menus are the same component, so both are opened and
                 # measured here: the panel has to fit what is inside it, hang

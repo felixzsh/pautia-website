@@ -20,6 +20,9 @@
   --line-soft: #eef2f6;
   --bg: #ffffff;
   --bg-sub: #f6f8fa;
+  /* A panel is the colour its section is not, so a section can alternate
+     without every card having to know where it is going to land. */
+  --panel: var(--bg-sub);
   --ok: #15803d;
   --warn: #b45309;
   --danger: #b42318;
@@ -193,6 +196,7 @@ ol {
 }
 
 .section--sub {
+  --panel: var(--bg);
   background: var(--bg-sub);
   border-block: 1px solid var(--line-soft);
 }
@@ -566,7 +570,7 @@ ol {
 
 .mock {
   padding: var(--space-4);
-  background: var(--bg-sub);
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-l);
   box-shadow: var(--shadow-2);
@@ -654,7 +658,7 @@ ol {
   display: grid;
   gap: var(--space-3);
   padding: var(--space-5);
-  background: var(--bg);
+  background: var(--panel);
   border: 1px solid var(--line);
   border-left: 3px solid var(--accent-line);
   border-radius: var(--radius-m);
@@ -723,7 +727,7 @@ ol {
 
 .card {
   padding: var(--space-5);
-  background: var(--bg);
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-l);
 }
@@ -764,7 +768,7 @@ ol {
 }
 
 .split__col--yes {
-  background: var(--bg-sub);
+  background: var(--panel);
 }
 
 .split__col--no {
@@ -816,6 +820,7 @@ ol {
 
 .usecase {
   padding: var(--space-5);
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-l);
 }
@@ -899,7 +904,7 @@ ol {
   flex-direction: column;
   height: 100%;
   padding: var(--space-6);
-  background: var(--bg);
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-l);
 }
@@ -1103,7 +1108,7 @@ ol {
 }
 
 .faq details {
-  background: var(--bg);
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-m);
 }
@@ -1158,6 +1163,7 @@ ol {
 
 .fact {
   padding: var(--space-5);
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-l);
 }
