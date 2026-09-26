@@ -159,7 +159,6 @@ for card, offer, monthly in zip(cards, offers, (9, 39, 69)):
     assert f'data-usd="${monthly}"' not in card          # the base is an attribute
     assert f'data-money data-usd="{monthly}">${monthly}<' in card
     assert f'data-money data-usd="{annual:.2f}">${annual:.2f}<' in card
-    assert f'${annual * 12:.2f}' in card
 
 # Every figure carries the dollars it starts from, and the number it shows is
 # that same figure: a conversion that drifted from what was written would price

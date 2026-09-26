@@ -264,10 +264,9 @@ with sync_playwright() as p:
             page.locator("label[for=period-yearly]").first.click()
             yearly = page.locator(".price--yearly").first.is_visible()
             monthly = page.locator(".price--monthly").first.is_visible()
-            note = page.locator(".note--yearly").first.is_visible()
-            if not yearly or monthly or not note:
+            if not yearly or monthly:
                 problems.append(
-                    f"{name}-{label}: switch yearly={yearly} monthly={monthly} note={note}"
+                    f"{name}-{label}: switch yearly={yearly} monthly={monthly}"
                 )
             page.locator("label[for=period-monthly]").first.click()
             if not page.locator(".price--monthly").first.is_visible():
@@ -345,19 +344,29 @@ with sync_playwright() as p:
     if set(money) != {"MXN"}:
         problems.append(f"currency: the structured data still says {money}")
 
-    # A converted price carries its currency as a small label in front of the
-    # figure, and the three cards stay level with each other.
-    labelled = page.evaluate("""() => {
+    # A converted price is one piece of text that names its currency, on one
+    # line, and the three cards stay level with each other.
+    converted = page.evaluate("""() => {
       const cards = [...document.querySelectorAll('.plans__grid .plan:not(.plan--wide)')];
+      const shown = cards.map((card) => card.querySelector('.price--monthly .price__amount'));
       return {
-        symbols: cards.filter((card) => card.querySelector('.price--monthly .price__symbol')).length,
+        texts: shown.map((node) => node.textContent),
+        lines: shown.map((node) => {
+          const range = document.createRange();
+          range.selectNodeContents(node);
+          return range.getClientRects().length;
+        }),
         tables: [...new Set(cards.map((card) => Math.round(
           card.querySelector('.plan__rows').getBoundingClientRect().top)))].length,
       };
     }""")
-    if labelled["symbols"] != 3:
-        problems.append(f"currency: {labelled['symbols']} of 3 prices name their currency")
-    if labelled["tables"] != 1:
+    if not all(text.startswith("MX$") for text in converted["texts"]):
+        problems.append(
+            f"currency: the prices do not name their currency: {converted['texts']}"
+        )
+    if set(converted["lines"]) != {1}:
+        problems.append(f"currency: a price takes more than one line: {converted['lines']}")
+    if converted["tables"] != 1:
         problems.append("currency: the three tables do not line up in this currency")
     if "pautia:currency=MXN" not in page.evaluate("() => document.cookie"):
         problems.append("currency: the choice was not written down")
@@ -404,10 +413,7 @@ with sync_playwright() as p:
     back = page.evaluate("""() => ({
       prices: [...document.querySelectorAll('.plans__grid .plan:not(.plan--wide)')]
         .map((card) => card.querySelector('.price--monthly .price__amount').textContent),
-      symbols: document.querySelectorAll('.price__symbol').length,
     })""")
-    if back["symbols"]:
-        problems.append("currency: the dollar prices carry a currency label")
     if back["prices"] != ["$9", "$39", "$69"]:
         problems.append(f"currency: the dollar prices came back as {back['prices']}")
     ctx.close()

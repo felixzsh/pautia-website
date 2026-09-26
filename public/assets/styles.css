@@ -1016,13 +1016,8 @@ ol {
     margin-left: auto;
   }
 
-  .plan--wide .price,
-  .plan--wide .price__note {
+  .plan--wide .price {
     margin-top: 0;
-  }
-
-  .plan--wide .plan__quote .price__note {
-    margin-top: var(--space-1);
   }
 
   .plan--wide .plan__cta {
@@ -1059,28 +1054,23 @@ ol {
   font-size: var(--step-0);
 }
 
+/* The figure on its line and what it buys under it: "al mes" never sits beside
+   the price, so a long amount or a long currency cannot push it around, and the
+   three cards read the same whatever they cost. */
 .price {
   display: flex;
-  align-items: baseline;
-  /* The peso note joins the line when there is room for it and goes under it
-     when there is not: a price must never be pushed out of its card. */
-  flex-wrap: wrap;
-  gap: var(--space-2);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
   margin-top: var(--space-5);
-}
-
-/* The currency in front of a converted price is a label, not part of the shout:
-   smaller and softer than the figure, so the amount stays the only thing the
-   eye lands on. The dollar prices, written by hand, keep their single size. */
-.price__symbol {
-  color: var(--ink-500);
-  font-size: var(--step-1);
-  font-weight: 650;
 }
 
 .price__amount {
   color: var(--ink-900);
-  font-size: var(--step-4);
+  /* One step down from the display size: the figure is still the thing the eye
+     lands on, and a price with a currency in front of it, MX$1.219,30, fits the
+     card without crowding it. */
+  font-size: var(--step-3);
   font-weight: 650;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -1097,33 +1087,20 @@ ol {
   font-size: var(--step--1);
 }
 
-.price__note {
-  margin-top: var(--space-2);
-  color: var(--ink-500);
-  font-size: var(--step--1);
-  min-height: 1.4em;
-}
-
 /* The monthly and the annual price are both in the HTML for the crawler, and
    the switch between them is CSS: two radios and no script. The ids are the
    same in both languages so this rule is written once. */
 
-.price--yearly,
-.note--yearly {
+.price--yearly {
   display: none;
 }
 
-.plans:has(#period-yearly:checked) .price--monthly,
-.plans:has(#period-yearly:checked) .note--monthly {
+.plans:has(#period-yearly:checked) .price--monthly {
   display: none;
 }
 
 .plans:has(#period-yearly:checked) .price--yearly {
   display: flex;
-}
-
-.plans:has(#period-yearly:checked) .note--yearly {
-  display: block;
 }
 
 .plan__cta {

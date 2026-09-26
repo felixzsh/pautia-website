@@ -128,18 +128,8 @@
         continue;
       }
       const figure = money(Number(node.dataset.usd) * converted, currency);
-      if (node.classList.contains("price__amount")) {
-        // The currency reads as a label in front of the figure, in the small
-        // grey, so the money is the only thing shouting and the price takes less
-        // room on the card: MX$159,04, MX$1.219,30.
-        const symbol = symbolOf(currency);
-        node.innerHTML = `<span class="price__symbol">${symbol}</span>`
-          + (/^[A-Za-z]{3,}$/.test(symbol) ? " " : "")
-          + `<span class="price__number">${figure}</span>`;
-      } else {
-        node.textContent = dollars.replace(/[$€]\s?[\d][\d.,]*/, () =>
-          prefix(currency) + figure);
-      }
+      node.textContent = dollars.replace(/[$€]\s?[\d][\d.,]*/, () =>
+        prefix(currency) + figure);
     }
 
     // The structured data describes what the visitor is looking at.
