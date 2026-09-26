@@ -1,8 +1,8 @@
 #!/bin/sh
 # Landing checks: forbidden words, unfinished markers, anchors, internal files,
-# and the two language pages drifting apart. No linter and no dependency, on
-# purpose: the page is three files and a stylesheet, so a build would cost more
-# than it catches.
+# and the language files agreeing with the page. No linter and no dependency, on
+# purpose: the page is one file, a stylesheet and a folder of translations, so a
+# build would cost more than it catches.
 set -eu
 
 cd "$(dirname "$0")/.."
@@ -31,33 +31,34 @@ if grep -rniI -E 'lorem ipsum|placeholder' public/; then
   fail "placeholder text in public/"
 fi
 
-# 3. Every page exists, and its anchors and internal links resolve.
-for page in public/index.html public/en/index.html; do
-  [ -f "$page" ] || fail "missing $page"
+# 3. The page exists, and its anchors and internal links resolve.
+page=public/index.html
+[ -f "$page" ] || fail "missing $page"
 
-  ids=$(grep -o 'id="[^"]*"' "$page" | sed 's/id="//; s/"//' | sort -u)
-  for anchor in $(grep -o 'href="#[^"]*"' "$page" | sed 's/href="#//; s/"//' | sort -u); do
-    printf '%s\n' "$ids" | grep -qx "$anchor" || fail "$page: #$anchor has no element"
-  done
-
-  for link in $(grep -o 'href="/[^"]*"' "$page" | sed 's/href="//; s/"//' | sort -u); do
-    [ -e "public$link" ] || fail "$page: $link does not exist"
-  done
+ids=$(grep -o 'id="[^"]*"' "$page" | sed 's/id="//; s/"//' | sort -u)
+for anchor in $(grep -o 'href="#[^"]*"' "$page" | sed 's/href="#//; s/"//' | sort -u); do
+  printf '%s\n' "$ids" | grep -qx "$anchor" || fail "$page: #$anchor has no element"
 done
 
-# 4. The English page is the Spanish page, not a shorter one.
-for page in public/index.html public/en/index.html; do
-  printf '%s: ' "$page"
-  printf '%s sections, ' "$(grep -c '<section' "$page")"
-  printf '%s h1, ' "$(grep -c '<h1' "$page")"
-  printf '%s plan cards\n' "$(grep -c '<article class="plan' "$page")"
+for link in $(grep -o 'href="/[^"]*"' "$page" | sed 's/href="//; s/"//' | sort -u); do
+  case "$link" in
+    /assets/i18n/*) continue ;;   # a language file, checked by check-content.py
+  esac
+  [ -e "public$link" ] || fail "$page: $link does not exist"
 done
 
-es_sections=$(grep -c '<section' public/index.html)
-en_sections=$(grep -c '<section' public/en/index.html)
-es_cards=$(grep -c '<article class="plan' public/index.html)
-en_cards=$(grep -c '<article class="plan' public/en/index.html)
-[ "$es_sections" = "$en_sections" ] || fail "section count differs between languages"
-[ "$es_cards" = "$en_cards" ] || fail "plan card count differs between languages"
+# 4. Every language the page lists is a file that is there, and the other way
+#    round: a translation nobody offers, or one the page never loads, is a file
+#    that will rot.
+listed=$(sed -n '/<script type="application\/json" id="languages">/,/<\/script>/p' "$page" \
+  | grep -o '"file": *"[^"]*"' | sed 's/.*"\([^"]*\)"$/\1/' | sort)
+on_disk=$(ls public/assets/i18n | sort)
+[ "$listed" = "$on_disk" ] || fail "language files and the list in $page differ"
+
+printf '%s: ' "$page"
+printf '%s sections, ' "$(grep -c '<section' "$page")"
+printf '%s h1, ' "$(grep -c '<h1' "$page")"
+printf '%s plan cards, ' "$(grep -c '<article class="plan' "$page")"
+printf '%s languages\n' "$(grep -c '"code"' "$page")"
 
 printf 'OK\n'
