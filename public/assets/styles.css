@@ -1082,6 +1082,25 @@ ol {
   line-height: 1.15;
 }
 
+/* What the annual price saves is shown by what it used to be, crossed out above
+   it. The line runs at a slight angle on purpose: a flat rule cuts the figures
+   in half and hides them, and the point of showing this price is that it can be
+   read. */
+.price__was {
+  position: relative;
+  display: inline-block;
+  color: var(--ink-500);
+  font-size: var(--step-1);
+}
+
+.price__was::after {
+  content: "";
+  position: absolute;
+  inset: 55% 0 auto 0;
+  border-top: 2px solid currentColor;
+  transform: rotate(-8deg);
+}
+
 .price__unit {
   color: var(--ink-500);
   font-size: var(--step--1);

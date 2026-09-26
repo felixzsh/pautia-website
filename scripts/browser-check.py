@@ -268,6 +268,21 @@ with sync_playwright() as p:
                 problems.append(
                     f"{name}-{label}: switch yearly={yearly} monthly={monthly}"
                 )
+            # The annual price shows the monthly one it discounts, crossed out,
+            # and the line is drawn at an angle: a flat one hides the figure.
+            was = page.evaluate("""() => {
+              const node = document.querySelector('.price--yearly .price__was');
+              if (!node) return null;
+              return {
+                text: node.textContent,
+                line: getComputedStyle(node, '::after').transform,
+              };
+            }""")
+            if not was or not was["text"].startswith("$"):
+                problems.append(f"{name}-{label}: the annual price hides what it saves")
+            elif was["line"] in ("none", ""):
+                problems.append(f"{name}-{label}: the crossed price is not crossed")
+
             page.locator("label[for=period-monthly]").first.click()
             if not page.locator(".price--monthly").first.is_visible():
                 problems.append(f"{name}-{label}: switch does not go back to monthly")

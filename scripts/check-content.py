@@ -156,7 +156,9 @@ assert len(offers) == 3, f"offers: {len(offers)}"
 for card, offer, monthly in zip(cards, offers, (9, 39, 69)):
     annual = Decimal(monthly) * Decimal("0.80")
     assert offer["priceCurrency"] == "USD" and offer["price"] == str(monthly)
-    assert f'data-usd="${monthly}"' not in card          # the base is an attribute
+    # The annual price shows the monthly one it discounts, crossed out above it,
+    # so the saving is visible without a sentence explaining it.
+    assert f'class="price__was" data-money data-usd="{monthly}">${monthly}<' in card
     assert f'data-money data-usd="{monthly}">${monthly}<' in card
     assert f'data-money data-usd="{annual:.2f}">${annual:.2f}<' in card
 
