@@ -74,9 +74,17 @@
     return /^[A-Za-z]{3,}$/.test(found.symbol) ? `${found.symbol} ` : found.symbol;
   }
 
-  function thousands(value) {
-    const separator = page.lang === "es" ? "." : ",";
-    return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+  // The amount exactly as the rate says it, to the cent, with the page's own
+  // separators: 1.526,78 in Spanish and 1,526.78 in English. Yen and the
+  // Chilean peso have no cents to show.
+  const NO_CENTS = ["JPY", "CLP"];
+
+  function money(value, code) {
+    const [whole, cents] = value.toFixed(NO_CENTS.includes(code) ? 0 : 2).split(".");
+    const groups = whole.replace(/\B(?=(\d{3})+(?!\d))/g,
+      page.lang === "es" ? "." : ",");
+    if (!cents) return groups;
+    return `${groups}${page.lang === "es" ? "," : "."}${cents}`;
   }
 
   function rate() {
@@ -84,24 +92,33 @@
     return rates && rates[currency] ? rates[currency] : 0;
   }
 
-  function stashMoney() {
-    // The text as the current language writes it, in dollars: the version every
-    // conversion and every switch back to the dollar is derived from.
+  // The dollars, two ways round. The markup is the source once, and after that
+  // only the texts a language writes itself are read again: a figure that has
+  // already been converted must never be used as the dollars it came from, or
+  // the conversion would be applied twice and "MX$159" would grow a prefix of
+  // its own.
+  function stashMarkup() {
     for (const node of document.querySelectorAll("[data-money]")) {
-      node.dataset.text = node.textContent;
+      if (!node.dataset.usdText) node.dataset.usdText = node.textContent;
+    }
+  }
+
+  function stashLanguage() {
+    for (const node of document.querySelectorAll("[data-money][data-i18n]")) {
+      node.dataset.usdText = node.textContent;   // the dictionary writes dollars
     }
   }
 
   function prices() {
     const converted = rate();
     for (const node of document.querySelectorAll("[data-money]")) {
-      const dollars = node.dataset.text || node.textContent;
+      const dollars = node.dataset.usdText || node.textContent;
       // The replacement is a function on purpose: a "$" inside it would be read
       // as a reference to a capture group and eaten.
       node.textContent = !converted
         ? dollars                                     // no rate yet: stay in dollars
         : dollars.replace(/[$€]\s?[\d][\d.,]*/, () =>
-            prefix(currency) + thousands(Math.floor(Number(node.dataset.usd) * converted)));
+            prefix(currency) + money(Number(node.dataset.usd) * converted, currency));
     }
 
     // The structured data describes what the visitor is looking at.
@@ -114,7 +131,7 @@
         const base = monthly[index] && Number(monthly[index].dataset.usd);
         if (!base) continue;
         offer.priceCurrency = currency;
-        offer.price = String(converted ? Math.floor(base * converted) : base);
+        offer.price = converted ? (base * converted).toFixed(2) : String(base);
       }
       data.textContent = JSON.stringify(schema, null, 2);
     } catch {}
@@ -125,6 +142,15 @@
     try {
       cached = JSON.parse(localStorage.getItem(RATE.key));
     } catch {}
+    // A table written by an older version of this script has no rates in it, and
+    // trusting it left the page stuck in dollars for a day. Anything that is not
+    // the shape we expect is thrown away and fetched again.
+    if (cached && (!cached.rates || typeof cached.rates !== "object")) {
+      try {
+        localStorage.removeItem(RATE.key);
+      } catch {}
+      cached = null;
+    }
     if (cached && Date.now() - cached.at < RATE.day) {
       rates = cached.rates;
       return prices();
@@ -239,7 +265,7 @@
       data.textContent = JSON.stringify(schema, null, 2);
     }
 
-    stashMoney();   // the new language writes the dollars; convert again after
+    stashLanguage();   // the new language writes the dollars; convert again after
     prices();
     mark(lang.code);
   }
@@ -335,7 +361,7 @@
     host.replaceWith(details);
   }
 
-  stashMoney();
+  stashMarkup();
   currencyPicker();
   picker();
   menus();

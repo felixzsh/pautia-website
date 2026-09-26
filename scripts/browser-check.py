@@ -340,6 +340,33 @@ with sync_playwright() as p:
         "() => document.querySelector('.price__amount').textContent.startsWith('MX$')",
         timeout=8000,
     )
+
+    # A rates table written by an older version of the script has no rates in it,
+    # and trusting it left the page stuck in dollars for a day. It has to be
+    # spotted, dropped and asked for again.
+    page.evaluate("""() => localStorage.setItem('pautia:rate',
+      JSON.stringify({ at: Date.now(), mxn: 17.671073 }))""")
+    page.reload(wait_until="networkidle")
+    page.wait_for_function(
+        "() => document.querySelector('.price__amount').textContent.startsWith('MX$')",
+        timeout=8000,
+    )
+    if page.evaluate("() => JSON.parse(localStorage.getItem('pautia:rate')).rates === undefined"):
+        problems.append("currency: the page kept a rates table it cannot use")
+
+    # And a language change must not convert a price that was already converted:
+    # "MX$159.04", never "MXMX$159.04".
+    page.locator('[data-menu="lang"] .menu__summary').click()
+    page.locator('[data-menu="lang"] [data-lang-option="en"]').click()
+    page.wait_for_function("() => document.documentElement.lang === 'en'")
+    doubled = page.evaluate("""() => [...document.querySelectorAll('[data-money]')]
+      .map((node) => node.textContent)
+      .filter((text) => (text.match(/MX\\$/g) || []).length > 1)""")
+    if doubled:
+        problems.append(f"currency: a price converted twice: {doubled}")
+    page.locator('[data-menu="lang"] .menu__summary').click()
+    page.locator('[data-menu="lang"] [data-lang-option="es"]').click()
+    page.wait_for_function("() => document.documentElement.lang === 'es'")
     page.locator('[data-menu="currency"] .menu__summary').click()
     page.locator('[data-currency-option="USD"]').click()
     page.wait_for_function(
