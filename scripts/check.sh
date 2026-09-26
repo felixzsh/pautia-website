@@ -12,10 +12,12 @@ fail() {
   exit 1
 }
 
-# 1. Words that must never reach a customer's screen. Checked against the source
-#    and not only the rendered text, because a comment is where they hide.
-if grep -rniE 'whatsmeow|yaml|chatbot|no-code|framework|runtime' \
-  public/ || grep -rniE 'self-hosted|open source|sin c[oó]digo|scope' public/; then
+# 1. Words that must never reach a customer's screen. Only words that are safe
+#    to name here: this list is public, so it cannot carry the name of what runs
+#    behind the page. Checked against the source and not only the rendered text,
+#    because a comment is where they hide.
+if grep -rniE 'chatbot|no-code|framework|runtime|self-hosted|open source|sin c[oó]digo|scope' \
+  public/; then
   fail "forbidden word in public/"
 fi
 
