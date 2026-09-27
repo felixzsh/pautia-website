@@ -873,6 +873,9 @@ ol {
   background: var(--bg-sub);
   border: 1px solid var(--line);
   border-radius: var(--radius-pill);
+  /* The button and every currency in its list inherit this one size, so what is
+     fixed and what is offered read the same. */
+  font-size: 0.8125rem;
 }
 
 .currency .menu__summary {
@@ -882,7 +885,6 @@ ol {
   min-height: 36px;
   padding: 0 var(--space-2);
   color: var(--ink-900);
-  font-size: 0.8125rem;
   font-weight: 650;
 }
 
@@ -959,6 +961,33 @@ ol {
   color: var(--brand-600);
   font-size: 0.75rem;
   font-weight: 650;
+}
+
+/* Wider than the smallest phones, the controls grow a little: still smaller than
+   the section first set them, but no longer cramped. A 320px screen keeps the
+   compact size, which is what lets the two of them share one row even there. */
+@media (min-width: 360px) {
+  .plans__seg {
+    min-height: 38px;
+    font-size: 0.9375rem;
+  }
+
+  .plans__save {
+    font-size: 0.8125rem;
+  }
+
+  .currency {
+    font-size: 0.9375rem;
+  }
+
+  .currency .menu__summary {
+    min-height: 38px;
+  }
+
+  .currency .menu__summary svg {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .plans__grid {
