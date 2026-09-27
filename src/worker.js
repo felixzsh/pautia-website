@@ -33,13 +33,14 @@ import pt from "../public/assets/i18n/pt.json";
 import fr from "../public/assets/i18n/fr.json";
 import de from "../public/assets/i18n/de.json";
 import hi from "../public/assets/i18n/hi.json";
+import it from "../public/assets/i18n/it.json";
 
 const DEFAULT = "es";
-const SHIPPED = ["es", "en", "pt", "fr", "de", "hi"];
+const SHIPPED = ["es", "en", "pt", "fr", "de", "hi", "it"];
 
 // A language that is not the page's own arrives as one of these files. The
 // page's own language has none: it is the text already in the markup.
-const DICTIONARIES = { en, pt, fr, de, hi };
+const DICTIONARIES = { en, pt, fr, de, hi, it };
 
 // Where the browser said nothing we could use. Spanish by default: that is the
 // page's own language, so an unknown request is never handed an English one.

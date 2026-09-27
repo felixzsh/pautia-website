@@ -45,7 +45,8 @@ it, with no fetch and no flash of the wrong language. Today the page is written 
 Spanish. Every other language is a file in `public/assets/i18n/`, and the picker
 in the header swaps the text of the page the visitor is already reading: no
 navigation, no reload, and the price switch and the open answers stay as they
-were. Today the picker offers English, French, German, Hindi and Portuguese.
+were. Today the picker offers English, French, German, Hindi, Italian and
+Portuguese.
 
 What the visitor picks — the language and the money — is remembered in a single
 cookie, because that is the one store the edge can read: the page arrives already
