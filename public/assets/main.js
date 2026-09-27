@@ -87,6 +87,7 @@
     es: { group: ".", decimal: "," },
     pt: { group: ".", decimal: "," },
     fr: { group: "\u00a0", decimal: "," },
+    de: { group: ".", decimal: "," },
     en: { group: ",", decimal: "." },
   };
 

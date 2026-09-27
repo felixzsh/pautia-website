@@ -139,6 +139,7 @@ CLAIMS = {
     "en": ("from scratch", "import", "without coding"),
     "pt": ("do zero", "import", "sem programar"),
     "fr": ("de zéro", "import", "sans programmer"),
+    "de": ("von grund auf", "import", "ohne programmieren"),
 }
 for code, table in strings.items():
     if code not in CLAIMS:

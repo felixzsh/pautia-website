@@ -27,6 +27,7 @@ HEADLINES = {
     "es": "Agentes predecibles para tu negocio",
     "pt": "Agentes previsíveis para o seu negócio",
     "fr": "Des agents prévisibles pour votre entreprise",
+    "de": "Vorhersehbare Agenten für Ihr Geschäft",
 }
 
 problems = []
@@ -84,7 +85,7 @@ with sync_playwright() as p:
     for width, label in ((1440, "desktop"), (900, "tablet"), (390, "mobile"),
                          (320, "small")):
         for name, locale in (("en", "en-US"), ("es", "es-ES"), ("pt", "pt-BR"),
-                             ("fr", "fr-FR")):
+                             ("fr", "fr-FR"), ("de", "de-DE")):
             ctx = browser.new_context(
                 viewport={"width": width, "height": 900},
                 device_scale_factor=1,
