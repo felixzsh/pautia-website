@@ -79,18 +79,23 @@
   }
 
   // The amount exactly as the rate says it, to the cent, with the page's own
-  // separators: a dot for thousands and a comma for cents in Spanish and
-  // Portuguese (1.526,78), the other way round in English (1,526.78). Yen and
-  // the Chilean peso have no cents to show.
+  // separators: a dot for thousands in Spanish and Portuguese (1.526,78), a
+  // space in French (1 526,78), and the other way round in English (1,526.78).
+  // Yen and the Chilean peso have no cents to show.
   const NO_CENTS = ["JPY", "CLP"];
-  const DOT_DECIMAL = new Set(["es", "pt"]);
+  const NUMBER_STYLE = {
+    es: { group: ".", decimal: "," },
+    pt: { group: ".", decimal: "," },
+    fr: { group: "\u00a0", decimal: "," },
+    en: { group: ",", decimal: "." },
+  };
 
   function money(value, code) {
+    const style = NUMBER_STYLE[page.lang] || NUMBER_STYLE.en;
     const [whole, cents] = value.toFixed(NO_CENTS.includes(code) ? 0 : 2).split(".");
-    const dot = DOT_DECIMAL.has(page.lang);
-    const groups = whole.replace(/\B(?=(\d{3})+(?!\d))/g, dot ? "." : ",");
+    const groups = whole.replace(/\B(?=(\d{3})+(?!\d))/g, style.group);
     if (!cents) return groups;
-    return `${groups}${dot ? "," : "."}${cents}`;
+    return `${groups}${style.decimal}${cents}`;
   }
 
   function rate() {
