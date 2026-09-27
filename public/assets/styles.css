@@ -837,10 +837,10 @@ ol {
 
 /* Plans */
 
-/* The period switch sits in the middle and the currency at the far right of the
-   same line: three columns, the two outside ones the same width, so the middle
-   one really is the middle whatever the currency is called. On a narrow screen
-   there is no room for both, and they stack with the switch still centred. */
+/* The controls over the table are anchored to the edges, above the plans they
+   announce: the period switch on the left, the currency on the right. On a
+   narrow screen there is no room for both on one line, so they stack, the
+   switch still on the left and the currency still on the right. */
 
 .plans__bar {
   display: grid;
@@ -860,7 +860,7 @@ ol {
 }
 
 .plans__bar > :first-child {
-  justify-self: center;
+  justify-self: start;
 }
 
 /* The currency is the menu component with room for sixteen of them, wearing the
@@ -901,20 +901,22 @@ ol {
 
 @media (min-width: 640px) {
   .plans__bar {
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr;
     align-items: center;
     gap: var(--space-4);
   }
 
   .plans__bar > :first-child {
-    grid-column: 2;
+    grid-column: 1;
   }
 }
 
 .plans__switch {
   display: inline-flex;
   gap: var(--space-1);
-  margin-bottom: var(--space-6);
+  /* A fieldset carries 2px of inline margin of its own; the pill has to sit on
+     the same edge as the currency, which the browser does not give it. */
+  margin: 0;
   padding: var(--space-1);
   background: var(--bg-sub);
   border: 1px solid var(--line);

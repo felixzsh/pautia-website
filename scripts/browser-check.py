@@ -201,22 +201,22 @@ with sync_playwright() as p:
             if split:
                 problems.append(f"{name}-{label}: a plan value wraps: {split}")
 
-            # The controls over the table: the period switch centred, the
-            # currency on the right, the two the same size on one line, and
-            # neither of them a section of its own above the cards.
+            # The controls over the table are anchored to the edges: the period
+            # switch on the left, the currency on the right, the two the same
+            # size on one line, and neither a section of its own above the cards.
             bar = page.evaluate("""() => {
               const bar = document.querySelector('.plans__bar');
-              const wrap = bar.closest('.wrap');
               const box = (el) => el.getBoundingClientRect();
+              const barBox = box(bar);
               const toggle = box(bar.querySelector('.plans__switch'));
               const money = box(bar.querySelector('[data-menu="currency"]'));
               return {
-                centred: Math.round((toggle.left + toggle.width / 2)
-                  - (wrap.left + wrap.width / 2)),
+                switchLeft: Math.round(toggle.left - barBox.left),
+                moneyRight: Math.round(barBox.right - money.right),
                 sameHeight: Math.round(toggle.height - money.height),
                 sameTop: Math.round(toggle.top - money.top),
                 gap: Math.round(box(document.querySelector('.plans__grid')).top
-                  - box(bar).bottom),
+                  - barBox.bottom),
                 options: document.querySelectorAll('[data-currency-option]').length,
                 shown: document.querySelector('[data-currency-shown]').textContent,
               };
@@ -225,8 +225,14 @@ with sync_playwright() as p:
                     "() => [...document.querySelectorAll('[data-currency-option]')]"
                     ".map(o => o.dataset.currencyOption)"):
                 problems.append(f"{name}-{label}: the currency selector is not a selector")
-            if abs(bar["centred"]) > 2:
-                problems.append(f"{name}-{label}: the period switch is {bar['centred']}px off centre")
+            if abs(bar["switchLeft"]) > 2:
+                problems.append(
+                    f"{name}-{label}: the period switch is {bar['switchLeft']}px off the left"
+                )
+            if abs(bar["moneyRight"]) > 2:
+                problems.append(
+                    f"{name}-{label}: the currency is {bar['moneyRight']}px off the right"
+                )
             if bar["gap"] > 24:
                 problems.append(f"{name}-{label}: {bar['gap']}px between the controls and the plans")
             # Every card starts on the same line, whether or not it wears the
