@@ -431,6 +431,30 @@ with sync_playwright() as p:
     })""")
     if back["prices"] != ["$9", "$39", "$69"]:
         problems.append(f"currency: the dollar prices came back as {back['prices']}")
+
+    # The choice lives in the cookie and nowhere else, so clearing the cookies
+    # leaves no second copy remembering what the visitor threw away.
+    page.locator('[data-menu="currency"] .menu__summary').click()
+    page.locator('[data-currency-option="MXN"]').click()
+    page.wait_for_function(
+        "() => document.querySelector('.price__amount').textContent.includes('MX$')",
+        timeout=8000,
+    )
+    page.evaluate("""() => document.cookie.split(";").forEach((pair) => {
+      document.cookie = pair.trim().split("=")[0] + "=; path=/; max-age=0";
+    })""")
+    page.reload(wait_until="networkidle")
+    forgotten = page.evaluate("""() => ({
+      prices: [...document.querySelectorAll('.plans__grid .plan:not(.plan--wide)')]
+        .map((card) => card.querySelector('.price--monthly .price__amount').textContent),
+      kept: [localStorage.getItem('pautia:currency'), localStorage.getItem('pautia:lang')],
+    })""")
+    if forgotten["prices"] != ["$9", "$39", "$69"]:
+        problems.append(
+            f"currency: the page kept a choice after the cookies went: {forgotten['prices']}"
+        )
+    if any(forgotten["kept"]):
+        problems.append(f"localStorage: a second copy of a choice: {forgotten['kept']}")
     ctx.close()
 
     ctx = browser.new_context(java_script_enabled=False,

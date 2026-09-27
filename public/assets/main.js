@@ -50,20 +50,19 @@
     .find((code) => code && known(code)) || "USD";
   let rates = null;
 
+  // A choice lives in exactly one place: the cookie. It is what the edge reads,
+  // so the page arrives already in the chosen language and money, and it is what
+  // clearing your cookies clears. Keeping a second copy in localStorage left the
+  // page remembering a choice the visitor thought they had thrown away.
   function choice(key) {
-    const fromCookie = document.cookie.match(new RegExp(`(?:^|;\\s*)${key}=([\\w-]+)`));
-    if (fromCookie) return fromCookie[1];
-    try {
-      return localStorage.getItem(key);
-    } catch {
-      return null;
-    }
+    const found = document.cookie.match(new RegExp(`(?:^|;\\s*)${key}=([\\w-]+)`));
+    return found ? found[1] : null;
   }
 
   function remember(key, value) {
     document.cookie = `${key}=${value}; path=/; max-age=31536000; samesite=lax`;
     try {
-      localStorage.setItem(key, value);
+      localStorage.removeItem(key);   // an older copy of this choice, if any
     } catch {}
   }
 

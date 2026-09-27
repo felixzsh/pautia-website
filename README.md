@@ -47,6 +47,10 @@ in the header swaps the text of the page the visitor is already reading: no
 navigation, no reload, and the price switch and the open answers stay as they
 were.
 
+What the visitor picks — the language and the money — is remembered in a single
+cookie, because that is the one store the edge can read: the page arrives already
+in that language and money, and clearing your cookies really does forget it.
+
 `make i18n` writes the dictionary of the default language from the page itself,
 the same way `og.png` is drawn by `make og`, so the two copies of the same text
 cannot drift: change the Spanish in `index.html`, run `make i18n`, and
