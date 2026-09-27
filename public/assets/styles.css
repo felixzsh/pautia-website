@@ -1167,7 +1167,8 @@ ol {
 
 .plan__rows {
   display: grid;
-  gap: var(--space-1);
+  /* Tighter than a list: a plan's limits read as one block, not as lines with air
+     between them. */
   margin-top: var(--space-6);
   padding-top: var(--space-5);
   border-top: 1px solid var(--line);
@@ -1175,14 +1176,78 @@ ol {
 }
 
 .row {
+  position: relative;
   display: flex;
   justify-content: space-between;
   gap: var(--space-4);
-  padding-block: var(--space-2);
+  padding-block: var(--space-1);
 }
 
 .row__key {
   color: var(--ink-500);
+}
+
+/* The question mark beside a limit and the explanation it opens on hover or on
+   focus. The tip is anchored to the row, not to the button, so it can never run
+   past the card; it stays out of the way until asked for and takes no clicks. */
+.row__help {
+  display: inline-grid;
+  place-items: center;
+  width: 1rem;
+  height: 1rem;
+  margin-left: var(--space-1);
+  padding: 0;
+  vertical-align: middle;
+  background: none;
+  border: 1px solid var(--ink-300);
+  border-radius: var(--radius-pill);
+  color: var(--ink-500);
+  font: inherit;
+  font-size: 0.625rem;
+  line-height: 1;
+  cursor: help;
+}
+
+.row__help:hover {
+  border-color: var(--ink-900);
+  color: var(--ink-900);
+}
+
+.row__help:focus-visible {
+  outline: 2px solid var(--brand-600);
+  outline-offset: 2px;
+}
+
+.row__tip {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + var(--space-1));
+  right: 0;
+  left: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--inv-bg);
+  border-radius: var(--radius-s);
+  box-shadow: var(--shadow-2);
+  color: var(--inv-fg);
+  font-size: var(--step--1);
+  line-height: 1.4;
+  text-align: left;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+
+.row__help:hover .row__tip,
+.row__help:focus-visible .row__tip {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row__tip {
+    transition: none;
+  }
 }
 
 .row__value {
@@ -1200,30 +1265,6 @@ ol {
   margin-top: var(--space-6);
   color: var(--ink-500);
   font-size: var(--step-0);
-}
-
-.plans__shared {
-  display: grid;
-  gap: var(--space-2);
-  max-width: var(--prose);
-  margin-bottom: var(--space-6);
-  color: var(--ink-500);
-  font-size: var(--step-0);
-}
-
-.plans__shared li {
-  display: flex;
-  gap: var(--space-3);
-}
-
-.plans__shared li::before {
-  content: "";
-  flex: none;
-  width: 18px;
-  height: 18px;
-  margin-top: 0.25em;
-  background: var(--brand-100);
-  border-radius: var(--radius-pill);
 }
 
 /* FAQ */

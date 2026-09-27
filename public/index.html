@@ -465,13 +465,6 @@
           <p data-i18n="plans.p.0">Precios propuestos en USD. Elige el tamaño que necesita tu negocio.</p>
         </div>
 
-        <ul class="plans__shared">
-          <li data-i18n="plans.li.0">Conectas el número de WhatsApp que ya usas, con un QR.</li>
-          <li data-i18n="plans.li.1">IA que propone un flujo a partir de tu historial, si decides importarlo.</li>
-          <li data-i18n="plans.li.2">Tú revisas las respuestas, las acciones y los horarios antes de activarlo.</li>
-          <li data-i18n="plans.li.3">Cada cuenta tiene sus conversaciones separadas de las demás.</li>
-        </ul>
-
         <div class="plans">
           <div class="plans__bar">
             <fieldset class="plans__switch">
@@ -511,23 +504,67 @@
                 Join the waitlist</a> -->
               <dl class="plan__rows">
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.0">Agentes activos</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.0">Agentes</span>
+                    <button class="row__help" type="button"
+                      aria-label="Cuántos pueden estar respondiendo al mismo tiempo."
+                      data-i18n-attrs="aria-label:plans.row-tip.0">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.0">Cuántos pueden estar respondiendo
+                        al mismo tiempo.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.0">1</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.1">Agentes declarados</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.1">Flujos</span>
+                    <button class="row__help" type="button"
+                      aria-label="Los recorridos de atención que defines para el agente.
+                        Cada uno cubre un caso distinto."
+                      data-i18n-attrs="aria-label:plans.row-tip.1">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.1">Los recorridos de atención que defines
+                        para el agente. Cada uno cubre un caso distinto.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.1">5</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.2">Acciones declaradas</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.2">Acciones</span>
+                    <button class="row__help" type="button"
+                      aria-label="Lo que el agente puede hacer además de responder:
+                        consultar tus sistemas, registrar datos o avisar."
+                      data-i18n-attrs="aria-label:plans.row-tip.2">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.2">Lo que el agente puede hacer además de
+                        responder: consultar tus sistemas, registrar datos o avisar.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.2">200</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.3">Mensajes salientes al mes</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.3">Mensajes</span>
+                    <button class="row__help" type="button"
+                      aria-label="Los mensajes que envía el agente, no las conversaciones.
+                        Al llegar al máximo, deja de enviar hasta que haya capacidad."
+                      data-i18n-attrs="aria-label:plans.row-tip.3">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.3">Los mensajes que envía el agente, no las
+                        conversaciones. Al llegar al máximo, deja de enviar hasta que haya
+                        capacidad.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.3">3.000</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.4">Almacenamiento de mensajes</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.4">Almacenamiento</span>
+                    <button class="row__help" type="button"
+                      aria-label="Cuánto historial de mensajes guarda cada plan."
+                      data-i18n-attrs="aria-label:plans.row-tip.4">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.4">Cuánto historial de mensajes guarda
+                        cada plan.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.4">50 MB</dd>
                 </div>
                 <!-- plan rows that need a phase: retention in days, integrations,
@@ -556,23 +593,67 @@
                 Join the waitlist</a> -->
               <dl class="plan__rows">
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.5">Agentes activos</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.5">Agentes</span>
+                    <button class="row__help" type="button"
+                      aria-label="Cuántos pueden estar respondiendo al mismo tiempo."
+                      data-i18n-attrs="aria-label:plans.row-tip.0">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.0">Cuántos pueden estar respondiendo
+                        al mismo tiempo.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.5">5</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.6">Agentes declarados</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.6">Flujos</span>
+                    <button class="row__help" type="button"
+                      aria-label="Los recorridos de atención que defines para el agente.
+                        Cada uno cubre un caso distinto."
+                      data-i18n-attrs="aria-label:plans.row-tip.1">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.1">Los recorridos de atención que defines
+                        para el agente. Cada uno cubre un caso distinto.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.6">50</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.7">Acciones declaradas</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.7">Acciones</span>
+                    <button class="row__help" type="button"
+                      aria-label="Lo que el agente puede hacer además de responder:
+                        consultar tus sistemas, registrar datos o avisar."
+                      data-i18n-attrs="aria-label:plans.row-tip.2">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.2">Lo que el agente puede hacer además de
+                        responder: consultar tus sistemas, registrar datos o avisar.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.7">1.000</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.8">Mensajes salientes al mes</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.8">Mensajes</span>
+                    <button class="row__help" type="button"
+                      aria-label="Los mensajes que envía el agente, no las conversaciones.
+                        Al llegar al máximo, deja de enviar hasta que haya capacidad."
+                      data-i18n-attrs="aria-label:plans.row-tip.3">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.3">Los mensajes que envía el agente, no las
+                        conversaciones. Al llegar al máximo, deja de enviar hasta que haya
+                        capacidad.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.8">15.000</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.9">Almacenamiento de mensajes</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.9">Almacenamiento</span>
+                    <button class="row__help" type="button"
+                      aria-label="Cuánto historial de mensajes guarda cada plan."
+                      data-i18n-attrs="aria-label:plans.row-tip.4">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.4">Cuánto historial de mensajes guarda
+                        cada plan.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.9">250 MB</dd>
                 </div>
                 <!-- plan rows that need a phase: same as Basic. -->
@@ -599,23 +680,67 @@
                 Join the waitlist</a> -->
               <dl class="plan__rows">
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.10">Agentes activos</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.10">Agentes</span>
+                    <button class="row__help" type="button"
+                      aria-label="Cuántos pueden estar respondiendo al mismo tiempo."
+                      data-i18n-attrs="aria-label:plans.row-tip.0">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.0">Cuántos pueden estar respondiendo
+                        al mismo tiempo.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.10">10</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.11">Agentes declarados</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.11">Flujos</span>
+                    <button class="row__help" type="button"
+                      aria-label="Los recorridos de atención que defines para el agente.
+                        Cada uno cubre un caso distinto."
+                      data-i18n-attrs="aria-label:plans.row-tip.1">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.1">Los recorridos de atención que defines
+                        para el agente. Cada uno cubre un caso distinto.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.11">100</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.12">Acciones declaradas</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.12">Acciones</span>
+                    <button class="row__help" type="button"
+                      aria-label="Lo que el agente puede hacer además de responder:
+                        consultar tus sistemas, registrar datos o avisar."
+                      data-i18n-attrs="aria-label:plans.row-tip.2">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.2">Lo que el agente puede hacer además de
+                        responder: consultar tus sistemas, registrar datos o avisar.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.12">2.000</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.13">Mensajes salientes al mes</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.13">Mensajes</span>
+                    <button class="row__help" type="button"
+                      aria-label="Los mensajes que envía el agente, no las conversaciones.
+                        Al llegar al máximo, deja de enviar hasta que haya capacidad."
+                      data-i18n-attrs="aria-label:plans.row-tip.3">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.3">Los mensajes que envía el agente, no las
+                        conversaciones. Al llegar al máximo, deja de enviar hasta que haya
+                        capacidad.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.13">30.000</dd>
                 </div>
                 <div class="row">
-                  <dt class="row__key" data-i18n="plans.row-key.14">Almacenamiento de mensajes</dt>
+                  <dt class="row__key">
+                    <span data-i18n="plans.row-key.14">Almacenamiento</span>
+                    <button class="row__help" type="button"
+                      aria-label="Cuánto historial de mensajes guarda cada plan."
+                      data-i18n-attrs="aria-label:plans.row-tip.4">?<span
+                        class="row__tip" aria-hidden="true"
+                        data-i18n="plans.row-tip.4">Cuánto historial de mensajes guarda
+                        cada plan.</span></button>
+                  </dt>
                   <dd class="row__value" data-i18n="plans.row-value.14">500 MB</dd>
                 </div>
                 <!-- plan rows that need a phase: same as Basic. -->
@@ -645,13 +770,6 @@
             </article>
           </div>
         </div>
-
-        <p class="plans__note" data-i18n="plans.plans-note.0">Un agente activo es el que puede estar respondiendo en ese momento; uno declarado
-          es el que defines y dejas preparado. Puedes declarar más de los que activas, y
-          activarlos por turnos.</p>
-
-        <p class="plans__note" data-i18n="plans.plans-note.1">Los límites cuentan mensajes salientes, no conversaciones. Si alcanzas el máximo,
-          el agente deja de enviar respuestas hasta que haya capacidad disponible.</p>
 
         <dl class="facts">
           <div class="fact">
