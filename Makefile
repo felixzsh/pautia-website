@@ -12,6 +12,11 @@ check:
 check-browser:
 	@python3 scripts/browser-check.py
 
+# The Worker that hands the page over in the right language and money, with the
+# site as static assets. Needs network: npx fetches wrangler.
+edge:
+	@npx --yes wrangler@latest dev --port 8789 --ip 127.0.0.1
+
 i18n:
 	@python3 scripts/i18n.py
 
@@ -25,4 +30,4 @@ default-lang:
 og:
 	@python3 scripts/og.py
 
-.PHONY: serve check check-browser i18n default-lang og
+.PHONY: serve check check-browser edge i18n default-lang og

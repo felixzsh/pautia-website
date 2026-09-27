@@ -7,7 +7,8 @@ dependencies, no framework. The whole interactive surface is two radio buttons,
 two `<details>` elements and a language picker.
 
 ```
-make serve           # http://127.0.0.1:8080
+make serve           # http://127.0.0.1:8080, the files as they are
+make edge            # the same, behind the Worker that translates at the edge
 make check           # links, translations, copy and USD pricing consistency
 make check-browser   # playwright: console, overflow, switch, keyboard, language
 make i18n            # rewrite the dictionary of the default language
@@ -22,6 +23,18 @@ in production.
 
 The copy is the product. Change a claim, a price or a plan, and `make check` has
 to stay green.
+
+## How it is served
+
+`pautia.app` is a Worker with the site as static assets (`wrangler.jsonc`): the
+pages are these files, unchanged, and a hundred lines of `src/worker.js` stand in
+front of the landing page to hand it over in the language and the money the visit
+asks for. Everything else — the stylesheet, the dictionaries, the legal pages —
+is served straight from the assets and never reaches that code.
+
+`make serve` serves the files as they are, which is what localhost should be:
+Spanish and dollars. `make edge` runs the same thing behind the Worker, so the
+translation and the country can be exercised before pushing.
 
 ## Languages
 

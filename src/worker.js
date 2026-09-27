@@ -1,33 +1,40 @@
-/* The edge does the translation, so a visitor never sees the wrong language.
+/* The edge decides the language and the money, so a visitor never sees the wrong
+ * one and never has to go looking for the switch.
  *
- * The page is one file, written in Spanish, and this middleware sends it in the
- * language the request asks for. The strings come from en.json, the same file the
- * browser fetches when it switches languages by hand, so every translation has
- * one copy and the page itself needs no build step. Anything that is not the
- * landing page passes through untouched, and so does the default language: no
- * request that is already right pays for the rewrite.
+ * This is a Worker with the site as static assets: the pages are the same files
+ * as always, and this only stands in front of the landing page (see
+ * run_worker_first in wrangler.jsonc) to hand it over in the right language.
+ * Everything else — the stylesheet, the dictionaries, the legal pages — is served
+ * straight from the assets and never reaches this code.
  *
  * Which language, in order:
  *   1. the visitor's own choice, if they made one (the cookie the picker sets);
  *   2. crawlers get the language the page is written in, so what gets indexed is
- *      what was written, and the cards a post shares say the same thing;
+ *      what was written, and the card a post shares says the same as the page;
  *   3. what the browser asks for in Accept-Language;
  *   4. the country, for a visitor whose browser asked for nothing about es or en;
  *   5. otherwise the page's own language.
  *
- * It runs on pautia.app only. On localhost there is no Cloudflare, no middleware
- * and no rewrite: the page is served as it is written.
+ * The country also picks the money the page opens in, which it passes on as
+ * data-currency. Prices stay in dollars in the markup; the page converts them.
  *
- * The whole body is read and rewritten in one pass instead of streamed through
+ * On localhost there is no Worker: `make serve` serves the files as they are and
+ * the page opens in its own language and dollars. To exercise this code locally,
+ * `make edge`.
+ *
+ * The body is read and rewritten in one pass instead of streamed through
  * HTMLRewriter on purpose: that API hands the JSON-LD script over in fragments,
- * which cannot be parsed, and this page is 42 KB, so one regex pass over it is
- * well inside the 10 ms of CPU the free plan allows.
+ * which cannot be parsed, and 42 KB is well inside the CPU a request may use.
  */
 
 import en from "../public/assets/i18n/en.json";
 
 const DEFAULT = "es";
 const SHIPPED = ["es", "en"];
+
+// Where the browser said nothing we could use. Spanish by default: that is the
+// page's own language, so an unknown request is never handed an English one.
+const ENGLISH_SPOKEN = new Set(["US", "GB", "IE", "AU", "NZ", "CA", "SG"]);
 
 // Where the visitor is, turned into the money they think in. Only the countries
 // whose currency the page offers: anyone else gets dollars, which is what the
@@ -56,10 +63,6 @@ const BY_COUNTRY = Object.fromEntries(
   Object.entries(CURRENCY).flatMap(([code, countries]) =>
     countries.map((country) => [country, code])));
 
-// Where the browser said nothing we could use. Spanish by default: that is the
-// page's own language, so an unknown request is never handed an English one.
-const ENGLISH_SPOKEN = new Set(["US", "GB", "IE", "AU", "NZ", "CA", "SG"]);
-
 function cookie(request, name) {
   const found = (request.headers.get("cookie") || "")
     .match(new RegExp(`(?:^|;\\s*)${name}=([\\w-]+)`));
@@ -85,21 +88,23 @@ function crawler(userAgent) {
     .test(userAgent || "");
 }
 
+function country(request) {
+  return (request.cf && request.cf.country) || null;
+}
+
 function languageFor(request) {
   const mine = cookie(request, "pautia:lang");
   if (mine && SHIPPED.includes(mine)) return mine;
   if (crawler(request.headers.get("user-agent"))) return DEFAULT;
   const asked = preferred(request.headers.get("accept-language"));
   if (asked) return asked;
-  const country = request.cf && request.cf.country;
-  return country && ENGLISH_SPOKEN.has(country) ? "en" : DEFAULT;
+  return country(request) && ENGLISH_SPOKEN.has(country(request)) ? "en" : DEFAULT;
 }
 
 function currencyFor(request) {
   const mine = cookie(request, "pautia:currency");
   if (mine && Object.hasOwn(CURRENCY, mine)) return mine;
-  const country = request.cf && request.cf.country;
-  return (country && BY_COUNTRY[country]) || "USD";
+  return BY_COUNTRY[country(request)] || "USD";
 }
 
 // Every text the page carries for a key, in one pass: the key names the text
@@ -148,28 +153,29 @@ function schema(html) {
   );
 }
 
-export async function onRequest(context) {
-  const response = await context.next();
-  const type = response.headers.get("content-type") || "";
-  if (!type.includes("text/html")) return response;
-  if (new URL(context.request.url).pathname !== "/") return response;
+export default {
+  async fetch(request, env) {
+    const response = await env.ASSETS.fetch(request);
+    const type = response.headers.get("content-type") || "";
+    if (!type.includes("text/html")) return response;
+    if (new URL(request.url).pathname !== "/") return response;
 
-  const language = languageFor(context.request);
-  const currency = currencyFor(context.request);
-  if (language === DEFAULT && currency === "USD") return response;
+    const language = languageFor(request);
+    const currency = currencyFor(request);
+    if (language === DEFAULT && currency === "USD") return response;
 
-  let html = await response.text();
-  if (language !== DEFAULT) html = schema(attributes(texts(html)));
-  if (language !== DEFAULT) {
-    html = html.replace('<html lang="es"', `<html lang="${language}"`);
-  }
-  if (currency !== "USD") {
-    // The page is priced in dollars; this tells the runtime which money to show.
-    html = html.replace(/<html lang="[a-z-]+"/,
-      (whole) => `${whole} data-currency="${currency}"`);
-  }
+    let html = await response.text();
+    if (language !== DEFAULT) {
+      html = schema(attributes(texts(html)));
+      html = html.replace('<html lang="es"', `<html lang="${language}"`);
+    }
+    if (currency !== "USD") {
+      html = html.replace(/<html lang="[a-z-]+"/,
+        (whole) => `${whole} data-currency="${currency}"`);
+    }
 
-  const headers = new Headers(response.headers);
-  headers.delete("content-length");        // the new body is a different size
-  return new Response(html, { status: response.status, headers });
-}
+    const headers = new Headers(response.headers);
+    headers.delete("content-length");        // the new body is a different size
+    return new Response(html, { status: response.status, headers });
+  },
+};
