@@ -246,7 +246,9 @@ with sync_playwright() as p:
             if width >= 900 and len(set(starts)) > 1:
                 problems.append(f"{name}-{label}: the plan names do not line up: {starts}")
 
-            if width >= 640 and (abs(bar["sameHeight"]) > 2 or abs(bar["sameTop"]) > 2):
+            # The two controls share one line at every width, the switch on the
+            # left and the currency on the right: same top, same height.
+            if abs(bar["sameHeight"]) > 2 or abs(bar["sameTop"]) > 2:
                 problems.append(
                     f"{name}-{label}: the two controls do not line up: "
                     f"{bar['sameHeight']}px of height, {bar['sameTop']}px of top"
