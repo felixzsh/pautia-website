@@ -32,6 +32,11 @@ front of the landing page to hand it over in the language and the money the visi
 asks for. Everything else — the stylesheet, the dictionaries, the legal pages —
 is served straight from the assets and never reaches that code.
 
+The language follows the cookie the visitor set, then the browser's
+`Accept-Language`, then English when the browser asked for none of the seven;
+crawlers always get the page's own Spanish, which is what gets indexed. The
+country only picks the money.
+
 `make serve` serves the files as they are, which is what localhost should be:
 Spanish and dollars. `make edge` runs the same thing behind the Worker, so the
 translation and the country can be exercised before pushing.

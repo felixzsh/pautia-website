@@ -12,9 +12,9 @@
  *   2. crawlers get the language the page is written in, so what gets indexed is
  *      what was written, and the card a post shares says the same as the page;
  *   3. what the browser asks for in Accept-Language;
- *   4. the country, for a visitor whose browser asked for none of the languages
- *      we ship;
- *   5. otherwise the page's own language.
+ *   4. English, for a visitor whose browser asked for none of the languages we
+ *      ship: more people read it than read the page's own Spanish, and someone
+ *      in a Spanish-speaking country asks for Spanish anyway.
  *
  * The country also picks the money the page opens in, which it passes on as
  * data-currency. Prices stay in dollars in the markup; the page converts them.
@@ -41,10 +41,6 @@ const SHIPPED = ["es", "en", "pt", "fr", "de", "hi", "it"];
 // A language that is not the page's own arrives as one of these files. The
 // page's own language has none: it is the text already in the markup.
 const DICTIONARIES = { en, pt, fr, de, hi, it };
-
-// Where the browser said nothing we could use. Spanish by default: that is the
-// page's own language, so an unknown request is never handed an English one.
-const ENGLISH_SPOKEN = new Set(["US", "GB", "IE", "AU", "NZ", "CA", "SG"]);
 
 // Where the visitor is, turned into the money they think in. Only the countries
 // whose currency the page offers: anyone else gets dollars, which is what the
@@ -108,7 +104,9 @@ function languageFor(request) {
   if (crawler(request.headers.get("user-agent"))) return DEFAULT;
   const asked = preferred(request.headers.get("accept-language"));
   if (asked) return asked;
-  return country(request) && ENGLISH_SPOKEN.has(country(request)) ? "en" : DEFAULT;
+  // The browser named none of the languages we carry: English is the safer guess
+  // than the page's own Spanish, which only helps a reader who reads it.
+  return "en";
 }
 
 function currencyFor(request) {
