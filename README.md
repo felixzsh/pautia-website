@@ -45,7 +45,7 @@ it, with no fetch and no flash of the wrong language. Today the page is written 
 Spanish. Every other language is a file in `public/assets/i18n/`, and the picker
 in the header swaps the text of the page the visitor is already reading: no
 navigation, no reload, and the price switch and the open answers stay as they
-were.
+were. Today the picker offers English and Portuguese.
 
 What the visitor picks — the language and the money — is remembered in a single
 cookie, because that is the one store the edge can read: the page arrives already
@@ -65,10 +65,13 @@ the list in the head. It regenerates and checks afterwards, and running it with
 the language the page already has changes nothing.
 
 **To add a language:** write `public/assets/i18n/<code>.json` with the same keys
-as the default language's file, and add it to the list in the head of
-`index.html`. Nothing else. A key the new file leaves out keeps the text already
-in the markup, so a half-finished translation degrades instead of breaking, and
-`make check` tells you which keys are missing.
+as the default language's file, add it to the list in the head of `index.html`,
+and register it in `src/worker.js`, where `SHIPPED` and `DICTIONARIES` name the
+languages the edge can hand over before the page runs. A key the new file leaves
+out keeps the text already in the markup, so a half-finished translation
+degrades instead of breaking, and `make check` tells you which keys are missing.
+A language that writes numbers with a dot for thousands and a comma for cents
+belongs in `DOT_DECIMAL` in `main.js`; the others get the English order.
 
 To translate a new string that appears in the page, give its element a
 `data-i18n="<key>"` and add the key to every language file. The element must hold

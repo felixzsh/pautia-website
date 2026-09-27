@@ -12,7 +12,8 @@
  *   2. crawlers get the language the page is written in, so what gets indexed is
  *      what was written, and the card a post shares says the same as the page;
  *   3. what the browser asks for in Accept-Language;
- *   4. the country, for a visitor whose browser asked for nothing about es or en;
+ *   4. the country, for a visitor whose browser asked for none of the languages
+ *      we ship;
  *   5. otherwise the page's own language.
  *
  * The country also picks the money the page opens in, which it passes on as
@@ -28,9 +29,14 @@
  */
 
 import en from "../public/assets/i18n/en.json";
+import pt from "../public/assets/i18n/pt.json";
 
 const DEFAULT = "es";
-const SHIPPED = ["es", "en"];
+const SHIPPED = ["es", "en", "pt"];
+
+// A language that is not the page's own arrives as one of these files. The
+// page's own language has none: it is the text already in the markup.
+const DICTIONARIES = { en, pt };
 
 // Where the browser said nothing we could use. Spanish by default: that is the
 // page's own language, so an unknown request is never handed an English one.
@@ -109,22 +115,22 @@ function currencyFor(request) {
 
 // Every text the page carries for a key, in one pass: the key names the text
 // that follows it, up to the next tag.
-function texts(html) {
+function texts(html, table) {
   return html.replace(/data-i18n="([\w.-]+)">([\s\S]*?)</g, (whole, key) =>
-    en[key] ? `data-i18n="${key}">${en[key]}<` : whole);
+    table[key] ? `data-i18n="${key}">${table[key]}<` : whole);
 }
 
 // The five values that live in attributes: the description, the cards, the
 // locale, and the label of the navigation.
-function attributes(html) {
+function attributes(html, table) {
   return html.replace(
     /<([a-z]+)([^>]*\sdata-i18n-attrs="([^"]+)"[^>]*)>/g,
     (whole, tag, attrs, pairs) => {
       let out = attrs;
       for (const pair of pairs.split(",")) {
         const [attr, key] = pair.split(":");
-        if (en[key]) {
-          out = out.replace(new RegExp(`\\b${attr}="[^"]*"`), `${attr}="${en[key]}"`);
+        if (table[key]) {
+          out = out.replace(new RegExp(`\\b${attr}="[^"]*"`), `${attr}="${table[key]}"`);
         }
       }
       return `<${tag}${out}>`;
@@ -133,17 +139,17 @@ function attributes(html) {
 }
 
 // The structured data describes the page as it is served, so it follows.
-function schema(html) {
+function schema(html, table, language) {
   return html.replace(
     /<script type="application\/ld\+json">([\s\S]*?)<\/script>/,
     (whole, body) => {
       try {
         const data = JSON.parse(body);
-        data.inLanguage = "en";
-        data.description = en["meta.description"];
+        data.inLanguage = language;
+        data.description = table["meta.description"];
         const names = ["plans.plan-name.0", "plans.plan-name.1", "plans.plan-name.2"];
         for (const [index, offer] of (data.offers || []).entries()) {
-          if (names[index]) offer.name = en[names[index]];
+          if (names[index]) offer.name = table[names[index]];
         }
         return whole.replace(body, JSON.stringify(data, null, 2));
       } catch {
@@ -166,7 +172,8 @@ export default {
 
     let html = await response.text();
     if (language !== DEFAULT) {
-      html = schema(attributes(texts(html)));
+      const table = DICTIONARIES[language];
+      html = schema(attributes(texts(html, table), table), table, language);
       html = html.replace('<html lang="es"', `<html lang="${language}"`);
     }
     if (currency !== "USD") {
