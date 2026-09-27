@@ -334,6 +334,29 @@ with sync_playwright() as p:
     page.reload(wait_until="networkidle")
     if page.locator("h1").inner_text().strip() != HEADLINES["en"]:
         problems.append("reload: English did not come back")
+
+    # The copy of the choice an older version of the script left in localStorage
+    # must decide nothing now that the cookie is the only store: with no cookies
+    # at all, the page keeps the language it was served in, and the leftovers are
+    # cleared on the way so they cannot come back.
+    ctx = browser.new_context(viewport={"width": 1280, "height": 900})
+    page = ctx.new_page()
+    page.goto(f"{BASE}/", wait_until="networkidle")
+    page.evaluate("""() => {
+      localStorage.setItem('pautia:lang', 'en');
+      localStorage.setItem('pautia:currency', 'MXN');
+    }""")
+    page.reload(wait_until="networkidle")
+    page.wait_for_timeout(400)
+    stale = page.evaluate("""() => ({
+      lang: document.documentElement.lang,
+      headline: document.querySelector('h1').textContent.trim(),
+      kept: [localStorage.getItem('pautia:lang'), localStorage.getItem('pautia:currency')],
+    })""")
+    if stale["lang"] != "es" or stale["headline"] != HEADLINES["es"]:
+        problems.append(f"stale: a leftover in localStorage chose a language: {stale}")
+    if any(stale["kept"]):
+        problems.append(f"stale: the leftovers were not cleared: {stale['kept']}")
     ctx.close()
 
     # The currency: chosen by hand, marked, applied to every price and to the

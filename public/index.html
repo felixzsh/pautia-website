@@ -42,14 +42,17 @@
 
   <script>
     // The language the visitor chose, read before the page paints so its
-    // dictionary is already on its way when the first text needs it. The page's
-    // own language is the text already in the markup, so it needs no file.
+    // dictionary is already on its way when the first text needs it. The choice
+    // lives in the cookie, the same store the edge reads, and the language the
+    // page already arrived in is not a fetch: only a choice that differs from it
+    // has a file to wait for.
     (() => {
       try {
-        const want = localStorage.getItem("pautia:lang");
+        const found = document.cookie.match(/(?:^|;\s*)pautia:lang=([\w-]+)/);
+        if (!found) return;
         const list = JSON.parse(document.getElementById("languages").textContent);
-        const lang = list.find((l) => l.code === want);
-        if (!lang || lang === list[0]) return;
+        const lang = list.find((l) => l.code === found[1]);
+        if (!lang || lang.code === document.documentElement.lang) return;
         document.documentElement.dataset.lang = lang.code;
         const link = document.createElement("link");
         link.rel = "preload";

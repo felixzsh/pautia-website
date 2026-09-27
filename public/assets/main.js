@@ -371,6 +371,16 @@
     host.replaceWith(details);
   }
 
+  // The language and the money used to be copied into localStorage as well, and
+  // a reader in the page's head kept honouring that copy: a visitor who cleared
+  // the cookies saw an old choice come back, and the page wrote its cookie
+  // again. The cookie is now the only store, and the leftovers go at boot.
+  for (const key of [STORED, CURRENCY]) {
+    try {
+      localStorage.removeItem(key);
+    } catch {}
+  }
+
   stashMarkup();
   currencyPicker();
   picker();
