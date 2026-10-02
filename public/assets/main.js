@@ -81,7 +81,7 @@
   // The amount exactly as the rate says it, to the cent, with the page's own
   // separators: a dot for thousands and a comma for cents in Spanish,
   // Portuguese, German and Italian (1.526,78), a space in French (1 526,78),
-  // and the other way round in English and Hindi (1,526.78). Yen and the
+  // and the other way round in English (1,526.78). Yen and the
   // Chilean peso have no cents to show.
   const NO_CENTS = ["JPY", "CLP"];
   const NUMBER_STYLE = {
@@ -91,7 +91,6 @@
     it: { group: ".", decimal: "," },
     fr: { group: "\u00a0", decimal: "," },
     en: { group: ",", decimal: "." },
-    hi: { group: ",", decimal: "." },
   };
 
   function money(value, code) {

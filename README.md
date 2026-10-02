@@ -33,7 +33,7 @@ asks for. Everything else — the stylesheet, the dictionaries, the legal pages 
 is served straight from the assets and never reaches that code.
 
 The language follows the cookie the visitor set, then the browser's
-`Accept-Language`, then English when the browser asked for none of the seven;
+`Accept-Language`, then English when the browser asked for none of the six;
 crawlers always get the page's own Spanish, which is what gets indexed. The
 country only picks the money.
 
@@ -50,7 +50,7 @@ it, with no fetch and no flash of the wrong language. Today the page is written 
 Spanish. Every other language is a file in `public/assets/i18n/`, and the picker
 in the header swaps the text of the page the visitor is already reading: no
 navigation, no reload, and the price switch and the open answers stay as they
-were. Today the picker offers English, French, German, Hindi, Italian and
+were. Today the picker offers English, French, German, Italian and
 Portuguese.
 
 What the visitor picks — the language and the money — is remembered in a single
