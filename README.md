@@ -7,6 +7,25 @@ dependencies, no framework. The whole interactive surface is two radio buttons,
 two `<details>` elements, a language picker, and an inline journey that joins the
 waitlist.
 
+## Website versus product application
+
+This repository currently implements the public website, not the authenticated
+product. Pautia owns its future application experience: dashboard, onboarding,
+conversation views, and flow authoring. Login should open that application, not
+hand the client to a third-party operator interface.
+
+Application sessions and authorization belong to the product backend. Browsers
+must not receive infrastructure administrator or integration credentials. The
+static landing does not become an application merely because product screens
+are planned; application repository location and stack remain TBD.
+
+Commercial limits, counting periods, and enforcement guarantees are also TBD.
+Published plan numbers do not prove implementation; verify the promises before
+opening sales. This documentation change does not alter public copy or pricing.
+
+Implementation details and private product decisions stay outside this public
+repository. No runtime integration or dashboard is implemented by these pages.
+
 ```
 make serve           # http://127.0.0.1:8080, the files as they are
 make edge            # the same, behind the Worker that translates at the edge
