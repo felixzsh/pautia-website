@@ -31,15 +31,15 @@ const ATTRIBUTES = {
 const MAIL = {
   es: {
     subject: "Ya estás en la lista de Pautia",
-    text: "Gracias por anotarte. Te escribimos a este correo en cuanto Pautia "
-      + "abra, con tu acceso y los primeros pasos.\n\n"
+    text: "Gracias por anotarte. Te escribimos a este correo en cuanto el registro "
+      + "esté habilitado.\n\n"
       + "Si quieres contarnos algo más de tu negocio, responde a este correo.\n\n"
       + "Pautia · info@pautia.app",
   },
   en: {
     subject: "You are on the Pautia list",
     text: "Thanks for signing up. We will write to this address as soon as "
-      + "Pautia opens, with your access and the first steps.\n\n"
+      + "registration opens.\n\n"
       + "If you want to tell us more about your business, reply to this email.\n\n"
       + "Pautia · info@pautia.app",
   },
