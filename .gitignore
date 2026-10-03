@@ -3,4 +3,5 @@ node_modules/
 *.log
 __pycache__/
 .wrangler/
+.cloudflare/
 .env

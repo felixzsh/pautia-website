@@ -70,7 +70,13 @@ though the Worker sends. The confirmation is transactional mail, of which 300 a
 day are free.
 
 Two environment variables, in `.env` for local work and as secrets on the Worker
-in production: `BREVO_API_KEY` and `BREVO_LIST_ID`. The three attributes the
+in production: `BREVO_API_KEY` and `BREVO_LIST_ID`. Both are Worker secrets,
+including the list ID, so Wrangler preserves them across Git deployments.
+Do not configure them only as build variables or plain-text dashboard variables:
+the former are not available at runtime and the latter can be replaced on deploy.
+Never commit `.env` or the API key. Rotating the key also requires updating the
+Worker secret; changing the local `.env` alone does not update production.
+The three attributes the
 answers are stored in (`RUBRO`, `OBJETIVO`, `ATENCION_ACTUAL`) have to exist in
 the Brevo account first, letter for letter: an attribute the account does not
 have would take the whole contact down with it, so the endpoint keeps the address
