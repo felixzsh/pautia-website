@@ -381,6 +381,62 @@
     host.replaceWith(details);
   }
 
+  /* The waitlist. The page's calls to action open one dialog with three
+     questions and an address, and the dialog posts to the Worker, which is the
+     only piece that knows about the mailing list. The buttons keep their mailto
+     href, so a visitor without JavaScript still has a way in; one whose request
+     fails is told so instead of being left guessing. */
+  function waitlist() {
+    const dialog = document.getElementById("waitlist");
+    if (!dialog || typeof dialog.showModal !== "function") return;
+    const form = dialog.querySelector("[data-waitlist-form]");
+    const done = dialog.querySelector("[data-waitlist-done]");
+    const error = dialog.querySelector("[data-waitlist-error]");
+    const submit = form.querySelector('button[type="submit"]');
+
+    for (const opener of document.querySelectorAll("[data-waitlist-open]")) {
+      opener.addEventListener("click", (event) => {
+        event.preventDefault();
+        dialog.showModal();
+      });
+    }
+
+    for (const closer of dialog.querySelectorAll("[data-waitlist-close]")) {
+      closer.addEventListener("click", () => dialog.close());
+    }
+
+    // Clicking the backdrop closes it, the way Escape already does.
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      error.hidden = true;
+      submit.disabled = true;
+
+      const answers = Object.fromEntries(new FormData(form));
+      fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...answers, lang: page.lang }),
+      })
+        .then((response) => (response.ok ? response.json() : null))
+        .then((body) => {
+          if (!body || !body.ok) throw new Error("refused");
+          form.hidden = true;
+          done.hidden = false;
+          done.querySelector("p").focus();
+        })
+        .catch(() => {
+          error.hidden = false;
+        })
+        .finally(() => {
+          submit.disabled = false;
+        });
+    });
+  }
+
   // The language and the money used to be copied into localStorage as well, and
   // a reader in the page's head kept honouring that copy: a visitor who cleared
   // the cookies saw an old choice come back, and the page wrote its cookie
@@ -395,6 +451,7 @@
   currencyPicker();
   picker();
   menus();
+  waitlist();
   mark(shown);
   // The page already says its own language, so there is nothing to fetch unless
   // the visitor asked for another one before.

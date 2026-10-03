@@ -4,7 +4,8 @@ The public website of Pautia: the landing page and the legal pages.
 
 Static files under `public/`, served as they are written. No build step, no
 dependencies, no framework. The whole interactive surface is two radio buttons,
-two `<details>` elements and a language picker.
+two `<details>` elements, a language picker, and one dialog that joins the
+waitlist.
 
 ```
 make serve           # http://127.0.0.1:8080, the files as they are
@@ -14,6 +15,7 @@ make check-browser   # playwright: console, overflow, switch, keyboard, language
 make i18n            # rewrite the dictionary of the default language
 make default-lang lang=en   # write the page in another language
 make og              # redraw the social card after a brand change
+make test-waitlist email=tu@correo.com   # the real Brevo sign-up, four cases
 ```
 
 `make check-browser` is a developer tool and needs playwright and a running
@@ -40,6 +42,43 @@ country only picks the money.
 `make serve` serves the files as they are, which is what localhost should be:
 Spanish and dollars. `make edge` runs the same thing behind the Worker, so the
 translation and the country can be exercised before pushing.
+
+One path is not a file: `POST /api/waitlist`, which the dialog calls and
+`src/waitlist.js` answers. It is the only piece that knows the mailing list, and
+the only reason the page has a backend at all.
+
+## The waitlist
+
+The three calls to action (header, hero, closing band) open one dialog with three
+questions and an address. The buttons keep a `mailto:` href, so a visitor without
+JavaScript still has a way in, and one whose request fails is told so instead of
+being left guessing.
+
+```
+dialog  →  POST /api/waitlist  →  Brevo:
+                                   a contact with the three answers as attributes
+                                   a confirmation email to the visitor
+```
+
+Brevo is both the store and the sender, so this project keeps no database of its
+own: the list is exported from Brevo. The `from` is `info@pautia.app`, which
+forwards to a person through Cloudflare Email Routing, so a reply is read even
+though the Worker sends. The confirmation is transactional mail, of which 300 a
+day are free.
+
+Two environment variables, in `.env` for local work and as secrets on the Worker
+in production: `BREVO_API_KEY` and `BREVO_LIST_ID`. The three attributes the
+answers are stored in (`RUBRO`, `OBJETIVO`, `ATENCION_ACTUAL`) have to exist in
+the Brevo account first, letter for letter: an attribute the account does not
+have would take the whole contact down with it, so the endpoint keeps the address
+and drops the answers if Brevo refuses them. A honeypot field no person can see
+stops the bots that fill in everything; a real flood is a Cloudflare rule in
+front of the route.
+
+`make test-waitlist email=tu@correo.com` calls the endpoint itself, with the same
+secrets, and checks four cases: a wrong method, an address that is not one, the
+honeypot, and a real sign-up. It creates one contact in Brevo and sends one real
+email, so the address stays in the list until it is deleted.
 
 ## Languages
 

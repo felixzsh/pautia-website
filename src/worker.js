@@ -33,6 +33,7 @@ import pt from "../public/assets/i18n/pt.json";
 import fr from "../public/assets/i18n/fr.json";
 import de from "../public/assets/i18n/de.json";
 import it from "../public/assets/i18n/it.json";
+import { handleWaitlist } from "./waitlist.js";
 
 const DEFAULT = "es";
 const SHIPPED = ["es", "en", "pt", "fr", "de", "it"];
@@ -162,10 +163,15 @@ function schema(html, table, language) {
 
 export default {
   async fetch(request, env) {
+    const url = new URL(request.url);
+    // The waitlist is the one piece of the site that is not a file: it is
+    // answered here (see waitlist.js) before the assets are asked for.
+    if (url.pathname === "/api/waitlist") return handleWaitlist(request, env);
+
     const response = await env.ASSETS.fetch(request);
     const type = response.headers.get("content-type") || "";
     if (!type.includes("text/html")) return response;
-    if (new URL(request.url).pathname !== "/") return response;
+    if (url.pathname !== "/") return response;
 
     const language = languageFor(request);
     const currency = currencyFor(request);

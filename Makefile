@@ -30,4 +30,10 @@ default-lang:
 og:
 	@python3 scripts/og.py
 
-.PHONY: serve check check-browser edge i18n default-lang og
+# Try the waitlist against the real list, with the two secrets in .env. Sends
+# one real confirmation email and leaves one contact in Brevo.
+# make test-waitlist email=tu@correo.com
+test-waitlist:
+	@node --env-file=.env scripts/test-waitlist.mjs $(email)
+
+.PHONY: serve check check-browser edge i18n default-lang og test-waitlist

@@ -157,6 +157,9 @@
         <circle cx="15" cy="7" r="2" /><circle cx="9" cy="12" r="2" />
         <circle cx="17" cy="17" r="2" />
       </g>
+      <g id="i-close" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M6 6l12 12M18 6 6 18" />
+      </g>
     </defs>
   </svg>
 
@@ -191,8 +194,8 @@
              switch, so there is no button either. -->
         <div data-lang-picker aria-label="Idioma"
              data-i18n-attrs="aria-label:lang.picker-label"></div>
-        <a class="btn btn--primary"
-          href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia" data-i18n="header.btn.0">Lista de espera</a>
+        <a class="btn btn--primary" href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia"
+          data-i18n="header.btn.0" data-waitlist-open>Lista de espera</a>
       </div>
     </div>
   </header>
@@ -209,11 +212,11 @@
             responder o actuar y sólo hasta donde tú permites. Construye el flujo desde cero
             (sin programar), o genera uno importando tus chats.</p>
           <div class="hero__cta">
-            <a class="btn btn--primary"
-          href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia" data-i18n="main.btn.0">Lista de espera</a>
+            <a class="btn btn--primary" href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia"
+              data-i18n="main.btn.0" data-waitlist-open>Lista de espera</a>
             <a class="btn btn--ghost" href="#how" data-i18n="main.btn.1">Ver cómo funciona</a>
           </div>
-          <p class="hero__note" data-i18n="main.hero-note.0">Estamos preparando la plataforma. Escríbenos y te avisamos en cuanto esté.</p>
+          <p class="hero__note" data-i18n="main.hero-note.0">Estamos preparando la plataforma. Déjanos tu correo y te avisamos en cuanto esté.</p>
         </div>
 
         <div class="mock" aria-hidden="true">
@@ -924,8 +927,8 @@
       <div class="wrap">
         <h2 data-i18n="main.h2.0">Entra en la lista de espera</h2>
         <p data-i18n="main.p.0">Estamos preparando la plataforma. Cuando abramos, te avisamos por correo y entras primero.</p>
-        <a class="btn btn--primary"
-          href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia" data-i18n="main.btn.2">Lista de espera</a>
+        <a class="btn btn--primary" href="mailto:lista@pautia.app?subject=Waitlist%20for%20Pautia"
+          data-i18n="main.btn.2" data-waitlist-open>Lista de espera</a>
       </div>
     </section>
   </main>
@@ -963,6 +966,91 @@
     </div>
   </footer>
 
+
+  <!-- The waitlist. Three questions and an address, in a dialog the three calls
+       to action open. Those calls to action keep a mailto href, so without
+       JavaScript the block is still an email instead of a button that does
+       nothing. Every string carries a key, because the page is served in six
+       languages and this is checked for parity. -->
+  <dialog class="waitlist" id="waitlist" aria-labelledby="waitlist-title">
+    <div class="waitlist__panel">
+      <div class="waitlist__head">
+        <h2 class="waitlist__title" id="waitlist-title" data-i18n="waitlist.title.0">Entra en la lista de espera</h2>
+        <button class="waitlist__close" type="button" aria-label="Cerrar"
+          data-i18n-attrs="aria-label:waitlist.close.0" data-waitlist-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <p class="waitlist__note" data-i18n="waitlist.p.0">Tres preguntas y tu correo. Nos ayudan a preparar el producto y a
+        avisarte en cuanto abra.</p>
+
+      <form class="waitlist__form" method="post" action="/api/waitlist" data-waitlist-form>
+        <label class="field">
+          <span class="field__label" data-i18n="waitlist.rubro.label.0">¿A qué se dedica tu negocio?</span>
+          <select class="field__input" name="rubro" required>
+            <option value="" data-i18n="waitlist.choose.0">Elige una opción</option>
+            <option value="Tienda o comercio" data-i18n="waitlist.rubro.opt.0">Tienda o comercio</option>
+            <option value="Servicios profesionales" data-i18n="waitlist.rubro.opt.1">Servicios profesionales</option>
+            <option value="Salud y bienestar" data-i18n="waitlist.rubro.opt.2">Salud y bienestar</option>
+            <option value="Restaurantes y alimentos" data-i18n="waitlist.rubro.opt.3">Restaurantes y alimentos</option>
+            <option value="Educación y cursos" data-i18n="waitlist.rubro.opt.4">Educación y cursos</option>
+            <option value="Servicios técnicos y a domicilio" data-i18n="waitlist.rubro.opt.5">Servicios técnicos y a domicilio</option>
+            <option value="Otro" data-i18n="waitlist.rubro.opt.6">Otro</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field__label" data-i18n="waitlist.objetivo.label.0">¿Qué quieres resolver primero en WhatsApp?</span>
+          <select class="field__input" name="objetivo" required>
+            <option value="" data-i18n="waitlist.choose.1">Elige una opción</option>
+            <option value="Responder preguntas sobre productos o servicios" data-i18n="waitlist.objetivo.opt.0">Responder preguntas sobre productos o servicios</option>
+            <option value="Agendar citas o reservas" data-i18n="waitlist.objetivo.opt.1">Agendar citas o reservas</option>
+            <option value="Recibir pedidos o cotizaciones" data-i18n="waitlist.objetivo.opt.2">Recibir pedidos o cotizaciones</option>
+            <option value="Consultar el estado de un pedido o servicio" data-i18n="waitlist.objetivo.opt.3">Consultar el estado de un pedido o servicio</option>
+            <option value="Pasar la conversación a una persona" data-i18n="waitlist.objetivo.opt.4">Pasar la conversación a una persona</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field__label" data-i18n="waitlist.atencion.label.0">¿Quién atiende hoy el WhatsApp del negocio?</span>
+          <select class="field__input" name="atencion" required>
+            <option value="" data-i18n="waitlist.choose.2">Elige una opción</option>
+            <option value="El dueño o el equipo, entre otras tareas" data-i18n="waitlist.atencion.opt.0">El dueño o el equipo, entre otras tareas</option>
+            <option value="Una persona dedicada" data-i18n="waitlist.atencion.opt.1">Una persona dedicada</option>
+            <option value="Dos o más personas dedicadas" data-i18n="waitlist.atencion.opt.2">Dos o más personas dedicadas</option>
+            <option value="Un sistema automático" data-i18n="waitlist.atencion.opt.3">Un sistema automático</option>
+            <option value="Todavía no usamos WhatsApp para atender" data-i18n="waitlist.atencion.opt.4">Todavía no usamos WhatsApp para atender</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field__label" data-i18n="waitlist.email.label.0">Tu correo</span>
+          <input class="field__input" type="email" name="email" required autocomplete="email">
+        </label>
+
+        <!-- A field no person can see and a bot fills in anyway. It is not
+             hidden with display: none, because some bots skip those. -->
+        <p class="field field--trap" aria-hidden="true">
+          <span class="field__label">Web</span>
+          <input class="field__input" type="text" name="website" tabindex="-1" autocomplete="off">
+        </p>
+
+        <button class="btn btn--primary btn--block" type="submit" data-i18n="waitlist.submit.0">Anotarme</button>
+        <p class="waitlist__legal">
+          <span data-i18n="waitlist.consent.0">Usamos tu correo y tus respuestas solo para avisarte cuando abra Pautia.</span>
+          <a href="/legal/privacidad.html" data-i18n="waitlist.consent-link.0">Aviso de privacidad</a>
+        </p>
+        <p class="waitlist__error" hidden data-waitlist-error>
+          <span data-i18n="waitlist.error.0">No pudimos anotarte. Inténtalo de nuevo o escríbenos a</span>
+          <a href="mailto:lista@pautia.app">lista@pautia.app</a>
+        </p>
+      </form>
+
+      <div class="waitlist__done" hidden data-waitlist-done>
+        <p tabindex="-1" data-i18n="waitlist.done.0">Listo, ya estás en la lista. Te escribimos a tu correo en cuanto Pautia abra.</p>
+      </div>
+    </div>
+  </dialog>
 
   <script src="/assets/main.js"></script>
 </body>

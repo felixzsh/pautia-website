@@ -1424,4 +1424,138 @@ ol {
   font-size: var(--step--1);
 }
 
+/* The waitlist dialog */
+
+.waitlist {
+  width: min(560px, calc(100vw - var(--space-6)));
+  max-height: calc(100dvh - var(--space-6));
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  background: var(--bg);
+  color: var(--ink-700);
+  box-shadow: var(--shadow-2);
+}
+
+.waitlist::backdrop {
+  background: rgb(11 18 32 / 55%);
+}
+
+.waitlist__panel {
+  padding: var(--space-6) var(--space-5) var(--space-5);
+}
+
+.waitlist__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.waitlist__title {
+  margin: 0;
+  color: var(--ink-900);
+  font-size: var(--step-2);
+  letter-spacing: -0.01em;
+}
+
+.waitlist__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  margin: calc(var(--space-2) * -1);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-s);
+  background: none;
+  color: var(--ink-500);
+  cursor: pointer;
+}
+
+.waitlist__close:hover {
+  color: var(--ink-900);
+}
+
+.waitlist__close svg {
+  width: 22px;
+  height: 22px;
+}
+
+.waitlist__note {
+  margin: var(--space-2) 0 var(--space-5);
+  font-size: var(--step-0);
+}
+
+.waitlist__form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.field__label {
+  color: var(--ink-900);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+
+.field__input {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  background: var(--bg);
+  color: var(--ink-900);
+  font: inherit;
+  font-size: var(--step-0);
+}
+
+.field__input:focus-visible {
+  border-color: var(--brand-600);
+}
+
+/* The trap keeps a size in the layout, so a bot's renderer sees a field: off
+   screen instead of removed, and never reachable with the keyboard. */
+.field--trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.waitlist__legal {
+  margin: 0;
+  color: var(--ink-500);
+  font-size: var(--step--1);
+}
+
+.waitlist__legal a {
+  color: var(--ink-500);
+}
+
+.waitlist__error {
+  margin: 0;
+  color: var(--danger);
+  font-size: var(--step--1);
+}
+
+.waitlist__done {
+  margin-top: var(--space-5);
+  color: var(--ok);
+}
+
+.waitlist__done[hidden],
+.waitlist__error[hidden] {
+  display: none;
+}
+
 

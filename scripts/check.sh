@@ -54,6 +54,16 @@ for link in $(grep -o 'href="/[^"]*"' "$page" | sed 's/href="//; s/"//' | sort -
   [ -e "public$link" ] || fail "$page: $link does not exist"
 done
 
+# 4b. The waitlist is one block: a dialog, three ways in, a honeypot and the
+#     endpoint. An opener without its dialog is a button that does nothing.
+[ "$(grep -c 'data-waitlist-open' "$page")" -eq 3 ] \
+  || fail "$page: the waitlist does not open from three places"
+grep -q 'id="waitlist"' "$page" || fail "$page: no waitlist dialog"
+grep -q 'name="website"' "$page" || fail "$page: no honeypot in the waitlist"
+grep -q 'action="/api/waitlist"' "$page" \
+  || fail "$page: the waitlist form does not post to the endpoint"
+[ -f src/waitlist.js ] || fail "missing src/waitlist.js"
+
 # 5. Every language the page lists is a file that is there, and the other way
 #    round: a translation nobody offers, or one the page never loads, is a file
 #    that will rot.
