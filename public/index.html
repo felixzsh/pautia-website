@@ -967,12 +967,9 @@
   </footer>
 
 
-  <!-- The waitlist. Three questions and an address, in a dialog the three calls
-       to action open. Those calls to action keep a mailto href, so without
-       JavaScript the block is still an email instead of a button that does
-       nothing. Every string carries a key, because the page is served in six
-       languages and this is checked for parity. -->
-  <dialog class="waitlist" id="waitlist" aria-labelledby="waitlist-title">
+  <!-- The translated fields are enhanced into an inline journey in the final
+       section. Without JavaScript the calls to action retain their mailto fallback. -->
+  <div class="waitlist" id="waitlist" hidden aria-labelledby="waitlist-title">
     <div class="waitlist__panel">
       <div class="waitlist__head">
         <h2 class="waitlist__title" id="waitlist-title" data-i18n="waitlist.title.0">Entra en la lista de espera</h2>
@@ -1050,7 +1047,7 @@
         <p tabindex="-1" data-i18n="waitlist.done.0">Listo, ya estás en la lista. Te escribimos a tu correo en cuanto Pautia abra.</p>
       </div>
     </div>
-  </dialog>
+  </div>
 
   <script src="/assets/main.js"></script>
 </body>

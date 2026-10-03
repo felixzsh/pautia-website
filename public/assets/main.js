@@ -381,39 +381,178 @@
     host.replaceWith(details);
   }
 
-  /* The waitlist. The page's calls to action open one dialog with three
-     questions and an address, and the dialog posts to the Worker, which is the
-     only piece that knows about the mailing list. The buttons keep their mailto
-     href, so a visitor without JavaScript still has a way in; one whose request
-     fails is told so instead of being left guessing. */
+  /* An inline journey in the final section, enhanced from the translated fields.
+     Native radios keep keyboard navigation; no requests until the final step.
+     The links retain a mailto fallback when JavaScript is unavailable. */
   function waitlist() {
     const dialog = document.getElementById("waitlist");
-    if (!dialog || typeof dialog.showModal !== "function") return;
+    if (!dialog) return;
     const form = dialog.querySelector("[data-waitlist-form]");
     const done = dialog.querySelector("[data-waitlist-done]");
     const error = dialog.querySelector("[data-waitlist-error]");
     const submit = form.querySelector('button[type="submit"]');
+    const section = document.querySelector(".cta");
+    const intro = section.querySelector(".wrap");
+    section.append(dialog);
+    form.noValidate = true;
+    const words = {
+      es: ["Volver", "Continuar", "Otro", "Cuéntanos brevemente", "Anotando…"],
+      en: ["Back", "Continue", "Other", "Tell us briefly", "Joining…"],
+      pt: ["Voltar", "Continuar", "Outro", "Conte brevemente", "Inscrevendo…"],
+      fr: ["Retour", "Continuer", "Autre", "Dites-nous en quelques mots", "Inscription…"],
+      de: ["Zurück", "Weiter", "Andere", "Erzählen Sie uns kurz", "Eintragen…"],
+      it: ["Indietro", "Continua", "Altro", "Raccontaci brevemente", "Iscrizione…"],
+    };
+    const ui = (index) => (words[page.lang] || words.en)[index];
+    const steps = [];
+    for (const select of form.querySelectorAll("select")) {
+      const field = document.createElement("fieldset");
+      field.className = "field waitlist__step";
+      const legend = document.createElement("legend");
+      legend.append(select.parentElement.querySelector(".field__label"));
+      select.parentElement.replaceWith(field);
+      field.append(legend);
+      const choices = document.createElement("div");
+      choices.className = "waitlist__choices";
+      const options = [...select.options].filter((option) => option.value);
+      if (select.name === "rubro") options.pop(); // Replace the existing Other with free text.
+      for (const option of options) {
+        const label = document.createElement("label");
+        label.className = "waitlist__choice";
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = select.name;
+        radio.value = option.value;
+        radio.required = true;
+        const caption = document.createElement("span");
+        caption.textContent = option.textContent;
+        caption.dataset.i18n = option.dataset.i18n;
+        label.append(radio, caption);
+        choices.append(label);
+      }
+      const other = document.createElement("label");
+      other.className = "waitlist__choice";
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = select.name;
+      radio.value = "__other";
+      radio.required = true;
+      const caption = document.createElement("span");
+      caption.textContent = ui(2);
+      other.append(radio, caption);
+      choices.append(other);
+      const detail = document.createElement("label");
+      detail.className = "field waitlist__other";
+      detail.hidden = true;
+      const prompt = document.createElement("span");
+      prompt.textContent = ui(3);
+      const input = document.createElement("input");
+      input.className = "field__input";
+      input.name = `${select.name}_other`;
+      input.maxLength = 100;
+      const count = document.createElement("small");
+      count.textContent = "0/100";
+      input.addEventListener("input", () => { count.textContent = `${input.value.length}/100`; });
+      detail.append(prompt, input, count);
+      field.append(choices, detail);
+      field.addEventListener("change", () => {
+        const selected = field.querySelector('input[type="radio"]:checked');
+        detail.hidden = selected?.value !== "__other";
+        input.required = !detail.hidden;
+        input.disabled = detail.hidden;
+        if (!detail.hidden) input.focus();
+      });
+      input.disabled = true;
+      steps.push(field);
+    }
+    steps.push(form.querySelector('input[type="email"]').closest(".field"));
+    const progress = document.createElement("p");
+    progress.className = "waitlist__progress";
+    progress.setAttribute("aria-live", "polite");
+    form.prepend(progress);
+    const navigation = document.createElement("div");
+    navigation.className = "waitlist__navigation";
+    const back = document.createElement("button");
+    back.type = "button";
+    back.className = "btn btn--ghost";
+    back.textContent = ui(0);
+    const next = document.createElement("button");
+    next.type = "button";
+    next.className = "btn btn--primary";
+    next.textContent = ui(1);
+    navigation.append(back, next, submit);
+    form.append(navigation);
+    let current = 0;
+    let busy = false;
+    const valid = () => [...steps[current].querySelectorAll("input")]
+      .filter((input) => !input.disabled).every((input) => input.reportValidity());
+    function show(index) {
+      current = index;
+      steps.forEach((step, i) => { step.hidden = i !== index; });
+      progress.textContent = `${String(index + 1).padStart(2, "0")} / 04`;
+      back.hidden = index === 0;
+      next.hidden = index === 3;
+      submit.hidden = index !== 3;
+      form.querySelector(".waitlist__legal").hidden = index !== 3;
+      const heading = steps[index].querySelector(".field__label");
+      heading.tabIndex = -1;
+      heading.focus({ preventScroll: true });
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        steps[index].animate([
+          { opacity: 0, transform: "translateX(24px)" },
+          { opacity: 1, transform: "translateX(0)" },
+        ], { duration: 240, easing: "ease-out" });
+      }
+    }
+    back.addEventListener("click", () => { if (!busy) show(current - 1); });
+    next.addEventListener("click", () => { if (valid()) show(current + 1); });
+    show(0);
 
     for (const opener of document.querySelectorAll("[data-waitlist-open]")) {
       opener.addEventListener("click", (event) => {
         event.preventDefault();
-        dialog.showModal();
+        intro.hidden = true;
+        dialog.hidden = false;
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          dialog.animate([
+            { opacity: 0, transform: "translateX(32px)" },
+            { opacity: 1, transform: "translateX(0)" },
+          ], { duration: 300, easing: "ease-out" });
+        }
+        const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        section.scrollIntoView({ behavior: reduced ? "instant" : "smooth", block: "start" });
+        back.textContent = ui(0);
+        next.textContent = ui(1);
+        dialog.querySelectorAll(".waitlist__other > span")
+          .forEach((node) => { node.textContent = ui(3); });
+        dialog.querySelectorAll('input[value="__other"] + span')
+          .forEach((node) => { node.textContent = ui(2); });
+        show(current);
       });
     }
 
     for (const closer of dialog.querySelectorAll("[data-waitlist-close]")) {
-      closer.addEventListener("click", () => dialog.close());
+      closer.addEventListener("click", () => {
+        dialog.hidden = true;
+        intro.hidden = false;
+        intro.querySelector("[data-waitlist-open]").focus({ preventScroll: true });
+      });
     }
-
-    // Clicking the backdrop closes it, the way Escape already does.
-    dialog.addEventListener("click", (event) => {
-      if (event.target === dialog) dialog.close();
-    });
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+      if (busy) return;
+      if (current !== 3) {
+        if (valid()) show(current + 1);
+        return;
+      }
+      if (!valid()) return;
+      busy = true;
       error.hidden = true;
       submit.disabled = true;
+      back.disabled = true;
+      const original = submit.textContent;
+      submit.textContent = ui(4);
 
       const answers = Object.fromEntries(new FormData(form));
       fetch("/api/waitlist", {
@@ -432,7 +571,10 @@
           error.hidden = false;
         })
         .finally(() => {
+          busy = false;
           submit.disabled = false;
+          back.disabled = false;
+          submit.textContent = original;
         });
     });
   }
@@ -452,6 +594,22 @@
   picker();
   menus();
   waitlist();
+  // Content stays visible even without JavaScript or an observer callback.
+  if ("IntersectionObserver" in window
+      && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.animate([
+          { opacity: 0.4, transform: "translateY(16px)" },
+          { opacity: 1, transform: "translateY(0)" },
+        ], { duration: 400, easing: "ease-out" });
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.15 });
+    document.querySelectorAll("main section:not(.hero):not(.cta) h2")
+      .forEach((node) => observer.observe(node));
+  }
   mark(shown);
   // The page already says its own language, so there is nothing to fetch unless
   // the visitor asked for another one before.

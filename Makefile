@@ -8,9 +8,11 @@ serve:
 check:
 	@sh scripts/check.sh
 	@python3 scripts/check-content.py
+	@node scripts/check-waitlist.mjs
 
 check-browser:
 	@python3 scripts/browser-check.py
+	@python3 scripts/check-waitlist-browser.py
 
 # The Worker that hands the page over in the right language and money, with the
 # site as static assets. Needs network: npx fetches wrangler.

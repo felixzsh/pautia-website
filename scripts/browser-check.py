@@ -310,21 +310,21 @@ with sync_playwright() as p:
             dialog = page.locator("#waitlist")
             if not dialog.count():
                 problems.append(f"{name}-{label}: the waitlist dialog is not in the page")
-            elif dialog.evaluate("d => d.open"):
-                problems.append(f"{name}-{label}: the waitlist dialog is open on load")
+            elif dialog.is_visible():
+                problems.append(f"{name}-{label}: the waitlist is open on load")
             else:
                 cta.click()
-                if not dialog.evaluate("d => d.open"):
+                if not dialog.is_visible():
                     problems.append(f"{name}-{label}: the waitlist did not open")
-                asked = dialog.locator("select, input[type=email]").count()
+                asked = dialog.locator(".waitlist__step, input[type=email]").count()
                 if asked != 4:
                     problems.append(f"{name}-{label}: the waitlist asks {asked} things")
                 trap = dialog.locator('input[name="website"]').bounding_box()
                 if trap and trap["x"] > 0:
                     problems.append(f"{name}-{label}: the honeypot is on the screen")
-                page.keyboard.press("Escape")
-                if dialog.evaluate("d => d.open"):
-                    problems.append(f"{name}-{label}: escape does not close the waitlist")
+                dialog.locator("[data-waitlist-close]").click()
+                if dialog.is_visible():
+                    problems.append(f"{name}-{label}: close does not close the waitlist")
 
             # the FAQ, keyboard only
             page.locator(".faq summary").first.focus()

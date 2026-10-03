@@ -4,7 +4,7 @@ The public website of Pautia: the landing page and the legal pages.
 
 Static files under `public/`, served as they are written. No build step, no
 dependencies, no framework. The whole interactive surface is two radio buttons,
-two `<details>` elements, a language picker, and one dialog that joins the
+two `<details>` elements, a language picker, and an inline journey that joins the
 waitlist.
 
 ```
@@ -49,13 +49,16 @@ the only reason the page has a backend at all.
 
 ## The waitlist
 
-The three calls to action (header, hero, closing band) open one dialog with three
-questions and an address. The buttons keep a `mailto:` href, so a visitor without
+The three calls to action (header, hero, closing band) open a four-step journey
+in the final section: three questions and an address. Answers are native radio
+cards, with Other revealing a text input capped at 100 characters. Back keeps
+answers; a failed submission can be retried without starting over. The buttons
+keep a `mailto:` href, so a visitor without
 JavaScript still has a way in, and one whose request fails is told so instead of
 being left guessing.
 
 ```
-dialog  →  POST /api/waitlist  →  Brevo:
+journey →  POST /api/waitlist  →  Brevo:
                                    a contact with the three answers as attributes
                                    a confirmation email to the visitor
 ```

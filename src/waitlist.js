@@ -94,7 +94,7 @@ async function save(key, list, email, attributes) {
 async function confirm(key, email, language) {
   const mail = MAIL[language] || MAIL.en;
   try {
-    await call(key, "/smtp/email", {
+    const response = await call(key, "/smtp/email", {
       sender: SENDER,
       replyTo: SENDER,
       to: [{ email }],
@@ -102,8 +102,9 @@ async function confirm(key, email, language) {
       htmlContent: html(mail),
       textContent: mail.text,
     });
+    return response.ok;
   } catch {
-    // Nothing to do and nothing to tell the visitor: they are on the list.
+    return false;
   }
 }
 
@@ -135,14 +136,24 @@ export async function handleWaitlist(request, env) {
 
   const attributes = {};
   for (const [field, name] of Object.entries(ATTRIBUTES)) {
-    const answer = text(body[field]).slice(0, 120);
-    if (answer) attributes[name] = answer;
+    let answer = text(body[field]);
+    if (answer === "__other") {
+      const detail = text(body[`${field}_other`]);
+      if (!detail || detail.length > 100) {
+        return json({ ok: false, error: "answer" }, 400);
+      }
+      answer = `Otro: ${detail}`;
+    }
+    if (!answer || answer.length > 120) {
+      return json({ ok: false, error: "answer" }, 400);
+    }
+    attributes[name] = answer;
   }
 
   if (!(await save(key, list, email, attributes))) {
     return json({ ok: false, error: "store" }, 502);
   }
 
-  await confirm(key, email, body.lang === "es" ? "es" : "en");
-  return json({ ok: true });
+  const confirmationSent = await confirm(key, email, body.lang === "es" ? "es" : "en");
+  return json({ ok: true, confirmationSent });
 }
