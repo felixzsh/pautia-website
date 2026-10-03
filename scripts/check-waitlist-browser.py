@@ -19,6 +19,12 @@ with sync_playwright() as p:
         page.locator(".hero__cta [data-waitlist-open]").click()
         wizard = page.locator("#waitlist")
         assert wizard.is_visible()
+        # The journey lands with its first question just below the header, not
+        # under it and not half a screen down: the smooth scroll has to finish.
+        page.wait_for_timeout(2500)
+        header = page.locator("header").bounding_box()
+        title = page.locator(".waitlist__title").bounding_box()
+        assert 0 < title["y"] - (header["y"] + header["height"]) < 48, (title, header)
         assert wizard.locator(".waitlist__step:visible").count() == 1
         for name in ("rubro", "objetivo", "atencion"):
             wizard.locator(f'input[name="{name}"][value="__other"]').check()
@@ -37,6 +43,10 @@ with sync_playwright() as p:
         wizard.locator('button[type="submit"]').click()
         page.wait_for_selector("[data-waitlist-done]:visible")
         assert not wizard.locator("form").is_visible()
+        # The last step has to be readable without scrolling: the button it ends
+        # on cannot sit below the fold.
+        last = wizard.locator(".waitlist__done p").bounding_box()
+        assert last["y"] + last["height"] <= page.viewport_size["height"], last
         assert len(attempts) == 2
         assert attempts[1]["rubro_other"] == "Respuesta de prueba"
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
