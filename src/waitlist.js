@@ -29,6 +29,9 @@ const ATTRIBUTES = {
 };
 
 const MAIL = {
+  // Two languages only, on purpose: the page is read in six, but Pautia is sold
+  // and answered in Spanish and English, and the other four exist to help a
+  // visitor understand the page. Everything that reaches a person does not.
   es: {
     subject: "Ya estás en la lista de Pautia",
     text: "Gracias por anotarte. Te escribimos a este correo en cuanto el registro "

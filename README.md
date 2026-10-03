@@ -99,6 +99,16 @@ What the visitor picks — the language and the money — is remembered in a sin
 cookie, because that is the one store the edge can read: the page arrives already
 in that language and money, and clearing your cookies really does forget it.
 
+**The four extra languages are for reading the page, not for talking to us.**
+Pautia is sold and supported in Spanish and English only, and that is the rule
+every piece of contact follows: the confirmation email is written in those two
+(Spanish for the page's own language, English for everything else), the options
+of the waitlist are stored as they were labelled, and whoever answers the mailbox
+behind the form answers in those two. A visitor who reads the page in Portuguese,
+French, German or Italian is being helped to understand it and nothing more. A
+new language is worth adding when a market is worth opening, never because the
+picker looks better with it.
+
 `make i18n` writes the dictionary of the default language from the page itself,
 the same way `og.png` is drawn by `make og`, so the two copies of the same text
 cannot drift: change the Spanish in `index.html`, run `make i18n`, and
