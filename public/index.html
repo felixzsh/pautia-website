@@ -1044,7 +1044,13 @@
       </form>
 
       <div class="waitlist__done" hidden data-waitlist-done>
-        <p tabindex="-1" data-i18n="waitlist.done.0">Listo, ya estás en la lista. Te escribimos a tu correo en cuanto Pautia abra.</p>
+        <span class="waitlist__seal" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><use href="#i-check" /></svg>
+        </span>
+        <h2 tabindex="-1" data-i18n="waitlist.done-title.0">Ya estás en la lista</h2>
+        <p class="waitlist__receipt" data-waitlist-email></p>
+        <p data-i18n="waitlist.done.0">Te avisaremos a este correo cuando el registro de Pautia
+          esté habilitado.</p>
       </div>
     </div>
   </div>

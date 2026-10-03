@@ -598,8 +598,15 @@
         .then((body) => {
           if (!body || !body.ok) throw new Error("refused");
           form.hidden = true;
+          done.querySelector("[data-waitlist-email]").textContent = answers.email.trim();
           done.hidden = false;
-          done.querySelector("p").focus();
+          done.querySelector("h2").focus({ preventScroll: true });
+          if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            done.animate([
+              { opacity: 0, transform: "translateY(12px)" },
+              { opacity: 1, transform: "translateY(0)" },
+            ], { duration: 300, easing: "ease-out" });
+          }
         })
         .catch(() => {
           error.hidden = false;

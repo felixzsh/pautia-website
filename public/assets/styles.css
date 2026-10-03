@@ -1542,8 +1542,46 @@ ol {
 }
 
 .waitlist__done {
-  margin-top: var(--space-5);
-  color: var(--ok);
+  position: relative;
+  padding: clamp(24px, 5vw, 48px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  background: linear-gradient(150deg, var(--brand-100), var(--bg) 65%);
+  text-align: center;
+  color: var(--ink-700);
+}
+
+.waitlist:has(.waitlist__done:not([hidden])) .waitlist__head,
+.waitlist:has(.waitlist__done:not([hidden])) .waitlist__note {
+  display: none;
+}
+
+.waitlist__seal {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  border: 1px solid var(--brand-600);
+  border-radius: 50%;
+  background: var(--brand-100);
+  color: var(--brand-600);
+}
+
+.waitlist__seal svg { width: 30px; height: 30px; }
+.waitlist__done h2 { margin: 0 0 16px; font-size: var(--step-3); }
+.cta .waitlist .waitlist__done p { max-width: 42ch; margin: 0 auto; }
+.cta .waitlist .waitlist__done .waitlist__receipt {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink-900);
+  overflow-wrap: anywhere;
+  font-size: var(--step-0);
 }
 
 .waitlist__done[hidden],

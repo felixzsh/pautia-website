@@ -53,9 +53,12 @@ with sync_playwright() as p:
         wizard.locator('button[type="submit"]').click()
         page.wait_for_selector("[data-waitlist-done]:visible")
         assert not wizard.locator("form").is_visible()
+        assert wizard.locator("[data-waitlist-email]").inner_text() == "test@example.com"
+        assert wizard.locator(".waitlist__done h2").is_visible()
+        assert not wizard.locator(".waitlist__head").is_visible()
         # The last step has to be readable without scrolling: the text it ends
         # on cannot sit below the fold.
-        last = wizard.locator(".waitlist__done p").bounding_box()
+        last = wizard.locator(".waitlist__done p").last.bounding_box()
         assert last["y"] + last["height"] <= page.viewport_size["height"], (label, last)
         assert len(attempts) == 2
         assert attempts[1]["rubro_other"] == "Respuesta de prueba"
