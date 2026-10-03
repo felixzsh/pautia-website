@@ -1,11 +1,20 @@
-"""Exercise the inline journey with a mocked API; never sends email."""
+"""Exercise the inline journey with a mocked API; never sends email.
+
+Runs on a desktop and on a real phone profile (is_mobile, its own device pixel
+ratio and viewport), because the phone is where the landing of the scroll went
+wrong: the section landed 56 to 64 px too low and pushed the first question off
+the screen, and a plain viewport size does not reproduce it.
+"""
 import json
 from playwright.sync_api import sync_playwright
 
 with sync_playwright() as p:
     browser = p.chromium.launch()
-    for width in (390, 1440):
-        page = browser.new_page(viewport={"width": width, "height": 900})
+    profiles = [("desktop", {"viewport": {"width": 1440, "height": 900}}),
+                ("Pixel 7", p.devices["Pixel 7"])]
+    for label, profile in profiles:
+        ctx = browser.new_context(**profile)
+        page = ctx.new_page()
         attempts = []
 
         def endpoint(route):
@@ -24,7 +33,8 @@ with sync_playwright() as p:
         page.wait_for_timeout(2500)
         header = page.locator("header").bounding_box()
         title = page.locator(".waitlist__title").bounding_box()
-        assert 0 < title["y"] - (header["y"] + header["height"]) < 48, (title, header)
+        gap = title["y"] - (header["y"] + header["height"])
+        assert 0 < gap < 40, (label, gap)
         assert wizard.locator(".waitlist__step:visible").count() == 1
         for name in ("rubro", "objetivo", "atencion"):
             wizard.locator(f'input[name="{name}"][value="__other"]').check()
@@ -43,13 +53,13 @@ with sync_playwright() as p:
         wizard.locator('button[type="submit"]').click()
         page.wait_for_selector("[data-waitlist-done]:visible")
         assert not wizard.locator("form").is_visible()
-        # The last step has to be readable without scrolling: the button it ends
+        # The last step has to be readable without scrolling: the text it ends
         # on cannot sit below the fold.
         last = wizard.locator(".waitlist__done p").bounding_box()
-        assert last["y"] + last["height"] <= page.viewport_size["height"], last
+        assert last["y"] + last["height"] <= page.viewport_size["height"], (label, last)
         assert len(attempts) == 2
         assert attempts[1]["rubro_other"] == "Respuesta de prueba"
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
-        page.close()
+        ctx.close()
     browser.close()
-print("Inline waitlist, Other, back, retry and success: OK")
+print("Inline waitlist, landing, Other, back, retry and success: OK")

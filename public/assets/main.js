@@ -393,6 +393,7 @@
     const submit = form.querySelector('button[type="submit"]');
     const section = document.querySelector(".cta");
     const intro = section.querySelector(".wrap");
+    const header = document.querySelector(".header");
     section.append(dialog);
     form.noValidate = true;
     const words = {
@@ -508,19 +509,52 @@
     next.addEventListener("click", () => { if (valid()) show(current + 1); });
     show(0);
 
+    /* Landing on the journey. scrollIntoView is not enough on a phone: the
+       browser's own bar and the sticky header move the target, and the section
+       landed between 56 and 64 px too low, which is the whole first question
+       pushed off the screen. So the position is computed from the header's real
+       height and, once the smooth scroll stops, whatever is left over is
+       corrected in place. On a desktop the residual is already zero and the
+       second pass does nothing. */
+    const GAP = 8;
+    function toJourney(reduced) {
+      const top = window.scrollY + section.getBoundingClientRect().top
+        - header.offsetHeight - GAP;
+      window.scrollTo({ top: Math.max(0, top), behavior: reduced ? "auto" : "smooth" });
+    }
+
+    function settle(tries = 0) {
+      const left = section.getBoundingClientRect().top - header.offsetHeight - GAP;
+      if (Math.abs(left) < 4 || tries > 4) return;
+      window.scrollTo({ top: window.scrollY + left, behavior: "auto" });
+      setTimeout(() => settle(tries + 1), 80);
+    }
+
+    function settleWhenStopped() {
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        settle();
+      };
+      window.addEventListener("scrollend", finish, { once: true });
+      setTimeout(finish, 1200);   // a browser that never fires scrollend
+    }
+
     for (const opener of document.querySelectorAll("[data-waitlist-open]")) {
       opener.addEventListener("click", (event) => {
         event.preventDefault();
         intro.hidden = true;
         dialog.hidden = false;
-        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!reduced) {
           dialog.animate([
             { opacity: 0, transform: "translateX(32px)" },
             { opacity: 1, transform: "translateX(0)" },
           ], { duration: 300, easing: "ease-out" });
         }
-        const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-        section.scrollIntoView({ behavior: reduced ? "instant" : "smooth", block: "start" });
+        toJourney(reduced);
+        settleWhenStopped();
         back.textContent = ui(0);
         next.textContent = ui(1);
         dialog.querySelectorAll(".waitlist__other > span")
