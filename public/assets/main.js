@@ -391,6 +391,18 @@
     const done = dialog.querySelector("[data-waitlist-done]");
     const error = dialog.querySelector("[data-waitlist-error]");
     const submit = form.querySelector('button[type="submit"]');
+    const receiptKey = "pautia:waitlist-email";
+    function receipt(email) {
+      form.hidden = true;
+      done.querySelector("[data-waitlist-email]").textContent = email;
+      done.hidden = false;
+    }
+    try {
+      const saved = localStorage.getItem(receiptKey);
+      if (saved && saved.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(saved)) {
+        receipt(saved);
+      }
+    } catch {} // Storage may be blocked; registration still works.
     const section = document.querySelector(".cta");
     const intro = section.querySelector(".wrap");
     const header = document.querySelector(".header");
@@ -508,6 +520,21 @@
     back.addEventListener("click", () => { if (!busy) show(current - 1); });
     next.addEventListener("click", () => { if (valid()) show(current + 1); });
     show(0);
+    dialog.querySelector("[data-waitlist-reset]").addEventListener("click", () => {
+      try { localStorage.removeItem(receiptKey); } catch {}
+      form.reset();
+      for (const detail of form.querySelectorAll(".waitlist__other")) {
+        detail.hidden = true;
+        const input = detail.querySelector("input");
+        input.disabled = true;
+        input.required = false;
+        detail.querySelector("small").textContent = "0/100";
+      }
+      error.hidden = true;
+      done.hidden = true;
+      form.hidden = false;
+      show(0);
+    });
 
     /* Landing on the journey. scrollIntoView is not enough on a phone: the
        browser's own bar and the sticky header move the target, and the section
@@ -561,7 +588,8 @@
           .forEach((node) => { node.textContent = ui(3); });
         dialog.querySelectorAll('input[value="__other"] + span')
           .forEach((node) => { node.textContent = ui(2); });
-        show(current);
+        if (done.hidden) show(current);
+        else done.querySelector("h2").focus({ preventScroll: true });
       });
     }
 
@@ -597,9 +625,9 @@
         .then((response) => (response.ok ? response.json() : null))
         .then((body) => {
           if (!body || !body.ok) throw new Error("refused");
-          form.hidden = true;
-          done.querySelector("[data-waitlist-email]").textContent = answers.email.trim();
-          done.hidden = false;
+          const email = answers.email.trim();
+          try { localStorage.setItem(receiptKey, email); } catch {}
+          receipt(email);
           done.querySelector("h2").focus({ preventScroll: true });
           if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
             done.animate([

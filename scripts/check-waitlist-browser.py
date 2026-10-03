@@ -62,6 +62,17 @@ with sync_playwright() as p:
         assert last["y"] + last["height"] <= page.viewport_size["height"], (label, last)
         assert len(attempts) == 2
         assert attempts[1]["rubro_other"] == "Respuesta de prueba"
+        assert page.evaluate("localStorage.getItem('pautia:waitlist-email')") == "test@example.com"
+        page.reload()
+        page.locator(".hero__cta [data-waitlist-open]").click()
+        assert wizard.locator("[data-waitlist-email]").inner_text() == "test@example.com"
+        assert not wizard.locator("form").is_visible()
+        wizard.locator("[data-waitlist-reset]").click()
+        assert wizard.locator("form").is_visible()
+        assert page.evaluate("localStorage.getItem('pautia:waitlist-email')") is None
+        assert wizard.locator(".waitlist__step:visible").count() == 1
+        assert wizard.locator('input[name="email"]').input_value() == ""
+        assert len(attempts) == 2
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
         ctx.close()
     browser.close()
