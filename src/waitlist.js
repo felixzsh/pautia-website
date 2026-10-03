@@ -131,6 +131,10 @@ export async function handleWaitlist(request, env) {
   const key = env.BREVO_API_KEY;
   const list = Number(env.BREVO_LIST_ID);
   if (!key || !Number.isInteger(list) || list <= 0) {
+    // The only 500 this route has, and it always means the same thing: the
+    // Worker is missing its two variables. It is logged because the deployment
+    // it happens on is the only place that can say which one is absent.
+    console.error("waitlist: BREVO_API_KEY or BREVO_LIST_ID is not set on the Worker");
     return json({ ok: false, error: "config" }, 500);
   }
 
@@ -151,6 +155,7 @@ export async function handleWaitlist(request, env) {
   }
 
   if (!(await save(key, list, email, attributes))) {
+    console.error("waitlist: Brevo refused the contact");
     return json({ ok: false, error: "store" }, 502);
   }
 
