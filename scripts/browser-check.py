@@ -11,12 +11,13 @@ a server already running on the port below:
 Screenshots land in the system temporary directory so they never reach a
 commit."""
 
+import os
 import pathlib
 import sys
 import tempfile
 from playwright.sync_api import sync_playwright
 
-BASE = "http://127.0.0.1:8080"
+BASE = os.environ.get("PAUTIA_BASE", "http://127.0.0.1:8080")
 OUT = pathlib.Path(tempfile.gettempdir()) / "pautia-landing"
 OUT.mkdir(parents=True, exist_ok=True)
 
@@ -522,7 +523,9 @@ with sync_playwright() as p:
         problems.append("pricing: the Enterprise card is missing")
     if not page.locator("[data-custom-plan]").count():
         problems.append("pricing: the plan builder is missing")
-    page.locator('input[name="custom-plan-base"][value="basic"]').check()
+    builder = page.locator('input[name="custom-plan-base"][value="basic"]')
+    builder.evaluate("el => el.scrollIntoView({ block: 'center' })")
+    builder.check()
     page.evaluate("""() => {
       for (const [id, value] of [
         ['custom-bots', 2], ['custom-messages', 4000], ['custom-storage', 150],
