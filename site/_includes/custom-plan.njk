@@ -1,0 +1,125 @@
+          <section class="custom-plan" aria-labelledby="custom-plan-title">
+            <div class="custom-plan__head">
+              <h3 id="custom-plan-title" data-i18n="custom-plan.title">Personaliza tu plan</h3>
+              <p data-i18n="custom-plan.intro">Elige un plan base y ajusta los recursos
+                a tu medida.</p>
+            </div>
+            <div class="custom-plan__layout" data-custom-plan>
+              <div class="custom-plan__builder">
+                <fieldset class="custom-plan__tiers">
+                  <legend data-i18n="custom-plan.base-label">Plan base</legend>
+                  <label class="custom-plan__tier">
+                    <input type="radio" name="custom-plan-base" value="basic"
+                      data-plan-index="0">
+                    <span class="custom-plan__tier-copy">
+                      <strong data-custom-name data-i18n="custom-plan.plan-basic">Básico</strong>
+                      <span data-i18n="custom-plan.feature-basic">Solo texto</span>
+                    </span>
+                  </label>
+                  <label class="custom-plan__tier custom-plan__tier--featured">
+                    <input type="radio" name="custom-plan-base" value="standard"
+                      data-plan-index="1" checked>
+                    <span class="custom-plan__tier-copy">
+                      <strong data-custom-name
+                        data-i18n="custom-plan.plan-standard">Estándar</strong>
+                      <span data-i18n="custom-plan.feature-standard">Texto y audio</span>
+                    </span>
+                  </label>
+                  <label class="custom-plan__tier">
+                    <input type="radio" name="custom-plan-base" value="professional"
+                      data-plan-index="2">
+                    <span class="custom-plan__tier-copy">
+                      <strong data-custom-name
+                        data-i18n="custom-plan.plan-professional">Profesional</strong>
+                      <span data-i18n="custom-plan.feature-professional">Texto, audio, imágenes
+                        y documentos</span>
+                    </span>
+                  </label>
+                </fieldset>
+
+                <div class="custom-plan__controls">
+                  <div class="custom-plan__control">
+                    <div class="custom-plan__control-head">
+                      <label for="custom-bots" data-i18n="custom-plan.bots-label">Bots</label>
+                      <output id="custom-bots-output" for="custom-bots">5</output>
+                    </div>
+                    <p id="custom-bots-help" data-i18n="custom-plan.bots-help">Bots que pueden
+                      responder al mismo tiempo.</p>
+                    <input id="custom-bots" type="range" min="5" max="20" step="1" value="5"
+                      aria-describedby="custom-bots-help">
+                    <div class="custom-plan__bounds" aria-hidden="true">
+                      <span data-custom-min="bots">5</span>
+                      <span data-custom-max="bots">20</span>
+                    </div>
+                  </div>
+                  <div class="custom-plan__control">
+                    <div class="custom-plan__control-head">
+                      <label for="custom-messages" data-i18n="custom-plan.messages-label">
+                        Mensajes salientes</label>
+                      <output id="custom-messages-output" for="custom-messages">15.000</output>
+                    </div>
+                    <p id="custom-messages-help" data-i18n="custom-plan.messages-help">
+                      Mensajes que envían tus bots cada mes.</p>
+                    <input id="custom-messages" type="range" min="15000" max="100000"
+                      step="1000" value="15000" aria-describedby="custom-messages-help">
+                    <div class="custom-plan__bounds" aria-hidden="true">
+                      <span data-custom-min="messages">15.000</span>
+                      <span data-custom-max="messages">100.000</span>
+                    </div>
+                  </div>
+                  <div class="custom-plan__control">
+                    <div class="custom-plan__control-head">
+                      <label for="custom-storage" data-i18n="custom-plan.storage-label">
+                        Almacenamiento</label>
+                      <output id="custom-storage-output" for="custom-storage">250 MB</output>
+                    </div>
+                    <p id="custom-storage-help" data-i18n="custom-plan.storage-help">
+                      Historial de texto que conserva tu cuenta.</p>
+                    <input id="custom-storage" type="range" min="250" max="2000" step="50"
+                      value="250" aria-describedby="custom-storage-help">
+                    <div class="custom-plan__bounds" aria-hidden="true">
+                      <span data-custom-min="storage">250 MB</span>
+                      <span data-custom-max="storage">2.000 MB</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <aside class="custom-plan__summary" aria-labelledby="custom-summary-title">
+                <h4 id="custom-summary-title" data-i18n="custom-plan.summary-title">
+                  Tu configuración</h4>
+                <p class="custom-plan__selected" data-custom-selected>Estándar</p>
+                <dl class="custom-plan__breakdown">
+                  <div>
+                    <dt data-i18n="custom-plan.summary-base">Plan base</dt>
+                    <dd><span data-money data-custom-price="base" data-usd="39">$39</span></dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="custom-plan.summary-bots">Bots adicionales</dt>
+                    <dd><span data-money data-custom-price="bots" data-usd="0">$0</span></dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="custom-plan.summary-messages">Mensajes adicionales</dt>
+                    <dd><span data-money data-custom-price="messages" data-usd="0">$0</span></dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="custom-plan.summary-storage">
+                      Almacenamiento adicional</dt>
+                    <dd><span data-money data-custom-price="storage" data-usd="0">$0</span></dd>
+                  </div>
+                </dl>
+                <div class="custom-plan__total">
+                  <span data-i18n="custom-plan.total">Precio estimado</span>
+                  <strong><span data-money data-custom-price="total" data-usd="39">$39</span>
+                    <span data-i18n="custom-plan.per-month">al mes</span></strong>
+                </div>
+                <p class="custom-plan__annual" hidden>
+                  <span data-i18n="custom-plan.annual-lead">Total anual:</span>
+                  <span data-money data-custom-price="annual" data-usd="374.40">$374.40</span>
+                  <span data-i18n="custom-plan.annual-tail">al año</span>
+                </p>
+                <p class="custom-plan__note" data-i18n="custom-plan.rates-note">
+                  Extras propuestos (USD/mes): $3/bot, $1/1.000 mensajes y $1/100 MB.</p>
+              </aside>
+            </div>
+          </section>

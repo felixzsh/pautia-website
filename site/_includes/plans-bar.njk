@@ -1,0 +1,16 @@
+          <div class="plans__bar">
+            <fieldset class="plans__switch">
+            <legend class="sr-only" data-i18n="plans.sr-only.0">Periodo de pago</legend>
+            <input class="plans__radio" type="radio" name="period" id="period-monthly" checked>
+            <label class="plans__seg" for="period-monthly" data-i18n="period-monthly.plans-seg.0">Mensual</label>
+            <input class="plans__radio" type="radio" name="period" id="period-yearly">
+            <label class="plans__seg" for="period-yearly"><span
+                data-i18n="period-yearly.plans-seg.0">Anual</span> <span
+                class="plans__save" data-i18n="period-yearly.plans-save.0">(-20%)</span></label>
+          </fieldset>
+            <!-- The currency: filled in by the script from the country the edge
+                 saw, and from what the visitor picks. -->
+            <div class="currency" data-currency-picker
+                 aria-label="Moneda"
+                 data-i18n-attrs="aria-label:plans.currency-label"></div>
+          </div>

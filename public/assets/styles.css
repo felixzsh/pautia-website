@@ -1280,6 +1280,13 @@ ol {
   font-size: var(--step-0);
 }
 
+/* The way out of the short table on the landing page, to the route that carries
+   every plan and the builder. */
+.plans__more {
+  margin-top: var(--space-6);
+  text-align: center;
+}
+
 /* A separate builder below the fixed plans, with controls beside their quote. */
 
 .custom-plan {

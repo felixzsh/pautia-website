@@ -1,7 +1,7 @@
 """Draw the social card once, from the same tokens the page uses, and write
 public/assets/og.png. It is a one-time generator, not part of serving or
-checking: the page itself has no build step and no dependency. Re-run it only
-when the brand colour or the tagline changes.
+checking: the served site has no dependency of its own for reading it. Re-run it
+only when the brand colour or the tagline changes.
 
     python3 scripts/og.py
 """

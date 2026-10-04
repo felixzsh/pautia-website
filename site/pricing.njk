@@ -1,0 +1,114 @@
+---
+permalink: /pricing.html
+---
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="pricing.title.0">Planes y precios · Pautia</title>
+  <meta name="description"
+    content="Compara los planes de Pautia: Básico, Estándar, Profesional y Empresarial, o
+      arma uno a tu medida." data-i18n-attrs="content:pricing.description.0">
+  <link rel="canonical" href="https://pautia.app/pricing">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Pautia">
+  <meta property="og:locale" content="es_ES" data-i18n-attrs="content:meta.og-locale">
+  <meta property="og:title" content="Planes y precios · Pautia"
+    data-i18n-attrs="content:pricing.title.0">
+  <meta property="og:description"
+    content="Compara los planes de Pautia: Básico, Estándar, Profesional y Empresarial, o
+      arma uno a tu medida." data-i18n-attrs="content:pricing.description.0">
+  <meta property="og:url" content="https://pautia.app/pricing">
+  <meta property="og:image" content="https://pautia.app/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0e7c6b" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/assets/styles.css">
+
+  <!-- The same list of languages as the landing page, so the picker works here
+       too. The first one is the language the page is written in. -->
+  <script type="application/json" id="languages">
+    [
+      {"code": "es", "name": "Español", "file": "es.json"},
+      {"code": "en", "name": "English", "file": "en.json"},
+      {"code": "pt", "name": "Português", "file": "pt.json"},
+      {"code": "fr", "name": "Français", "file": "fr.json"},
+      {"code": "de", "name": "Deutsch", "file": "de.json"},
+      {"code": "it", "name": "Italiano", "file": "it.json"}
+    ]
+  </script>
+
+  <script>
+    // The language the visitor chose, read before the page paints so its
+    // dictionary is already on its way when the first text needs it.
+    (() => {
+      try {
+        const found = document.cookie.match(/(?:^|;\s*)pautia:lang=([\w-]+)/);
+        if (!found) return;
+        const list = JSON.parse(document.getElementById("languages").textContent);
+        const lang = list.find((l) => l.code === found[1]);
+        if (!lang || lang.code === document.documentElement.lang) return;
+        document.documentElement.dataset.lang = lang.code;
+        const link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "fetch";
+        link.crossOrigin = "anonymous";
+        link.href = "/assets/i18n/" + lang.file;
+        document.head.append(link);
+      } catch {}
+    })();
+  </script>
+</head>
+
+<body>
+  <a class="skip" href="#main" data-i18n="page.skip.0">Saltar al contenido</a>
+
+{% include "icons.njk" %}
+
+{% include "header.njk" %}
+
+  <main id="main">
+
+    <!-- The full plan table: the three priced plans, the Enterprise card and the
+         builder, all in one route so the landing page can stay short. -->
+    <section class="section" id="plans">
+      <div class="wrap">
+        <div class="section__head">
+          <h1 id="plans-t" data-i18n="pricing.h1.0">Planes y precios</h1>
+          <p data-i18n="plans.p.0">Precios propuestos en USD. Elige el tamaño que necesita tu
+            negocio.</p>
+        </div>
+
+        <div class="plans">
+{% include "plans-bar.njk" %}
+
+          <div class="plans__grid">
+{% include "plan-basic.njk" %}
+
+{% include "plan-standard.njk" %}
+
+{% include "plan-professional.njk" %}
+
+{% include "plan-enterprise.njk" %}
+          </div>
+{% include "custom-plan.njk" %}
+        </div>
+
+{% include "plans-included.njk" %}
+{% include "plans-facts.njk" %}
+      </div>
+    </section>
+  </main>
+
+{% include "footer.njk" %}
+
+  <script src="/assets/main.js"></script>
+</body>
+
+</html>

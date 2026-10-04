@@ -300,31 +300,6 @@ with sync_playwright() as p:
             if not page.locator(".price--monthly").first.is_visible():
                 problems.append(f"{name}-{label}: switch does not go back to monthly")
 
-            if name == "es" and width == 1440:
-                page.locator('input[name="custom-plan-base"][value="basic"]').check()
-                page.evaluate("""() => {
-                  for (const [id, value] of [
-                    ['custom-bots', 2], ['custom-messages', 4000], ['custom-storage', 150],
-                  ]) {
-                    const input = document.getElementById(id);
-                    input.value = value;
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                  }
-                }""")
-                estimate = page.locator('[data-custom-price="total"]')
-                if estimate.text_content() != "$14":
-                    problems.append(
-                        f"{name}: custom monthly estimate is {estimate.text_content()}"
-                    )
-                page.locator("label[for=period-yearly]").first.click()
-                annual = page.locator(".custom-plan__annual")
-                if estimate.text_content() != "$11.20" \
-                        or "$134.40" not in annual.text_content():
-                    problems.append(
-                        f"{name}: custom yearly estimate is {estimate.text_content()}, "
-                        f"{annual.text_content()}"
-                    )
-
             # The waitlist: a real mail client handoff for a visitor without a
             # script, and one dialog behind it for everyone else. It starts
             # closed, opens from the call to action, asks four things, and closes
@@ -537,19 +512,63 @@ with sync_playwright() as p:
         problems.append(f"localStorage: a second copy of a choice: {forgotten['kept']}")
     ctx.close()
 
+    # The pricing route: the full table the landing page keeps short. The
+    # Enterprise card and the builder are here, and the builder still prices a
+    # basic plan the same way.
+    ctx = browser.new_context(viewport={"width": 1440, "height": 900})
+    page = ctx.new_page()
+    page.goto(f"{BASE}/pricing", wait_until="networkidle")
+    if page.locator(".plan--wide").count() != 1:
+        problems.append("pricing: the Enterprise card is missing")
+    if not page.locator("[data-custom-plan]").count():
+        problems.append("pricing: the plan builder is missing")
+    page.locator('input[name="custom-plan-base"][value="basic"]').check()
+    page.evaluate("""() => {
+      for (const [id, value] of [
+        ['custom-bots', 2], ['custom-messages', 4000], ['custom-storage', 150],
+      ]) {
+        const input = document.getElementById(id);
+        input.value = value;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }""")
+    estimate = page.locator('[data-custom-price="total"]')
+    if estimate.text_content() != "$14":
+        problems.append(f"pricing: custom monthly estimate is {estimate.text_content()}")
+    page.locator("label[for=period-yearly]").first.click()
+    annual = page.locator(".custom-plan__annual")
+    if estimate.text_content() != "$11.20" or "$134.40" not in annual.text_content():
+        problems.append(
+            f"pricing: custom yearly estimate is {estimate.text_content()}, "
+            f"{annual.text_content()}"
+        )
+    ctx.close()
+
     ctx = browser.new_context(java_script_enabled=False,
                               viewport={"width": 1280, "height": 900})
     page = ctx.new_page()
     page.goto(f"{BASE}/", wait_until="load")
     # Counted on the served HTML: with no script there are no locators to ask.
     served = page.content()
-    if served.count('<article class="plan') != 4:
-        problems.append("no script: the page does not render its four plans")
+    if served.count('<article class="plan') != 3:
+        problems.append("no script: the landing does not render its three plans")
     if "<h1" not in served or "Agentes predecibles para tu negocio" not in served:
         problems.append("no script: the page is not readable without a script")
     if 'class="lang"' in served:
         problems.append("no script: a language picker that cannot work is in the page")
     page.screenshot(path=str(OUT / "no-js.png"), full_page=True)
+    ctx.close()
+
+    ctx = browser.new_context(java_script_enabled=False,
+                              viewport={"width": 1280, "height": 900})
+    page = ctx.new_page()
+    page.goto(f"{BASE}/pricing", wait_until="load")
+    served = page.content()
+    if served.count('<article class="plan') != 4:
+        problems.append("no script: the pricing page does not render its four plans")
+    if "Planes y precios" not in served:
+        problems.append("no script: the pricing page is not readable without a script")
+    page.screenshot(path=str(OUT / "no-js-pricing.png"), full_page=True)
     ctx.close()
 
     # the legal shells

@@ -1,0 +1,13 @@
+{
+  "name": "pautia-website",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The public website of Pautia.",
+  "scripts": {
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6"
+  }
+}

@@ -1,10 +1,11 @@
 """Check the language machinery: key parity, the plan table, prices, the claims
 guardrail, and the pitch. No dependencies, on purpose.
 
-The page is written in the first language of its list and every other language is
-a JSON file, so what has to hold is: every key in the page exists in each
-dictionary, no dictionary carries a key the page does not use, and the two
-languages never drift apart on the numbers.
+The site is a few pages, written in the first language of the list in the head,
+and every other language is a JSON file. What has to hold is: every key in any
+page exists in each dictionary, no dictionary carries a key the pages do not
+use, a key reused across pages reads the same, and the languages never drift
+apart on the numbers.
 """
 
 import json
@@ -18,6 +19,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 import i18n
 
 PAGE = Path("public/index.html")
+PRICING = Path("public/pricing.html")
+PAGES = (PAGE, PRICING)
 I18N = Path("public/assets/i18n")
 
 
@@ -26,7 +29,7 @@ VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input",
 
 
 class Page(HTMLParser):
-    """The pieces of the page the checks need: JSON blocks, keys and their markup."""
+    """The pieces of a page the checks need: JSON blocks, keys and their markup."""
 
     def __init__(self):
         super().__init__(convert_charrefs=False)
@@ -69,16 +72,23 @@ class Page(HTMLParser):
             self.json[self._json_id] = self.json.get(self._json_id, "") + data
 
 
-page = Page()
-html = PAGE.read_text()
-page.feed(html)
-languages = json.loads(page.json["languages"])
+# Every page the site serves, parsed once.
+pages = []
+for path in PAGES:
+    parsed = Page()
+    html = path.read_text()
+    parsed.feed(html)
+    pages.append((path, parsed, html))
+index_html = pages[0][2]
+pricing_html = pages[1][2]
 
-# The first language is the one the page is written in, and its dictionary is
-# written from the page by scripts/i18n.py, so the two cannot drift.
-source = i18n.page_language(html)
+languages = json.loads(pages[0][1].json["languages"])
+
+# The first language is the one the pages are written in, and its dictionary is
+# written from the pages by scripts/i18n.py, so the two cannot drift.
+source = i18n.page_language(index_html)
 assert languages[0]["code"] == source, "the list and the page disagree on the language"
-generated = i18n.written(i18n.extract(html))
+generated = i18n.written(i18n.extract_all())
 own = I18N / languages[0]["file"]
 assert own.exists(), f"missing {own}: run make i18n"
 assert own.read_text() == generated, f"{own} is out of date: run make i18n"
@@ -89,19 +99,22 @@ for lang in languages:
     assert path.exists(), f"{lang['code']}: {path} is listed but missing"
     strings[lang["code"]] = json.loads(path.read_text())
 
-# Every file in the folder is a language the page offers, and the other way round.
+# Every file in the folder is a language the pages offer, and the other way round.
 on_disk = {p.name for p in I18N.glob("*.json")}
 listed = {lang["file"] for lang in languages}
 assert on_disk == listed, f"language files and list differ: {on_disk ^ listed}"
 
-visible = re.sub(r"<!--.*?-->", "", html, flags=re.S)
-keys = set(page.keys) | {key for _, key in page.attr_keys}
+keys = set()
+markup = set()
+for _, parsed, _ in pages:
+    keys |= set(parsed.keys) | {key for _, key in parsed.attr_keys}
+    markup |= parsed.markup
 
 for code, table in strings.items():
     missing = sorted(keys - set(table))
-    assert not missing, f"{code}: {len(missing)} keys the page uses and it lacks: {missing[:5]}"
+    assert not missing, f"{code}: {len(missing)} keys the pages use and it lacks: {missing[:5]}"
     orphans = sorted(set(table) - keys)
-    assert not orphans, f"{code}: {len(orphans)} keys the page never reads: {orphans[:5]}"
+    assert not orphans, f"{code}: {len(orphans)} keys the pages never read: {orphans[:5]}"
 
 # A phrase in two or more words that reads the same in both languages is prose
 # nobody translated. Numbers, units and single words like "Legal" are allowed to
@@ -119,11 +132,11 @@ for code, table in strings.items():
 
 # A key whose element holds markup would lose that markup on every swap, so the
 # page is written with the text in its own element instead.
-for key in sorted(page.markup):
-    assert key not in page.keys, \
+for key in sorted(markup):
+    assert key not in keys, \
         f"{key} holds markup: give the text an element of its own"
 
-# Nothing in a dictionary may say what the page may not say.
+# Nothing in a dictionary may say what the pages may not say.
 for code, table in strings.items():
     blob = "\n".join(table.values())
     assert not re.search(
@@ -150,15 +163,21 @@ for code, table in strings.items():
         assert phrase in blob, f"{code}: the page stopped claiming {phrase!r}"
 
 offers = json.loads(
-    re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S).group(1)
+    re.search(r'<script type="application/ld\+json">(.*?)</script>', index_html, re.S).group(1)
 )["offers"]
 
-# Prices: the monthly price, the yearly one and the yearly total agree.
+# The plan table lives on the pricing page, where the Enterprise card and the
+# builder are too. The landing page carries only the three priced plans.
 cards = re.findall(
-    r'<article class="plan(?: plan--\w+)?[^>]*>.*?</article>', html, re.S
+    r'<article class="plan(?: plan--\w+)?[^>]*>.*?</article>', pricing_html, re.S
 )
 assert len(cards) == 4, f"plan cards: {len(cards)}"
 assert len(offers) == 3, f"offers: {len(offers)}"
+landing_cards = re.findall(
+    r'<article class="plan(?: plan--\w+)?[^>]*>.*?</article>', index_html, re.S
+)
+assert len(landing_cards) == 3, f"landing plan cards: {len(landing_cards)}"
+
 for card, offer, monthly in zip(cards, offers, (9, 39, 69)):
     annual = Decimal(monthly) * Decimal("0.80")
     assert offer["priceCurrency"] == "USD" and offer["price"] == str(monthly)
@@ -171,9 +190,10 @@ for card, offer, monthly in zip(cards, offers, (9, 39, 69)):
 # Every figure carries the dollars it starts from, and the number it shows is
 # that same figure: a conversion that drifted from what was written would price
 # the page twice.
-for base, shown in re.findall(r'data-money data-usd="([\d.]+)"[^>]*>([^<]*)<', html):
-    token = re.search(r"[\d.]+", shown)
-    assert token and token.group(0) == base, (base, shown)
+for page_html in (index_html, pricing_html):
+    for base, shown in re.findall(r'data-money data-usd="([\d.]+)"[^>]*>([^<]*)<', page_html):
+        token = re.search(r"[\d.]+", shown)
+        assert token and token.group(0) == base, (base, shown)
 
 # The limits of the three priced plans, in the order the page lists them:
 # active agents first, because that is the question a customer asks first.
@@ -191,9 +211,9 @@ def digits(value):
 
 
 for card, row in zip(cards, ROWS):
-    keys = re.findall(r'data-i18n="(plans\.row-value\.\d+)"', card)
-    assert len(keys) == 5, keys
-    for key, value in zip(keys, row):
+    row_keys = re.findall(r'data-i18n="(plans\.row-value\.\d+)"', card)
+    assert len(row_keys) == 5, row_keys
+    for key, value in zip(row_keys, row):
         expected = f"{value:,}" if isinstance(value, int) else value
         for code, table in strings.items():
             assert digits(table[key]) == digits(expected), \
@@ -212,12 +232,15 @@ for card, tier, credits, users in zip(
 # The fourth plan is quoted, not counted, and sells nothing yet.
 assert "plan--wide" in cards[3]
 assert "row__value" not in cards[3]
-# The quoted plan says its price in the language the page is written in.
+# The quoted plan says its price in the language the pages are written in.
 assert strings[languages[0]["code"]]["plans.price-amount.0"] in cards[3]
+
+visible = "\n".join(re.sub(r"<!--.*?-->", "", html, flags=re.S)
+                    for _, _, html in pages)
 assert "plan__cta" not in visible, "no card sells anything until there is a checkout"
 renewal = ("Se renueva cada mes", "Billed every month")
 assert not any(phrase in visible for phrase in renewal), \
     "a monthly note that says what the switch already says"
 
-print(f"{len(page.keys)} textos y {len(page.attr_keys)} atributos con clave, "
+print(f"{len(keys)} textos y {sum(len(p.attr_keys) for _, p, _ in pages)} atributos con clave, "
       f"traducidos en {', '.join(f'{c} ({len(t)})' for c, t in strings.items())}: OK")

@@ -2,8 +2,8 @@
  * one and never has to go looking for the switch.
  *
  * This is a Worker with the site as static assets: the pages are the same files
- * as always, and this only stands in front of the landing page (see
- * run_worker_first in wrangler.jsonc) to hand it over in the right language.
+ * as always, and this only stands in front of the translated pages (see
+ * run_worker_first in wrangler.jsonc) to hand them over in the right language.
  * Everything else — the stylesheet, the dictionaries, the legal pages — is served
  * straight from the assets and never reaches this code.
  *
@@ -122,6 +122,10 @@ function texts(html, table) {
     table[key] ? `data-i18n="${key}">${table[key]}<` : whole);
 }
 
+// The pages the edge translates. Everything else is served as it is: the legal
+// pages are written by hand in one language, and the assets never change.
+const TRANSLATED = new Set(["/", "/pricing"]);
+
 // The five values that live in attributes: the description, the cards, the
 // locale, and the label of the navigation.
 function attributes(html, table) {
@@ -171,7 +175,7 @@ export default {
     const response = await env.ASSETS.fetch(request);
     const type = response.headers.get("content-type") || "";
     if (!type.includes("text/html")) return response;
-    if (url.pathname !== "/") return response;
+    if (!TRANSLATED.has(url.pathname)) return response;
 
     const language = languageFor(request);
     const currency = currencyFor(request);

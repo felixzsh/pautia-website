@@ -1,0 +1,89 @@
+  <!-- The translated fields are enhanced into an inline journey in the final
+       section. Without JavaScript the calls to action retain their mailto fallback. -->
+  <div class="waitlist" id="waitlist" hidden aria-labelledby="waitlist-title">
+    <div class="waitlist__panel">
+      <div class="waitlist__head">
+        <h2 class="waitlist__title" id="waitlist-title" data-i18n="waitlist.title.0">Entra en la lista de espera</h2>
+        <button class="waitlist__close" type="button" aria-label="Cerrar"
+          data-i18n-attrs="aria-label:waitlist.close.0" data-waitlist-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <p class="waitlist__note" data-i18n="waitlist.p.0">Tres preguntas y tu correo. Nos ayudan a preparar el producto y a
+        avisarte en cuanto abra.</p>
+
+      <form class="waitlist__form" method="post" action="/api/waitlist" data-waitlist-form>
+        <label class="field">
+          <span class="field__label" data-i18n="waitlist.rubro.label.0">¿A qué se dedica tu negocio?</span>
+          <select class="field__input" name="rubro" required>
+            <option value="" data-i18n="waitlist.choose.0">Elige una opción</option>
+            <option value="Tienda o comercio" data-i18n="waitlist.rubro.opt.0">Tienda o comercio</option>
+            <option value="Servicios profesionales" data-i18n="waitlist.rubro.opt.1">Servicios profesionales</option>
+            <option value="Salud y bienestar" data-i18n="waitlist.rubro.opt.2">Salud y bienestar</option>
+            <option value="Restaurantes y alimentos" data-i18n="waitlist.rubro.opt.3">Restaurantes y alimentos</option>
+            <option value="Educación y cursos" data-i18n="waitlist.rubro.opt.4">Educación y cursos</option>
+            <option value="Servicios técnicos y a domicilio" data-i18n="waitlist.rubro.opt.5">Servicios técnicos y a domicilio</option>
+            <option value="Otro" data-i18n="waitlist.rubro.opt.6">Otro</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field__label" data-i18n="waitlist.objetivo.label.0">¿Qué quieres resolver?</span>
+          <select class="field__input" name="objetivo" required>
+            <option value="" data-i18n="waitlist.choose.1">Elige una opción</option>
+            <option value="Responder preguntas sobre productos o servicios" data-i18n="waitlist.objetivo.opt.0">Responder preguntas sobre productos o servicios</option>
+            <option value="Agendar citas o reservas" data-i18n="waitlist.objetivo.opt.1">Agendar citas o reservas</option>
+            <option value="Recibir pedidos o cotizaciones" data-i18n="waitlist.objetivo.opt.2">Recibir pedidos o cotizaciones</option>
+            <option value="Consultar el estado de un pedido o servicio" data-i18n="waitlist.objetivo.opt.3">Consultar el estado de un pedido o servicio</option>
+            <option value="Pasar la conversación a una persona" data-i18n="waitlist.objetivo.opt.4">Pasar la conversación a una persona</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field__label" data-i18n="waitlist.atencion.label.0">¿Quién atiende hoy los mensajes del negocio?</span>
+          <select class="field__input" name="atencion" required>
+            <option value="" data-i18n="waitlist.choose.2">Elige una opción</option>
+            <option value="El dueño o el equipo, entre otras tareas" data-i18n="waitlist.atencion.opt.0">El dueño o el equipo, entre otras tareas</option>
+            <option value="Una persona dedicada" data-i18n="waitlist.atencion.opt.1">Una persona dedicada</option>
+            <option value="Dos o más personas dedicadas" data-i18n="waitlist.atencion.opt.2">Dos o más personas dedicadas</option>
+            <option value="Un sistema automático" data-i18n="waitlist.atencion.opt.3">Un sistema automático</option>
+            <option value="Todavía no atendemos mensajes" data-i18n="waitlist.atencion.opt.4">Todavía no atendemos mensajes</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field__label" data-i18n="waitlist.email.label.0">Tu correo</span>
+          <input class="field__input" type="email" name="email" required autocomplete="email">
+        </label>
+
+        <!-- A field no person can see and a bot fills in anyway. It is not
+             hidden with display: none, because some bots skip those. -->
+        <p class="field field--trap" aria-hidden="true">
+          <span class="field__label">Web</span>
+          <input class="field__input" type="text" name="website" tabindex="-1" autocomplete="off">
+        </p>
+
+        <button class="btn btn--primary btn--block" type="submit" data-i18n="waitlist.submit.0">Anotarme</button>
+        <p class="waitlist__legal">
+          <span data-i18n="waitlist.consent.0">Usamos tu correo y tus respuestas solo para avisarte cuando abra Pautia.</span>
+          <a href="/legal/privacidad.html" data-i18n="waitlist.consent-link.0">Aviso de privacidad</a>
+        </p>
+        <p class="waitlist__error" hidden data-waitlist-error>
+          <span data-i18n="waitlist.error.0">No pudimos anotarte. Inténtalo de nuevo o escríbenos a</span>
+          <a href="mailto:info@pautia.app">info@pautia.app</a>
+        </p>
+      </form>
+
+      <div class="waitlist__done" hidden data-waitlist-done>
+        <span class="waitlist__seal" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><use href="#i-check" /></svg>
+        </span>
+        <h2 tabindex="-1" data-i18n="waitlist.done-title.0">Ya estás en la lista</h2>
+        <p class="waitlist__receipt" data-waitlist-email></p>
+        <p data-i18n="waitlist.done.0">Te avisaremos a este correo cuando el registro de Pautia
+          esté habilitado.</p>
+        <button class="btn btn--ghost" type="button" data-waitlist-reset
+          data-i18n="waitlist.reset.0">Usar otro correo</button>
+      </div>
+    </div>
+  </div>

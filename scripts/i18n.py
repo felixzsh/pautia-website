@@ -1,13 +1,17 @@
-"""Write the dictionary of the language the page is written in.
+"""Write the dictionary of the language the pages are written in.
 
-The page is served as it is written, in one language, and that language is the
-copy a visitor without JavaScript reads and a crawler indexes. The runtime needs
-it as a dictionary too, so that every language is a file and none of them is a
-special case. Rather than keep two copies of the same text in two places by
-hand, this writes the file from the page:
+The site is a few pages, each served as it is written, in one language, and that
+language is the copy a visitor without JavaScript reads and a crawler indexes.
+The runtime needs it as a dictionary too, so that every language is a file and
+none of them is a special case. Rather than keep two copies of the same text in
+two places by hand, this writes the file from the pages, together:
 
     make i18n            # rewrite the dictionary of the default language
     python3 i18n.py --check   # say whether the file is up to date
+
+The shared header and footer are the same text on every page, so a key that
+shows up more than once is the same text each time; a key that read two ways is
+a mistake and stops the command.
 
 The other languages are written by hand: a translation cannot be generated.
 """
@@ -17,7 +21,7 @@ import sys
 from html.parser import HTMLParser
 from pathlib import Path
 
-PAGE = Path("public/index.html")
+PAGES = sorted(Path("public").glob("*.html"))
 FOLDER = Path("public/assets/i18n")
 
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input",
@@ -25,26 +29,29 @@ VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input",
 
 
 class Reader(HTMLParser):
-    """The text the page carries for every key it declares."""
+    """The text the pages carry for every key they declare.
+
+    Each keyed element contributes its own text, collected when the element
+    closes, so an element split into pieces still reads as one string and a key
+    reused across pages (the shared header, a repeated label) does not pile up.
+    """
 
     def __init__(self, html):
         super().__init__(convert_charrefs=False)
-        self.open = []          # [key or None] for every element left open
-        self.words = {}         # key -> [text pieces]
+        self.open = []          # [key or None, [text pieces]] per open element
+        self.words = {}         # key -> [the text each element holds]
         self.attrs = {}         # key -> the attribute value the page shows
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
         key = attrs.get("data-i18n")
-        if key:
-            self.words.setdefault(key, [])
         for pair in attrs.get("data-i18n-attrs", "").split(","):
             if pair:
                 attr, name = pair.split(":")
                 self.attrs[name] = " ".join(attrs.get(attr, "").split())
         if tag in VOID:
             return
-        self.open.append(key)
+        self.open.append([key, []])
 
     def handle_startendtag(self, tag, attrs):
         self.handle_starttag(tag, attrs)
@@ -52,21 +59,39 @@ class Reader(HTMLParser):
             self.handle_endtag(tag)
 
     def handle_endtag(self, tag):
-        if self.open:
-            self.open.pop()
+        if not self.open:
+            return
+        key, pieces = self.open.pop()
+        if key:
+            self.words.setdefault(key, []).append(" ".join(" ".join(pieces).split()))
 
     def handle_data(self, data):
-        if self.open and self.open[-1] and data.strip():
-            self.words[self.open[-1]].append(data)
+        if self.open and self.open[-1][0] and data.strip():
+            self.open[-1][1].append(data)
 
 
 def extract(html):
-    """The dictionary the page describes, in the order a reader meets it."""
+    """The dictionary one page describes, in the order a reader meets it."""
     reader = Reader(html)
     reader.feed(html)
-    strings = {key: " ".join(" ".join(pieces).split())
-               for key, pieces in reader.words.items()}
+    strings = {}
+    for key, values in reader.words.items():
+        unique = list(dict.fromkeys(values))
+        strings[key] = unique[0] if unique else ""
     strings.update(reader.attrs)
+    return strings
+
+
+def extract_all(pages=None):
+    """Every page's texts, merged. One key, one text, on every page."""
+    strings = {}
+    for path in (pages if pages is not None else PAGES):
+        for key, text in extract(path.read_text()).items():
+            if key in strings and strings[key] != text:
+                raise ValueError(
+                    f"{path}: {key} reads two ways: {strings[key]!r} / {text!r}"
+                )
+            strings.setdefault(key, text)
     return strings
 
 
@@ -85,9 +110,8 @@ def page_language(html):
 
 
 def main(argv):
-    html = PAGE.read_text()
-    strings = extract(html)
-    code = page_language(html)
+    strings = extract_all()
+    code = page_language(PAGES[0].read_text())
     path = FOLDER / f"{code}.json"
     content = written(strings)
 

@@ -1,5 +1,9 @@
 {
-  "plans.ai-label": "Créditos de IA",
+  "pricing.title.0": "Planos e preços · Pautia",
+  "pricing.h1.0": "Planos e preços",
+  "pricing.description.0": "Compare os planos da Pautia: Essencial, Padrão, Profissional e Empresarial, ou monte um do seu jeito.",
+  "plans.more.0": "Ver todos os planos",
+  "plans.ai-label": "Créditos IA",
   "plans.ai-tip": "Saldo mensal para Smart Imports, Smart Routing e mídia.",
   "plans.media-tip": "Formatos de entrada que entende, não formatos de resposta.",
   "plans.users-tip": "Pessoas da equipe com acesso ao painel, não clientes do WhatsApp.",

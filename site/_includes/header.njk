@@ -1,0 +1,36 @@
+  <header class="header">
+    <div class="wrap header__row">
+      <a class="brand" href="/">
+        <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true">
+          <use href="#i-pautia" />
+        </svg>
+        Pautia
+      </a>
+
+      <nav class="nav" aria-label="Principal" data-i18n-attrs="aria-label:nav.label">
+        <a href="/#how" data-i18n="nav.a.0">Cómo funciona</a>
+        <a href="/pricing" data-i18n="nav.a.1">Planes</a>
+        <a href="/#faq" data-i18n="nav.a.2">Preguntas</a>
+        <a href="/#security" data-i18n="nav.a.3">Seguridad</a>
+      </nav>
+
+      <div class="header__actions">
+        <details class="menu nav-toggle" data-menu="nav">
+          <summary class="menu__summary" data-i18n="header.menu__summary.0">Menú</summary>
+          <div class="menu__body">
+            <a class="menu__item" href="/#how" data-i18n="header.a.0">Cómo funciona</a>
+            <a class="menu__item" href="/pricing" data-i18n="header.a.1">Planes</a>
+            <a class="menu__item" href="/#faq" data-i18n="header.a.2">Preguntas</a>
+            <a class="menu__item" href="/#security" data-i18n="header.a.3">Seguridad</a>
+          </div>
+        </details>
+        <!-- The language picker. assets/main.js fills it from the list in the head
+             and swaps the text of the page; without JavaScript there is nothing to
+             switch, so there is no button either. -->
+        <div data-lang-picker aria-label="Idioma"
+             data-i18n-attrs="aria-label:lang.picker-label"></div>
+        <a class="btn btn--primary" href="mailto:info@pautia.app?subject=Waitlist%20for%20Pautia"
+          data-i18n="header.btn.0" data-waitlist-open>Lista de espera</a>
+      </div>
+    </div>
+  </header>

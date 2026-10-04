@@ -1,24 +1,24 @@
-"""Put the page in another language, and make that language its default.
+"""Put the site in another language, and make that language its default.
 
-The page is written in one language and that language lives in the markup, so
-the default is not a setting: it is what the HTML says. Changing it means moving
-every text between the markup and the dictionaries and turning the roles of the
-files around. Done by hand that is 193 lines of careful editing, so it is a
-command:
+The pages are written in one language and that language lives in the markup, so
+the default is not a setting: it is what the templates say. Changing it means
+moving every text between the templates and the dictionaries and turning the
+roles of the files around. Done by hand that is careful editing across the pages
+and their shared pieces, so it is a command:
 
     make default-lang lang=en
     python3 scripts/default-lang.py es
 
-It rewrites the markup with the texts of that language, writes the language the
-page had to its own file (it stops being the generated one), puts the new
-default first in the list in the head, and fixes what the markup says about
-itself: <html lang>, and the structured data, which quotes the language it is
-served in. `make i18n` then regenerates the new default's file from the page it
-has just become.
+It rewrites the templates in site/ with the texts of that language, writes the
+language the site had to its own file (it stops being the generated one), puts
+the new default first in the list in the head, and fixes what the markup says
+about itself: <html lang>, and the structured data, which quotes the language it
+is served in. The command builds and regenerates afterwards, so `make
+default-lang` does that itself.
 
 The result is checked against the target dictionary on the way out: every text
 must land exactly where it was, or the command fails instead of publishing a
-half-translated page.
+half-translated site.
 """
 
 import json
@@ -30,7 +30,9 @@ from pathlib import Path
 
 import i18n
 
-PAGE = Path("public/index.html")
+SITE = Path("site")
+SOURCES = sorted(SITE.rglob("*.njk"))
+INDEX = SITE / "index.njk"
 I18N = Path("public/assets/i18n")
 PLAN_NAMES = ("plans.plan-name.0", "plans.plan-name.1", "plans.plan-name.2")
 
@@ -67,7 +69,7 @@ class Position(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
-        start, end = self.here(), None
+        start = self.here()
         end = self.tag_end(start)
         if attrs.get("data-i18n"):
             stop = self.src.index("<", end + 1)
@@ -105,8 +107,10 @@ def placed(value, raw):
 def swap(src, table):
     parser = Position(src)
     parser.feed(src)
-    edits = [(start, end, placed(table[key], raw))
-             for key, start, end, raw in parser.values]
+    edits = []
+    for key, start, end, raw in parser.values:
+        assert key in table, key
+        edits.append((start, end, placed(table[key], raw)))
     out = src
     for start, end, value in sorted(edits, reverse=True):
         out = out[:start] + value + out[end:]
@@ -119,6 +123,8 @@ def head(src, code, table):
 
     match = re.search(r'(<script type="application/ld\+json">\n)(.*?)(\n\s*</script>)',
                       out, re.S)
+    if not match:
+        return out
     schema = json.loads(match.group(2))
     schema["inLanguage"] = code
     schema["description"] = table["meta.description"]
@@ -133,6 +139,8 @@ def head(src, code, table):
 def reorder(src, code, listing):
     block = re.search(r'(<script type="application/json" id="languages">\n)(.*?)(\n\s*</script>)',
                       src, re.S)
+    if not block:
+        return src
     ordered = [lang for lang in listing if lang["code"] == code]
     ordered += [lang for lang in listing if lang["code"] != code]
     lines = ",\n".join("      " + json.dumps(lang, ensure_ascii=False)
@@ -142,8 +150,8 @@ def reorder(src, code, listing):
 
 
 def main(argv):
-    src = PAGE.read_text()
-    current_values = i18n.extract(src)
+    current_values = i18n.extract_all()
+    src = INDEX.read_text()
     match = re.search(r'(<script type="application/json" id="languages">\n)(.*?)(\n\s*</script>)',
                       src, re.S)
     listing = json.loads(match.group(2))
@@ -157,27 +165,25 @@ def main(argv):
         print(f"unknown language: {wanted}", file=sys.stderr)
         return 1
     if wanted == listing[0]["code"]:
-        print(f"the page is already written in {wanted}")
+        print(f"the site is already written in {wanted}")
         return 0
 
     target = json.loads((I18N / by_code[wanted]["file"]).read_text())
     assert set(target) == set(current_values), sorted(
         set(target) ^ set(current_values))[:5]
 
-    out, count = swap(src, target)
-    out = head(out, wanted, target)
-    out = reorder(out, wanted, listing)
+    count = 0
+    for path in SOURCES:
+        out, edits = swap(path.read_text(), target)
+        out = head(out, wanted, target)
+        out = reorder(out, wanted, listing)
+        path.write_text(out)
+        count += edits
 
-    landed = i18n.extract(out)
-    drifted = sorted(k for k in set(landed) | set(target)
-                     if landed.get(k) != target.get(k))
-    assert not drifted, f"the page and {wanted} disagree: {drifted[:5]}"
-
-    # The language the page had becomes a file it reads; the one it takes becomes
+    # The language the site had becomes a file it reads; the one it takes becomes
     # the file `make i18n` writes from now on.
     (I18N / by_code[listing[0]["code"]]["file"]).write_text(i18n.written(current_values))
-    PAGE.write_text(out)
-    print(f"{PAGE}: {count} texts now in {wanted}, and {wanted} is the default")
+    print(f"{len(SOURCES)} templates: {count} texts now in {wanted}, and {wanted} is the default")
     return 0
 
 
