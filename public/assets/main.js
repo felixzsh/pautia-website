@@ -49,6 +49,7 @@
   let currency = [choice(CURRENCY), page.dataset.currency]
     .find((code) => code && known(code)) || "USD";
   let rates = null;
+  let refreshCustomPlan = () => {};
 
   // A choice lives in exactly one place: the cookie. It is what the edge reads,
   // so the page arrives already in the chosen language and money, and it is what
@@ -155,6 +156,100 @@
       }
       data.textContent = JSON.stringify(schema, null, 2);
     } catch {}
+  }
+
+  function customPlan() {
+    const host = document.querySelector("[data-custom-plan]");
+    if (!host) return;
+
+    const plans = [...document.querySelectorAll(
+      "#plans .plans__grid > .plan:not(.plan--wide)"
+    )];
+    const tiers = [...host.querySelectorAll('input[name="custom-plan-base"]')];
+    const controls = {
+      bots: host.querySelector("#custom-bots"),
+      messages: host.querySelector("#custom-messages"),
+      storage: host.querySelector("#custom-storage"),
+    };
+    const outputs = Object.fromEntries(Object.entries(controls).map(([key]) => [
+      key, host.querySelector(`#custom-${key}-output`),
+    ]));
+    const bounds = Object.fromEntries(Object.entries(controls).map(([key]) => [key, {
+      min: host.querySelector(`[data-custom-min="${key}"]`),
+      max: host.querySelector(`[data-custom-max="${key}"]`),
+    }]));
+    const moneyNodes = Object.fromEntries([...host.querySelectorAll("[data-custom-price]")]
+      .map((node) => [node.dataset.customPrice, node]));
+    const max = { bots: 20, messages: 100000, storage: 2000 };
+    const format = (value) => new Intl.NumberFormat(page.lang).format(value);
+
+    function amount(key, value) {
+      const rounded = Number(value.toFixed(2));
+      const node = moneyNodes[key];
+      node.dataset.usd = rounded.toFixed(2);
+      node.dataset.usdText = `$${Number.isInteger(rounded) ? rounded : rounded.toFixed(2)}`;
+      node.textContent = node.dataset.usdText;
+    }
+
+    function refresh(reset = false) {
+      const tier = tiers.find((item) => item.checked);
+      const plan = plans[Number(tier.dataset.planIndex)];
+      if (!plan) return;
+
+      const base = {
+        price: Number(plan.dataset.customPrice),
+        bots: Number(plan.dataset.customBots),
+        messages: Number(plan.dataset.customMessages),
+        storage: Number(plan.dataset.customStorage),
+      };
+      const current = {};
+      for (const [key, control] of Object.entries(controls)) {
+        control.min = base[key];
+        control.max = max[key];
+        if (reset || Number(control.value) < base[key]) control.value = base[key];
+        current[key] = Number(control.value);
+        const suffix = key === "storage" ? " MB" : "";
+        outputs[key].textContent = format(current[key]) + suffix;
+        bounds[key].min.textContent = format(base[key]) + suffix;
+        bounds[key].max.textContent = format(max[key]) + suffix;
+      }
+
+      const extra = {
+        bots: (current.bots - base.bots) * 3,
+        messages: (current.messages - base.messages) / 1000,
+        storage: (current.storage - base.storage) / 100,
+      };
+      const monthly = base.price + extra.bots + extra.messages + extra.storage;
+      const annual = document.querySelector("#period-yearly").checked;
+      const factor = annual ? 0.8 : 1;
+
+      amount("base", base.price * factor);
+      amount("bots", extra.bots * factor);
+      amount("messages", extra.messages * factor);
+      amount("storage", extra.storage * factor);
+      amount("total", monthly * factor);
+      amount("annual", monthly * 0.8 * 12);
+      host.querySelector("[data-custom-selected]").textContent =
+        tier.closest("label").querySelector("[data-custom-name]").textContent;
+      host.querySelector(".custom-plan__annual").hidden = !annual;
+    }
+
+    function update(reset = false) {
+      refresh(reset);
+      prices();
+    }
+
+    tiers.forEach((tier) => tier.addEventListener("change", () => update(true)));
+    Object.values(controls).forEach((control) => {
+      control.addEventListener("input", () => update());
+    });
+    for (const id of ["period-monthly", "period-yearly"]) {
+      document.getElementById(id).addEventListener("change", () => update());
+    }
+
+    refreshCustomPlan = () => refresh();
+    refresh();
+    prices();
   }
 
   function fetchRate() {
@@ -286,6 +381,7 @@
     }
 
     stashLanguage();   // the new language writes the dollars; convert again after
+    refreshCustomPlan();
     prices();
     mark(lang.code);
   }
@@ -659,6 +755,7 @@
   }
 
   stashMarkup();
+  customPlan();
   currencyPicker();
   picker();
   menus();

@@ -300,6 +300,31 @@ with sync_playwright() as p:
             if not page.locator(".price--monthly").first.is_visible():
                 problems.append(f"{name}-{label}: switch does not go back to monthly")
 
+            if name == "es" and width == 1440:
+                page.locator('input[name="custom-plan-base"][value="basic"]').check()
+                page.evaluate("""() => {
+                  for (const [id, value] of [
+                    ['custom-bots', 2], ['custom-messages', 4000], ['custom-storage', 150],
+                  ]) {
+                    const input = document.getElementById(id);
+                    input.value = value;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                  }
+                }""")
+                estimate = page.locator('[data-custom-price="total"]')
+                if estimate.text_content() != "$14":
+                    problems.append(
+                        f"{name}: custom monthly estimate is {estimate.text_content()}"
+                    )
+                page.locator("label[for=period-yearly]").first.click()
+                annual = page.locator(".custom-plan__annual")
+                if estimate.text_content() != "$11.20" \
+                        or "$134.40" not in annual.text_content():
+                    problems.append(
+                        f"{name}: custom yearly estimate is {estimate.text_content()}, "
+                        f"{annual.text_content()}"
+                    )
+
             # The waitlist: a real mail client handoff for a visitor without a
             # script, and one dialog behind it for everyone else. It starts
             # closed, opens from the call to action, asks four things, and closes

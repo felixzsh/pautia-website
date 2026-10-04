@@ -1280,6 +1280,225 @@ ol {
   font-size: var(--step-0);
 }
 
+/* A separate builder below the fixed plans, with controls beside their quote. */
+
+.custom-plan {
+  margin-top: var(--space-8);
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--line);
+}
+
+.custom-plan__head {
+  max-width: var(--prose);
+  margin-bottom: var(--space-5);
+}
+
+.custom-plan__head h3 {
+  font-size: var(--step-2);
+}
+
+.custom-plan__head p {
+  margin-top: var(--space-2);
+  color: var(--ink-500);
+}
+
+.custom-plan__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (min-width: 980px) {
+  .custom-plan__layout {
+    grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr);
+    gap: var(--space-6);
+  }
+}
+
+.custom-plan__tiers {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.custom-plan__tiers legend {
+  margin-bottom: var(--space-2);
+  color: var(--ink-500);
+  font-weight: 600;
+}
+
+.custom-plan__tier {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  cursor: pointer;
+}
+
+.custom-plan__tier:has(input:checked) {
+  background: var(--brand-100);
+  border-color: var(--brand-600);
+}
+
+.custom-plan__tier input {
+  margin: 0.25rem 0 0;
+  accent-color: var(--brand-700);
+}
+
+.custom-plan__tier-copy {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.custom-plan__tier-copy span {
+  color: var(--ink-500);
+  font-size: var(--step--1);
+}
+
+@media (min-width: 760px) {
+  .custom-plan__tiers {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .custom-plan__tiers legend {
+    grid-column: 1 / -1;
+  }
+}
+
+.custom-plan__controls {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.custom-plan__control {
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.custom-plan__control-head,
+.custom-plan__bounds {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.custom-plan__control-head label {
+  font-weight: 600;
+}
+
+.custom-plan__control-head output {
+  color: var(--brand-700);
+  font-weight: 650;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.custom-plan__control p {
+  margin-top: var(--space-1);
+  color: var(--ink-500);
+  font-size: var(--step--1);
+}
+
+.custom-plan__control input[type="range"] {
+  display: block;
+  width: 100%;
+  margin: var(--space-3) 0 var(--space-1);
+  accent-color: var(--brand-700);
+}
+
+.custom-plan__bounds {
+  color: var(--ink-500);
+  font-size: var(--step--1);
+}
+
+.custom-plan__summary {
+  padding: var(--space-5);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+}
+
+.custom-plan__summary h4 {
+  font-size: var(--step-1);
+}
+
+.custom-plan__selected {
+  margin-top: var(--space-1);
+  color: var(--brand-700);
+  font-weight: 600;
+}
+
+.custom-plan__breakdown {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--step--1);
+}
+
+.custom-plan__breakdown > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.custom-plan__breakdown dt {
+  color: var(--ink-500);
+}
+
+.custom-plan__breakdown dd {
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.custom-plan__total {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-4);
+}
+
+.custom-plan__total > span {
+  color: var(--ink-500);
+}
+
+.custom-plan__total strong {
+  font-size: var(--step-2);
+}
+
+.custom-plan__total strong span:last-child {
+  color: var(--ink-500);
+  font-size: var(--step--1);
+  font-weight: 500;
+}
+
+.custom-plan__annual {
+  margin-top: var(--space-2);
+  color: var(--ink-500);
+  font-size: var(--step--1);
+}
+
+.custom-plan__annual[hidden] {
+  display: none;
+}
+
+.custom-plan__note {
+  margin-top: var(--space-4);
+  color: var(--ink-500);
+  font-size: var(--step--1);
+}
+
 /* FAQ */
 
 .faq {

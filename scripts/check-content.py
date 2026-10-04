@@ -154,7 +154,9 @@ offers = json.loads(
 )["offers"]
 
 # Prices: the monthly price, the yearly one and the yearly total agree.
-cards = re.findall(r'<article class="plan(?: plan--\w+)?">.*?</article>', html, re.S)
+cards = re.findall(
+    r'<article class="plan(?: plan--\w+)?[^>]*>.*?</article>', html, re.S
+)
 assert len(cards) == 4, f"plan cards: {len(cards)}"
 assert len(offers) == 3, f"offers: {len(offers)}"
 for card, offer, monthly in zip(cards, offers, (9, 39, 69)):
