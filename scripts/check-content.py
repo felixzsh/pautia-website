@@ -197,6 +197,16 @@ for card, row in zip(cards, ROWS):
             assert digits(table[key]) == digits(expected), \
                 (code, key, table[key], expected)
 
+# Draft AI allowances and seats must agree across languages and plan cards.
+for card, tier, credits, users in zip(
+    cards, ("basic", "standard", "professional"), (1000, 5000, 15000), (1, 3, 10)
+):
+    for key, expected in ((f"plans.ai-{tier}", credits), (f"plans.users-{tier}", users)):
+        assert f'data-i18n="{key}"' in card, key
+        for code, table in strings.items():
+            assert digits(table[key]) == str(expected), (code, key, table[key])
+    assert f'data-i18n="plans.media-{tier}"' in card, tier
+
 # The fourth plan is quoted, not counted, and sells nothing yet.
 assert "plan--wide" in cards[3]
 assert "row__value" not in cards[3]

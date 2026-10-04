@@ -511,44 +511,46 @@
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.0">Agentes</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.0">1</span>
                     <button class="row__help" type="button"
                       aria-label="Cuántos pueden estar respondiendo al mismo tiempo."
                       data-i18n-attrs="aria-label:plans.row-tip.0">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.0">Cuántos pueden estar respondiendo
-                        al mismo tiempo.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.0">1</dd>
+                        al mismo tiempo.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.1">Flujos</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.1">5</span>
                     <button class="row__help" type="button"
                       aria-label="Los recorridos de atención que defines para el agente.
                         Cada uno cubre un caso distinto."
                       data-i18n-attrs="aria-label:plans.row-tip.1">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.1">Los recorridos de atención que defines
-                        para el agente. Cada uno cubre un caso distinto.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.1">5</dd>
+                        para el agente. Cada uno cubre un caso distinto.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.2">Acciones</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.2">200</span>
                     <button class="row__help" type="button"
                       aria-label="Lo que el agente puede hacer además de responder:
                         consultar tus sistemas, registrar datos o avisar."
                       data-i18n-attrs="aria-label:plans.row-tip.2">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.2">Lo que el agente puede hacer además de
-                        responder: consultar tus sistemas, registrar datos o avisar.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.2">200</dd>
+                        responder: consultar tus sistemas, registrar datos o avisar.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.3">Mensajes</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.3">3.000</span>
                     <button class="row__help" type="button"
                       aria-label="Los mensajes que envía el agente, no las conversaciones.
                         Al llegar al máximo, deja de enviar hasta que haya capacidad."
@@ -556,25 +558,54 @@
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.3">Los mensajes que envía el agente, no las
                         conversaciones. Al llegar al máximo, deja de enviar hasta que haya
-                        capacidad.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.3">3.000</dd>
+                        capacidad.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.4">Almacenamiento</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.4">50 MB</span>
                     <button class="row__help" type="button"
                       aria-label="Cuánto historial de mensajes guarda cada plan."
                       data-i18n-attrs="aria-label:plans.row-tip.4">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.4">Cuánto historial de mensajes guarda
-                        cada plan.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.4">50 MB</dd>
+                        cada plan.</span></button></dd>
                 </div>
-                <!-- plan rows that need a phase: retention in days, integrations,
-                     human control per conversation, assisted onboarding.
-                     The internal plan, claims table. -->
+                <div class="row">
+                  <dt class="row__key">
+                    <span data-i18n="plans.ai-label">Créditos de IA</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.ai-basic">1.000</span>
+                    <button class="row__help" type="button"
+                      aria-label="Saldo mensual para Smart Imports, Smart Routing y multimedia."
+                      data-i18n-attrs="aria-label:plans.ai-tip">?<span class="row__tip"
+                        aria-hidden="true" data-i18n="plans.ai-tip">Saldo mensual para
+                        Smart Imports, Smart Routing y multimedia.</span></button></dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">
+                    <span data-i18n="plans.media-label">Entiende mensajes</span>
+                  </dt>
+                  <dd class="row__value row__value--text"><span
+                    data-i18n="plans.media-basic">Texto</span>
+                    <button class="row__help" type="button"
+                      aria-label="Tipos de entrada que interpreta; no formatos de respuesta."
+                      data-i18n-attrs="aria-label:plans.media-tip">?<span class="row__tip"
+                        aria-hidden="true" data-i18n="plans.media-tip">Tipos de entrada que
+                        interpreta; no formatos de respuesta.</span></button></dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">
+                    <span data-i18n="plans.users-label">Usuarios del panel</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.users-basic">1</span>
+                    <button class="row__help" type="button"
+                      aria-label="Personas del equipo con acceso al panel; no clientes de WhatsApp."
+                      data-i18n-attrs="aria-label:plans.users-tip">?<span class="row__tip"
+                        aria-hidden="true" data-i18n="plans.users-tip">Personas del equipo con
+                        acceso al panel; no clientes de WhatsApp.</span></button></dd>
+                </div>
               </dl>
             </article>
 
@@ -600,44 +631,46 @@
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.5">Agentes</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.5">5</span>
                     <button class="row__help" type="button"
                       aria-label="Cuántos pueden estar respondiendo al mismo tiempo."
                       data-i18n-attrs="aria-label:plans.row-tip.0">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.0">Cuántos pueden estar respondiendo
-                        al mismo tiempo.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.5">5</dd>
+                        al mismo tiempo.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.6">Flujos</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.6">50</span>
                     <button class="row__help" type="button"
                       aria-label="Los recorridos de atención que defines para el agente.
                         Cada uno cubre un caso distinto."
                       data-i18n-attrs="aria-label:plans.row-tip.1">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.1">Los recorridos de atención que defines
-                        para el agente. Cada uno cubre un caso distinto.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.6">50</dd>
+                        para el agente. Cada uno cubre un caso distinto.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.7">Acciones</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.7">1.000</span>
                     <button class="row__help" type="button"
                       aria-label="Lo que el agente puede hacer además de responder:
                         consultar tus sistemas, registrar datos o avisar."
                       data-i18n-attrs="aria-label:plans.row-tip.2">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.2">Lo que el agente puede hacer además de
-                        responder: consultar tus sistemas, registrar datos o avisar.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.7">1.000</dd>
+                        responder: consultar tus sistemas, registrar datos o avisar.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.8">Mensajes</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.8">15.000</span>
                     <button class="row__help" type="button"
                       aria-label="Los mensajes que envía el agente, no las conversaciones.
                         Al llegar al máximo, deja de enviar hasta que haya capacidad."
@@ -645,23 +678,54 @@
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.3">Los mensajes que envía el agente, no las
                         conversaciones. Al llegar al máximo, deja de enviar hasta que haya
-                        capacidad.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.8">15.000</dd>
+                        capacidad.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.9">Almacenamiento</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.9">250 MB</span>
                     <button class="row__help" type="button"
                       aria-label="Cuánto historial de mensajes guarda cada plan."
                       data-i18n-attrs="aria-label:plans.row-tip.4">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.4">Cuánto historial de mensajes guarda
-                        cada plan.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.9">250 MB</dd>
+                        cada plan.</span></button></dd>
                 </div>
-                <!-- plan rows that need a phase: same as Basic. -->
+                <div class="row">
+                  <dt class="row__key">
+                    <span data-i18n="plans.ai-label">Créditos de IA</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.ai-standard">5.000</span>
+                    <button class="row__help" type="button"
+                      aria-label="Saldo mensual para Smart Imports, Smart Routing y multimedia."
+                      data-i18n-attrs="aria-label:plans.ai-tip">?<span class="row__tip"
+                        aria-hidden="true" data-i18n="plans.ai-tip">Saldo mensual para
+                        Smart Imports, Smart Routing y multimedia.</span></button></dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">
+                    <span data-i18n="plans.media-label">Entiende mensajes</span>
+                  </dt>
+                  <dd class="row__value row__value--text"><span
+                    data-i18n="plans.media-standard">Texto + audio</span>
+                    <button class="row__help" type="button"
+                      aria-label="Tipos de entrada que interpreta; no formatos de respuesta."
+                      data-i18n-attrs="aria-label:plans.media-tip">?<span class="row__tip"
+                        aria-hidden="true" data-i18n="plans.media-tip">Tipos de entrada que
+                        interpreta; no formatos de respuesta.</span></button></dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">
+                    <span data-i18n="plans.users-label">Usuarios del panel</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.users-standard">3</span>
+                    <button class="row__help" type="button"
+                      aria-label="Personas del equipo con acceso al panel; no clientes de WhatsApp."
+                      data-i18n-attrs="aria-label:plans.users-tip">?<span class="row__tip"
+                        aria-hidden="true" data-i18n="plans.users-tip">Personas del equipo con
+                        acceso al panel; no clientes de WhatsApp.</span></button></dd>
+                </div>
               </dl>
             </article>
 
@@ -687,44 +751,46 @@
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.10">Agentes</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.10">10</span>
                     <button class="row__help" type="button"
                       aria-label="Cuántos pueden estar respondiendo al mismo tiempo."
                       data-i18n-attrs="aria-label:plans.row-tip.0">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.0">Cuántos pueden estar respondiendo
-                        al mismo tiempo.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.10">10</dd>
+                        al mismo tiempo.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.11">Flujos</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.11">100</span>
                     <button class="row__help" type="button"
                       aria-label="Los recorridos de atención que defines para el agente.
                         Cada uno cubre un caso distinto."
                       data-i18n-attrs="aria-label:plans.row-tip.1">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.1">Los recorridos de atención que defines
-                        para el agente. Cada uno cubre un caso distinto.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.11">100</dd>
+                        para el agente. Cada uno cubre un caso distinto.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.12">Acciones</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.12">2.000</span>
                     <button class="row__help" type="button"
                       aria-label="Lo que el agente puede hacer además de responder:
                         consultar tus sistemas, registrar datos o avisar."
                       data-i18n-attrs="aria-label:plans.row-tip.2">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.2">Lo que el agente puede hacer además de
-                        responder: consultar tus sistemas, registrar datos o avisar.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.12">2.000</dd>
+                        responder: consultar tus sistemas, registrar datos o avisar.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.13">Mensajes</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.13">30.000</span>
                     <button class="row__help" type="button"
                       aria-label="Los mensajes que envía el agente, no las conversaciones.
                         Al llegar al máximo, deja de enviar hasta que haya capacidad."
@@ -732,23 +798,54 @@
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.3">Los mensajes que envía el agente, no las
                         conversaciones. Al llegar al máximo, deja de enviar hasta que haya
-                        capacidad.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.13">30.000</dd>
+                        capacidad.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
                     <span data-i18n="plans.row-key.14">Almacenamiento</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.row-value.14">500 MB</span>
                     <button class="row__help" type="button"
                       aria-label="Cuánto historial de mensajes guarda cada plan."
                       data-i18n-attrs="aria-label:plans.row-tip.4">?<span
                         class="row__tip" aria-hidden="true"
                         data-i18n="plans.row-tip.4">Cuánto historial de mensajes guarda
-                        cada plan.</span></button>
-                  </dt>
-                  <dd class="row__value" data-i18n="plans.row-value.14">500 MB</dd>
+                        cada plan.</span></button></dd>
                 </div>
-                <!-- plan rows that need a phase: same as Basic. -->
+                <div class="row">
+                  <dt class="row__key">
+                    <span data-i18n="plans.ai-label">Créditos de IA</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.ai-professional">15.000</span>
+                    <button class="row__help" type="button"
+                      aria-label="Saldo mensual para Smart Imports, Smart Routing y multimedia."
+                      data-i18n-attrs="aria-label:plans.ai-tip">?<span class="row__tip"
+                        aria-hidden="true" data-i18n="plans.ai-tip">Saldo mensual para
+                        Smart Imports, Smart Routing y multimedia.</span></button></dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">
+                    <span data-i18n="plans.media-label">Entiende mensajes</span>
+                  </dt>
+                  <dd class="row__value row__value--text"><span
+                    data-i18n="plans.media-professional">Más imágenes y documentos</span>
+                    <button class="row__help" type="button"
+                      aria-label="Tipos de entrada que interpreta; no formatos de respuesta."
+                      data-i18n-attrs="aria-label:plans.media-tip">?<span class="row__tip"
+                        aria-hidden="true" data-i18n="plans.media-tip">Tipos de entrada que
+                        interpreta; no formatos de respuesta.</span></button></dd>
+                </div>
+                <div class="row">
+                  <dt class="row__key">
+                    <span data-i18n="plans.users-label">Usuarios del panel</span>
+                  </dt>
+                  <dd class="row__value"><span data-i18n="plans.users-professional">10</span>
+                    <button class="row__help" type="button"
+                      aria-label="Personas del equipo con acceso al panel; no clientes de WhatsApp."
+                      data-i18n-attrs="aria-label:plans.users-tip">?<span class="row__tip"
+                        aria-hidden="true" data-i18n="plans.users-tip">Personas del equipo con
+                        acceso al panel; no clientes de WhatsApp.</span></button></dd>
+                </div>
               </dl>
             </article>
 
@@ -776,6 +873,8 @@
           </div>
         </div>
 
+        <p class="lede" style="margin-top:var(--space-6)" data-i18n="plans.included">Todos incluyen
+          editor visual, Smart Imports, panel de solicitudes y exportación CSV.</p>
         <dl class="facts">
           <div class="fact">
             <dt data-i18n="plans.dt.0">Solo texto</dt>

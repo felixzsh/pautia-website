@@ -193,9 +193,9 @@ with sync_playwright() as p:
             # A limit is one thing on one line: "50 MB", never "50" over "MB".
             split = page.evaluate("""() => {
               const bad = [];
-              for (const value of document.querySelectorAll('.row__value')) {
+              for (const value of document.querySelectorAll('.row__value:not(.row__value--text)')) {
                 const range = document.createRange();
-                range.selectNodeContents(value);
+                range.selectNodeContents(value.firstElementChild);
                 if (range.getClientRects().length > 1) bad.push(value.textContent.trim());
               }
               return bad;

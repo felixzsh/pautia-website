@@ -1195,7 +1195,6 @@ ol {
   place-items: center;
   width: 1rem;
   height: 1rem;
-  margin-left: var(--space-1);
   padding: 0;
   vertical-align: middle;
   background: none;
@@ -1232,6 +1231,7 @@ ol {
   font-size: var(--step--1);
   line-height: 1.4;
   text-align: left;
+  white-space: normal;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.12s ease;
@@ -1250,14 +1250,27 @@ ol {
   }
 }
 
+.row__value--text {
+  max-width: 55%;
+}
+
 .row__value {
-  /* "50 MB" is one thing, not two: it never breaks, and the label is what wraps
-     if the row gets tight. */
+  /* The value and the question mark that explains it, right aligned: the mark
+     sits in its own column so every row's explanation lines up at the edge. */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
   flex: 0 0 auto;
   color: var(--ink-900);
   font-weight: 600;
   text-align: right;
   white-space: nowrap;
+}
+
+.row__value.row__value--text {
+  flex: 0 1 auto;
+  white-space: normal;
 }
 
 .plans__note {
