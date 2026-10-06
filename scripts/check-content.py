@@ -162,6 +162,21 @@ for code, table in strings.items():
     for phrase in CLAIMS[code]:
         assert phrase in blob, f"{code}: the page stopped claiming {phrase!r}"
 
+# The short landing still explains the complete journey, not just the agent.
+for code, table in strings.items():
+    assert "WhatsApp" in table["main.hero-sub.0"] and "Pautia" in table["main.hero-sub.0"]
+    assert "Smart Imports" in table["how.p.0"], (code, "missing optional starting point")
+    assert "Pautia" in table["how.p.2"], (code, "missing integrated request management")
+
+assert 'class="mock" aria-labelledby="journey-caption"' in index_html
+assert 'data-i18n="main.request-status"' in index_html, "the example must show a pending request"
+assert 'aria-hidden="true"' not in re.search(
+    r'<figure\b[^>]*>', index_html
+).group(0), "the chat-to-panel example must be readable by assistive technology"
+assert len(re.findall(r'<section\b', index_html)) == 7, "keep the landing compact"
+assert len(re.findall(r'<li class="step">', index_html)) == 3, "three product pillars"
+assert len(re.findall(r'<article class="card">', index_html)) == 3, "three concrete uses"
+
 offers = json.loads(
     re.search(r'<script type="application/ld\+json">(.*?)</script>', index_html, re.S).group(1)
 )["offers"]

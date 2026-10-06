@@ -4,19 +4,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title data-i18n="page.title.0">Pautia · Un agente para el WhatsApp de tu negocio</title>
-  <meta name="description"
-    content="Un agente que responde y actúa por el WhatsApp de tu negocio. Diseña su flujo
-      visualmente o importa tus chats para recibir una propuesta inicial." data-i18n-attrs="content:meta.description">
+  <title data-i18n="page.title.0">Pautia · Gestiona tu negocio con agentes predecibles</title>
+  <meta name="description" data-i18n-attrs="content:meta.description"
+    content="Atiende por WhatsApp y gestiona solicitudes en Pautia. Tus reglas, tu agente,
+      tu panel.">
   <link rel="canonical" href="https://pautia.app/">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Pautia">
   <meta property="og:locale" content="es_ES" data-i18n-attrs="content:meta.og-locale">
-  <meta property="og:title" content="Pautia · Un agente para el WhatsApp de tu negocio" data-i18n-attrs="content:meta.og-title">
-  <meta property="og:description"
-    content="Un agente que responde y actúa por el WhatsApp de tu negocio. Diseña su flujo
-      visualmente o importa tus chats para recibir una propuesta inicial." data-i18n-attrs="content:meta.og-description">
+  <meta property="og:title" data-i18n-attrs="content:meta.og-title"
+    content="Pautia · Gestiona tu negocio con agentes predecibles">
+  <meta property="og:description" data-i18n-attrs="content:meta.og-description"
+    content="Atiende por WhatsApp y gestiona solicitudes en Pautia. Tus reglas, tu agente,
+      tu panel.">
   <meta property="og:url" content="https://pautia.app/">
   <meta property="og:image" content="https://pautia.app/assets/og.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -27,12 +28,6 @@
   <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="/assets/styles.css">
 
-  <!-- The languages this page speaks, all of them a file in /assets/i18n. The
-       first one is the language the page is written in, and its file is written
-       by `make i18n` from this page, so the two can never drift. A key a
-       language does not translate keeps the text already in the markup, so a
-       half-translated language degrades to the page's own instead of leaving
-       holes. To add a language: write its file, add it to this list. -->
   <script type="application/json" id="languages">
     [
       {"code": "es", "name": "Español", "file": "es.json"},
@@ -45,11 +40,7 @@
   </script>
 
   <script>
-    // The language the visitor chose, read before the page paints so its
-    // dictionary is already on its way when the first text needs it. The choice
-    // lives in the cookie, the same store the edge reads, and the language the
-    // page already arrived in is not a fetch: only a choice that differs from it
-    // has a file to wait for.
+    // Only a language different from the served page needs a dictionary fetch.
     (() => {
       try {
         const found = document.cookie.match(/(?:^|;\s*)pautia:lang=([\w-]+)/);
@@ -77,26 +68,12 @@
     "operatingSystem": "Web",
     "url": "https://pautia.app/",
     "inLanguage": "es",
-    "description": "Un agente que responde y actúa por el WhatsApp de tu negocio. Diseña su flujo visualmente o importa tus chats para recibir una propuesta inicial.",
+    "description":
+      "Atiende por WhatsApp y gestiona solicitudes en Pautia. Tus reglas, tu agente, tu panel.",
     "offers": [
-      {
-        "@type": "Offer",
-        "name": "Básico",
-        "priceCurrency": "USD",
-        "price": "9"
-      },
-      {
-        "@type": "Offer",
-        "name": "Estándar",
-        "priceCurrency": "USD",
-        "price": "39"
-      },
-      {
-        "@type": "Offer",
-        "name": "Profesional",
-        "priceCurrency": "USD",
-        "price": "69"
-      }
+      {"@type": "Offer", "name": "Básico", "priceCurrency": "USD", "price": "9"},
+      {"@type": "Offer", "name": "Estándar", "priceCurrency": "USD", "price": "39"},
+      {"@type": "Offer", "name": "Profesional", "priceCurrency": "USD", "price": "69"}
     ]
   }
   </script>
@@ -106,414 +83,189 @@
   <a class="skip" href="#main" data-i18n="page.skip.0">Saltar al contenido</a>
 
 {% include "icons.njk" %}
-
 {% include "header.njk" %}
 
   <main id="main">
-
-    <!-- 2. Hero -->
     <section class="hero">
       <div class="wrap hero__grid">
         <div>
-          <p class="eyebrow" data-i18n="main.eyebrow.0">Atención automatizada por WhatsApp</p>
-          <h1 data-i18n="main.h1.0">Agentes predecibles para tu negocio</h1>
-          <p class="hero__sub" data-i18n="main.hero-sub.0">Pautia nunca improvisa: sigue reglas que tu equipo fija, eligiendo cómo
-            responder o actuar y sólo hasta donde tú permites. Construye el flujo desde cero
-            (sin programar), o genera uno importando tus chats.</p>
+          <p class="eyebrow" data-i18n="main.eyebrow.0">WhatsApp y gestión, en un solo lugar</p>
+          <h1 data-i18n="main.h1.0">Gestiona tu negocio con agentes predecibles</h1>
+          <p class="hero__sub" data-i18n="main.hero-sub.0">El agente atiende por WhatsApp.
+            Tu equipo gestiona las solicitudes en Pautia, con tus reglas.</p>
           <div class="hero__cta">
-            <a class="btn btn--primary" href="mailto:info@pautia.app?subject=Waitlist%20for%20Pautia"
-              data-i18n="main.btn.0" data-waitlist-open>Lista de espera</a>
+            <a class="btn btn--primary" data-i18n="main.btn.0" data-waitlist-open
+              href="mailto:info@pautia.app?subject=Waitlist%20for%20Pautia">Lista de espera</a>
             <a class="btn btn--ghost" href="#how" data-i18n="main.btn.1">Ver cómo funciona</a>
           </div>
-          <p class="hero__note" data-i18n="main.hero-note.0">Estamos preparando la plataforma. Déjanos tu correo y te avisamos en cuanto esté.</p>
+          <p class="hero__note" data-i18n="main.hero-note.0">Estamos preparando la plataforma.
+            Te avisaremos cuando abra el registro.</p>
         </div>
 
-        <div class="mock" aria-hidden="true">
+        <!-- Illustration, not a live demo or a screenshot of an available product. -->
+        <figure class="mock" aria-labelledby="journey-caption">
           <div class="mock__head">
-            <span class="mock__avatar">
-              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-                <use href="#i-pautia" />
-              </svg>
+            <span class="mock__avatar" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
             </span>
             <span>
-              <span class="mock__who" data-i18n="main.mock-who.0">Pautia · Taller Aurora</span><br>
-              <span class="mock__state" data-i18n="main.mock-state.0">en línea</span>
+              <span class="mock__who" data-i18n="main.mock-who.0">WhatsApp · Taller Aurora</span>
+              <br><span class="mock__state" data-i18n="main.mock-state.0">El agente recoge</span>
             </span>
           </div>
           <div class="mock__thread">
-            <p class="bubble bubble--in" data-i18n="main.bubble.0">¿Me apartan una mesa para el sábado a las 8?</p>
-            <p class="bubble bubble--out" data-i18n="main.bubble.1">Claro. ¿A nombre de quién y para cuántas personas?</p>
-            <p class="bubble bubble--in" data-i18n="main.bubble.2">Ana, cuatro personas</p>
-            <p class="bubble bubble--out" data-i18n="main.bubble.3">Gracias, Ana. Registré tu solicitud para cuatro personas el sábado a las 20:00. El taller te confirma la disponibilidad.</p>
+            <p class="bubble bubble--in" data-i18n="main.bubble.0">Quiero agendar una revisión
+              del coche.</p>
+            <p class="bubble bubble--out" data-i18n="main.bubble.1">¿A nombre de quién y para
+              cuándo?</p>
+            <p class="bubble bubble--in" data-i18n="main.bubble.2">Ana, el sábado a las 10.</p>
+            <p class="bubble bubble--out" data-i18n="main.bubble.3">Gracias, Ana. Registré tu
+              solicitud. El taller te confirma la disponibilidad.</p>
           </div>
-          <p class="mock__caption" data-i18n="main.mock-caption.0">Ejemplo de conversación</p>
-        </div>
+          <div class="mock__handoff" aria-hidden="true">↓</div>
+          <div class="mock__request">
+            <div class="mock__request-head">
+              <strong data-i18n="main.request-title">Pautia · Solicitudes</strong>
+              <span class="mock__status" data-i18n="main.request-status">Por confirmar</span>
+            </div>
+            <dl class="mock__details">
+              <div><dt data-i18n="main.request-client">Cliente</dt><dd>Ana</dd></div>
+              <div>
+                <dt data-i18n="main.request-service">Servicio</dt>
+                <dd data-i18n="main.request-service-value">Revisión del coche</dd>
+              </div>
+              <div>
+                <dt data-i18n="main.request-date">Fecha solicitada</dt>
+                <dd data-i18n="main.request-date-value">Sábado · 10:00</dd>
+              </div>
+            </dl>
+            <p class="mock__next" data-i18n="main.request-next">Tu equipo revisa y confirma.</p>
+          </div>
+          <figcaption class="mock__caption" id="journey-caption"
+            data-i18n="main.mock-caption.0">Ejemplo ilustrativo: no es una cita confirmada.
+          </figcaption>
+        </figure>
       </div>
     </section>
 
-    <!-- 4. The problem -->
-    <section class="section section--sub" id="problem">
-      <div class="wrap problem__grid">
-        <div>
-          <h2 id="problem-t" data-i18n="problem-t.h2.0">Empieza con tus chats. O empieza desde cero.</h2>
-          <p class="lede" style="margin-top:var(--space-4)" data-i18n="problem.lede.0">Si importas conversaciones, Pautia usa IA para sugerir un flujo de atención con
-            respuestas y acciones basadas en tu negocio. Si contienen información sensible o
-            prefieres no compartirlas, puedes construir el mismo flujo desde cero en el
-            editor visual, sin programar.</p>
-        </div>
-        <div>
-          <p class="say" data-i18n="problem.say.0">Importar el historial es una decisión de tu negocio.</p>
-          <p class="say" data-i18n="problem.say.1">Sin importación, conservas todas las herramientas del editor.</p>
-          <p class="say" data-i18n="problem.say.2">La diferencia es el punto de partida, no lo que puede hacer el agente.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. How it works -->
-    <section class="section" id="how">
+    <section class="section section--sub" id="how">
       <div class="wrap">
         <div class="section__head">
-          <h2 id="how-t" data-i18n="how-t.h2.0">De tu número a tu propio agente, en tres pasos</h2>
+          <h2 id="how-t" data-i18n="how-t.h2.0">Tu atención, de principio a fin</h2>
+          <p data-i18n="how.note.0">Tu WhatsApp de siempre, un agente con tus reglas y un panel
+            para gestionar lo que recoge.</p>
         </div>
         <ol class="steps">
           <li class="step">
-            <h3 data-i18n="how.h3.0">Conectas tu WhatsApp</h3>
-            <p data-i18n="how.p.0">Vincula el número que ya usa tu negocio. Importar conversaciones es opcional:
-              si lo autorizas, la IA propone respuestas y acciones a partir de ellas.</p>
+            <h3 data-i18n="how.h3.0">Tus chats como punto de partida</h3>
+            <p data-i18n="how.p.0">Con tu permiso, Smart Imports propone un flujo desde tus chats.
+              Revisas antes de activar.</p>
           </li>
           <li class="step">
-            <h3 data-i18n="how.h3.1">Revisas tu flujo de atención</h3>
-            <p data-i18n="how.p.1">Tu equipo puede partir de esa propuesta o diseñar el flujo desde cero en el
-              editor visual, sin programar. Ajusta las respuestas, conecta tus servicios y
-              prueba las conversaciones antes de publicarlo.</p>
+            <h3 data-i18n="how.h3.1">El agente sigue tus reglas</h3>
+            <p data-i18n="how.p.1">Crea y prueba el flujo en el editor visual, desde cero y
+              sin programar. Tú eliges los horarios.</p>
           </li>
           <li class="step">
-            <h3 data-i18n="how.h3.2">Arrancas el agente</h3>
-            <p data-i18n="how.p.2">Nada responde hasta que el negocio lo activa. Después, la IA sigue el flujo
-              aprobado para responder o actuar ante cada mensaje, en los horarios elegidos.</p>
+            <h3 data-i18n="how.h3.2">Tu equipo gestiona lo que recoge</h3>
+            <p data-i18n="how.p.2">Revisa, confirma y exporta solicitudes en Pautia.
+              Sin conectar otro sistema para empezar.</p>
           </li>
         </ol>
-        <p class="lede" style="margin-top:var(--space-8)" data-i18n="how.note.0">Lo que el agente
-          recoge (una cita, una reserva o una cotización) queda en el panel de Pautia para tu tipo
-          de negocio: lo revisas, lo confirmas y lo exportas.</p>
       </div>
     </section>
 
-    <!-- 6. Features -->
-    <section class="section section--sub" id="features">
+    <section class="section" id="usecases">
       <div class="wrap">
         <div class="section__head">
-          <h2 id="features-t" data-i18n="features-t.h2.0">Lo que hace, en corto</h2>
+          <h2 id="usecases-t" data-i18n="usecases-t.h2.0">Para lo que hoy resuelves entre
+            mensajes</h2>
+          <p data-i18n="usecases.intro">Para negocios que reciben consultas, citas y cotizaciones
+            por WhatsApp. No automatiza todo.</p>
         </div>
         <div class="cards cards--3">
           <article class="card">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <use href="#i-moon" />
-            </svg>
-            <h3 data-i18n="features.h3.0">Atiende en tus horarios</h3>
-            <p data-i18n="features.p.0">Elige cuándo responde: solo durante tu jornada, en horarios especiales o todo
-              el día, si eso encaja con tu negocio.</p>
-          </article>
-
-          <article class="card">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <use href="#i-note" />
-            </svg>
-            <h3 data-i18n="features.h3.1">Contesta con lo que escribiste</h3>
-            <p data-i18n="features.p.1">Preparas las respuestas y sus variantes. Pautia elige entre ellas según lo que
-              pregunta cada persona, sin redactar respuestas nuevas.</p>
-          </article>
-
-          <article class="card">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <use href="#i-wave" />
-            </svg>
-            <h3 data-i18n="features.h3.2">Una conversación con ritmo propio</h3>
-            <p data-i18n="features.p.2">Configuras las pausas, las confirmaciones de lectura y el indicador de
-              escritura para que no responda todo de golpe.</p>
-          </article>
-
-          <article class="card">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <use href="#i-inbox" />
-            </svg>
-            <h3 data-i18n="features.h3.3">Nadie recibe mensajes que no pidió</h3>
-            <p data-i18n="features.p.3">Pautia solo responde a quien te escribe. No inicia conversaciones masivas ni
-              promociones por su cuenta.</p>
-          </article>
-
-          <article class="card">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <use href="#i-plug" />
-            </svg>
-            <h3 data-i18n="features.h3.4">Conecta tus herramientas</h3>
-            <p data-i18n="features.p.4">Agenda, inventario o el sistema que uses: Pautia consulta tus datos y contesta
-              con lo que le devuelven.</p>
-          </article>
-
-          <article class="card">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <use href="#i-shield" />
-            </svg>
-            <h3 data-i18n="features.h3.5">Tu número de siempre</h3>
-            <p data-i18n="features.p.5">Conectas tu WhatsApp actual: tus clientes te siguen escribiendo al número que
-              ya conocen.</p>
-          </article>
-
-          <article class="card">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <use href="#i-history" />
-            </svg>
-            <h3 data-i18n="features.h3.6">Un inicio rápido, si lo eliges</h3>
-            <p data-i18n="features.p.6">Si importas tu historial, la IA encuentra temas frecuentes y propone
-              respuestas y acciones. Sin importación, puedes crear el flujo desde cero.</p>
-          </article>
-
-          <article class="card">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <use href="#i-flow" />
-            </svg>
-            <h3 data-i18n="features.h3.7">Lo ves antes de que salga</h3>
-            <p data-i18n="features.p.7">El flujo se ve como un mapa que tu equipo puede crear o editar sin programar y
-              probar con conversaciones simuladas antes de activar el agente.</p>
-          </article>
-
-          <article class="card">
-            <svg class="card__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <use href="#i-sliders" />
-            </svg>
-            <h3 data-i18n="features.h3.8">Lo cambias cuando quieras</h3>
-            <p data-i18n="features.p.8">Un precio, un horario, una respuesta nueva. Lo ajustas y sigue funcionando,
-              sin esperar a que nadie lo haga por ti.</p>
-          </article>
-
-          <!-- block:feature-intent
-               Needs the confidence routing phase before this is true.
-               "It understands what people write": nobody has to repeat the
-               command, even when they type badly or abbreviate. LANDING.md, claims
-               table. -->
-
-          <!-- block:feature-takeover
-               Needs the manual takeover phase.
-               "You take over whenever you want": you reply by hand, the agent goes
-               quiet in that conversation and comes back when you are done. -->
-
-          <!-- block:feature-history
-               Needs the live API and the dashboard.
-               "Everything is on record": what was asked, what was answered and why,
-               to review it, export it and delete it. -->
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. The AI, honestly -->
-    <section class="section" id="no-black-box">
-      <div class="wrap">
-        <div class="section__head">
-          <h2 id="no-black-box-t" data-i18n="no-black-box-t.h2.0">La IA propone. Tú decides qué puede hacer.</h2>
-          <p data-i18n="no-black-box.p.0">Pautia usa IA para reconocer lo que necesita cada persona. Pero es tu flujo de
-            atención el que define las respuestas, las acciones y los límites.</p>
-        </div>
-        <div class="split">
-          <div class="split__col split__col--yes">
-            <span class="split__label" data-i18n="no-black-box.split-label.0">Lo que sí hace</span>
-            <h3 data-i18n="no-black-box.h3.0">Elige entre opciones que aprobaste</h3>
-            <p data-i18n="no-black-box.p.1">Reconoce la intención del mensaje y sigue el camino que configuraste: responde
-              con tus textos o consulta un servicio conectado para obtener el dato.</p>
-          </div>
-          <div class="split__col split__col--no">
-            <span class="split__label" data-i18n="no-black-box.split-label.1">Lo que nunca va a hacer</span>
-            <h3 data-i18n="no-black-box.h3.1">No inventa las respuestas</h3>
-            <p data-i18n="no-black-box.p.2">La IA decide qué camino seguir y qué acción usar, pero responde con los textos
-              que aprobaste y los datos reales de tus servicios.</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 8. Use cases -->
-    <section class="section section--sub" id="usecases">
-      <div class="wrap">
-        <div class="section__head">
-          <h2 id="usecases-t" data-i18n="usecases-t.h2.0">Para negocios como el tuyo</h2>
-        </div>
-        <div class="usecases">
-          <article class="usecase">
             <h3 data-i18n="usecases.h3.0">Citas y reservas</h3>
-            <p data-i18n="usecases.p.0">Dentistas, clínicas, salones y talleres: recoge la solicitud de cita o
-              reserva y te la pasa para que la confirmes.</p>
+            <p data-i18n="usecases.p.0">El agente recoge nombre y fecha. Tu equipo revisa la
+              solicitud y confirma la disponibilidad.</p>
           </article>
-          <article class="usecase">
-            <h3 data-i18n="usecases.h3.1">Ventas y cotizaciones</h3>
-            <p data-i18n="usecases.p.1">Recibe la consulta, pregunta lo que le falta y te pasa el cierre a ti.</p>
+          <article class="card">
+            <h3 data-i18n="usecases.h3.1">Cotizaciones</h3>
+            <p data-i18n="usecases.p.1">Recoge los datos en el panel. Tu equipo prepara la
+              cotización y decide el precio y el cierre.</p>
           </article>
-          <article class="usecase">
-            <h3 data-i18n="usecases.h3.2">Soporte posventa</h3>
-            <p data-i18n="usecases.p.2">Estado del pedido, guía de uso y resolución de dudas sin que nadie tenga que abrir el correo.</p>
-          </article>
-          <article class="usecase">
-            <h3 data-i18n="usecases.h3.3">Rastreo de pedidos</h3>
-            <p data-i18n="usecases.p.3">Si preguntan por un pedido, consulta el estado en tu sistema y responde con la
-              información actual.</p>
-          </article>
-          <article class="usecase">
-            <h3 data-i18n="usecases.h3.4">Recordatorios</h3>
-            <p data-i18n="usecases.p.4">Responde dudas sobre citas, pagos o documentos pendientes según el flujo que
-              hayas aprobado.</p>
-          </article>
-          <article class="usecase">
+          <article class="card">
             <h3 data-i18n="usecases.h3.5">Preguntas frecuentes</h3>
-            <p data-i18n="usecases.p.5">Horarios, ubicación, precios y formas de pago: las que te preguntan siempre,
-              respondidas durante los horarios que decidas.</p>
+            <p data-i18n="usecases.p.5">Responde sobre horarios, servicios y pagos con tu
+              información, sin inventar respuestas.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 9. Plans. The three priced plans only; the Enterprise card and the plan
-         builder live on /pricing, where there is room for them. -->
-    <section class="section" id="plans">
+    <section class="section section--sub" id="plans">
       <div class="wrap">
         <div class="section__head">
           <h2 id="plans-t" data-i18n="plans-t.h2.0">Elige el plan que necesitas hoy</h2>
           <p data-i18n="plans.p.0">Elige el tamaño que necesita tu negocio.</p>
         </div>
-
         <div class="plans">
 {% include "plans-bar.njk" %}
-
           <div class="plans__grid">
 {% include "plan-basic.njk" %}
-
 {% include "plan-standard.njk" %}
-
 {% include "plan-professional.njk" %}
           </div>
           <p class="plans__more">
-            <a class="btn btn--ghost" href="/pricing" data-i18n="plans.more.0">Ver todos los planes</a>
+            <a class="btn btn--ghost" href="/pricing" data-i18n="plans.more.0">Ver todos los
+              planes</a>
           </p>
         </div>
-
 {% include "plans-included.njk" %}
       </div>
     </section>
 
-    <!-- Account safety: configuration reduces risk, but cannot eliminate it. -->
-    <section class="section section--sub" id="account-care">
+    <section class="section" id="faq">
       <div class="wrap">
         <div class="section__head">
-          <h2 data-i18n="account-care.h2.0">Un ritmo pensado para cuidar tu cuenta</h2>
-          <p data-i18n="account-care.p.0">Pautia evita los patrones de envío bruscos o repetitivos. Puedes ajustar cómo
-            responde, sin perder el control de las conversaciones.</p>
-        </div>
-        <div class="cards cards--3">
-          <article class="card">
-            <h3 data-i18n="account-care.h3.0">Horarios a tu medida</h3>
-            <p data-i18n="account-care.p.1">Atiendes en tu jornada o eliges otra franja. Estar disponible todo el día es
-              una opción, no una obligación.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="account-care.h3.1">Pausas entre mensajes</h3>
-            <p data-i18n="account-care.p.2">Configuras esperas al leer, al responder y entre envíos, con pequeñas
-              variaciones para que el ritmo no sea idéntico siempre.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="account-care.h3.2">Señales de conversación</h3>
-            <p data-i18n="account-care.p.3">Puedes activar confirmaciones de lectura e indicador de escritura antes de que salga cada respuesta.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="account-care.h3.3">Respuestas variadas</h3>
-            <p data-i18n="account-care.p.4">Preparas varias formas de decir lo mismo; Pautia elige entre ellas sin
-              inventar el contenido de la respuesta.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="account-care.h3.4">Límites de envío</h3>
-            <p data-i18n="account-care.p.5">Defines cuánto puede responder cada cuenta y con qué frecuencia puede
-              repetirse una acción ante una misma persona.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="account-care.h3.5">Sin mensajes no solicitados</h3>
-            <p data-i18n="account-care.p.6">El agente responde a conversaciones iniciadas por tus clientes. No hace
-              campañas masivas por su cuenta.</p>
-          </article>
-        </div>
-        <p class="plans__note" data-i18n="account-care.plans-note.0">Estas medidas ayudan a reducir riesgos, pero ninguna automatización puede
-          garantizar que una cuenta nunca sea restringida.</p>
-      </div>
-    </section>
-
-    <!-- 10. FAQ -->
-    <section class="section section--sub" id="faq">
-      <div class="wrap">
-        <div class="section__head">
-          <h2 id="faq-t" data-i18n="faq-t.h2.0">Preguntas frecuentes</h2>
+          <h2 id="faq-t" data-i18n="faq-t.h2.0">Antes de elegir Pautia</h2>
         </div>
         <div class="faq">
           <details>
-            <summary data-i18n="faq.summary.0">¿Necesito un número de WhatsApp nuevo?</summary>
-            <p class="faq__answer" data-i18n="faq.faq-answer.0">No. Conectas el número que ya usas, sea personal o de empresa, y puedes
-              conectar más de uno si contratas un plan mayor.</p>
+            <summary data-i18n="faq.summary.7">¿Es solo un agente que responde?</summary>
+            <p class="faq__answer" data-i18n="faq.faq-answer.7">Incluye el agente y un panel para
+              solicitudes de citas, reservas y cotizaciones. Tú decides.</p>
           </details>
-
-          <details>
-            <summary data-i18n="faq.summary.1">¿Qué pasa si mi cuenta pide una verificación extra?</summary>
-            <p class="faq__answer" data-i18n="faq.faq-answer.1">Algunas cuentas de WhatsApp exigen una confirmación en el teléfono cada vez
-              que se conecta un equipo nuevo. Si la tuya la pide, te lo decimos antes de que
-              contrates, y si resulta que no se puede automatizar te lo decimos también.</p>
-          </details>
-
           <details>
             <summary data-i18n="faq.summary.2">¿La IA puede mandar lo que quiera?</summary>
-            <p class="faq__answer" data-i18n="faq.faq-answer.2">No. Revisas el flujo y sus respuestas antes de activarlo. La IA elige entre
-              las opciones que aprobaste; no redacta respuestas nuevas para enviarlas a tus
-              clientes.</p>
+            <p class="faq__answer" data-i18n="faq.faq-answer.2">No. La IA interpreta y sigue el
+              flujo: solo usa respuestas y acciones que aprobaste.</p>
           </details>
-
           <details>
-            <summary data-i18n="faq.summary.3">¿Puedo cambiar precios u horarios sin que se caiga nada?</summary>
-            <p class="faq__answer" data-i18n="faq.faq-answer.3">Sí. Puedes editar el flujo, los datos y los horarios desde tu espacio, probar
-              los cambios y publicarlos. Algunos ajustes requieren reiniciar el agente;
-              Pautia te lo indica antes.</p>
+            <summary data-i18n="faq.summary.5">¿Tengo que importar mis chats?</summary>
+            <p class="faq__answer" data-i18n="faq.faq-answer.5">No. Crea desde cero sin programar.
+              Smart Imports es opcional; tú revisas la propuesta.</p>
           </details>
-
           <details>
-            <summary data-i18n="faq.summary.4">¿Qué pasa con mis datos?</summary>
-            <p class="faq__answer" data-i18n="faq.faq-answer.4">Cada cuenta vive aislada de las demás: lo que pasa en una no se mezcla con
-              otra. Guardamos el texto de las conversaciones, lo necesario para que el
-              agente responda.</p>
+            <summary data-i18n="faq.summary.3">¿Necesito otra agenda o un CRM?</summary>
+            <p class="faq__answer" data-i18n="faq.faq-answer.3">No para gestionar solicitudes.
+              Otras conexiones dependen de las herramientas compatibles.</p>
           </details>
-
           <details>
-            <summary data-i18n="faq.summary.5">¿Necesito saber programar?</summary>
-            <p class="faq__answer" data-i18n="faq.faq-answer.5">No. Tu equipo crea y ajusta el flujo en un editor visual. Importar
-              conversaciones es opcional: si lo autorizas, Pautia propone un primer
-              borrador; si no, puedes construirlo desde cero con las mismas herramientas.</p>
+            <summary data-i18n="faq.summary.0">¿Necesito un número de WhatsApp nuevo?</summary>
+            <p class="faq__answer" data-i18n="faq.faq-answer.0">No. Usas tu número de siempre;
+              tus clientes siguen escribiendo donde ya te conocen.</p>
           </details>
-
           <details>
-            <summary data-i18n="faq.summary.6">¿Y si mi número es baneado por WhatsApp?</summary>
-            <p class="faq__answer"><span data-i18n="faq.faq-answer.6">Ninguna herramienta puede prometer que eso no pase. Pautia permite configurar
-              pausas, variantes y límites de envío, y evita los mensajes masivos no
-              solicitados para reducir el riesgo.</span> <a href="#account-care" data-i18n="faq.a.0">Así cuidamos tu cuenta</a>.</p>
+            <summary data-i18n="faq.summary.6">¿Puede WhatsApp restringir mi cuenta?</summary>
+            <p class="faq__answer" data-i18n="faq.faq-answer.6">Sí. Pausas y límites reducen
+              riesgos, no los eliminan. No se inician campañas masivas.</p>
           </details>
-
-          <details>
-            <summary data-i18n="faq.summary.7">¿Dónde quedan las citas o reservas que pide el agente?</summary>
-            <p class="faq__answer" data-i18n="faq.faq-answer.7">En el panel de Pautia para tu tipo de negocio: ahí ves cada
-              solicitud, la confirmas y la exportas. Si ya usas otro sistema, se puede conectar.</p>
-          </details>
-
-          <!-- faq questions that need a phase:
-               "Can I review what it answered?" (live API and dashboard),
-               "Can I cancel?" (commercial policy, still undecided),
-               "Can I export and delete my data?" (data operations). -->
         </div>
       </div>
     </section>
 
-    <!-- 11. Privacy and data -->
-    <section class="section" id="security">
+    <section class="section section--sub" id="security">
       <div class="wrap">
         <div class="section__head">
           <h2 id="security-t" data-i18n="security-t.h2.0">Tus datos, con reglas claras</h2>
@@ -521,40 +273,32 @@
         <dl class="facts">
           <div class="fact">
             <dt data-i18n="security.dt.0">Aislamiento</dt>
-            <dd data-i18n="security.dd.0">Cada cuenta vive en su propio espacio, aislada de las demás. Las
-              conversaciones de un cliente nunca se mezclan con las de otro.</dd>
+            <dd data-i18n="security.dd.0">Cada cuenta vive en su propio espacio, aislada de las
+              demás. Las conversaciones de un cliente nunca se mezclan con las de otro.</dd>
           </div>
           <div class="fact">
             <dt data-i18n="security.dt.1">Solo lo necesario</dt>
-            <dd data-i18n="security.dd.1">Guardamos el texto de las conversaciones y quién escribe, lo necesario
-              para que el agente responda y el hilo no se pierda.</dd>
+            <dd data-i18n="security.dd.1">Guardamos el texto de las conversaciones y quién
+              escribe, lo necesario para que el agente responda y el hilo no se pierda.</dd>
           </div>
-          <!-- fact:export, fact:delete
-               "What's yours is yours: you can export it whenever you want" and
-               "deleting your account and conversations is an operation, not a
-               support task" need the data operations phase. The legal pages carry
-               the commitment in the meantime. -->
         </dl>
       </div>
     </section>
 
-    <!-- 12. Final CTA -->
     <section class="cta">
       <div class="wrap">
         <h2 data-i18n="main.h2.0">Entra en la lista de espera</h2>
-        <p data-i18n="main.p.0">Estamos preparando la plataforma. Cuando abramos, te avisamos por correo y entras primero.</p>
-        <a class="btn btn--primary" href="mailto:info@pautia.app?subject=Waitlist%20for%20Pautia"
-          data-i18n="main.btn.2" data-waitlist-open>Lista de espera</a>
+        <p data-i18n="main.p.0">Estamos preparando Pautia. Déjanos tu correo y te avisaremos
+          cuando el registro esté habilitado.</p>
+        <a class="btn btn--primary" data-i18n="main.btn.2" data-waitlist-open
+          href="mailto:info@pautia.app?subject=Waitlist%20for%20Pautia">Lista de espera</a>
       </div>
     </section>
   </main>
 
 {% include "footer.njk" %}
-
-
 {% include "waitlist.njk" %}
 
   <script src="/assets/main.js"></script>
 </body>
-
 </html>

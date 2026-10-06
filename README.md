@@ -53,6 +53,19 @@ to stay green.
 
 ## Routes and shared pieces
 
+The landing positions Pautia as WhatsApp attention plus request management,
+not an agent alone and not a replacement for every business system. The hero
+illustrates a chat becoming a request pending confirmation; it is not a live
+demo or proof of an available product. Three pillars explain optional Smart
+Imports, a visual flow the business controls, and integrated request management.
+Three use cases show appointments, quote requests and frequent questions.
+The waitlist still makes the pre-launch status explicit.
+
+This is the text-first version before a product demo. When that demo exists,
+replace the illustration and trim explanations rather than adding another long
+section. Keep optional import, review before activation and human confirmation
+clear. The source HTML, dictionaries and social card carry the same positioning.
+
 Two routes are built today: `/` is the landing page, and `/pricing` is the full
 plan table. The header, the footer, the icon set, the plan cards and the builder
 are `site/_includes/*.njk`; a page pulls them in with `{% include %}`. The landing

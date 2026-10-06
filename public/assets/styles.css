@@ -566,9 +566,10 @@ ol {
   font-size: var(--step--1);
 }
 
-/* Conversation mockup. Decorative: it is a drawing, not a screenshot. */
+/* Chat to request: a readable illustration, not a live product screen. */
 
 .mock {
+  margin: 0;
   padding: var(--space-4);
   background: var(--panel);
   border: 1px solid var(--line);
@@ -640,33 +641,57 @@ ol {
   text-align: center;
 }
 
-/* Problem */
-
-.problem__grid {
-  display: grid;
-  gap: var(--space-5);
+.mock__handoff {
+  padding-block: var(--space-2);
+  color: var(--brand-600);
+  text-align: center;
 }
 
-@media (min-width: 900px) {
-  .problem__grid {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-  }
-}
-
-.say {
-  display: grid;
-  gap: var(--space-3);
-  padding: var(--space-5);
-  background: var(--panel);
+.mock__request {
+  padding: var(--space-4);
+  background: var(--bg);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--accent-line);
   border-radius: var(--radius-m);
-  color: var(--ink-700);
+  font-size: var(--step--1);
 }
 
-.say + .say {
-  margin-top: var(--space-3);
+.mock__request-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  color: var(--ink-900);
+}
+
+.mock__status {
+  padding: var(--space-1) var(--space-2);
+  background: var(--brand-100);
+  border-radius: var(--radius-pill);
+  color: var(--brand-700);
+}
+
+.mock__details {
+  display: grid;
+  gap: var(--space-2);
+  margin-block: var(--space-4);
+}
+
+.mock__details div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+}
+
+.mock__details dt,
+.mock__next {
+  color: var(--ink-500);
+}
+
+.mock__details dd {
+  margin: 0;
+  color: var(--ink-900);
 }
 
 /* Steps */
@@ -739,98 +764,6 @@ ol {
 
 .card p {
   margin-top: var(--space-3);
-  color: var(--ink-500);
-  font-size: var(--step-0);
-}
-
-.card__icon {
-  width: 24px;
-  height: 24px;
-  margin-bottom: var(--space-4);
-  color: var(--brand-600);
-}
-
-.split {
-  display: grid;
-  gap: var(--space-4);
-}
-
-@media (min-width: 900px) {
-  .split {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.split__col {
-  padding: var(--space-6);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-l);
-}
-
-.split__col--yes {
-  background: var(--panel);
-}
-
-.split__col--no {
-  background: var(--inv-bg);
-  border-color: var(--inv-bg);
-}
-
-.split__col--no h3,
-.split__col--no p {
-  color: var(--inv-fg);
-}
-
-.split__col--no p {
-  opacity: 0.78;
-}
-
-.split__label {
-  display: block;
-  margin-bottom: var(--space-4);
-  color: var(--brand-600);
-  font-size: var(--step--1);
-  font-weight: 650;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.split__col--no .split__label {
-  color: var(--inv-accent);
-}
-
-/* Use cases */
-
-.usecases {
-  display: grid;
-  gap: var(--space-4);
-}
-
-@media (min-width: 640px) {
-  .usecases {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .usecases {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.usecase {
-  padding: var(--space-5);
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-l);
-}
-
-.usecase h3 {
-  font-size: var(--step-1);
-}
-
-.usecase p {
-  margin-top: var(--space-2);
   color: var(--ink-500);
   font-size: var(--step-0);
 }

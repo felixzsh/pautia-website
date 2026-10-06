@@ -14,22 +14,21 @@ commit."""
 import os
 import pathlib
 import sys
-import tempfile
 from playwright.sync_api import sync_playwright
 
 BASE = os.environ.get("PAUTIA_BASE", "http://127.0.0.1:8080")
-OUT = pathlib.Path(tempfile.gettempdir()) / "pautia-landing"
+OUT = pathlib.Path("/tmp/opencode/pautia-landing")
 OUT.mkdir(parents=True, exist_ok=True)
 
 # What the headline says in each language, so a dictionary that loads half way
 # or a swap that misses a key cannot pass unnoticed.
 HEADLINES = {
-    "en": "Predictable agents for your business",
-    "es": "Agentes predecibles para tu negocio",
-    "pt": "Agentes previsíveis para o seu negócio",
-    "fr": "Des agents prévisibles pour votre entreprise",
-    "de": "Vorhersehbare Agenten für Ihr Geschäft",
-    "it": "Agenti prevedibili per la tua attività",
+    "en": "Manage your business with predictable agents",
+    "es": "Gestiona tu negocio con agentes predecibles",
+    "pt": "Gerencie seu negócio com agentes previsíveis",
+    "fr": "Gérez votre activité avec des agents prévisibles",
+    "de": "Führen Sie Ihr Geschäft mit vorhersehbaren Agenten",
+    "it": "Gestisci la tua attività con agenti prevedibili",
 }
 
 problems = []
@@ -127,7 +126,7 @@ with sync_playwright() as p:
               };
               const bad = [];
               for (const panel of document.querySelectorAll(
-                     '.card, .usecase, .plan, .fact')) {
+                     '.card, .plan, .fact')) {
                 const section = panel.closest('section');
                 if (shown(section) === shown(panel)) {
                   bad.push(panel.className + ' in #' + section.id);
@@ -190,6 +189,17 @@ with sync_playwright() as p:
                 problems.append(
                     f"{name}-{label}: headline is {page.locator('h1').inner_text()!r}"
                 )
+
+            # The illustration is readable content, and its request panel must
+            # translate too. It is not a booking confirmation or a live screen.
+            expected_status = {
+                "es": "Por confirmar", "en": "Awaiting confirmation", "pt": "A confirmar",
+                "fr": "À confirmer", "de": "Noch zu bestätigen", "it": "Da confermare",
+            }
+            if page.locator(".mock__status").inner_text() != expected_status[name]:
+                problems.append(f"{name}-{label}: the request status did not translate")
+            if not page.locator(".mock__request").is_visible():
+                problems.append(f"{name}-{label}: the example stops at the conversation")
 
             # A limit is one thing on one line: "50 MB", never "50" over "MB".
             split = page.evaluate("""() => {
@@ -555,7 +565,7 @@ with sync_playwright() as p:
     served = page.content()
     if served.count('<article class="plan') != 3:
         problems.append("no script: the landing does not render its three plans")
-    if "<h1" not in served or "Agentes predecibles para tu negocio" not in served:
+    if "<h1" not in served or HEADLINES["es"] not in served:
         problems.append("no script: the page is not readable without a script")
     if 'class="lang"' in served:
         problems.append("no script: a language picker that cannot work is in the page")
