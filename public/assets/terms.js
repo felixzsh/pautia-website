@@ -16,7 +16,9 @@ const terms = {
     action: ["acciones|acción", "Una tarea del agente además de responder."],
     agent: ["agentes?|bots?", "El que atiende en tu WhatsApp siguiendo tus reglas."],
     integration: ["integraciones|integración",
-      "Conexión con un sistema de tu negocio, si es compatible."],
+      "Conexión con un sistema externo mediante una petición HTTP a su API REST, si es compatible."],
+    system: ["sistemas?",
+      "El software de gestión de tu negocio: agenda, CRM, inventario o el que uses."],
     handoff: ["escalamiento|escalación|escalar|escala",
       "Cuando el agente se detiene y pasa la conversación a una persona."],
   },
@@ -32,7 +34,10 @@ const terms = {
       "The path the agent follows: what it asks, answers or does."],
     action: ["actions?", "A task of the agent beyond replying."],
     agent: ["agents?|bots?", "The one answering on your WhatsApp, following your rules."],
-    integration: ["integrations?", "A connection to a system of yours, when compatible."],
+    integration: ["integrations?",
+      "A connection to an external system through an HTTP request to its REST API, when compatible."],
+    system: ["systems?",
+      "Your business's management software: calendar, CRM, inventory or whatever you use."],
     handoff: ["escalation|escalates?|handoff",
       "When the agent stops and hands the conversation to a person."],
   },
@@ -47,7 +52,10 @@ const terms = {
       "O percurso que o agente segue: o que pergunta, responde ou faz."],
     action: ["ações|ação", "Uma tarefa do agente além de responder."],
     agent: ["agentes?|bots?", "O que atende no seu WhatsApp seguindo as suas regras."],
-    integration: ["integrações|integração", "Conexão com um sistema do seu negócio, se compatível."],
+    integration: ["integrações|integração",
+      "Conexão com um sistema externo por meio de uma requisição HTTP à sua API REST, se compatível."],
+    system: ["sistemas?",
+      "O software de gestão do seu negócio: agenda, CRM, estoque ou o que você usa."],
     handoff: ["escalonamento|escalar|escala",
       "Quando o agente para e passa a conversa a uma pessoa."],
   },
@@ -61,7 +69,10 @@ const terms = {
     flow: ["flux", "Le parcours suivi par l'agent : ce qu'il demande, répond ou fait."],
     action: ["actions?", "Une tâche de l'agent au-delà de répondre."],
     agent: ["agents?|bots?", "Celui qui répond sur votre WhatsApp selon vos règles."],
-    integration: ["intégrations?", "Connexion à un système de votre activité, si compatible."],
+    integration: ["intégrations?",
+      "Connexion à un système externe par une requête HTTP vers son API REST, si compatible."],
+    system: ["systèmes?",
+      "Le logiciel de gestion de votre activité : agenda, CRM, stock ou celui que vous utilisez."],
     handoff: ["escalade|escalader",
       "Quand l'agent s'arrête et passe la conversation à une personne."],
   },
@@ -76,7 +87,10 @@ const terms = {
       "Der Weg des Agenten: was er fragt, antwortet oder tut."],
     action: ["Aktion(?:en)?", "Eine Aufgabe des Agenten neben dem Antworten."],
     agent: ["Agent(?:en)?|Bots?", "Der auf Ihrem WhatsApp nach Ihren Regeln antwortet."],
-    integration: ["Integrationen?", "Verbindung zu einem Ihrer Systeme, wenn kompatibel."],
+    integration: ["Integrationen?",
+      "Verbindung zu einem externen System über eine HTTP-Anfrage an dessen REST-API, wenn kompatibel."],
+    system: ["System(?:e|en)?",
+      "Die Verwaltungssoftware Ihres Geschäfts: Kalender, CRM, Lager oder was Sie nutzen."],
     handoff: ["Eskalation|eskalieren|eskaliert",
       "Wenn der Agent stoppt und das Gespräch an eine Person übergibt."],
   },
@@ -91,7 +105,9 @@ const terms = {
     action: ["azioni|azione", "Un compito dell'agente oltre a rispondere."],
     agent: ["agenti|agente|bots?", "Chi risponde sul tuo WhatsApp seguendo le tue regole."],
     integration: ["integrazioni|integrazione",
-      "Collegamento a un tuo sistema, se compatibile."],
+      "Collegamento a un sistema esterno tramite una richiesta HTTP alla sua API REST, se compatibile."],
+    system: ["sistemi|sistema",
+      "Il software di gestione della tua attività: agenda, CRM, magazzino o quello che usi."],
     handoff: ["escalation|scalare|scala",
       "Quando l'agente si ferma e passa la conversazione a una persona."],
   },
@@ -120,15 +136,49 @@ export function linkTerms(text, language) {
   return html + escapeText(text.slice(end));
 }
 
-// A translated element owns its text, including the terms marked inside it.
+// A translated element owns its text, including the term hints generated inside
+// it. A small scan matches the whole element, so a hint nested in it does not
+// end the element at its own closing tag.
 export function translateTexts(html, table, language) {
-  return html.replace(
-    /<([a-z][\w-]*)([^>]*\sdata-i18n="([\w.-]+)"[^>]*)>([\s\S]*?)<\/\1>/g,
-    (whole, tag, attrs, key) => {
-      if (!table[key]) return whole;
-      const text = attrs.includes(" data-terms")
-        ? linkTerms(table[key], language) : escapeText(table[key]);
-      return `<${tag}${attrs}>${text}</${tag}>`;
-    },
-  );
+  const opening = /<([a-z][\w-]*)([^>]*\sdata-i18n="([\w.-]+)"[^>]*)>/g;
+  let out = "";
+  let last = 0;
+  let found;
+  while ((found = opening.exec(html))) {
+    const [whole, tag, attrs, key] = found;
+    if (!table[key]) continue;
+    const start = found.index + whole.length;
+    const end = elementEnd(html, start, tag);
+    if (end < 0) continue;
+    out += html.slice(last, start);
+    out += attrs.includes(" data-terms")
+      ? linkTerms(table[key], language) : escapeText(table[key]);
+    out += `</${tag}>`;
+    last = end;
+    opening.lastIndex = end;
+  }
+  return out + html.slice(last);
+}
+
+function elementEnd(html, from, tag) {
+  const opens = new RegExp(`<${tag}(?=[\\s/>])`, "g");
+  const closes = new RegExp(`</${tag}\\s*>`, "g");
+  let depth = 1;
+  let at = from;
+  while (at < html.length) {
+    opens.lastIndex = at;
+    closes.lastIndex = at;
+    const nextOpen = opens.exec(html);
+    const nextClose = closes.exec(html);
+    if (!nextClose) return -1;
+    if (nextOpen && nextOpen.index < nextClose.index) {
+      depth += 1;
+      at = nextOpen.index + nextOpen[0].length;
+    } else {
+      depth -= 1;
+      at = nextClose.index + nextClose[0].length;
+      if (depth === 0) return at;
+    }
+  }
+  return -1;
 }
