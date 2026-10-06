@@ -13,11 +13,12 @@ serve: build
 	python3 scripts/serve.py 8080
 
 check: build
-	@git diff --quiet HEAD -- public/index.html public/pricing.html \
+	@git diff --quiet HEAD -- public/*.html \
 	  || { echo "public HTML is out of date: commit make build" >&2; exit 1; }
 	@sh scripts/check.sh
 	@python3 scripts/check-content.py
 	@node scripts/check-waitlist.mjs
+	@node scripts/check-terms.mjs
 
 check-browser:
 	@python3 scripts/browser-check.py

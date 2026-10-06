@@ -14,6 +14,8 @@
    conversion and never a re-entry. The edge hints at the first one from the
    country it saw; after that, what the visitor picks is what they get. */
 
+import { linkTerms } from "/assets/terms.js";
+
 (() => {
   "use strict";
 
@@ -362,7 +364,9 @@
 
     for (const node of document.querySelectorAll("[data-i18n]")) {
       const text = table[node.dataset.i18n];
-      if (text) node.textContent = text;
+      if (!text) continue;
+      if (node.hasAttribute("data-terms")) node.innerHTML = linkTerms(text, lang.code);
+      else node.textContent = text;
     }
     for (const node of document.querySelectorAll("[data-i18n-attrs]")) {
       for (const pair of node.dataset.i18nAttrs.split(",")) {

@@ -34,6 +34,7 @@ import fr from "../public/assets/i18n/fr.json";
 import de from "../public/assets/i18n/de.json";
 import it from "../public/assets/i18n/it.json";
 import { handleWaitlist } from "./waitlist.js";
+import { translateTexts } from "../public/assets/terms.js";
 
 const DEFAULT = "es";
 const SHIPPED = ["es", "en", "pt", "fr", "de", "it"];
@@ -115,13 +116,6 @@ function currencyFor(request) {
   return BY_COUNTRY[country(request)] || "USD";
 }
 
-// Every text the page carries for a key, in one pass: the key names the text
-// that follows it, up to the next tag.
-function texts(html, table) {
-  return html.replace(/data-i18n="([\w.-]+)">([\s\S]*?)</g, (whole, key) =>
-    table[key] ? `data-i18n="${key}">${table[key]}<` : whole);
-}
-
 // The pages the edge translates. Everything else is served as it is: the legal
 // pages are written by hand in one language, and the assets never change.
 const TRANSLATED = new Set(["/", "/pricing"]);
@@ -184,7 +178,7 @@ export default {
     let html = await response.text();
     if (language !== DEFAULT) {
       const table = DICTIONARIES[language];
-      html = schema(attributes(texts(html, table), table), table, language);
+      html = schema(attributes(translateTexts(html, table, language), table), table, language);
       html = html.replace('<html lang="es"', `<html lang="${language}"`);
     }
     if (currency !== "USD") {

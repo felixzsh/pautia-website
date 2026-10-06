@@ -158,6 +158,19 @@ a:hover {
   color: var(--brand-700);
 }
 
+/* A product term: the dotted underline says there is more, and the title
+   attribute explains it on hover or focus without leaving the page. */
+.term {
+  border-bottom: 1px dotted currentColor;
+  cursor: help;
+}
+
+.term:hover,
+.term:focus-visible {
+  border-bottom-style: solid;
+  color: var(--brand-600);
+}
+
 img,
 svg {
   display: block;

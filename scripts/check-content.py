@@ -52,7 +52,7 @@ class Page(HTMLParser):
                 self.attr_keys.append(tuple(pair.split(":")))
         if tag in VOID:
             return
-        if self.open and self.open[-1]:
+        if self.open and self.open[-1] and "data-term" not in attrs:
             self.markup.add(self.open[-1])
         self.open.append(key)
 
@@ -126,6 +126,7 @@ for code, table in strings.items():
     untranslated = sorted(
         key for key, value in table.items()
         if value == english[key] and len(re.findall(r"[A-Za-z]+", value)) >= 2
+        and value not in ("Smart Imports", "Smart Routing")
     )
     assert not untranslated, \
         f"{code}: prose that never changed language: {untranslated[:5]}"
@@ -184,7 +185,7 @@ assert 'data-i18n="main.request-status"' in index_html, "the example must show a
 assert 'aria-hidden="true"' not in re.search(
     r'<figure\b[^>]*>', index_html
 ).group(0), "the chat-to-panel example must be readable by assistive technology"
-assert len(re.findall(r'<section\b', index_html)) == 7, "keep the landing compact"
+assert len(re.findall(r'<section\b', index_html)) == 6, "keep the landing compact"
 assert len(re.findall(r'<li class="step">', index_html)) == 3, "three setup steps"
 assert len(re.findall(r'<article class="card">', index_html)) == 3, "three concrete uses"
 

@@ -55,14 +55,18 @@ for page in $pages; do
   for link in $(grep -o 'href="/[^"]*"' "$page" | sed 's/href="//; s/"//' | sort -u); do
     case "$link" in
       /assets/i18n/*) continue ;;   # a language file, checked by check-content.py
-      "/#"*)
-        fragment=${link#/\#}
-        grep -q "id=\"$fragment\"" "$index" \
-          || fail "$page: $link has no element in $index"
-        continue ;;
     esac
-    [ -e "public$link" ] || [ -e "public$link.html" ] || [ -e "public$link/index.html" ] \
-      || fail "$page: $link does not exist"
+    target=${link%%#*}
+    file="public$target"
+    [ ! -d "$file" ] || file="$file/index.html"
+    [ -f "$file" ] || file="public$target.html"
+    [ -f "$file" ] || fail "$page: $link does not exist"
+    case "$link" in
+      *\#*)
+        fragment=${link#*#}
+        grep -q "id=\"$fragment\"" "$file" \
+          || fail "$page: $link has no element in $file" ;;
+    esac
   done
 done
 

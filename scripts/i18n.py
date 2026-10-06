@@ -37,7 +37,7 @@ class Reader(HTMLParser):
     """
 
     def __init__(self, html):
-        super().__init__(convert_charrefs=False)
+        super().__init__(convert_charrefs=True)
         self.open = []          # [key or None, [text pieces]] per open element
         self.words = {}         # key -> [the text each element holds]
         self.attrs = {}         # key -> the attribute value the page shows
@@ -63,11 +63,13 @@ class Reader(HTMLParser):
             return
         key, pieces = self.open.pop()
         if key:
-            self.words.setdefault(key, []).append(" ".join(" ".join(pieces).split()))
+            self.words.setdefault(key, []).append(" ".join("".join(pieces).split()))
 
     def handle_data(self, data):
-        if self.open and self.open[-1][0] and data.strip():
-            self.open[-1][1].append(data)
+        for key, pieces in reversed(self.open):
+            if key:
+                pieces.append(data)
+                break
 
 
 def extract(html):
