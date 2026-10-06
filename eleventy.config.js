@@ -23,7 +23,7 @@ export default function (eleventyConfig) {
     const edits = [];
     const parser = new Parser({
       onopentag(name, attrs) {
-        const skip = stack.at(-1)?.skip || blocked.has(name) || "data-glossary" in attrs;
+        const skip = stack.at(-1)?.skip || blocked.has(name) || "data-no-terms" in attrs;
         const frame = { skip, key: attrs["data-i18n"], start: parser.endIndex + 1, text: "" };
         stack.push(frame);
         if (frame.key && !skip) {

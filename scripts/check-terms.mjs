@@ -51,6 +51,7 @@ for (const path of ["public/index.html", "public/pricing.html"]) {
     },
   });
   parser.end(readFileSync(path, "utf8"));
-  assert(terms > 10, `${path}: too few product terms (${terms})`);
+  const minimum = path.endsWith("index.html") ? 10 : 3;
+  assert(terms > minimum, `${path}: too few product terms (${terms})`);
 }
 console.log("Product terms, hover hints, escaping, translation and control boundaries: OK");

@@ -193,18 +193,18 @@
 
           <div class="plans__grid">
             <article class="plan" data-custom-price="9" data-custom-bots="1"
-              data-custom-messages="3000" data-custom-storage="50">
+              data-custom-messages="3000" data-custom-storage="50" data-no-terms>
               <span class="plan__tag plan__tag--blank" aria-hidden="true">&nbsp;</span>
-              <h3 class="plan__name" data-i18n="plans.plan-name.0" data-terms>Básico</h3>
-              <p class="plan__pitch" data-i18n="plans.plan-pitch.0" data-terms>Para organizar tu atención.</p>
+              <h3 class="plan__name" data-i18n="plans.plan-name.0">Básico</h3>
+              <p class="plan__pitch" data-i18n="plans.plan-pitch.0">Para organizar tu atención.</p>
               <p class="price price--monthly">
                 <span class="price__amount" data-money data-usd="9">$9</span>
-                <span class="price__unit" data-i18n="plans.price-unit.0" data-terms>al mes</span>
+                <span class="price__unit" data-i18n="plans.price-unit.0">al mes</span>
               </p>
               <p class="price price--yearly">
                 <span class="price__was" data-money data-usd="9">$9</span>
                 <span class="price__amount" data-money data-usd="7.20">$7.20</span>
-                <span class="price__unit" data-i18n="plans.price-unit.1" data-terms>al mes</span>
+                <span class="price__unit" data-i18n="plans.price-unit.1">al mes</span>
               </p>
               <!-- Buy button: uncomment when checkout exists and point
                    it at the plan. Until then the header carries the
@@ -214,9 +214,9 @@
               <dl class="plan__rows">
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.0" data-terms><span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">Agentes</span></span>
+                    <span data-i18n="plans.row-key.0">Agentes</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.0" data-terms>1</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.0">1</span>
                     <button class="row__help" type="button"
                       aria-label="Cuántos pueden estar respondiendo al mismo tiempo."
                       data-i18n-attrs="aria-label:plans.row-tip.0">?<span
@@ -226,9 +226,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.1" data-terms><span class="term" data-term="flow" title="El recorrido que sigue el agente: qué pregunta, responde o hace." tabindex="0">Flujos</span></span>
+                    <span data-i18n="plans.row-key.1">Flujos</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.1" data-terms>5</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.1">5</span>
                     <button class="row__help" type="button"
                       aria-label="Los recorridos de atención que defines para el agente.
                         Cada uno cubre un caso distinto."
@@ -239,9 +239,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.2" data-terms><span class="term" data-term="action" title="Una tarea del agente además de responder." tabindex="0">Acciones</span></span>
+                    <span data-i18n="plans.row-key.2">Acciones</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.2" data-terms>200</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.2">200</span>
                     <button class="row__help" type="button"
                       aria-label="Lo que el agente puede hacer además de responder:
                         consultar tus sistemas, registrar datos o avisar."
@@ -252,9 +252,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.3" data-terms>Mensajes</span>
+                    <span data-i18n="plans.row-key.3">Mensajes</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.3" data-terms>3.000</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.3">3.000</span>
                     <button class="row__help" type="button"
                       aria-label="Los mensajes que envía el agente, no las conversaciones.
                         Al llegar al máximo, deja de enviar hasta que haya capacidad."
@@ -266,9 +266,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.4" data-terms>Almacenamiento</span>
+                    <span data-i18n="plans.row-key.4">Almacenamiento</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.4" data-terms>50 MB</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.4">50 MB</span>
                     <button class="row__help" type="button"
                       aria-label="Cuánto historial de mensajes guarda cada plan."
                       data-i18n-attrs="aria-label:plans.row-tip.4">?<span
@@ -278,9 +278,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.ai-label" data-terms><span class="term" data-term="ai-credits" title="Saldo mensual para las funciones de IA." tabindex="0">Créditos de IA</span></span>
+                    <span data-i18n="plans.ai-label">Créditos de IA</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.ai-basic" data-terms>1.000</span>
+                  <dd class="row__value"><span data-i18n="plans.ai-basic">1.000</span>
                     <button class="row__help" type="button"
                       aria-label="Saldo mensual para Smart Imports, Smart Routing y multimedia."
                       data-i18n-attrs="aria-label:plans.ai-tip">?<span class="row__tip"
@@ -289,10 +289,10 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.media-label" data-terms>Entiende mensajes</span>
+                    <span data-i18n="plans.media-label">Entiende mensajes</span>
                   </dt>
                   <dd class="row__value row__value--text"><span
-                    data-i18n="plans.media-basic" data-terms>Texto</span>
+                    data-i18n="plans.media-basic">Texto</span>
                     <button class="row__help" type="button"
                       aria-label="Tipos de entrada que interpreta; no formatos de respuesta."
                       data-i18n-attrs="aria-label:plans.media-tip">?<span class="row__tip"
@@ -301,9 +301,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.users-label" data-terms>Usuarios del panel</span>
+                    <span data-i18n="plans.users-label">Usuarios del panel</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.users-basic" data-terms>1</span>
+                  <dd class="row__value"><span data-i18n="plans.users-basic">1</span>
                     <button class="row__help" type="button"
                       aria-label="Personas del equipo con acceso al panel; no clientes de WhatsApp."
                       data-i18n-attrs="aria-label:plans.users-tip">?<span class="row__tip"
@@ -315,19 +315,19 @@
 
 
             <article class="plan plan--top" data-custom-price="39" data-custom-bots="5"
-              data-custom-messages="15000" data-custom-storage="250">
-              <span class="plan__tag" data-i18n="plans.plan-tag.0" data-terms>Recomendado</span>
-              <h3 class="plan__name" data-i18n="plans.plan-name.1" data-terms>Estándar</h3>
-              <p class="plan__pitch" data-i18n="plans.plan-pitch.1" data-terms>Para más consultas y
+              data-custom-messages="15000" data-custom-storage="250" data-no-terms>
+              <span class="plan__tag" data-i18n="plans.plan-tag.0">Recomendado</span>
+              <h3 class="plan__name" data-i18n="plans.plan-name.1">Estándar</h3>
+              <p class="plan__pitch" data-i18n="plans.plan-pitch.1">Para más consultas y
                 solicitudes.</p>
               <p class="price price--monthly">
                 <span class="price__amount" data-money data-usd="39">$39</span>
-                <span class="price__unit" data-i18n="plans.price-unit.2" data-terms>al mes</span>
+                <span class="price__unit" data-i18n="plans.price-unit.2">al mes</span>
               </p>
               <p class="price price--yearly">
                 <span class="price__was" data-money data-usd="39">$39</span>
                 <span class="price__amount" data-money data-usd="31.20">$31.20</span>
-                <span class="price__unit" data-i18n="plans.price-unit.3" data-terms>al mes</span>
+                <span class="price__unit" data-i18n="plans.price-unit.3">al mes</span>
               </p>
               <!-- Buy button: uncomment when checkout exists and point
                    it at the plan. Until then the header carries the
@@ -337,9 +337,9 @@
               <dl class="plan__rows">
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.5" data-terms><span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">Agentes</span></span>
+                    <span data-i18n="plans.row-key.5">Agentes</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.5" data-terms>5</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.5">5</span>
                     <button class="row__help" type="button"
                       aria-label="Cuántos pueden estar respondiendo al mismo tiempo."
                       data-i18n-attrs="aria-label:plans.row-tip.0">?<span
@@ -349,9 +349,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.6" data-terms><span class="term" data-term="flow" title="El recorrido que sigue el agente: qué pregunta, responde o hace." tabindex="0">Flujos</span></span>
+                    <span data-i18n="plans.row-key.6">Flujos</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.6" data-terms>50</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.6">50</span>
                     <button class="row__help" type="button"
                       aria-label="Los recorridos de atención que defines para el agente.
                         Cada uno cubre un caso distinto."
@@ -362,9 +362,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.7" data-terms><span class="term" data-term="action" title="Una tarea del agente además de responder." tabindex="0">Acciones</span></span>
+                    <span data-i18n="plans.row-key.7">Acciones</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.7" data-terms>1.000</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.7">1.000</span>
                     <button class="row__help" type="button"
                       aria-label="Lo que el agente puede hacer además de responder:
                         consultar tus sistemas, registrar datos o avisar."
@@ -375,9 +375,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.8" data-terms>Mensajes</span>
+                    <span data-i18n="plans.row-key.8">Mensajes</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.8" data-terms>15.000</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.8">15.000</span>
                     <button class="row__help" type="button"
                       aria-label="Los mensajes que envía el agente, no las conversaciones.
                         Al llegar al máximo, deja de enviar hasta que haya capacidad."
@@ -389,9 +389,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.9" data-terms>Almacenamiento</span>
+                    <span data-i18n="plans.row-key.9">Almacenamiento</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.9" data-terms>250 MB</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.9">250 MB</span>
                     <button class="row__help" type="button"
                       aria-label="Cuánto historial de mensajes guarda cada plan."
                       data-i18n-attrs="aria-label:plans.row-tip.4">?<span
@@ -401,9 +401,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.ai-label" data-terms><span class="term" data-term="ai-credits" title="Saldo mensual para las funciones de IA." tabindex="0">Créditos de IA</span></span>
+                    <span data-i18n="plans.ai-label">Créditos de IA</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.ai-standard" data-terms>5.000</span>
+                  <dd class="row__value"><span data-i18n="plans.ai-standard">5.000</span>
                     <button class="row__help" type="button"
                       aria-label="Saldo mensual para Smart Imports, Smart Routing y multimedia."
                       data-i18n-attrs="aria-label:plans.ai-tip">?<span class="row__tip"
@@ -412,10 +412,10 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.media-label" data-terms>Entiende mensajes</span>
+                    <span data-i18n="plans.media-label">Entiende mensajes</span>
                   </dt>
                   <dd class="row__value row__value--text"><span
-                    data-i18n="plans.media-standard" data-terms>Texto + audio</span>
+                    data-i18n="plans.media-standard">Texto + audio</span>
                     <button class="row__help" type="button"
                       aria-label="Tipos de entrada que interpreta; no formatos de respuesta."
                       data-i18n-attrs="aria-label:plans.media-tip">?<span class="row__tip"
@@ -424,9 +424,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.users-label" data-terms>Usuarios del panel</span>
+                    <span data-i18n="plans.users-label">Usuarios del panel</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.users-standard" data-terms>3</span>
+                  <dd class="row__value"><span data-i18n="plans.users-standard">3</span>
                     <button class="row__help" type="button"
                       aria-label="Personas del equipo con acceso al panel; no clientes de WhatsApp."
                       data-i18n-attrs="aria-label:plans.users-tip">?<span class="row__tip"
@@ -438,18 +438,18 @@
 
 
             <article class="plan" data-custom-price="69" data-custom-bots="10"
-              data-custom-messages="30000" data-custom-storage="500">
+              data-custom-messages="30000" data-custom-storage="500" data-no-terms>
               <span class="plan__tag plan__tag--blank" aria-hidden="true">&nbsp;</span>
-              <h3 class="plan__name" data-i18n="plans.plan-name.2" data-terms>Profesional</h3>
-              <p class="plan__pitch" data-i18n="plans.plan-pitch.2" data-terms>Para varios locales o equipos.</p>
+              <h3 class="plan__name" data-i18n="plans.plan-name.2">Profesional</h3>
+              <p class="plan__pitch" data-i18n="plans.plan-pitch.2">Para varios locales o equipos.</p>
               <p class="price price--monthly">
                 <span class="price__amount" data-money data-usd="69">$69</span>
-                <span class="price__unit" data-i18n="plans.price-unit.4" data-terms>al mes</span>
+                <span class="price__unit" data-i18n="plans.price-unit.4">al mes</span>
               </p>
               <p class="price price--yearly">
                 <span class="price__was" data-money data-usd="69">$69</span>
                 <span class="price__amount" data-money data-usd="55.20">$55.20</span>
-                <span class="price__unit" data-i18n="plans.price-unit.5" data-terms>al mes</span>
+                <span class="price__unit" data-i18n="plans.price-unit.5">al mes</span>
               </p>
               <!-- Buy button: uncomment when checkout exists and point
                    it at the plan. Until then the header carries the
@@ -459,9 +459,9 @@
               <dl class="plan__rows">
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.10" data-terms><span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">Agentes</span></span>
+                    <span data-i18n="plans.row-key.10">Agentes</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.10" data-terms>10</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.10">10</span>
                     <button class="row__help" type="button"
                       aria-label="Cuántos pueden estar respondiendo al mismo tiempo."
                       data-i18n-attrs="aria-label:plans.row-tip.0">?<span
@@ -471,9 +471,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.11" data-terms><span class="term" data-term="flow" title="El recorrido que sigue el agente: qué pregunta, responde o hace." tabindex="0">Flujos</span></span>
+                    <span data-i18n="plans.row-key.11">Flujos</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.11" data-terms>100</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.11">100</span>
                     <button class="row__help" type="button"
                       aria-label="Los recorridos de atención que defines para el agente.
                         Cada uno cubre un caso distinto."
@@ -484,9 +484,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.12" data-terms><span class="term" data-term="action" title="Una tarea del agente además de responder." tabindex="0">Acciones</span></span>
+                    <span data-i18n="plans.row-key.12">Acciones</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.12" data-terms>2.000</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.12">2.000</span>
                     <button class="row__help" type="button"
                       aria-label="Lo que el agente puede hacer además de responder:
                         consultar tus sistemas, registrar datos o avisar."
@@ -497,9 +497,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.13" data-terms>Mensajes</span>
+                    <span data-i18n="plans.row-key.13">Mensajes</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.13" data-terms>30.000</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.13">30.000</span>
                     <button class="row__help" type="button"
                       aria-label="Los mensajes que envía el agente, no las conversaciones.
                         Al llegar al máximo, deja de enviar hasta que haya capacidad."
@@ -511,9 +511,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.14" data-terms>Almacenamiento</span>
+                    <span data-i18n="plans.row-key.14">Almacenamiento</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.14" data-terms>500 MB</span>
+                  <dd class="row__value"><span data-i18n="plans.row-value.14">500 MB</span>
                     <button class="row__help" type="button"
                       aria-label="Cuánto historial de mensajes guarda cada plan."
                       data-i18n-attrs="aria-label:plans.row-tip.4">?<span
@@ -523,9 +523,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.ai-label" data-terms><span class="term" data-term="ai-credits" title="Saldo mensual para las funciones de IA." tabindex="0">Créditos de IA</span></span>
+                    <span data-i18n="plans.ai-label">Créditos de IA</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.ai-professional" data-terms>15.000</span>
+                  <dd class="row__value"><span data-i18n="plans.ai-professional">15.000</span>
                     <button class="row__help" type="button"
                       aria-label="Saldo mensual para Smart Imports, Smart Routing y multimedia."
                       data-i18n-attrs="aria-label:plans.ai-tip">?<span class="row__tip"
@@ -534,10 +534,10 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.media-label" data-terms>Entiende mensajes</span>
+                    <span data-i18n="plans.media-label">Entiende mensajes</span>
                   </dt>
                   <dd class="row__value row__value--text"><span
-                    data-i18n="plans.media-professional" data-terms>Más imágenes y documentos</span>
+                    data-i18n="plans.media-professional">Más imágenes y documentos</span>
                     <button class="row__help" type="button"
                       aria-label="Tipos de entrada que interpreta; no formatos de respuesta."
                       data-i18n-attrs="aria-label:plans.media-tip">?<span class="row__tip"
@@ -546,9 +546,9 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.users-label" data-terms>Usuarios del panel</span>
+                    <span data-i18n="plans.users-label">Usuarios del panel</span>
                   </dt>
-                  <dd class="row__value"><span data-i18n="plans.users-professional" data-terms>10</span>
+                  <dd class="row__value"><span data-i18n="plans.users-professional">10</span>
                     <button class="row__help" type="button"
                       aria-label="Personas del equipo con acceso al panel; no clientes de WhatsApp."
                       data-i18n-attrs="aria-label:plans.users-tip">?<span class="row__tip"
@@ -559,19 +559,19 @@
             </article>
 
 
-            <article class="plan plan--wide">
+            <article class="plan plan--wide" data-no-terms>
               <div class="plan__lead">
-                <h3 class="plan__name" data-i18n="plans.plan-name.3" data-terms>Empresarial</h3>
-                <p class="plan__pitch" data-i18n="plans.plan-pitch.3" data-terms>Para compañías muy grandes. Todo lo que ofrece el plan Profesional, y
+                <h3 class="plan__name" data-i18n="plans.plan-name.3">Empresarial</h3>
+                <p class="plan__pitch" data-i18n="plans.plan-pitch.3">Para compañías muy grandes. Todo lo que ofrece el plan Profesional, y
                   además una adaptación y un precio totalmente hechos a medida de tu
                   negocio.</p>
               </div>
               <div class="plan__quote">
                 <p class="price price--monthly">
-                  <span class="price__amount price__amount--text" data-i18n="plans.price-amount.0" data-terms>Precio a medida</span>
+                  <span class="price__amount price__amount--text" data-i18n="plans.price-amount.0">Precio a medida</span>
                 </p>
                 <p class="price price--yearly">
-                  <span class="price__amount price__amount--text" data-i18n="plans.price-amount.1" data-terms>Precio a medida</span>
+                  <span class="price__amount price__amount--text" data-i18n="plans.price-amount.1">Precio a medida</span>
                 </p>
               </div>
               <!-- Buy button: uncomment when checkout exists and point
