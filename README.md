@@ -56,8 +56,10 @@ to stay green.
 The landing positions Pautia as WhatsApp attention plus request management,
 not an agent alone and not a replacement for every business system. The hero
 illustrates a chat becoming a request pending confirmation; it is not a live
-demo or proof of an available product. Three pillars explain optional Smart
-Imports, a visual flow the business controls, and integrated request management.
+demo or proof of an available product. Three steps explain connecting WhatsApp
+with optional Smart Imports, creating or refining and testing the visual flow,
+then managing everything in Pautia or integrating the business's own system. The
+flow defines the agent's behavior and when it escalates.
 Three use cases show appointments, quote requests and frequent questions.
 The waitlist still makes the pre-launch status explicit.
 

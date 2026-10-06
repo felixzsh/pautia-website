@@ -84,17 +84,24 @@
   "header.btn.0": "Join the waitlist",
   "header.menu__summary.0": "Menu",
   "how-t.h2.0": "Your customer service, from start to finish",
-  "how.h3.0": "Your chats as a starting point",
-  "how.h3.1": "The agent follows your rules",
-  "how.h3.2": "Your team manages what it collects",
+  "how.h3.0": "Connect WhatsApp",
+  "how.h3.1": "Define behavior",
+  "how.h3.2": "Activate and manage",
   "how.note.0":
-    "Your existing WhatsApp, an agent with your rules and a panel to manage what it collects.",
+    "Connect, define and activate customer service that works with your business.",
   "how.p.0":
-    "With your permission, Smart Imports drafts a flow from your chats. Review before activating.",
+    "Link your existing number to an agent.",
+  "how.detail.0":
+    "If you want, Smart Imports drafts a flow from your chats, with your permission.",
   "how.p.1":
-    "Build and test visually from scratch, without coding. You choose the working hours.",
+    "Build from scratch or refine the draft in the visual editor, without coding.",
+  "how.detail.1":
+    "Choose replies, actions, working hours and when to hand the conversation to a person.",
   "how.p.2":
-    "Review, confirm and export requests in Pautia. No other system needed to get started.",
+    "Manage everything with Pautia",
+  "how.systems": "or integrate your own system.",
+  "how.detail.2":
+    "The agent follows the defined flow and escalates when it should.",
   "lang.picker-label": "Language",
   "main.btn.0": "Join the waitlist",
   "main.btn.1": "See how it works",

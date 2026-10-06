@@ -84,17 +84,24 @@
   "header.btn.0": "Iscriviti alla lista d'attesa",
   "header.menu__summary.0": "Menu",
   "how-t.h2.0": "La tua assistenza, dall'inizio alla fine",
-  "how.h3.0": "Le tue chat come punto di partenza",
-  "how.h3.1": "L'agente segue le tue regole",
-  "how.h3.2": "Il tuo team gestisce ciò che raccoglie",
+  "how.h3.0": "Collega WhatsApp",
+  "how.h3.1": "Definisci il comportamento",
+  "how.h3.2": "Attiva e gestisci",
   "how.note.0":
-    "Il tuo WhatsApp di sempre, un agente con le tue regole e un pannello per le richieste.",
+    "Collega, definisci e attiva un'assistenza che lavora con la tua attività.",
   "how.p.0":
-    "Con il tuo consenso, Smart Imports propone un flusso dalle chat. Lo controlli prima del via.",
+    "Collega il tuo numero di sempre a un agente.",
+  "how.detail.0":
+    "Se vuoi, Smart Imports propone un flusso dalle tue chat, con il tuo consenso.",
   "how.p.1":
-    "Crea e prova il flusso nell'editor visuale, da zero e senza programmare. Scegli tu gli orari.",
+    "Crea da zero o affina la bozza nell'editor visuale, senza programmare.",
+  "how.detail.1":
+    "Scegli risposte, azioni, orari e quando passare la conversazione a una persona.",
   "how.p.2":
-    "Controlla, conferma ed esporta richieste in Pautia. Nessun altro sistema per iniziare.",
+    "Gestisci tutto con Pautia",
+  "how.systems": "o integra il tuo sistema.",
+  "how.detail.2":
+    "L'agente segue il flusso definito e scala quando serve.",
   "lang.picker-label": "Lingua",
   "main.btn.0": "Iscriviti alla lista d'attesa",
   "main.btn.1": "Vedi come funziona",

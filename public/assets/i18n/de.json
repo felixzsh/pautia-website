@@ -84,17 +84,24 @@
   "header.btn.0": "Auf die Warteliste",
   "header.menu__summary.0": "Menü",
   "how-t.h2.0": "Ihre Kundenbetreuung, von Anfang bis Ende",
-  "how.h3.0": "Ihre Chats als Ausgangspunkt",
-  "how.h3.1": "Der Agent folgt Ihren Regeln",
-  "how.h3.2": "Ihr Team verwaltet, was er erfasst",
+  "how.h3.0": "Verbinden Sie WhatsApp",
+  "how.h3.1": "Legen Sie das Verhalten fest",
+  "how.h3.2": "Aktivieren und verwalten",
   "how.note.0":
-    "Ihr gewohntes WhatsApp, ein Agent mit Ihren Regeln und ein Panel für seine Anfragen.",
+    "Verbinden, festlegen und aktivieren: Kundenbetreuung, die mit Ihrem Geschäft arbeitet.",
   "how.p.0":
-    "Mit Ihrer Erlaubnis entwirft Smart Imports einen Ablauf aus Chats. Sie prüfen vor dem Start.",
+    "Verbinden Sie Ihre gewohnte Nummer mit einem Agenten.",
+  "how.detail.0":
+    "Auf Wunsch entwirft Smart Imports einen Ablauf aus Ihren Chats, mit Ihrer Erlaubnis.",
   "how.p.1":
-    "Von Grund auf visuell erstellen und testen, ohne Programmieren. Sie wählen die Zeiten.",
+    "Von Grund auf erstellen oder den Entwurf im visuellen Editor anpassen, ohne Programmieren.",
+  "how.detail.1":
+    "Wählen Sie Antworten, Aktionen, Zeiten und wann das Gespräch an eine Person übergeht.",
   "how.p.2":
-    "Anfragen in Pautia prüfen, bestätigen und exportieren. Kein weiteres System zum Start nötig.",
+    "Verwalten Sie alles mit Pautia",
+  "how.systems": "oder integrieren Sie Ihr eigenes System.",
+  "how.detail.2":
+    "Der Agent folgt dem definierten Ablauf und eskaliert, wenn nötig.",
   "lang.picker-label": "Sprache",
   "main.btn.0": "Auf die Warteliste",
   "main.btn.1": "So funktioniert es",
