@@ -43,7 +43,8 @@ fi
 #    looks in the landing page, where those sections live; and a path maps to a
 #    file or to a folder with a page of its own.
 index=public/index.html
-pages="public/index.html public/pricing.html"
+pages="public/index.html public/pricing.html public/seguridad-whatsapp.html \
+  public/campanas-masivas.html"
 for page in $pages; do
   [ -f "$page" ] || fail "missing $page"
 

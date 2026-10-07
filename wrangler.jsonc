@@ -12,6 +12,8 @@
     "run_worker_first": [
       "/",
       "/pricing",
+      "/seguridad-whatsapp",
+      "/campanas-masivas",
       "/api/*"
     ]
   }

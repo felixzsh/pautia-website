@@ -20,7 +20,8 @@ import i18n
 
 PAGE = Path("public/index.html")
 PRICING = Path("public/pricing.html")
-PAGES = (PAGE, PRICING)
+PAGES = (PAGE, PRICING, Path("public/seguridad-whatsapp.html"),
+         Path("public/campanas-masivas.html"))
 I18N = Path("public/assets/i18n")
 
 

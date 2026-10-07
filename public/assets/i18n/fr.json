@@ -57,15 +57,42 @@
   "faq.faq-answer.5":
     "Non. Créez de zéro sans programmer. Smart Imports est optionnel ; vous vérifiez l'ébauche.",
   "faq.faq-answer.6":
-    "Oui. Délais et limites réduisent les risques sans les éliminer. Aucune campagne de masse.",
+    "Oui. Aucun système ne peut garantir que WhatsApp ne restreindra ni ne bloquera votre compte.",
+  "faq.faq-answer.8":
+    "Non. Pautia n'est pas conçue pour les campagnes de masse non sollicitées.",
+  "campaigns.link": "Voir les limites et l'alternative de plusieurs agents",
+  "campaigns.title": "Pautia convient-elle aux campagnes de masse ?",
+  "campaigns.intro":
+    "Non. Les agents traitent les conversations lancées par les clients, pas les messages de masse non sollicités.",
+  "campaigns.limit-title": "Chaque agent suit un rythme délibéré",
+  "campaigns.limit-one":
+    "Chaque agent envoie un message à la fois, avec des pauses. Pas de réponse simultanée à plusieurs chats.",
+  "campaigns.more-agents":
+    "Achetez des agents pour traiter plus de chats en parallèle. Chacun garde son rythme, sans envoi de masse.",
+  "account-safety.link": "Comment Pautia réduit le risque de blocage",
+  "account-safety.behavior": "Un rythme proche de celui d'une personne",
+  "account-safety.why":
+    "Éviter réponses instantanées, rafales et textes identiques réduit les signes d'abus, pas tout risque.",
+  "account-safety.variants":
+    "Variez les réponses à une même question. L'agent choisit parmi vos variantes approuvées.",
+  "account-safety.title": "Comment nous régulons le rythme de votre compte",
+  "account-safety.intro":
+    "Les agents visent un rythme humain. Les mesures réduisent les risques sans exclure un blocage.",
+  "account-safety.pacing":
+    "Chaque agent envoie un message à la fois, avec des pauses, pas à tous les chats à la fois.",
+  "account-safety.presence":
+    "Si activé, il peut marquer les messages comme lus et montrer la saisie avant de répondre.",
+  "account-safety.limits":
+    "Les limites et pauses par contact aident à éviter les rafales et les réponses répétées.",
   "faq.faq-answer.7":
-    "Un agent et un panneau pour les demandes de rendez-vous, réservations et devis. Vous décidez.",
+    "C'est un cas d'usage. Gérez les demandes dans Pautia ou connectez des API compatibles pour des tâches complexes.",
   "faq.summary.0": "Ai-je besoin d'un nouveau numéro WhatsApp ?",
   "faq.summary.2": "L'IA peut-elle envoyer ce qu'elle veut ?",
   "faq.summary.3": "Ai-je besoin d'un autre agenda ou d'un CRM ?",
   "faq.summary.5": "Dois-je importer mes conversations ?",
   "faq.summary.6": "WhatsApp peut-il restreindre mon compte ?",
-  "faq.summary.7": "Est-ce seulement un agent qui répond ?",
+  "faq.summary.7": "Les agents ne font-ils que répondre ?",
+  "faq.summary.8": "Pautia convient-elle aux campagnes de masse ?",
   "footer.a.0": "Comment ça marche",
   "footer.a.1": "Tarifs",
   "footer.a.3": "Questions fréquentes",

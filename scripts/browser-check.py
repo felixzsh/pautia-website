@@ -343,6 +343,28 @@ with sync_playwright() as p:
             if not page.locator(".faq details").first.evaluate("d => d.open"):
                 problems.append(f"{name}-{label}: FAQ did not open with the keyboard")
 
+            page.locator('[data-i18n="faq.summary.6"]').click()
+            if page.locator('.account-safety').count():
+                problems.append(f"{name}-{label}: account-safety details clutter the landing")
+            if page.locator('.faq__answer > a[href="/seguridad-whatsapp"]').count() != 1:
+                problems.append(f"{name}-{label}: account-safety link is outside the answer")
+            page.locator('a[href="/seguridad-whatsapp"]').click()
+            page.wait_for_load_state("networkidle")
+            if not page.url.endswith("/seguridad-whatsapp"):
+                problems.append(f"{name}-{label}: account-safety link did not reach its target")
+            if page.locator('.account-safety li').count() != 4:
+                problems.append(f"{name}-{label}: account-safety explanation is incomplete")
+            if page.locator('html').get_attribute('lang') != name:
+                problems.append(f"{name}-{label}: account-safety page lost the chosen language")
+            page.goto(f"{BASE}/", wait_until="networkidle")
+            page.locator('[data-i18n="faq.summary.8"]').click()
+            page.locator('a[href="/campanas-masivas"]').click()
+            page.wait_for_load_state("networkidle")
+            if page.locator('.campaign-limits li').count() != 2:
+                problems.append(f"{name}-{label}: mass-campaign limits are incomplete")
+            if page.locator('html').get_attribute('lang') != name:
+                problems.append(f"{name}-{label}: campaign limits page lost the chosen language")
+
             if errors:
                 problems.append(f"{name}-{label}: console errors {errors}")
             ctx.close()

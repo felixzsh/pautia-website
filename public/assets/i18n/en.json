@@ -57,15 +57,42 @@
   "faq.faq-answer.5":
     "No. Build from scratch without coding. Smart Imports is optional; you review the draft.",
   "faq.faq-answer.6":
-    "Yes. Delays and limits reduce risks, not eliminate them. No bulk campaigns are started.",
+    "Yes. No system can guarantee that WhatsApp will not restrict or block your account.",
+  "faq.faq-answer.8":
+    "No. Pautia is not designed for unsolicited mass campaigns.",
+  "campaigns.link": "Learn its limits and the alternative of multiple agents",
+  "campaigns.title": "Is Pautia suitable for mass campaigns?",
+  "campaigns.intro":
+    "No. Agents handle conversations and flows started by customers, not unsolicited bulk messages.",
+  "campaigns.limit-title": "Each agent has a deliberate pace",
+  "campaigns.limit-one":
+    "Each agent sends one message at a time, with pauses. It cannot reply to many chats at once.",
+  "campaigns.more-agents":
+    "Add agents to serve more chats in parallel. Each keeps its controlled pace; this is not bulk messaging.",
+  "account-safety.link": "How Pautia reduces the risk of blocking",
+  "account-safety.behavior": "A human-like pace",
+  "account-safety.why":
+    "Avoiding instant replies, bursts and identical texts reduces abuse signals, not all risk.",
+  "account-safety.variants":
+    "Define varied replies to the same question. The agent picks from your approved variants.",
+  "account-safety.title": "How we pace your account's activity",
+  "account-safety.intro":
+    "Agents aim for a human-like pace. These measures reduce risks but cannot prevent every block.",
+  "account-safety.pacing":
+    "Each agent sends one message at a time, with varying pauses, not to all chats at once.",
+  "account-safety.presence":
+    "When enabled, it can mark messages as read and show a typing indicator before replying.",
+  "account-safety.limits":
+    "Sending limits and per-contact pauses help avoid bursts and repeated replies.",
   "faq.faq-answer.7":
-    "An agent and a panel for appointment, booking and quote requests. Your team decides.",
+    "That's one use case. Manage requests in Pautia or connect compatible APIs for complex tasks.",
   "faq.summary.0": "Do I need a new WhatsApp number?",
   "faq.summary.2": "Can the AI send whatever it wants?",
   "faq.summary.3": "Do I need another calendar or a CRM?",
   "faq.summary.5": "Do I have to import my chats?",
   "faq.summary.6": "Can WhatsApp restrict my account?",
-  "faq.summary.7": "Is it just an agent that replies?",
+  "faq.summary.7": "Are the agents just for replying?",
+  "faq.summary.8": "Can I use Pautia for mass campaigns?",
   "footer.a.0": "How it works",
   "footer.a.1": "Plans",
   "footer.a.3": "Frequently asked questions",

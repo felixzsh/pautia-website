@@ -118,7 +118,9 @@ function currencyFor(request) {
 
 // The pages the edge translates. Everything else is served as it is: the legal
 // pages are written by hand in one language, and the assets never change.
-const TRANSLATED = new Set(["/", "/pricing"]);
+const TRANSLATED = new Set([
+  "/", "/pricing", "/seguridad-whatsapp", "/campanas-masivas",
+]);
 
 // The five values that live in attributes: the description, the cards, the
 // locale, and the label of the navigation.

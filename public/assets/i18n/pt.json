@@ -57,15 +57,42 @@
   "faq.faq-answer.5":
     "Não. Crie do zero sem programar. Smart Imports é opcional; você revisa a proposta.",
   "faq.faq-answer.6":
-    "Sim. Pausas e limites reduzem riscos, não os eliminam. Não inicia campanhas em massa.",
+    "Sim. Nenhum sistema pode garantir que o WhatsApp não restrinja ou bloqueie sua conta.",
+  "faq.faq-answer.8":
+    "Não. A Pautia não foi criada para campanhas em massa não solicitadas.",
+  "campaigns.link": "Veja os limites e a alternativa de vários agentes",
+  "campaigns.title": "A Pautia serve para campanhas em massa?",
+  "campaigns.intro":
+    "Não. Agentes atendem conversas e fluxos iniciados por clientes, não mensagens em massa.",
+  "campaigns.limit-title": "Cada agente tem um ritmo deliberado",
+  "campaigns.limit-one":
+    "Cada agente envia uma mensagem por vez, com pausas. Não responde a muitos chats de uma vez.",
+  "campaigns.more-agents":
+    "Contrate agentes para atender mais chats em paralelo. Cada um mantém seu ritmo; não são disparos em massa.",
+  "account-safety.link": "Como a Pautia reduz o risco de bloqueio",
+  "account-safety.behavior": "Um ritmo parecido com o de uma pessoa",
+  "account-safety.why":
+    "Evitar respostas instantâneas, rajadas e textos idênticos reduz sinais de abuso, não todo risco.",
+  "account-safety.variants":
+    "Defina respostas variadas à mesma pergunta. O agente escolhe entre variantes aprovadas.",
+  "account-safety.title": "Como cuidamos do ritmo da sua conta",
+  "account-safety.intro":
+    "Os agentes buscam um ritmo humano. As medidas reduzem riscos, sem garantir evitar bloqueios.",
+  "account-safety.pacing":
+    "Cada agente envia uma mensagem por vez, com pausas variáveis, não a todas as conversas de uma vez.",
+  "account-safety.presence":
+    "Se habilitado, pode marcar mensagens como lidas e mostrar que está digitando antes de responder.",
+  "account-safety.limits":
+    "Limites de envio e pausas por contato ajudam a evitar rajadas e respostas repetidas.",
   "faq.faq-answer.7":
-    "Inclui agente e painel para pedidos de consultas, reservas e orçamentos. Sua equipe decide.",
+    "Esse é um caso de uso. Gerencie pedidos na Pautia ou integre APIs compatíveis para automações complexas.",
   "faq.summary.0": "Preciso de um número novo de WhatsApp?",
   "faq.summary.2": "A IA pode enviar o que quiser?",
   "faq.summary.3": "Preciso de outra agenda ou de um CRM?",
   "faq.summary.5": "Tenho que importar meus chats?",
   "faq.summary.6": "O WhatsApp pode restringir minha conta?",
-  "faq.summary.7": "É só um agente que responde?",
+  "faq.summary.7": "Os agentes só respondem?",
+  "faq.summary.8": "Posso usar a Pautia para campanhas em massa?",
   "footer.a.0": "Como funciona",
   "footer.a.1": "Planos",
   "footer.a.3": "Perguntas frequentes",
