@@ -193,49 +193,206 @@
             Te avisaremos cuando abra el registro.</p>
         </div>
 
-        <!-- Illustration, not a live demo or a screenshot of an available product. -->
-        <figure class="mock" aria-labelledby="journey-caption">
-          <div class="mock__head">
-            <span class="mock__avatar" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
-            </span>
-            <span>
-              <span class="mock__who" data-i18n="main.mock-who.0" data-terms>WhatsApp · Taller Aurora</span>
-              <br><span class="mock__state" data-i18n="main.mock-state.0" data-terms>El <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agente</span> recoge</span>
-            </span>
-          </div>
-          <div class="mock__thread">
-            <p class="bubble bubble--in" data-i18n="main.bubble.0" data-terms>Quiero agendar una revisión
-              del coche.</p>
-            <p class="bubble bubble--out" data-i18n="main.bubble.1" data-terms>¿A nombre de quién y para
-              cuándo?</p>
-            <p class="bubble bubble--in" data-i18n="main.bubble.2" data-terms>Ana, el sábado a las 10.</p>
-            <p class="bubble bubble--out" data-i18n="main.bubble.3" data-terms>Gracias, Ana. Registré tu
-              solicitud. El taller te confirma la disponibilidad.</p>
-          </div>
-          <div class="mock__handoff" aria-hidden="true">↓</div>
-          <div class="mock__request">
-            <div class="mock__request-head">
-              <strong data-i18n="main.request-title" data-terms>Pautia · Solicitudes</strong>
-              <span class="mock__status" data-i18n="main.request-status" data-terms>Por confirmar</span>
-            </div>
-            <dl class="mock__details">
-              <div><dt data-i18n="main.request-client" data-terms>Cliente</dt><dd>Ana</dd></div>
-              <div>
-                <dt data-i18n="main.request-service" data-terms>Servicio</dt>
-                <dd data-i18n="main.request-service-value" data-terms>Revisión del coche</dd>
+        <!-- Illustration, not a live demo or a screenshot of an available product.
+             One example per use Pautia covers, one on the screen at a time on a
+             wide display; a phone shows them one after another down the page. -->
+        <div class="mocks" data-mocks>
+          <div class="mocks__track">
+            <figure class="mock" aria-labelledby="journey-caption">
+              <div class="mock__head">
+                <span class="mock__avatar" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="main.mock-who.0" data-terms>WhatsApp · Taller Aurora</span>
+                  <br><span class="mock__state" data-i18n="main.mock-state.0" data-terms>El <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agente</span> recoge</span>
+                </span>
               </div>
-              <div>
-                <dt data-i18n="main.request-date" data-terms>Fecha solicitada</dt>
-                <dd data-i18n="main.request-date-value" data-terms>Sábado · 10:00</dd>
+              <div class="mock__thread">
+                <p class="bubble bubble--in" data-i18n="main.bubble.0" data-terms>Quiero agendar una
+                  revisión del coche.</p>
+                <p class="bubble bubble--out" data-i18n="main.bubble.1" data-terms>¿A nombre de quién y
+                  para cuándo?</p>
+                <p class="bubble bubble--in" data-i18n="main.bubble.2" data-terms>Ana, el sábado a las 10.</p>
+                <p class="bubble bubble--out" data-i18n="main.bubble.3" data-terms>Gracias, Ana. Registré
+                  tu solicitud. El taller te confirma la disponibilidad.</p>
               </div>
-            </dl>
-            <p class="mock__next" data-i18n="main.request-next" data-terms>Tu equipo revisa y confirma.</p>
+              <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__request">
+                <div class="mock__request-head">
+                  <strong data-i18n="main.request-title" data-terms>Pautia · Solicitudes</strong>
+                  <span class="mock__status" data-i18n="main.request-status" data-terms>Por confirmar</span>
+                </div>
+                <dl class="mock__details">
+                  <div><dt data-i18n="main.request-client" data-terms>Cliente</dt><dd>Ana</dd></div>
+                  <div>
+                    <dt data-i18n="main.request-service" data-terms>Servicio</dt>
+                    <dd data-i18n="main.request-service-value" data-terms>Revisión del coche</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="main.request-date" data-terms>Fecha solicitada</dt>
+                    <dd data-i18n="main.request-date-value" data-terms>Sábado · 10:00</dd>
+                  </div>
+                </dl>
+                <p class="mock__next" data-i18n="main.request-next" data-terms>Tu equipo revisa y confirma.</p>
+              </div>
+              <figcaption class="mock__caption" id="journey-caption"
+                data-i18n="main.mock-caption.0" data-terms>Ejemplo ilustrativo: no es una cita confirmada.
+              </figcaption>
+            </figure>
+
+            <figure class="mock">
+              <div class="mock__head">
+                <span class="mock__avatar" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="main.mock-who.1" data-terms>WhatsApp · Floristería
+                    Mora</span>
+                  <br><span class="mock__state" data-i18n="main.mock-state.1" data-terms>El <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agente</span> recoge</span>
+                </span>
+              </div>
+              <div class="mock__thread">
+                <p class="bubble bubble--in" data-i18n="main.bubble.4" data-terms>¿Cuánto cuesta un centro
+                  de flores para 20 invitados?</p>
+                <p class="bubble bubble--out" data-i18n="main.bubble.5" data-terms>Con gusto. ¿Para qué
+                  fecha y qué colores?</p>
+                <p class="bubble bubble--in" data-i18n="main.bubble.6" data-terms>Para el sábado. Rosas y
+                  blanco.</p>
+                <p class="bubble bubble--out" data-i18n="main.bubble.7" data-terms>Listo. Registré tu
+                  solicitud con los detalles.</p>
+              </div>
+              <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__request">
+                <div class="mock__request-head">
+                  <strong data-i18n="main.request-title" data-terms>Pautia · Solicitudes</strong>
+                  <span class="mock__status" data-i18n="main.request-status.1" data-terms>Por cotizar</span>
+                </div>
+                <dl class="mock__details">
+                  <div><dt data-i18n="main.request-client" data-terms>Cliente</dt><dd>Mateo</dd></div>
+                  <div>
+                    <dt data-i18n="main.request-service" data-terms>Servicio</dt>
+                    <dd data-i18n="main.request-service-value.1" data-terms>Centro de flores · 20 invitados</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="main.request-date" data-terms>Fecha solicitada</dt>
+                    <dd data-i18n="main.request-date-value.1" data-terms>El próximo sábado</dd>
+                  </div>
+                </dl>
+                <p class="mock__next" data-i18n="main.request-next.1" data-terms>Tu equipo prepara la
+                  cotización.</p>
+              </div>
+              <figcaption class="mock__caption"
+                data-i18n="main.mock-caption.1" data-terms>Ejemplo ilustrativo: la cotización la hace tu
+                equipo.
+              </figcaption>
+            </figure>
+
+            <figure class="mock">
+              <div class="mock__head">
+                <span class="mock__avatar" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="main.mock-who.2" data-terms>WhatsApp · Pizzería
+                    Donato</span>
+                  <br><span class="mock__state" data-i18n="main.mock-state.2" data-terms>El <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agente</span> recoge</span>
+                </span>
+              </div>
+              <div class="mock__thread">
+                <p class="bubble bubble--in" data-i18n="main.bubble.8" data-terms>Quiero pedir 2 pizzas
+                  margarita para llevar.</p>
+                <p class="bubble bubble--out" data-i18n="main.bubble.9" data-terms>¿Alguna extra? ¿Y a qué
+                  hora pasas por ellas?</p>
+                <p class="bubble bubble--in" data-i18n="main.bubble.10" data-terms>Sin extras. Paso a las
+                  19:30.</p>
+                <p class="bubble bubble--out" data-i18n="main.bubble.11" data-terms>Pedido registrado. Te
+                  esperamos a las 19:30.</p>
+              </div>
+              <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__request">
+                <div class="mock__request-head">
+                  <strong data-i18n="main.request-title" data-terms>Pautia · Solicitudes</strong>
+                  <span class="mock__status" data-i18n="main.request-status.2" data-terms>Por preparar</span>
+                </div>
+                <dl class="mock__details">
+                  <div><dt data-i18n="main.request-client" data-terms>Cliente</dt><dd>Lucía</dd></div>
+                  <div>
+                    <dt data-i18n="main.request-service" data-terms>Servicio</dt>
+                    <dd data-i18n="main.request-service-value.2" data-terms>2 pizzas margarita</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="main.request-pickup" data-terms>Retiro</dt>
+                    <dd data-i18n="main.request-pickup-value" data-terms>19:30</dd>
+                  </div>
+                </dl>
+                <p class="mock__next" data-i18n="main.request-next.2" data-terms>Tu cocina ve el pedido en
+                  el panel.</p>
+              </div>
+              <figcaption class="mock__caption"
+                data-i18n="main.mock-caption.2" data-terms>Ejemplo ilustrativo: no es un pedido preparado.
+              </figcaption>
+            </figure>
+
+            <figure class="mock">
+              <div class="mock__head">
+                <span class="mock__avatar" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="main.mock-who.3" data-terms>WhatsApp · Clínica
+                    Sonrisa</span>
+                  <br><span class="mock__state" data-i18n="main.mock-state.3" data-terms>El <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agente</span> responde</span>
+                </span>
+              </div>
+              <div class="mock__thread">
+                <p class="bubble bubble--in" data-i18n="main.bubble.12" data-terms>¿Atienden los sábados?</p>
+                <p class="bubble bubble--out" data-i18n="main.bubble.13" data-terms>Sábados de 9 a 14. ¿Te
+                  ayudo con algo más?</p>
+                <p class="bubble bubble--in" data-i18n="main.bubble.14" data-terms>¿Cuánto cuesta la
+                  limpieza dental?</p>
+                <p class="bubble bubble--out" data-i18n="main.bubble.15" data-terms>La limpieza dental vale
+                  $40. ¿La agendo?</p>
+              </div>
+              <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__request">
+                <div class="mock__request-head">
+                  <strong data-i18n="main.request-title.1" data-terms>Pautia · Respuestas</strong>
+                  <span class="mock__status" data-i18n="main.request-status.3" data-terms>Respondido</span>
+                </div>
+                <dl class="mock__details">
+                  <div>
+                    <dt data-i18n="main.request-topic" data-terms>Tema</dt>
+                    <dd data-i18n="main.request-topic-value" data-terms>Horarios y precios</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="main.request-source" data-terms>Fuente</dt>
+                    <dd data-i18n="main.request-source-value" data-terms>Tu información</dd>
+                  </div>
+                </dl>
+                <p class="mock__next" data-i18n="main.request-next.3" data-terms>El <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agente</span> contesta con tu
+                  información. No se registró una solicitud.</p>
+              </div>
+              <figcaption class="mock__caption"
+                data-i18n="main.mock-caption.3" data-terms>Ejemplo ilustrativo: las respuestas salen de tu
+                información.
+              </figcaption>
+            </figure>
           </div>
-          <figcaption class="mock__caption" id="journey-caption"
-            data-i18n="main.mock-caption.0" data-terms>Ejemplo ilustrativo: no es una cita confirmada.
-          </figcaption>
-        </figure>
+          <div class="mocks__nav" hidden>
+            <button class="mocks__arrow mocks__arrow--prev" type="button" data-mock-prev
+              aria-label="Ejemplo anterior" data-i18n-attrs="aria-label:main.mock-prev">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"
+                focusable="false"><use href="#i-chevron" /></svg>
+            </button>
+            <p class="mocks__count"><span data-mock-count>1</span> / 4</p>
+            <button class="mocks__arrow" type="button" data-mock-next
+              aria-label="Ejemplo siguiente" data-i18n-attrs="aria-label:main.mock-next">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"
+                focusable="false"><use href="#i-chevron" /></svg>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 

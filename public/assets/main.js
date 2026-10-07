@@ -481,6 +481,43 @@ import { linkTerms } from "/assets/terms.js";
     host.replaceWith(details);
   }
 
+  /* The hero examples: four conversations, one on the screen at a time on a
+     wide display. The track snaps, the buttons step it and the count follows
+     the scroll, the same scroll a trackpad or a swipe already drives. A phone
+     stacks them instead, so the page itself walks through the examples and the
+     buttons are not there at all. Without JavaScript the buttons stay hidden
+     and the track still scrolls; the count then says what it was written as. */
+  function examples() {
+    const host = document.querySelector("[data-mocks]");
+    if (!host) return;
+    const nav = host.querySelector(".mocks__nav");
+    const track = host.querySelector(".mocks__track");
+    const shown = host.querySelector("[data-mock-count]");
+    const count = track.children.length;
+    const step = () => (matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "auto" : "smooth");
+
+    function update() {
+      const index = Math.round(track.scrollLeft / track.clientWidth);
+      shown.textContent = String(Math.max(0, Math.min(count - 1, index)) + 1);
+      prev.disabled = index <= 0;
+      next.disabled = index >= count - 1;
+    }
+
+    const prev = host.querySelector("[data-mock-prev]");
+    const next = host.querySelector("[data-mock-next]");
+    prev.addEventListener("click", () =>
+      track.scrollBy({ left: -track.clientWidth, behavior: step() }));
+    next.addEventListener("click", () =>
+      track.scrollBy({ left: track.clientWidth, behavior: step() }));
+    // A resize turns the stacked phone into the wide track and the other way
+    // round; the buttons' disabled state has to follow the new shape.
+    addEventListener("resize", update);
+    track.addEventListener("scroll", update, { passive: true });
+    nav.hidden = false;
+    update();
+  }
+
   /* An inline journey in the final section, enhanced from the translated fields.
      Native radios keep keyboard navigation; no requests until the final step.
      The links retain a mailto fallback when JavaScript is unavailable. */
@@ -763,6 +800,7 @@ import { linkTerms } from "/assets/terms.js";
   currencyPicker();
   picker();
   menus();
+  examples();
   waitlist();
   // Content stays visible even without JavaScript or an observer callback.
   if ("IntersectionObserver" in window

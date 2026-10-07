@@ -196,9 +196,9 @@ with sync_playwright() as p:
                 "es": "Por confirmar", "en": "Awaiting confirmation", "pt": "A confirmar",
                 "fr": "À confirmer", "de": "Noch zu bestätigen", "it": "Da confermare",
             }
-            if page.locator(".mock__status").inner_text() != expected_status[name]:
+            if page.locator(".mock__status").first.inner_text() != expected_status[name]:
                 problems.append(f"{name}-{label}: the request status did not translate")
-            if not page.locator(".mock__request").is_visible():
+            if not page.locator(".mock__request").first.is_visible():
                 problems.append(f"{name}-{label}: the example stops at the conversation")
 
             # A limit is one thing on one line: "50 MB", never "50" over "MB".

@@ -707,6 +707,84 @@ ol {
   color: var(--ink-900);
 }
 
+/* Four worked examples, one on the screen at a time on a wide display: a snap
+   track the buttons step through. A phone stacks them, one after another in the
+   page's own scroll, so the buttons have nothing to do there. */
+
+.mocks__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+/* A grid column hands its track a min-width of auto, and the slides inflate
+   the whole hero: the track is a scroller, so it must be allowed to shrink. */
+.mocks,
+.mocks__track > .mock {
+  min-width: 0;
+}
+
+.mocks__track > .mock {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+.mocks__nav {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .mocks__nav:not([hidden]) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .mocks__track {
+    padding-bottom: var(--space-2);
+  }
+}
+
+@media (max-width: 899px) {
+  .mocks__track {
+    display: grid;
+    gap: var(--space-6);
+  }
+}
+
+.mocks__count {
+  color: var(--ink-500);
+  font-size: var(--step--1);
+}
+
+.mocks__arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--ink-700);
+}
+
+.mocks__arrow:disabled {
+  opacity: 0.35;
+}
+
+.mocks__arrow--prev svg {
+  transform: scaleX(-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mocks__track {
+    scroll-behavior: auto;
+  }
+}
+
 /* Steps */
 
 .steps {
