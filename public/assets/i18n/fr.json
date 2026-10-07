@@ -56,7 +56,7 @@
     "Pas pour",
   "faq.management-link": "gérer dans Pautia",
   "faq.crm-api":
-    "Avec un CRM existant, les agents ont besoin d'une API compatible pour s'y connecter.",
+    "Pour un CRM existant, les agents se connectent par une API REST ou un serveur MCP compatible.",
   "faq.faq-answer.5":
     "Non. Créez de zéro sans programmer. Smart Imports est optionnel ; vous vérifiez l'ébauche.",
   "faq.faq-answer.6":
@@ -88,7 +88,7 @@
   "account-safety.limits":
     "Les limites et pauses par contact aident à éviter les rafales et les réponses répétées.",
   "faq.faq-answer.7":
-    "C'est un cas d'usage. Gérez les demandes dans Pautia ou connectez des API compatibles pour des tâches complexes.",
+    "Un cas d'usage. Gérez dans Pautia ou votre système via API REST ou MCP pour tâches complexes.",
   "faq.summary.0": "Ai-je besoin d'un nouveau numéro WhatsApp ?",
   "faq.summary.2": "L'IA peut-elle envoyer ce qu'elle veut ?",
   "faq.summary.3": "Ai-je besoin d'un autre agenda ou d'un CRM ?",
@@ -127,7 +127,7 @@
     "Choisissez réponses, actions, horaires et quand passer la conversation à une personne.",
   "how.p.2":
     "Gérez tout avec Pautia",
-  "how.systems": "ou intégrez votre propre système.",
+  "how.systems": "ou intégrez votre propre système (API REST ou MCP).",
   "how.detail.2":
     "L'agent suit le flux défini et escalade quand il le faut.",
   "lang.picker-label": "Langue",
@@ -136,9 +136,11 @@
   "examples.pautia": "Gestion dans Pautia",
   "examples.api": "API de l'entreprise",
   "examples.title": "Gestion simple, dans Pautia",
-  "examples.api-title": "Automatisation avec votre API métier",
+  "examples.api-title": "Automatisation avec votre système (API REST ou MCP)",
+  "examples.mcp-note":
+    "Avec API REST ou MCP, l'agent utilise uniquement les actions autorisées dans le flux.",
   "examples.api-note":
-    "Intégrations illustratives. L'agent demande les données, consulte l'API et attend confirmation.",
+    "Exemples API REST ou MCP : données demandées, système consulté, actions après confirmation.",
   "main.external-items-label": "Commande",
   "delivery.who": "WhatsApp · Transport Ruta",
   "delivery.state": "Reprogramme la livraison",

@@ -56,7 +56,7 @@
     "Non per",
   "faq.management-link": "gestire dentro Pautia",
   "faq.crm-api":
-    "Se hai già un CRM, gli agenti hanno bisogno di un'API compatibile per collegarlo.",
+    "Per un CRM esistente, gli agenti usano un'API REST o un server MCP compatibile.",
   "faq.faq-answer.5":
     "No. Crea da zero senza programmare. Smart Imports è opzionale; tu controlli la proposta.",
   "faq.faq-answer.6":
@@ -88,7 +88,7 @@
   "account-safety.limits":
     "Limiti di invio e pause per contatto aiutano a evitare raffiche e risposte ripetute.",
   "faq.faq-answer.7":
-    "È un caso d'uso. Gestisci le richieste in Pautia o collega API compatibili per automazioni complesse.",
+    "Un caso d'uso. Gestione in Pautia o il tuo sistema via API REST o MCP per compiti complessi.",
   "faq.summary.0": "Mi serve un nuovo numero WhatsApp?",
   "faq.summary.2": "L'IA può inviare quello che vuole?",
   "faq.summary.3": "Mi serve un'altra agenda o un CRM?",
@@ -127,7 +127,7 @@
     "Scegli risposte, azioni, orari e quando passare la conversazione a una persona.",
   "how.p.2":
     "Gestisci tutto con Pautia",
-  "how.systems": "o integra il tuo sistema.",
+  "how.systems": "o integra il tuo sistema (API REST o MCP).",
   "how.detail.2":
     "L'agente segue il flusso definito e scala quando serve.",
   "lang.picker-label": "Lingua",
@@ -136,9 +136,11 @@
   "examples.pautia": "Gestione in Pautia",
   "examples.api": "API dell'attività",
   "examples.title": "Gestione semplice, dentro Pautia",
-  "examples.api-title": "Automazione con l'API della tua attività",
+  "examples.api-title": "Automazione con il tuo sistema (API REST o MCP)",
+  "examples.mcp-note":
+    "Con API REST o MCP, l'agente usa solo le azioni autorizzate nel flusso.",
   "examples.api-note":
-    "Integrazioni illustrative. L'agente chiede dati, consulta l'API e agisce dopo la conferma.",
+    "Esempi API REST o MCP: l'agente chiede dati, consulta il sistema e agisce dopo conferma.",
   "main.external-items-label": "Ordine",
   "delivery.who": "WhatsApp · Spedizioni Ruta",
   "delivery.state": "Riprogramma la consegna",

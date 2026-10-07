@@ -177,6 +177,8 @@ for code, table in strings.items():
         "fr": "intégrez", "de": "integrieren", "it": "integra",
     }
     assert integrate[code] in table["how.systems"].lower(), (code, "missing own-system option")
+    assert "MCP" in table["how.systems"] and "MCP" in table["examples.mcp-note"]
+    assert "MCP" in table["faq.crm-api"] and "MCP" in table["faq.faq-answer.7"]
     escalate = {
         "es": "escala", "en": "escalates", "pt": "escala",
         "fr": "escalade", "de": "eskaliert", "it": "scala",

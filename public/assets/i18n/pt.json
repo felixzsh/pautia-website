@@ -56,7 +56,7 @@
     "Não para",
   "faq.management-link": "gerenciar dentro da Pautia",
   "faq.crm-api":
-    "Se você já tem um CRM, os agentes precisam de uma API compatível para conectá-lo.",
+    "Para um CRM existente, os agentes se conectam por uma API REST ou servidor MCP compatível.",
   "faq.faq-answer.5":
     "Não. Crie do zero sem programar. Smart Imports é opcional; você revisa a proposta.",
   "faq.faq-answer.6":
@@ -88,7 +88,7 @@
   "account-safety.limits":
     "Limites de envio e pausas por contato ajudam a evitar rajadas e respostas repetidas.",
   "faq.faq-answer.7":
-    "Esse é um caso de uso. Gerencie pedidos na Pautia ou integre APIs compatíveis para automações complexas.",
+    "Um caso de uso. Gestão na Pautia ou seu sistema por API REST ou MCP para tarefas complexas.",
   "faq.summary.0": "Preciso de um número novo de WhatsApp?",
   "faq.summary.2": "A IA pode enviar o que quiser?",
   "faq.summary.3": "Preciso de outra agenda ou de um CRM?",
@@ -127,7 +127,7 @@
     "Escolha respostas, ações, horários e quando passar a conversa a uma pessoa.",
   "how.p.2":
     "Gerencie tudo com a Pautia",
-  "how.systems": "ou integre seu próprio sistema.",
+  "how.systems": "ou integre seu próprio sistema (API REST ou MCP).",
   "how.detail.2":
     "O agente segue o fluxo definido e escala quando deve.",
   "lang.picker-label": "Idioma",
@@ -136,9 +136,11 @@
   "examples.pautia": "Gestão na Pautia",
   "examples.api": "API do negócio",
   "examples.title": "Gestão simples, dentro da Pautia",
-  "examples.api-title": "Automação com a API do seu negócio",
+  "examples.api-title": "Automação com seu sistema (API REST ou MCP)",
+  "examples.mcp-note":
+    "Com API REST ou MCP, o agente usa apenas as ações autorizadas no fluxo.",
   "examples.api-note":
-    "Integrações ilustrativas. Agentes pedem dados, consultam seu sistema e agem após confirmação.",
+    "Exemplos API REST ou MCP: pedir dados, consultar seu sistema e aguardar confirmação.",
   "main.external-items-label": "Encomenda",
   "delivery.who": "WhatsApp · Transportadora Ruta",
   "delivery.state": "Reagenda a entrega",

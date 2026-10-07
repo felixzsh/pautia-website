@@ -215,7 +215,7 @@
           <li class="step">
             <h3 data-i18n="how.h3.2" data-terms>Activa y gestiona</h3>
             <p><span data-i18n="how.p.2" data-terms>Gestiona completamente con Pautia</span>
-              <span data-i18n="how.systems" data-terms>o integra tu propio <span class="term" data-term="system" title="El software de gestión de tu negocio: agenda, CRM, inventario o el que uses." tabindex="0">sistema</span>.</span>
+              <span data-i18n="how.systems" data-terms>o integra tu propio <span class="term" data-term="system" title="El software de gestión de tu negocio: agenda, CRM, inventario o el que uses." tabindex="0">sistema</span> (API REST o <span class="term" data-term="mcp" title="Protocolo para usar herramientas externas como acciones autorizadas del flujo." tabindex="0">MCP</span>).</span>
               <span data-i18n="how.detail.2" data-terms>El <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agente</span> sigue el <span class="term" data-term="flow" title="El recorrido que sigue el agente: qué pregunta, responde o hace." tabindex="0">flujo</span> definido y <span class="term" data-term="handoff" title="Cuando el agente se detiene y pasa la conversación a una persona." tabindex="0">escala</span>
                 cuando debe.</span></p>
           </li>
@@ -464,9 +464,11 @@
     <section class="section" id="api-examples">
       <div class="wrap">
         <div class="section__head">
-          <h2 data-i18n="examples.api-title" data-terms>Automatización con la API de tu negocio</h2>
-          <p data-i18n="examples.api-note" data-terms>Ejemplos ilustrativos con API compatibles configuradas.
+          <h2 data-i18n="examples.api-title" data-terms>Automatización con tu <span class="term" data-term="system" title="El software de gestión de tu negocio: agenda, CRM, inventario o el que uses." tabindex="0">sistema</span> (API REST o <span class="term" data-term="mcp" title="Protocolo para usar herramientas externas como acciones autorizadas del flujo." tabindex="0">MCP</span>)</h2>
+          <p data-i18n="examples.api-note" data-terms>Ejemplos ilustrativos de <span class="term" data-term="integration" title="Conexión con tu sistema mediante una API REST o un servidor MCP compatible." tabindex="0">integración</span> por API REST o <span class="term" data-term="mcp" title="Protocolo para usar herramientas externas como acciones autorizadas del flujo." tabindex="0">MCP</span>.
             El <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agente</span> pide datos, consulta tu <span class="term" data-term="system" title="El software de gestión de tu negocio: agenda, CRM, inventario o el que uses." tabindex="0">sistema</span> y ejecuta <span class="term" data-term="action" title="Una tarea del agente además de responder." tabindex="0">acciones</span> al confirmar.</p>
+          <p data-i18n="examples.mcp-note" data-terms>Con API REST o <span class="term" data-term="mcp" title="Protocolo para usar herramientas externas como acciones autorizadas del flujo." tabindex="0">MCP</span>, el <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agente</span> usa solo las <span class="term" data-term="action" title="Una tarea del agente además de responder." tabindex="0">acciones</span>
+            que autorizaste en el <span class="term" data-term="flow" title="El recorrido que sigue el agente: qué pregunta, responde o hace." tabindex="0">flujo</span>.</p>
         </div>
         <div class="mocks" data-mocks>
           <div class="mocks__layout">
@@ -1069,8 +1071,8 @@
           <details>
             <summary data-i18n="faq.summary.7">¿Son agentes que solo responden?</summary>
             <p class="faq__answer" data-i18n="faq.faq-answer.7" data-terms>Ese es un caso de uso. También
-              puedes gestionar solicitudes en Pautia o integrar API compatibles de tu negocio para
-              automatizaciones más complejas.</p>
+              puedes gestionar solicitudes en Pautia o integrar tu propio <span class="term" data-term="system" title="El software de gestión de tu negocio: agenda, CRM, inventario o el que uses." tabindex="0">sistema</span> por API REST o <span class="term" data-term="mcp" title="Protocolo para usar herramientas externas como acciones autorizadas del flujo." tabindex="0">MCP</span>
+              para automatizaciones más complejas.</p>
           </details>
           <details>
             <summary data-i18n="faq.summary.2">¿La IA puede mandar lo que quiera?</summary>
@@ -1086,8 +1088,8 @@
             <summary data-i18n="faq.summary.3">¿Necesito otra agenda o un CRM?</summary>
             <p class="faq__answer"><span data-i18n="faq.faq-answer.3" data-terms>No para</span>
               <a href="#examples" data-i18n="faq.management-link">gestionar dentro de Pautia</a>.
-              <span data-i18n="faq.crm-api" data-terms>Si ya tienes un CRM, necesitas una API compatible
-                para que los <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agentes</span> se conecten a él.</span></p>
+              <span data-i18n="faq.crm-api" data-terms>Si ya tienes un CRM, los <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">agentes</span> se conectan a él
+                mediante una API REST o un servidor <span class="term" data-term="mcp" title="Protocolo para usar herramientas externas como acciones autorizadas del flujo." tabindex="0">MCP</span> compatible.</span></p>
           </details>
           <details>
             <summary data-i18n="faq.summary.0">¿Necesito un número de WhatsApp nuevo?</summary>

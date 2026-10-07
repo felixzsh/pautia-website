@@ -13,6 +13,7 @@ const samples = {
   it: "Smart Imports, flusso, flussi, azione, azioni, agenti",
 };
 for (const [language, text] of Object.entries(samples)) {
+  assert(linkTerms("MCP", language).includes('data-term="mcp"'), `${language}: MCP hint`);
   const linked = linkTerms(text, language);
   assert.equal(linked.replace(/<[^>]+>/g, ""), text, language);
   for (const id of ["smart-imports", "flow", "action", "agent"]) {

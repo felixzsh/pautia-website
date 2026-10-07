@@ -55,7 +55,8 @@
   "faq.faq-answer.3":
     "Not to",
   "faq.management-link": "manage within Pautia",
-  "faq.crm-api": "If you already have a CRM, agents need a compatible API to connect to it.",
+  "faq.crm-api":
+    "For an existing CRM, agents connect through a compatible REST API or MCP server.",
   "faq.faq-answer.5":
     "No. Build from scratch without coding. Smart Imports is optional; you review the draft.",
   "faq.faq-answer.6":
@@ -87,7 +88,7 @@
   "account-safety.limits":
     "Sending limits and per-contact pauses help avoid bursts and repeated replies.",
   "faq.faq-answer.7":
-    "That's one use case. Manage requests in Pautia or connect compatible APIs for complex tasks.",
+    "One use case. Manage in Pautia or connect your system via REST API or MCP for complex tasks.",
   "faq.summary.0": "Do I need a new WhatsApp number?",
   "faq.summary.2": "Can the AI send whatever it wants?",
   "faq.summary.3": "Do I need another calendar or a CRM?",
@@ -126,7 +127,7 @@
     "Choose replies, actions, working hours and when to hand the conversation to a person.",
   "how.p.2":
     "Manage everything with Pautia",
-  "how.systems": "or integrate your own system.",
+  "how.systems": "or integrate your own system (REST API or MCP).",
   "how.detail.2":
     "The agent follows the defined flow and escalates when it should.",
   "lang.picker-label": "Language",
@@ -135,9 +136,11 @@
   "examples.pautia": "Managed in Pautia",
   "examples.api": "Business API",
   "examples.title": "Simple management, inside Pautia",
-  "examples.api-title": "Automation with your business API",
+  "examples.api-title": "Automation with your system (REST API or MCP)",
+  "examples.mcp-note":
+    "With REST API or MCP, the agent uses only actions you authorized in the flow.",
   "examples.api-note":
-    "Illustrative API integrations. Agents ask for data, query your system and await confirmation.",
+    "REST API or MCP examples: ask for data, query your system and await confirmation.",
   "main.external-items-label": "Order",
   "delivery.who": "WhatsApp · Ruta Shipping",
   "delivery.state": "Reschedules delivery",

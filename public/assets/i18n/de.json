@@ -55,7 +55,8 @@
   "faq.faq-answer.3":
     "Nicht für die",
   "faq.management-link": "Verwaltung in Pautia",
-  "faq.crm-api": "Für ein bestehendes CRM brauchen die Agenten eine kompatible API zur Anbindung.",
+  "faq.crm-api":
+    "Bei einem bestehenden CRM verbinden sich Agenten über eine kompatible REST-API oder MCP.",
   "faq.faq-answer.5":
     "Nein. Starten Sie von Grund auf ohne Programmieren. Smart Imports ist optional; Sie prüfen.",
   "faq.faq-answer.6":
@@ -87,7 +88,7 @@
   "account-safety.limits":
     "Limits und Pausen pro Kontakt helfen, Nachrichtenschübe und Wiederholungen zu vermeiden.",
   "faq.faq-answer.7":
-    "Ein Anwendungsfall. Verwalten Sie Anfragen in Pautia oder binden Sie kompatible APIs für komplexe Abläufe an.",
+    "Ein Anwendungsfall. Pautia zur Verwaltung oder Ihr System über REST-API/MCP für komplexe Aufgaben.",
   "faq.summary.0": "Brauche ich eine neue WhatsApp-Nummer?",
   "faq.summary.2": "Kann die KI senden, was sie will?",
   "faq.summary.3": "Brauche ich einen weiteren Kalender oder ein CRM?",
@@ -126,7 +127,7 @@
     "Wählen Sie Antworten, Aktionen, Zeiten und wann das Gespräch an eine Person übergeht.",
   "how.p.2":
     "Verwalten Sie alles mit Pautia",
-  "how.systems": "oder integrieren Sie Ihr eigenes System.",
+  "how.systems": "oder integrieren Sie Ihr eigenes System (REST-API oder MCP).",
   "how.detail.2":
     "Der Agent folgt dem definierten Ablauf und eskaliert, wenn nötig.",
   "lang.picker-label": "Sprache",
@@ -135,9 +136,11 @@
   "examples.pautia": "Verwaltung in Pautia",
   "examples.api": "Geschäfts-API",
   "examples.title": "Einfache Verwaltung in Pautia",
-  "examples.api-title": "Automatisierung mit Ihrer Geschäfts-API",
+  "examples.api-title": "Automatisierung mit Ihrem System (REST-API oder MCP)",
+  "examples.mcp-note":
+    "Mit REST-API oder MCP nutzt der Agent nur die im Ablauf erlaubten Aktionen.",
   "examples.api-note":
-    "Beispielintegrationen. Agenten fragen nach Daten, nutzen Ihre API und warten auf Bestätigung.",
+    "Beispiele mit REST-API oder MCP: Agenten fragen nach Daten und handeln nach Bestätigung.",
   "main.external-items-label": "Bestellung",
   "delivery.who": "WhatsApp · Ruta Versand",
   "delivery.state": "Ändert den Liefertermin",
