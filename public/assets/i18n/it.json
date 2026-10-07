@@ -101,6 +101,11 @@
   "how.detail.2":
     "L'agente segue il flusso definito e scala quando serve.",
   "lang.picker-label": "Lingua",
+  "examples.note":
+    "Esempi illustrativi, non schermate. Conversazione su WhatsApp; richieste e risposte in Pautia.",
+  "examples.pautia": "Gestione in Pautia",
+  "examples.title": "Dalla conversazione alla gestione in Pautia",
+  "examples.whatsapp": "Conversazione WhatsApp",
   "main.btn.0": "Iscriviti alla lista d'attesa",
   "main.btn.1": "Vedi come funziona",
   "main.btn.2": "Iscriviti alla lista d'attesa",
@@ -128,10 +133,6 @@
     "Stiamo preparando la piattaforma. Ti avviseremo quando apriranno le registrazioni.",
   "main.hero-sub.0":
     "L'agente risponde su WhatsApp. Il team gestisce le richieste in Pautia, con le tue regole.",
-  "main.mock-caption.0": "Esempio illustrativo: non è un appuntamento confermato.",
-  "main.mock-caption.1": "Esempio illustrativo: il preventivo lo fa il tuo team.",
-  "main.mock-caption.2": "Esempio illustrativo: non è un ordine preparato.",
-  "main.mock-caption.3": "Esempio illustrativo: le risposte arrivano dalle tue informazioni.",
   "main.mock-next": "Esempio successivo",
   "main.mock-prev": "Esempio precedente",
   "main.mock-state.0": "L'agente raccoglie",

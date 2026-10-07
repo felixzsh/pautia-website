@@ -108,6 +108,11 @@
     <!-- Worked examples, not a live demo or a screenshot of an available product. -->
     <section class="section section--sub" id="examples">
       <div class="wrap">
+        <div class="section__head">
+          <h2 data-i18n="examples.title">De la conversación a la gestión en Pautia</h2>
+          <p data-i18n="examples.note">Ejemplos ilustrativos, no capturas. Chat en WhatsApp;
+            gestión y respuestas en Pautia.</p>
+        </div>
         <div class="mocks" data-mocks>
           <div class="mocks__layout">
             <button class="mocks__arrow mocks__arrow--prev" type="button" data-mock-prev
@@ -116,7 +121,7 @@
                 focusable="false"><use href="#i-chevron" /></svg>
             </button>
             <div class="mocks__track">
-            <figure class="mock" aria-labelledby="journey-caption">
+            <figure class="mock">
               <div class="mock__head">
                 <span class="mock__avatar" aria-hidden="true">
                   <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
@@ -126,7 +131,9 @@
                   <br><span class="mock__state" data-i18n="main.mock-state.0">El agente recoge</span>
                 </span>
               </div>
-              <div class="mock__thread">
+              <div class="mock__conversation">
+                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <div class="mock__thread">
                 <p class="bubble bubble--in" data-i18n="main.bubble.0">Quiero agendar una
                   revisión del coche.</p>
                 <p class="bubble bubble--out" data-i18n="main.bubble.1">¿A nombre de quién y
@@ -134,9 +141,11 @@
                 <p class="bubble bubble--in" data-i18n="main.bubble.2">Ana, el sábado a las 10.</p>
                 <p class="bubble bubble--out" data-i18n="main.bubble.3">Gracias, Ana. Registré
                   tu solicitud. El taller te confirma la disponibilidad.</p>
+                </div>
               </div>
               <div class="mock__handoff" aria-hidden="true">↓</div>
               <div class="mock__request">
+                <p class="mock__label" data-i18n="examples.pautia">Gestión en Pautia</p>
                 <div class="mock__request-head">
                   <strong data-i18n="main.request-title">Pautia · Solicitudes</strong>
                   <span class="mock__status" data-i18n="main.request-status">Por confirmar</span>
@@ -154,9 +163,6 @@
                 </dl>
                 <p class="mock__next" data-i18n="main.request-next">Tu equipo revisa y confirma.</p>
               </div>
-              <figcaption class="mock__caption" id="journey-caption"
-                data-i18n="main.mock-caption.0">Ejemplo ilustrativo: no es una cita confirmada.
-              </figcaption>
             </figure>
 
             <figure class="mock">
@@ -170,7 +176,9 @@
                   <br><span class="mock__state" data-i18n="main.mock-state.1">El agente recoge</span>
                 </span>
               </div>
-              <div class="mock__thread">
+              <div class="mock__conversation">
+                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <div class="mock__thread">
                 <p class="bubble bubble--in" data-i18n="main.bubble.4">¿Cuánto cuesta un centro
                   de flores para 20 invitados?</p>
                 <p class="bubble bubble--out" data-i18n="main.bubble.5">Con gusto. ¿Para qué
@@ -179,9 +187,11 @@
                   blanco.</p>
                 <p class="bubble bubble--out" data-i18n="main.bubble.7">Listo. Registré tu
                   solicitud con los detalles.</p>
+                </div>
               </div>
               <div class="mock__handoff" aria-hidden="true">↓</div>
               <div class="mock__request">
+                <p class="mock__label" data-i18n="examples.pautia">Gestión en Pautia</p>
                 <div class="mock__request-head">
                   <strong data-i18n="main.request-title">Pautia · Solicitudes</strong>
                   <span class="mock__status" data-i18n="main.request-status.1">Por cotizar</span>
@@ -200,10 +210,6 @@
                 <p class="mock__next" data-i18n="main.request-next.1">Tu equipo prepara la
                   cotización.</p>
               </div>
-              <figcaption class="mock__caption"
-                data-i18n="main.mock-caption.1">Ejemplo ilustrativo: la cotización la hace tu
-                equipo.
-              </figcaption>
             </figure>
 
             <figure class="mock">
@@ -217,7 +223,9 @@
                   <br><span class="mock__state" data-i18n="main.mock-state.2">El agente recoge</span>
                 </span>
               </div>
-              <div class="mock__thread">
+              <div class="mock__conversation">
+                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <div class="mock__thread">
                 <p class="bubble bubble--in" data-i18n="main.bubble.8">Quiero pedir 2 pizzas
                   margarita para llevar.</p>
                 <p class="bubble bubble--out" data-i18n="main.bubble.9">¿Alguna extra? ¿Y a qué
@@ -226,9 +234,11 @@
                   19:30.</p>
                 <p class="bubble bubble--out" data-i18n="main.bubble.11">Pedido registrado. Te
                   esperamos a las 19:30.</p>
+                </div>
               </div>
               <div class="mock__handoff" aria-hidden="true">↓</div>
               <div class="mock__request">
+                <p class="mock__label" data-i18n="examples.pautia">Gestión en Pautia</p>
                 <div class="mock__request-head">
                   <strong data-i18n="main.request-title">Pautia · Solicitudes</strong>
                   <span class="mock__status" data-i18n="main.request-status.2">Por preparar</span>
@@ -247,9 +257,6 @@
                 <p class="mock__next" data-i18n="main.request-next.2">Tu cocina ve el pedido en
                   el panel.</p>
               </div>
-              <figcaption class="mock__caption"
-                data-i18n="main.mock-caption.2">Ejemplo ilustrativo: no es un pedido preparado.
-              </figcaption>
             </figure>
 
             <figure class="mock">
@@ -263,7 +270,9 @@
                   <br><span class="mock__state" data-i18n="main.mock-state.3">El agente responde</span>
                 </span>
               </div>
-              <div class="mock__thread">
+              <div class="mock__conversation">
+                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <div class="mock__thread">
                 <p class="bubble bubble--in" data-i18n="main.bubble.12">¿Atienden los sábados?</p>
                 <p class="bubble bubble--out" data-i18n="main.bubble.13">Sábados de 9 a 14. ¿Te
                   ayudo con algo más?</p>
@@ -271,9 +280,11 @@
                   limpieza dental?</p>
                 <p class="bubble bubble--out" data-i18n="main.bubble.15">La limpieza dental vale
                   $40. ¿La agendo?</p>
+                </div>
               </div>
               <div class="mock__handoff" aria-hidden="true">↓</div>
               <div class="mock__request">
+                <p class="mock__label" data-i18n="examples.pautia">Gestión en Pautia</p>
                 <div class="mock__request-head">
                   <strong data-i18n="main.request-title.1">Pautia · Respuestas</strong>
                   <span class="mock__status" data-i18n="main.request-status.3">Respondido</span>
@@ -291,10 +302,6 @@
                 <p class="mock__next" data-i18n="main.request-next.3">El agente contesta con tu
                   información. No se registró una solicitud.</p>
               </div>
-              <figcaption class="mock__caption"
-                data-i18n="main.mock-caption.3">Ejemplo ilustrativo: las respuestas salen de tu
-                información.
-              </figcaption>
             </figure>
             </div>
             <button class="mocks__arrow mocks__arrow--next" type="button" data-mock-next
@@ -307,7 +314,7 @@
       </div>
     </section>
 
-    <section class="section section--sub" id="how">
+    <section class="section" id="how">
       <div class="wrap">
         <div class="section__head">
           <h2 id="how-t" data-i18n="how-t.h2.0">Tu atención, de principio a fin</h2>
@@ -339,7 +346,7 @@
       </div>
     </section>
 
-    <section class="section" id="usecases">
+    <section class="section section--sub" id="usecases">
       <div class="wrap">
         <div class="section__head">
           <h2 id="usecases-t" data-i18n="usecases-t.h2.0">Para lo que hoy resuelves entre
@@ -367,7 +374,7 @@
       </div>
     </section>
 
-    <section class="section section--sub" id="plans">
+    <section class="section" id="plans">
       <div class="wrap">
         <div class="section__head">
           <h2 id="plans-t" data-i18n="plans-t.h2.0">Elige el plan que necesitas hoy</h2>
@@ -388,7 +395,7 @@
       </div>
     </section>
 
-    <section class="section" id="faq">
+    <section class="section section--sub" id="faq">
       <div class="wrap">
         <div class="section__head">
           <h2 id="faq-t" data-i18n="faq-t.h2.0">Preguntas frecuentes</h2>

@@ -101,6 +101,11 @@
   "how.detail.2":
     "The agent follows the defined flow and escalates when it should.",
   "lang.picker-label": "Language",
+  "examples.note":
+    "Illustrative examples, not screenshots. WhatsApp chat; requests and replies in Pautia.",
+  "examples.pautia": "Managed in Pautia",
+  "examples.title": "From conversation to management in Pautia",
+  "examples.whatsapp": "WhatsApp conversation",
   "main.btn.0": "Join the waitlist",
   "main.btn.1": "See how it works",
   "main.btn.2": "Join the waitlist",
@@ -128,10 +133,6 @@
     "We're preparing the platform. We'll let you know when registration opens.",
   "main.hero-sub.0":
     "The agent answers on WhatsApp. Your team manages requests in Pautia, with your rules.",
-  "main.mock-caption.0": "Illustrative example: not a confirmed appointment.",
-  "main.mock-caption.1": "Illustrative example: your team makes the quote.",
-  "main.mock-caption.2": "Illustrative example: not a prepared order.",
-  "main.mock-caption.3": "Illustrative example: answers come from your information.",
   "main.mock-next": "Next example",
   "main.mock-prev": "Previous example",
   "main.mock-state.0": "The agent collects",

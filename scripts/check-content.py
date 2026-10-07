@@ -180,7 +180,9 @@ for code, table in strings.items():
     }
     assert escalate[code] in table["how.detail.2"].lower(), (code, "missing escalation")
 
-assert 'class="mock" aria-labelledby="journey-caption"' in index_html
+assert 'data-i18n="examples.note"' in index_html
+assert 'data-i18n="examples.whatsapp"' in index_html
+assert 'data-i18n="examples.pautia"' in index_html
 assert 'data-i18n="main.request-status"' in index_html, "the example must show a pending request"
 assert 'aria-hidden="true"' not in re.search(
     r'<figure\b[^>]*>', index_html
