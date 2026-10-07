@@ -630,13 +630,13 @@
                       <label for="custom-bots" data-i18n="custom-plan.bots-label">Bots</label>
                       <output id="custom-bots-output" for="custom-bots">5</output>
                     </div>
-                    <p id="custom-bots-help" data-i18n="custom-plan.bots-help" data-terms><span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">Bots</span> que pueden
+                    <p id="custom-bots-help" data-i18n="custom-plan.bots-help" data-terms><button type="button" class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." aria-expanded="false">Bots</button> que pueden
                       responder al mismo tiempo.</p>
-                    <input id="custom-bots" type="range" min="5" max="20" step="1" value="5"
+                    <input id="custom-bots" type="range" min="5" max="100" step="1" value="5"
                       aria-describedby="custom-bots-help">
                     <div class="custom-plan__bounds" aria-hidden="true">
                       <span data-custom-min="bots">5</span>
-                      <span data-custom-max="bots">20</span>
+                      <span data-custom-max="bots">100</span>
                     </div>
                   </div>
                   <div class="custom-plan__control">
@@ -646,12 +646,12 @@
                       <output id="custom-messages-output" for="custom-messages">15.000</output>
                     </div>
                     <p id="custom-messages-help" data-i18n="custom-plan.messages-help" data-terms>
-                      Mensajes que envían tus <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">bots</span> cada mes.</p>
-                    <input id="custom-messages" type="range" min="15000" max="100000"
+                      Mensajes que envían tus <button type="button" class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." aria-expanded="false">bots</button> cada mes.</p>
+                    <input id="custom-messages" type="range" min="15000" max="1000000"
                       step="1000" value="15000" aria-describedby="custom-messages-help">
                     <div class="custom-plan__bounds" aria-hidden="true">
                       <span data-custom-min="messages">15.000</span>
-                      <span data-custom-max="messages">100.000</span>
+                      <span data-custom-max="messages">1.000.000</span>
                     </div>
                   </div>
                   <div class="custom-plan__control">
@@ -662,11 +662,11 @@
                     </div>
                     <p id="custom-storage-help" data-i18n="custom-plan.storage-help" data-terms>
                       Historial de texto que conserva tu cuenta.</p>
-                    <input id="custom-storage" type="range" min="500" max="2000" step="50"
+                    <input id="custom-storage" type="range" min="500" max="2000000" step="50"
                       value="500" aria-describedby="custom-storage-help">
                     <div class="custom-plan__bounds" aria-hidden="true">
                       <span data-custom-min="storage">500 MB</span>
-                      <span data-custom-max="storage">2.000 MB</span>
+                      <span data-custom-max="storage">2 TB</span>
                     </div>
                   </div>
                 </div>
@@ -682,7 +682,7 @@
                     <dd><span data-money data-custom-price="base" data-usd="39">$39</span></dd>
                   </div>
                   <div>
-                    <dt data-i18n="custom-plan.summary-bots" data-terms><span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">Bots</span> adicionales</dt>
+                    <dt data-i18n="custom-plan.summary-bots" data-terms><button type="button" class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." aria-expanded="false">Bots</button> adicionales</dt>
                     <dd><span data-money data-custom-price="bots" data-usd="0">$0</span></dd>
                   </div>
                   <div>
@@ -708,7 +708,7 @@
                 <p class="custom-plan__note">
                   <span data-i18n="custom-plan.rates-lead" data-terms>Extras por uso:</span>
                   <span data-money data-usd="3">$3</span>
-                  <span data-i18n="custom-plan.rates-bot" data-terms>por cada <span class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." tabindex="0">bot</span>,</span>
+                  <span data-i18n="custom-plan.rates-bot" data-terms>por cada <button type="button" class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." aria-expanded="false">bot</button>,</span>
                   <span data-money data-usd="1">$1</span>
                   <span data-i18n="custom-plan.rates-messages" data-terms>por cada 1.000 mensajes y</span>
                   <span data-money data-usd="1">$1</span>
@@ -720,7 +720,7 @@
         </div>
 
         <p class="lede" style="margin-top:var(--space-6)" data-i18n="plans.included" data-terms>Todos incluyen
-          <span class="term" data-term="visual-editor" title="Donde creas o ajustas el flujo sin programar." tabindex="0">editor visual</span>, <span class="term" data-term="smart-imports" title="Propone un borrador del flujo a partir de tus chats, si lo autorizas." tabindex="0">Smart Imports</span>, panel de solicitudes y exportación CSV.</p>
+          <button type="button" class="term" data-term="visual-editor" title="Donde creas o ajustas el flujo sin programar." aria-expanded="false">editor visual</button>, <button type="button" class="term" data-term="smart-imports" title="Propone un borrador del flujo a partir de tus chats, si lo autorizas." aria-expanded="false">Smart Imports</button>, panel de solicitudes y exportación CSV.</p>
 
         <dl class="facts">
           <div class="fact">

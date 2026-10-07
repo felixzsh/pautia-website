@@ -158,11 +158,31 @@ a:hover {
   color: var(--brand-700);
 }
 
-/* A product term: the dotted underline says there is more, and the title
-   attribute explains it on hover or focus without leaving the page. */
+/* Native titles cover hover; clicking or tapping opens the same hint. */
 .term {
+  display: inline;
+  padding: 0;
+  background: none;
+  border: 0;
   border-bottom: 1px dotted currentColor;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
   cursor: help;
+}
+
+.term-help {
+  position: fixed;
+  z-index: 10;
+  width: max-content;
+  max-width: min(320px, calc(100vw - 24px));
+  padding: var(--space-3) var(--space-4);
+  background: var(--inv-bg);
+  border-radius: var(--radius-s);
+  box-shadow: var(--shadow-2);
+  color: var(--inv-fg);
+  font-size: var(--step--1);
+  line-height: 1.5;
 }
 
 .term:hover,

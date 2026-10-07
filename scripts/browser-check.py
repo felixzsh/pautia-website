@@ -203,6 +203,29 @@ with sync_playwright() as p:
                     f"{name}-{label}: headline is {page.locator('h1').inner_text()!r}"
                 )
 
+            term = page.locator('.hero__sub .term').first
+            term.click()
+            help_box = page.locator('#term-help')
+            if not help_box.is_visible() or help_box.inner_text() != term.get_attribute('title'):
+                problems.append(f"{name}-{label}: clicking a term did not show its help")
+            box = help_box.bounding_box()
+            if box and (box['x'] < 0 or box['x'] + box['width'] > width):
+                problems.append(f"{name}-{label}: term help overflows the viewport")
+            term.click()
+            if help_box.is_visible():
+                problems.append(f"{name}-{label}: clicking a term again did not close help")
+            term.focus()
+            page.keyboard.press('Enter')
+            if not help_box.is_visible():
+                problems.append(f"{name}-{label}: term help is not keyboard accessible")
+            page.keyboard.press('Escape')
+            if help_box.is_visible():
+                problems.append(f"{name}-{label}: Escape did not close term help")
+            term.click()
+            page.locator('.hero h1').click()
+            if help_box.is_visible():
+                problems.append(f"{name}-{label}: outside click did not close term help")
+
             # The illustration is readable content, and its request panel must
             # translate too. It is not a booking confirmation or a live screen.
             expected_status = {
@@ -617,6 +640,19 @@ with sync_playwright() as p:
             f"pricing: custom yearly estimate is {estimate.text_content()}, "
             f"{annual.text_content()}"
         )
+    page.locator('label[for=period-monthly]').first.click()
+    page.evaluate("""() => {
+      for (const id of ['custom-bots', 'custom-messages', 'custom-storage']) {
+        const input = document.getElementById(id);
+        input.value = input.max;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }""")
+    assert page.locator('#custom-bots').input_value() == '100'
+    assert page.locator('#custom-messages').input_value() == '1000000'
+    assert page.locator('#custom-storage-output').text_content() == '2 TB'
+    assert page.locator('[data-custom-max="storage"]').text_content() == '2 TB'
+    assert estimate.text_content() == '$21302'
     ctx.close()
 
     ctx = browser.new_context(java_script_enabled=False,

@@ -135,8 +135,9 @@ export function linkTerms(text, language) {
     const index = found.slice(1).findIndex((group) => group !== undefined);
     const [id, [, hint]] = entries[index];
     html += escapeText(text.slice(end, found.index));
-    html += `<span class="term" data-term="${id}" title="${escapeText(hint)}" tabindex="0">`;
-    html += escapeText(found[0]) + "</span>";
+    html += `<button type="button" class="term" data-term="${id}"`;
+    html += ` title="${escapeText(hint)}" aria-expanded="false">`;
+    html += escapeText(found[0]) + "</button>";
     end = found.index + found[0].length;
   }
   return html + escapeText(text.slice(end));

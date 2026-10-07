@@ -25,6 +25,13 @@ with sync_playwright() as p:
 
         page.route("**/api/waitlist", endpoint)
         page.goto("http://127.0.0.1:8080/")
+        term = page.locator('.hero__sub .term').first
+        if profile.get('has_touch'):
+            term.tap()
+            assert page.locator('#term-help').inner_text() == term.get_attribute('title')
+            assert page.locator('#term-help').is_visible()
+            term.tap()
+            assert not page.locator('#term-help').is_visible()
         page.locator(".cta [data-waitlist-open]").click()
         wizard = page.locator("#waitlist")
         assert wizard.is_visible()

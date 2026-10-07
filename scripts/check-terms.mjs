@@ -42,6 +42,8 @@ for (const path of ["public/index.html", "public/pricing.html"]) {
       if (attrs["data-term"]) {
         const inside = ["a", "button", "label", "summary", "select"].some((p) => stack.includes(p));
         assert(!inside, `${path}: ${attrs["data-term"]} term inside a control`);
+        assert.equal(tag, "button", `${path}: terms must support keyboard activation`);
+        assert.equal(attrs.type, "button", `${path}: terms must not submit forms`);
         assert(attrs.title, `${path}: ${attrs["data-term"]} has no hover hint`);
         terms++;
       }

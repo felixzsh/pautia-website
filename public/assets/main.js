@@ -182,8 +182,14 @@ import { linkTerms } from "/assets/terms.js";
     }]));
     const moneyNodes = Object.fromEntries([...host.querySelectorAll("[data-custom-price]")]
       .map((node) => [node.dataset.customPrice, node]));
-    const max = { bots: 20, messages: 100000, storage: 2000 };
+    const max = { bots: 100, messages: 1000000, storage: 2000000 };
     const format = (value) => new Intl.NumberFormat(page.lang).format(value);
+    function capacity(key, value) {
+      if (key !== "storage") return format(value);
+      if (value >= 1000000) return `${format(value / 1000000)} TB`;
+      if (value >= 1000) return `${format(value / 1000)} GB`;
+      return `${format(value)} MB`;
+    }
 
     function amount(key, value) {
       const rounded = Number(value.toFixed(2));
@@ -210,10 +216,10 @@ import { linkTerms } from "/assets/terms.js";
         control.max = max[key];
         if (reset || Number(control.value) < base[key]) control.value = base[key];
         current[key] = Number(control.value);
-        const suffix = key === "storage" ? " MB" : "";
-        outputs[key].textContent = format(current[key]) + suffix;
-        bounds[key].min.textContent = format(base[key]) + suffix;
-        bounds[key].max.textContent = format(max[key]) + suffix;
+        outputs[key].textContent = capacity(key, current[key]);
+        bounds[key].min.textContent = capacity(key, base[key]);
+        bounds[key].max.textContent = capacity(key, max[key]);
+        control.setAttribute("aria-valuetext", outputs[key].textContent);
       }
 
       const extra = {
@@ -358,6 +364,7 @@ import { linkTerms } from "/assets/terms.js";
   }
 
   function paint(lang) {
+    closeTermHelp();
     const table = strings[lang.file] || {};
     page.lang = lang.code;
     shown = lang.code;
@@ -479,6 +486,52 @@ import { linkTerms } from "/assets/terms.js";
     }
     details.append(body);
     host.replaceWith(details);
+  }
+
+  // One floating hint works for built terms and terms recreated by translation.
+  function termHelp() {
+    const help = document.createElement("div");
+    help.className = "term-help";
+    help.id = "term-help";
+    help.setAttribute("role", "tooltip");
+    help.hidden = true;
+    document.body.append(help);
+    let active = null;
+
+    function close() {
+      active?.setAttribute("aria-expanded", "false");
+      active?.removeAttribute("aria-describedby");
+      active = null;
+      help.hidden = true;
+    }
+
+    document.addEventListener("click", (event) => {
+      const term = event.target.closest(".term[data-term]");
+      if (help.contains(event.target)) return;
+      if (!term || term === active) return close();
+      close();
+      active = term;
+      help.textContent = term.title;
+      help.hidden = false;
+      const box = term.getBoundingClientRect();
+      const tip = help.getBoundingClientRect();
+      const left = Math.max(12, Math.min(box.left, innerWidth - tip.width - 12));
+      const below = box.bottom + 8;
+      const top = below + tip.height <= innerHeight - 12 ? below : box.top - tip.height - 8;
+      help.style.left = `${left}px`;
+      help.style.top = `${Math.max(12, top)}px`;
+      term.setAttribute("aria-expanded", "true");
+      term.setAttribute("aria-describedby", help.id);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+    document.addEventListener("focusin", (event) => {
+      if (active && event.target !== active) close();
+    });
+    addEventListener("scroll", close, true);
+    addEventListener("resize", close);
+    return close;
   }
 
   // Each examples track navigates independently. Phones stack its cards instead.
@@ -787,6 +840,7 @@ import { linkTerms } from "/assets/terms.js";
     } catch {}
   }
 
+  const closeTermHelp = termHelp();
   stashMarkup();
   customPlan();
   currencyPicker();
