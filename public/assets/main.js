@@ -170,7 +170,6 @@ import { linkTerms } from "/assets/terms.js";
     const tiers = [...host.querySelectorAll('input[name="custom-plan-base"]')];
     const controls = {
       bots: host.querySelector("#custom-bots"),
-      messages: host.querySelector("#custom-messages"),
       storage: host.querySelector("#custom-storage"),
     };
     const outputs = Object.fromEntries(Object.entries(controls).map(([key]) => [
@@ -185,7 +184,7 @@ import { linkTerms } from "/assets/terms.js";
     // Storage beyond the plan adds up in progressive GB tiers: a small history
     // pays only the first tier, a large one keeps a lower rate on the rest, and
     // reaching a new tier never makes the running total cost more than before.
-    const max = { bots: 100, messages: 500000, storage: 100000 };
+    const max = { bots: 100, storage: 100000 };
     const STORAGE_TIERS = [
       { upTo: 10, price: 1 },
       { upTo: 100, price: 0.5 },
@@ -229,7 +228,6 @@ import { linkTerms } from "/assets/terms.js";
       const base = {
         price: Number(plan.dataset.customPrice),
         bots: Number(plan.dataset.customBots),
-        messages: Number(plan.dataset.customMessages),
         storage: Number(plan.dataset.customStorage),
       };
       const current = {};
@@ -245,17 +243,15 @@ import { linkTerms } from "/assets/terms.js";
       }
 
       const extra = {
-        bots: (current.bots - base.bots) * 4,
-        messages: (current.messages - base.messages) / 1000,
+        bots: (current.bots - base.bots) * 5,
         storage: storagePrice(current.storage - base.storage),
       };
-      const monthly = base.price + extra.bots + extra.messages + extra.storage;
+      const monthly = base.price + extra.bots + extra.storage;
       const annual = document.querySelector("#period-yearly").checked;
       const factor = annual ? 0.8 : 1;
 
       amount("base", base.price * factor);
       amount("bots", extra.bots * factor);
-      amount("messages", extra.messages * factor);
       amount("storage", extra.storage * factor);
       amount("total", monthly * factor);
       amount("annual", monthly * 0.8 * 12);

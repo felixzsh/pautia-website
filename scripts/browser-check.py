@@ -623,7 +623,7 @@ with sync_playwright() as p:
     builder.check()
     page.evaluate("""() => {
       for (const [id, value] of [
-         ['custom-bots', 2], ['custom-messages', 4000], ['custom-storage', 200],
+         ['custom-bots', 2], ['custom-storage', 1200],
       ]) {
         const input = document.getElementById(id);
         input.value = value;
@@ -631,28 +631,27 @@ with sync_playwright() as p:
       }
     }""")
     estimate = page.locator('[data-custom-price="total"]')
-    if estimate.text_content() != "$14.10":
+    if estimate.text_content() != "$15.10":
         problems.append(f"pricing: custom monthly estimate is {estimate.text_content()}")
     page.locator("label[for=period-yearly]").first.click()
     annual = page.locator(".custom-plan__annual")
-    if estimate.text_content() != "$11.28" or "$135.36" not in annual.text_content():
+    if estimate.text_content() != "$12.08" or "$144.96" not in annual.text_content():
         problems.append(
             f"pricing: custom yearly estimate is {estimate.text_content()}, "
             f"{annual.text_content()}"
         )
     page.locator('label[for=period-monthly]').first.click()
     page.evaluate("""() => {
-      for (const id of ['custom-bots', 'custom-messages', 'custom-storage']) {
+      for (const id of ['custom-bots', 'custom-storage']) {
         const input = document.getElementById(id);
         input.value = input.max;
         input.dispatchEvent(new Event('input', { bubbles: true }));
       }
     }""")
     assert page.locator('#custom-bots').input_value() == '100'
-    assert page.locator('#custom-messages').input_value() == '500000'
     assert page.locator('#custom-storage-output').text_content() == '100 GB'
     assert page.locator('[data-custom-max="storage"]').text_content() == '100 GB'
-    assert estimate.text_content() == '$956.95'
+    assert estimate.text_content() == '$558.95'
     ctx.close()
 
     ctx = browser.new_context(java_script_enabled=False,

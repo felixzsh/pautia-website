@@ -241,9 +241,9 @@ for page_html in (index_html, pricing_html):
 # Every language has to sell the same quantity; the thousands mark is a language
 # detail, so only the digits are compared.
 ROWS = (
-    (1, 5, 200, 3000, "100 MB"),
-    (5, 50, 1000, 15000, "500 MB"),
-    (10, 100, 2000, 30000, "1.000 MB"),
+    (1, 5, 200, "100 MB"),
+    (5, 50, 1000, "500 MB"),
+    (10, 100, 2000, "1.000 MB"),
 )
 
 
@@ -253,7 +253,7 @@ def digits(value):
 
 for card, row in zip(cards, ROWS):
     row_keys = re.findall(r'data-i18n="(plans\.row-value\.\d+)"', card)
-    assert len(row_keys) == 5, row_keys
+    assert len(row_keys) == 4, row_keys
     for key, value in zip(row_keys, row):
         expected = f"{value:,}" if isinstance(value, int) else value
         for code, table in strings.items():

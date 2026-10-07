@@ -193,7 +193,7 @@
 
           <div class="plans__grid">
             <article class="plan" data-custom-price="9" data-custom-bots="1"
-              data-custom-messages="3000" data-custom-storage="100" data-no-terms>
+              data-custom-storage="100" data-no-terms>
               <span class="plan__tag plan__tag--blank" aria-hidden="true">&nbsp;</span>
               <h3 class="plan__name" data-i18n="plans.plan-name.0">Básico</h3>
               <p class="plan__pitch" data-i18n="plans.plan-pitch.0">Para organizar tu atención.</p>
@@ -253,20 +253,6 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.3">Mensajes</span>
-                  </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.3">3.000</span>
-                    <button class="row__help" type="button"
-                      aria-label="Los mensajes que envía el agente, no las conversaciones.
-                        Al llegar al máximo, deja de enviar hasta que haya capacidad."
-                      data-i18n-attrs="aria-label:plans.row-tip.3">?<span
-                        class="row__tip" aria-hidden="true"
-                        data-i18n="plans.row-tip.3">Los mensajes que envía el agente, no las
-                        conversaciones. Al llegar al máximo, deja de enviar hasta que haya
-                        capacidad.</span></button></dd>
-                </div>
-                <div class="row">
-                  <dt class="row__key">
                     <span data-i18n="plans.row-key.4">Almacenamiento</span>
                   </dt>
                   <dd class="row__value"><span data-i18n="plans.row-value.4">100 MB</span>
@@ -319,7 +305,7 @@
                  article and put the "Popular" label in the tag below. Until
                  then every plan looks the same. -->
             <article class="plan" data-custom-price="39" data-custom-bots="5"
-              data-custom-messages="15000" data-custom-storage="500" data-no-terms>
+              data-custom-storage="500" data-no-terms>
               <span class="plan__tag plan__tag--blank" aria-hidden="true">&nbsp;</span>
               <h3 class="plan__name" data-i18n="plans.plan-name.1">Estándar</h3>
               <p class="plan__pitch" data-i18n="plans.plan-pitch.1">Para más consultas y
@@ -380,20 +366,6 @@
                 </div>
                 <div class="row">
                   <dt class="row__key">
-                    <span data-i18n="plans.row-key.8">Mensajes</span>
-                  </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.8">15.000</span>
-                    <button class="row__help" type="button"
-                      aria-label="Los mensajes que envía el agente, no las conversaciones.
-                        Al llegar al máximo, deja de enviar hasta que haya capacidad."
-                      data-i18n-attrs="aria-label:plans.row-tip.3">?<span
-                        class="row__tip" aria-hidden="true"
-                        data-i18n="plans.row-tip.3">Los mensajes que envía el agente, no las
-                        conversaciones. Al llegar al máximo, deja de enviar hasta que haya
-                        capacidad.</span></button></dd>
-                </div>
-                <div class="row">
-                  <dt class="row__key">
                     <span data-i18n="plans.row-key.9">Almacenamiento</span>
                   </dt>
                   <dd class="row__value"><span data-i18n="plans.row-value.9">500 MB</span>
@@ -443,7 +415,7 @@
 
 
             <article class="plan" data-custom-price="69" data-custom-bots="10"
-              data-custom-messages="30000" data-custom-storage="1000" data-no-terms>
+              data-custom-storage="1000" data-no-terms>
               <span class="plan__tag plan__tag--blank" aria-hidden="true">&nbsp;</span>
               <h3 class="plan__name" data-i18n="plans.plan-name.2">Profesional</h3>
               <p class="plan__pitch" data-i18n="plans.plan-pitch.2">Para varios locales o equipos.</p>
@@ -500,20 +472,6 @@
                         data-i18n="plans.row-tip.2">Cantidad máxima de acciones que puedes definir,
                         no de ejecuciones. Por ejemplo: consultar una API o registrar datos.</span>
                     </button></dd>
-                </div>
-                <div class="row">
-                  <dt class="row__key">
-                    <span data-i18n="plans.row-key.13">Mensajes</span>
-                  </dt>
-                  <dd class="row__value"><span data-i18n="plans.row-value.13">30.000</span>
-                    <button class="row__help" type="button"
-                      aria-label="Los mensajes que envía el agente, no las conversaciones.
-                        Al llegar al máximo, deja de enviar hasta que haya capacidad."
-                      data-i18n-attrs="aria-label:plans.row-tip.3">?<span
-                        class="row__tip" aria-hidden="true"
-                        data-i18n="plans.row-tip.3">Los mensajes que envía el agente, no las
-                        conversaciones. Al llegar al máximo, deja de enviar hasta que haya
-                        capacidad.</span></button></dd>
                 </div>
                 <div class="row">
                   <dt class="row__key">
@@ -644,21 +602,6 @@
                   </div>
                   <div class="custom-plan__control">
                     <div class="custom-plan__control-head">
-                      <label for="custom-messages" data-i18n="custom-plan.messages-label">
-                        Mensajes salientes</label>
-                      <output id="custom-messages-output" for="custom-messages">15.000</output>
-                    </div>
-                    <p id="custom-messages-help" data-i18n="custom-plan.messages-help" data-terms>
-                      Mensajes que envían tus <button type="button" class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." aria-expanded="false">bots</button> cada mes.</p>
-                    <input id="custom-messages" type="range" min="15000" max="500000"
-                      step="1000" value="15000" aria-describedby="custom-messages-help">
-                    <div class="custom-plan__bounds" aria-hidden="true">
-                      <span data-custom-min="messages">15.000</span>
-                      <span data-custom-max="messages">500.000</span>
-                    </div>
-                  </div>
-                  <div class="custom-plan__control">
-                    <div class="custom-plan__control-head">
                       <label for="custom-storage" data-i18n="custom-plan.storage-label">
                         Almacenamiento</label>
                       <output id="custom-storage-output" for="custom-storage">500 MB</output>
@@ -689,10 +632,6 @@
                     <dd><span data-money data-custom-price="bots" data-usd="0">$0</span></dd>
                   </div>
                   <div>
-                    <dt data-i18n="custom-plan.summary-messages" data-terms>Mensajes adicionales</dt>
-                    <dd><span data-money data-custom-price="messages" data-usd="0">$0</span></dd>
-                  </div>
-                  <div>
                     <dt data-i18n="custom-plan.summary-storage" data-terms>
                       Almacenamiento adicional</dt>
                     <dd><span data-money data-custom-price="storage" data-usd="0">$0</span></dd>
@@ -710,10 +649,8 @@
                 </p>
                 <p class="custom-plan__note">
                   <span data-i18n="custom-plan.rates-lead" data-terms>Extras por uso:</span>
-                  <span data-money data-usd="4">$4</span>
+                  <span data-money data-usd="5">$5</span>
                   <span data-i18n="custom-plan.rates-bot" data-terms>por cada <button type="button" class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." aria-expanded="false">bot</button>,</span>
-                  <span data-money data-usd="1">$1</span>
-                  <span data-i18n="custom-plan.rates-messages" data-terms>por cada 1.000 mensajes y</span>
                   <span data-money data-usd="1">$1</span>
                   <span data-i18n="custom-plan.rates-storage" data-terms>por GB adicional; descuentos por
                     volumen.</span></p>
