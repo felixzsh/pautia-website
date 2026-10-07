@@ -1126,6 +1126,8 @@ ol {
   border-radius: var(--radius-l);
 }
 
+/* Kept for the day one plan is featured as the popular one; with no tag on any
+   card today, every plan is drawn the same and this rule is not applied. */
 .plan--top {
   border-color: var(--brand-600);
   box-shadow: var(--shadow-2);
@@ -1180,8 +1182,8 @@ ol {
   font-weight: 650;
 }
 
-/* The card that recommends itself carries a tag; the others reserve the same
-   room with the same box, hidden, so every plan starts on the same line. */
+/* A featured plan carries a tag; the others reserve the same room with the same
+   box, hidden, so every plan starts on the same line. */
 .plan__tag--blank {
   visibility: hidden;
 }

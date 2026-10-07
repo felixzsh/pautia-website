@@ -315,9 +315,12 @@
             </article>
 
 
-            <article class="plan plan--top" data-custom-price="39" data-custom-bots="5"
+            <!-- To feature a plan once there are customers, add plan--top to the
+                 article and put the "Popular" label in the tag below. Until
+                 then every plan looks the same. -->
+            <article class="plan" data-custom-price="39" data-custom-bots="5"
               data-custom-messages="15000" data-custom-storage="500" data-no-terms>
-              <span class="plan__tag" data-i18n="plans.plan-tag.0">Recomendado</span>
+              <span class="plan__tag plan__tag--blank" aria-hidden="true">&nbsp;</span>
               <h3 class="plan__name" data-i18n="plans.plan-name.1">Estándar</h3>
               <p class="plan__pitch" data-i18n="plans.plan-pitch.1">Para más consultas y
                 solicitudes.</p>
@@ -647,11 +650,11 @@
                     </div>
                     <p id="custom-messages-help" data-i18n="custom-plan.messages-help" data-terms>
                       Mensajes que envían tus <button type="button" class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." aria-expanded="false">bots</button> cada mes.</p>
-                    <input id="custom-messages" type="range" min="15000" max="1000000"
+                    <input id="custom-messages" type="range" min="15000" max="500000"
                       step="1000" value="15000" aria-describedby="custom-messages-help">
                     <div class="custom-plan__bounds" aria-hidden="true">
                       <span data-custom-min="messages">15.000</span>
-                      <span data-custom-max="messages">1.000.000</span>
+                      <span data-custom-max="messages">500.000</span>
                     </div>
                   </div>
                   <div class="custom-plan__control">
@@ -662,11 +665,11 @@
                     </div>
                     <p id="custom-storage-help" data-i18n="custom-plan.storage-help" data-terms>
                       Historial de texto que conserva tu cuenta.</p>
-                    <input id="custom-storage" type="range" min="500" max="2000000" step="50"
+                    <input id="custom-storage" type="range" min="500" max="100000" step="50"
                       value="500" aria-describedby="custom-storage-help">
                     <div class="custom-plan__bounds" aria-hidden="true">
                       <span data-custom-min="storage">500 MB</span>
-                      <span data-custom-max="storage">2 TB</span>
+                      <span data-custom-max="storage">100 GB</span>
                     </div>
                   </div>
                 </div>
@@ -707,12 +710,13 @@
                 </p>
                 <p class="custom-plan__note">
                   <span data-i18n="custom-plan.rates-lead" data-terms>Extras por uso:</span>
-                  <span data-money data-usd="3">$3</span>
+                  <span data-money data-usd="4">$4</span>
                   <span data-i18n="custom-plan.rates-bot" data-terms>por cada <button type="button" class="term" data-term="agent" title="El que atiende en tu WhatsApp siguiendo tus reglas." aria-expanded="false">bot</button>,</span>
                   <span data-money data-usd="1">$1</span>
                   <span data-i18n="custom-plan.rates-messages" data-terms>por cada 1.000 mensajes y</span>
                   <span data-money data-usd="1">$1</span>
-                  <span data-i18n="custom-plan.rates-storage" data-terms>por cada 100 MB.</span></p>
+                  <span data-i18n="custom-plan.rates-storage" data-terms>por GB adicional; descuentos por
+                    volumen.</span></p>
               </aside>
             </div>
           </section>

@@ -182,8 +182,30 @@ import { linkTerms } from "/assets/terms.js";
     }]));
     const moneyNodes = Object.fromEntries([...host.querySelectorAll("[data-custom-price]")]
       .map((node) => [node.dataset.customPrice, node]));
-    const max = { bots: 100, messages: 1000000, storage: 2000000 };
+    // Storage beyond the plan adds up in progressive GB tiers: a small history
+    // pays only the first tier, a large one keeps a lower rate on the rest, and
+    // reaching a new tier never makes the running total cost more than before.
+    const max = { bots: 100, messages: 500000, storage: 100000 };
+    const STORAGE_TIERS = [
+      { upTo: 10, price: 1 },
+      { upTo: 100, price: 0.5 },
+      { upTo: 500, price: 0.25 },
+      { upTo: Infinity, price: 0.1 },
+    ];
     const format = (value) => new Intl.NumberFormat(page.lang).format(value);
+    function storagePrice(mb) {
+      let left = mb / 1000;
+      let total = 0;
+      let floor = 0;
+      for (const tier of STORAGE_TIERS) {
+        const span = Math.min(left, tier.upTo - floor);
+        if (span <= 0) break;
+        total += span * tier.price;
+        left -= span;
+        floor = tier.upTo;
+      }
+      return total;
+    }
     function capacity(key, value) {
       if (key !== "storage") return format(value);
       if (value >= 1000000) return `${format(value / 1000000)} TB`;
@@ -223,9 +245,9 @@ import { linkTerms } from "/assets/terms.js";
       }
 
       const extra = {
-        bots: (current.bots - base.bots) * 3,
+        bots: (current.bots - base.bots) * 4,
         messages: (current.messages - base.messages) / 1000,
-        storage: (current.storage - base.storage) / 100,
+        storage: storagePrice(current.storage - base.storage),
       };
       const monthly = base.price + extra.bots + extra.messages + extra.storage;
       const annual = document.querySelector("#period-yearly").checked;
