@@ -104,6 +104,10 @@ for lang in languages:
     assert path.exists(), f"{lang['code']}: {path} is listed but missing"
     strings[lang["code"]] = json.loads(path.read_text())
 
+for code, table in strings.items():
+    assert "12" in table["credits.expiry-topups"], (code, "top-ups last 12 months")
+    assert "fuzzy routing" in table["credits.empty-routing"], (code, "free routing option")
+
 # Every file in the folder is a language the pages offer, and the other way round.
 on_disk = {p.name for p in I18N.glob("*.json")}
 listed = {lang["file"] for lang in languages}
