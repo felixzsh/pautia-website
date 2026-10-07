@@ -25,7 +25,7 @@ with sync_playwright() as p:
 
         page.route("**/api/waitlist", endpoint)
         page.goto("http://127.0.0.1:8080/")
-        page.locator(".hero__cta [data-waitlist-open]").click()
+        page.locator(".cta [data-waitlist-open]").click()
         wizard = page.locator("#waitlist")
         assert wizard.is_visible()
         # The journey lands with its first question just below the header, not
@@ -64,7 +64,7 @@ with sync_playwright() as p:
         assert attempts[1]["rubro_other"] == "Respuesta de prueba"
         assert page.evaluate("localStorage.getItem('pautia:waitlist-email')") == "test@example.com"
         page.reload()
-        page.locator(".hero__cta [data-waitlist-open]").click()
+        page.locator(".cta [data-waitlist-open]").click()
         assert wizard.locator("[data-waitlist-email]").inner_text() == "test@example.com"
         assert not wizard.locator("form").is_visible()
         wizard.locator("[data-waitlist-reset]").click()

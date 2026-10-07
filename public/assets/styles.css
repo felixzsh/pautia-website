@@ -214,6 +214,23 @@ ol {
   border-block: 1px solid var(--line-soft);
 }
 
+/* Alternate the entire landing, including the CTA and footer, as sections grow. */
+.landing main > section {
+  --panel: var(--bg-sub);
+  background: var(--bg);
+  border-block: 0;
+}
+
+.landing main > section:nth-of-type(even) {
+  --panel: var(--bg);
+  background: var(--bg-sub);
+  border-block: 1px solid var(--line-soft);
+}
+
+.landing:has(main > section:last-child:nth-of-type(even)) > .footer {
+  background: var(--bg);
+}
+
 .section__head {
   max-width: var(--prose);
   margin-bottom: var(--space-8);
@@ -466,9 +483,7 @@ ol {
   }
 }
 
-/* Narrower than this the header cannot hold the brand, the menu, the language
-   and the call to action at once. The hero carries the same call to action right
-   below, so the header keeps what navigates. */
+/* Narrow headers keep navigation; the final section keeps the waitlist action. */
 @media (max-width: 520px) {
   .header__actions > .btn {
     display: none;
@@ -564,13 +579,6 @@ ol {
   margin-top: var(--space-5);
   font-size: var(--step-1);
   color: var(--ink-500);
-}
-
-.hero__cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-6);
 }
 
 .hero__note {
@@ -1260,6 +1268,8 @@ ol {
 }
 
 .row__key {
+  min-width: 0;
+  overflow-wrap: anywhere;
   color: var(--ink-500);
 }
 

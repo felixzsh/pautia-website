@@ -139,6 +139,19 @@ with sync_playwright() as p:
                     f"{name}-{label}: panels with no contrast against their section: {flat}"
                 )
 
+            backgrounds = page.evaluate("""() => {
+              const color = el => {
+                while (el) {
+                  const bg = getComputedStyle(el).backgroundColor;
+                  if (bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') return bg;
+                  el = el.parentElement;
+                }
+              };
+              return [...document.querySelectorAll('main > section, body > footer')].map(color);
+            }""")
+            if any(a == b for a, b in zip(backgrounds, backgrounds[1:])):
+                problems.append(f"{name}-{label}: adjacent section/footer backgrounds match")
+
             # Both menus are the same component, so both are opened and
             # measured here: the panel has to fit what is inside it, hang
             # from its own button and close when the visitor clicks away. The
@@ -200,6 +213,26 @@ with sync_playwright() as p:
                 problems.append(f"{name}-{label}: the request status did not translate")
             if not page.locator(".mock__request").first.is_visible():
                 problems.append(f"{name}-{label}: the example stops at the conversation")
+
+            for section_id, count in (("examples", 4), ("api-examples", 3)):
+                host = page.locator(f"#{section_id}")
+                if host.locator("figure.mock").count() != count:
+                    problems.append(f"{name}-{label}: #{section_id} has missing examples")
+                next_button = host.locator("[data-mock-next]")
+                if width >= 900:
+                    next_button.click()
+                    page.wait_for_function(
+                        "id => document.querySelector(`#${id} .mocks__track`).scrollLeft > 10",
+                        arg=section_id,
+                    )
+                    page.wait_for_timeout(500)
+                    host.locator("[data-mock-prev]").click()
+                    page.wait_for_function(
+                        "id => document.querySelector(`#${id} .mocks__track`).scrollLeft < 2",
+                        arg=section_id,
+                    )
+                elif next_button.is_visible():
+                    problems.append(f"{name}-{label}: #{section_id} shows desktop arrows")
 
             # A limit is one thing on one line: "50 MB", never "50" over "MB".
             split = page.evaluate("""() => {
@@ -315,7 +348,9 @@ with sync_playwright() as p:
             # script, and one dialog behind it for everyone else. It starts
             # closed, opens from the call to action, asks four things, and closes
             # with escape. The trap is off the screen, where nobody clicks it.
-            cta = page.locator(".hero__cta a.btn--primary").first
+            cta = page.locator(".header [data-waitlist-open]")
+            if not cta.is_visible():
+                cta = page.locator(".cta [data-waitlist-open]")
             if "mailto:" not in (cta.get_attribute("href") or ""):
                 problems.append(f"{name}-{label}: primary CTA is not a waitlist mailto")
             dialog = page.locator("#waitlist")
@@ -342,6 +377,11 @@ with sync_playwright() as p:
             page.keyboard.press("Enter")
             if not page.locator(".faq details").first.evaluate("d => d.open"):
                 problems.append(f"{name}-{label}: FAQ did not open with the keyboard")
+
+            page.locator('[data-i18n="faq.summary.3"]').click()
+            page.locator('[data-i18n="faq.management-link"]').click()
+            if not page.url.endswith("#examples"):
+                problems.append(f"{name}-{label}: CRM answer does not link to Pautia examples")
 
             page.locator('[data-i18n="faq.summary.6"]').click()
             if page.locator('.account-safety').count():
@@ -560,7 +600,7 @@ with sync_playwright() as p:
     builder.check()
     page.evaluate("""() => {
       for (const [id, value] of [
-        ['custom-bots', 2], ['custom-messages', 4000], ['custom-storage', 150],
+         ['custom-bots', 2], ['custom-messages', 4000], ['custom-storage', 200],
       ]) {
         const input = document.getElementById(id);
         input.value = value;

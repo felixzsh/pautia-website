@@ -79,7 +79,7 @@
   </script>
 </head>
 
-<body>
+<body class="landing">
   <a class="skip" href="#main" data-i18n="page.skip.0">Saltar al contenido</a>
 
 {% include "icons.njk" %}
@@ -93,11 +93,6 @@
           <h1 data-i18n="main.h1.0" data-no-terms>Gestiona tu negocio con agentes predecibles</h1>
           <p class="hero__sub" data-i18n="main.hero-sub.0">El agente atiende por WhatsApp.
             Tu equipo gestiona las solicitudes en Pautia, con tus reglas.</p>
-          <div class="hero__cta">
-            <a class="btn btn--primary" data-i18n="main.btn.0" data-waitlist-open
-              href="mailto:info@pautia.app?subject=Waitlist%20for%20Pautia">Lista de espera</a>
-            <a class="btn btn--ghost" href="#how" data-i18n="main.btn.1">Ver cómo funciona</a>
-          </div>
           <p class="hero__note" data-i18n="main.hero-note.0">Estamos preparando la plataforma.
             Te avisaremos cuando abra el registro.</p>
         </div>
@@ -105,13 +100,73 @@
       </div>
     </section>
 
+    <section class="section section--sub" id="how">
+      <div class="wrap">
+        <div class="section__head">
+          <h2 id="how-t" data-i18n="how-t.h2.0">Tu atención, de principio a fin</h2>
+          <p data-i18n="how.note.0">Conecta, define y activa una atención que trabaja con
+            tu negocio.</p>
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <h3 data-i18n="how.h3.0">Conecta WhatsApp</h3>
+            <p><span data-i18n="how.p.0">Vincula tu número de siempre a un agente.</span>
+              <span data-i18n="how.detail.0">Si quieres, Smart Imports propone un flujo desde
+                tus chats, con tu permiso.</span></p>
+          </li>
+          <li class="step">
+            <h3 data-i18n="how.h3.1">Define comportamiento</h3>
+            <p><span data-i18n="how.p.1">Crea el flujo desde cero o refina el borrador en el
+                editor visual, sin programar.</span>
+              <span data-i18n="how.detail.1">Elige respuestas, acciones, horarios y cuándo
+                debe pasar la conversación a una persona.</span></p>
+          </li>
+          <li class="step">
+            <h3 data-i18n="how.h3.2">Activa y gestiona</h3>
+            <p><span data-i18n="how.p.2">Gestiona completamente con Pautia</span>
+              <span data-i18n="how.systems">o integra tu propio sistema.</span>
+              <span data-i18n="how.detail.2">El agente sigue el flujo definido y escala
+                cuando debe.</span></p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="usecases">
+      <div class="wrap">
+        <div class="section__head">
+          <h2 id="usecases-t" data-i18n="usecases-t.h2.0">Para lo que hoy resuelves entre
+            mensajes</h2>
+          <p data-i18n="usecases.intro">Para negocios que reciben consultas, citas y cotizaciones
+            por WhatsApp. No automatiza todo.</p>
+        </div>
+        <div class="cards cards--3">
+          <article class="card">
+            <h3 data-i18n="usecases.h3.0">Citas y reservas</h3>
+            <p data-i18n="usecases.p.0">El agente recoge nombre y fecha. Tu equipo revisa la
+              solicitud y confirma la disponibilidad.</p>
+          </article>
+          <article class="card">
+            <h3 data-i18n="usecases.h3.1">Cotizaciones</h3>
+            <p data-i18n="usecases.p.1">Recoge los datos en el panel. Tu equipo prepara la
+              cotización y decide el precio y el cierre.</p>
+          </article>
+          <article class="card">
+            <h3 data-i18n="usecases.h3.5">Preguntas frecuentes</h3>
+            <p data-i18n="usecases.p.5">Responde sobre horarios, servicios y pagos con tu
+              información, sin inventar respuestas.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- Worked examples, not a live demo or a screenshot of an available product. -->
     <section class="section section--sub" id="examples">
       <div class="wrap">
         <div class="section__head">
-          <h2 data-i18n="examples.title">De la conversación a la gestión en Pautia</h2>
-          <p data-i18n="examples.note">Ejemplos ilustrativos, no capturas. Chat en WhatsApp;
-            gestión y respuestas en Pautia.</p>
+          <h2 data-i18n="examples.title">Gestión sencilla, dentro de Pautia</h2>
+          <p data-i18n="examples.note">Ejemplos ilustrativos, no capturas. El agente atiende por
+            WhatsApp y tu equipo gestiona en Pautia.</p>
         </div>
         <div class="mocks" data-mocks>
           <div class="mocks__layout">
@@ -303,6 +358,7 @@
                   información. No se registró una solicitud.</p>
               </div>
             </figure>
+
             </div>
             <button class="mocks__arrow mocks__arrow--next" type="button" data-mock-next
               aria-label="Ejemplo siguiente" data-i18n-attrs="aria-label:main.mock-next" hidden>
@@ -314,67 +370,205 @@
       </div>
     </section>
 
-    <section class="section" id="how">
+    <section class="section" id="api-examples">
       <div class="wrap">
         <div class="section__head">
-          <h2 id="how-t" data-i18n="how-t.h2.0">Tu atención, de principio a fin</h2>
-          <p data-i18n="how.note.0">Conecta, define y activa una atención que trabaja con
-            tu negocio.</p>
+          <h2 data-i18n="examples.api-title">Automatización con la API de tu negocio</h2>
+          <p data-i18n="examples.api-note">Ejemplos ilustrativos con API compatibles configuradas.
+            El agente pide datos, consulta tu sistema y ejecuta acciones al confirmar.</p>
         </div>
-        <ol class="steps">
-          <li class="step">
-            <h3 data-i18n="how.h3.0">Conecta WhatsApp</h3>
-            <p><span data-i18n="how.p.0">Vincula tu número de siempre a un agente.</span>
-              <span data-i18n="how.detail.0">Si quieres, Smart Imports propone un flujo desde
-                tus chats, con tu permiso.</span></p>
-          </li>
-          <li class="step">
-            <h3 data-i18n="how.h3.1">Define comportamiento</h3>
-            <p><span data-i18n="how.p.1">Crea el flujo desde cero o refina el borrador en el
-                editor visual, sin programar.</span>
-              <span data-i18n="how.detail.1">Elige respuestas, acciones, horarios y cuándo
-                debe pasar la conversación a una persona.</span></p>
-          </li>
-          <li class="step">
-            <h3 data-i18n="how.h3.2">Activa y gestiona</h3>
-            <p><span data-i18n="how.p.2">Gestiona completamente con Pautia</span>
-              <span data-i18n="how.systems">o integra tu propio sistema.</span>
-              <span data-i18n="how.detail.2">El agente sigue el flujo definido y escala
-                cuando debe.</span></p>
-          </li>
-        </ol>
+        <div class="mocks" data-mocks>
+          <div class="mocks__layout">
+            <button class="mocks__arrow mocks__arrow--prev" type="button" data-mock-prev
+              aria-label="Ejemplo anterior" data-i18n-attrs="aria-label:main.mock-prev" hidden>
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"
+                focusable="false"><use href="#i-chevron" /></svg>
+            </button>
+            <div class="mocks__track">
+            <figure class="mock">
+              <div class="mock__head">
+                <span class="mock__avatar" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="main.mock-who.4">WhatsApp · Repuestos
+                    Norte</span>
+                  <br><span class="mock__state" data-i18n="main.mock-state.4">Arma el pedido</span>
+                </span>
+              </div>
+              <div class="mock__conversation">
+                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <div class="mock__thread">
+                  <p class="bubble bubble--in" data-i18n="main.bubble.16">Quiero dos kits de
+                    mantenimiento para un Corolla 2018.</p>
+                  <p class="bubble bubble--out" data-i18n="main.bubble.17">¿Motor 1.8 o 2.0? ¿En
+                    qué sucursal recogerías?</p>
+                  <p class="bubble bubble--in" data-i18n="main.bubble.18">Motor 1.8, sucursal
+                    Centro.</p>
+                  <p class="bubble bubble--out" data-i18n="main.bubble.19">Hay dos kits
+                    compatibles en Centro. ¿Los agrego?</p>
+                  <p class="bubble bubble--in" data-i18n="main.bubble.20">Sí, y agrega un filtro
+                    de aire.</p>
+                  <p class="bubble bubble--out" data-i18n="main.bubble.21">Hay un filtro
+                    compatible. ¿Confirmas el pedido actualizado?</p>
+                  <p class="bubble bubble--in" data-i18n="main.bubble.22">Confirmo.</p>
+                  <p class="bubble bubble--out" data-i18n="main.bubble.23">Pedido creado. Folio
+                    RN-2048; retíralo en Centro.</p>
+                </div>
+              </div>
+              <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__request">
+                <p class="mock__label" data-i18n="examples.api">API REST del negocio</p>
+                <div class="mock__request-head">
+                  <strong data-i18n="main.external-title">Repuestos Norte · Pedido</strong>
+                  <span class="mock__status" data-i18n="main.external-status">Creado</span>
+                </div>
+                <dl class="mock__details">
+                  <div>
+                    <dt data-i18n="main.external-action-label">Acciones HTTP</dt>
+                    <dd data-i18n="main.external-action">GET catálogo → POST al confirmar</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="main.external-items-label">Pedido</dt>
+                    <dd data-i18n="main.external-items">2 kits + 1 filtro de aire</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="main.external-engine-label">Motor</dt>
+                    <dd data-i18n="main.external-engine">1.8</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="main.external-branch-label">Sucursal</dt>
+                    <dd data-i18n="main.external-branch">Centro</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="main.external-id-label">Folio de API</dt>
+                    <dd>RN-2048</dd>
+                  </div>
+                </dl>
+                <p class="mock__next" data-i18n="main.external-next">El pedido se envía a la
+                  API al confirmar.</p>
+              </div>
+            </figure>
+            <figure class="mock">
+              <div class="mock__head">
+                <span class="mock__avatar" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="delivery.who">WhatsApp · Envíos Ruta</span>
+                  <br><span class="mock__state" data-i18n="delivery.state">Reprograma la
+                    entrega</span>
+                </span>
+              </div>
+              <div class="mock__conversation">
+                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <div class="mock__thread">
+                  <p class="bubble bubble--in" data-i18n="delivery.bubble.0">Mañana no estaré
+                    para recibir mi paquete.</p>
+                  <p class="bubble bubble--out" data-i18n="delivery.bubble.1">¿Cuál es tu número
+                    de seguimiento?</p>
+                  <p class="bubble bubble--in" data-i18n="delivery.bubble.2">RT-7302. ¿Puede ser
+                    el viernes por la tarde?</p>
+                  <p class="bubble bubble--out" data-i18n="delivery.bubble.3">Tu envío permite
+                    cambios. Hay horario el viernes de 16 a 18. ¿Lo confirmas?</p>
+                  <p class="bubble bubble--in" data-i18n="delivery.bubble.4">Sí, ese horario.</p>
+                  <p class="bubble bubble--out" data-i18n="delivery.bubble.5">La empresa confirmó
+                    el cambio: viernes, de 16 a 18.</p>
+                </div>
+              </div>
+              <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__request">
+                <p class="mock__label" data-i18n="examples.api">API REST del negocio</p>
+                <div class="mock__request-head">
+                  <strong data-i18n="delivery.title">Envíos Ruta · Entrega</strong>
+                  <span class="mock__status" data-i18n="delivery.status">Reprogramada</span>
+                </div>
+                <dl class="mock__details">
+                  <div>
+                    <dt data-i18n="main.external-action-label">Acciones HTTP</dt>
+                    <dd data-i18n="delivery.actions">GET envío y horarios → PATCH al confirmar</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="delivery.tracking">Seguimiento</dt><dd>RT-7302</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="delivery.slot">Nuevo horario</dt>
+                    <dd data-i18n="delivery.slot-value">Viernes · 16:00–18:00</dd>
+                  </div>
+                </dl>
+                <p class="mock__next" data-i18n="delivery.next">El cambio se guarda en el
+                  sistema de la empresa, no como solicitud pendiente en Pautia.</p>
+              </div>
+            </figure>
+            <figure class="mock">
+              <div class="mock__head">
+                <span class="mock__avatar" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="hotel.who">WhatsApp · Hotel Brisa</span>
+                  <br><span class="mock__state" data-i18n="hotel.state">Consulta y reserva</span>
+                </span>
+              </div>
+              <div class="mock__conversation">
+                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <div class="mock__thread">
+                  <p class="bubble bubble--in" data-i18n="hotel.bubble.0">¿Tienen habitación
+                    para el fin de semana?</p>
+                  <p class="bubble bubble--out" data-i18n="hotel.bubble.1">¿Qué días y para
+                    cuántas personas?</p>
+                  <p class="bubble bubble--in" data-i18n="hotel.bubble.2">Del 16 al 18 de octubre,
+                    dos adultos.</p>
+                  <p class="bubble bubble--out" data-i18n="hotel.bubble.3">Hay una doble
+                    disponible. ¿A nombre de quién la reservamos?</p>
+                  <p class="bubble bubble--in" data-i18n="hotel.bubble.4">Ana López. ¿Podemos
+                    salir el 19 mejor?</p>
+                  <p class="bubble bubble--out" data-i18n="hotel.bubble.5">Volví a consultar: del
+                    16 al 19 también hay lugar. ¿Confirmas esa estancia para dos adultos?</p>
+                  <p class="bubble bubble--in" data-i18n="hotel.bubble.6">Sí, confirmo.</p>
+                  <p class="bubble bubble--out" data-i18n="hotel.bubble.7">El hotel confirmó tu
+                    reserva HB-091. Entrada el 16 y salida el 19.</p>
+                </div>
+              </div>
+              <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__request">
+                <p class="mock__label" data-i18n="examples.api">API REST del negocio</p>
+                <div class="mock__request-head">
+                  <strong data-i18n="hotel.title">Hotel Brisa · Reserva</strong>
+                  <span class="mock__status" data-i18n="hotel.status">Confirmada por el hotel</span>
+                </div>
+                <dl class="mock__details">
+                  <div>
+                    <dt data-i18n="main.external-action-label">Acciones HTTP</dt>
+                    <dd data-i18n="hotel.actions">GET disponibilidad → POST al confirmar</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="main.request-client">Cliente</dt><dd>Ana López</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="hotel.stay">Estancia</dt>
+                    <dd data-i18n="hotel.stay-value">16–19 octubre · 2 adultos</dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="main.external-id-label">Folio de API</dt><dd>HB-091</dd>
+                  </div>
+                </dl>
+                <p class="mock__next" data-i18n="hotel.next">La API vuelve a validar la
+                  disponibilidad antes de confirmar la reserva en el sistema del hotel.</p>
+              </div>
+            </figure>
+            </div>
+            <button class="mocks__arrow mocks__arrow--next" type="button" data-mock-next
+              aria-label="Ejemplo siguiente" data-i18n-attrs="aria-label:main.mock-next" hidden>
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"
+                focusable="false"><use href="#i-chevron" /></svg>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="section section--sub" id="usecases">
-      <div class="wrap">
-        <div class="section__head">
-          <h2 id="usecases-t" data-i18n="usecases-t.h2.0">Para lo que hoy resuelves entre
-            mensajes</h2>
-          <p data-i18n="usecases.intro">Para negocios que reciben consultas, citas y cotizaciones
-            por WhatsApp. No automatiza todo.</p>
-        </div>
-        <div class="cards cards--3">
-          <article class="card">
-            <h3 data-i18n="usecases.h3.0">Citas y reservas</h3>
-            <p data-i18n="usecases.p.0">El agente recoge nombre y fecha. Tu equipo revisa la
-              solicitud y confirma la disponibilidad.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="usecases.h3.1">Cotizaciones</h3>
-            <p data-i18n="usecases.p.1">Recoge los datos en el panel. Tu equipo prepara la
-              cotización y decide el precio y el cierre.</p>
-          </article>
-          <article class="card">
-            <h3 data-i18n="usecases.h3.5">Preguntas frecuentes</h3>
-            <p data-i18n="usecases.p.5">Responde sobre horarios, servicios y pagos con tu
-              información, sin inventar respuestas.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="plans">
+    <section class="section section--sub" id="plans">
       <div class="wrap">
         <div class="section__head">
           <h2 id="plans-t" data-i18n="plans-t.h2.0">Elige el plan que necesitas hoy</h2>
@@ -395,7 +589,7 @@
       </div>
     </section>
 
-    <section class="section section--sub" id="faq">
+    <section class="section" id="faq">
       <div class="wrap">
         <div class="section__head">
           <h2 id="faq-t" data-i18n="faq-t.h2.0">Preguntas frecuentes</h2>
@@ -419,8 +613,10 @@
           </details>
           <details>
             <summary data-i18n="faq.summary.3">¿Necesito otra agenda o un CRM?</summary>
-            <p class="faq__answer" data-i18n="faq.faq-answer.3">No para gestionar solicitudes.
-              Otras conexiones dependen de las herramientas compatibles.</p>
+            <p class="faq__answer"><span data-i18n="faq.faq-answer.3">No para</span>
+              <a href="#examples" data-i18n="faq.management-link">gestionar dentro de Pautia</a>.
+              <span data-i18n="faq.crm-api">Si ya tienes un CRM, necesitas una API compatible
+                para que los agentes se conecten a él.</span></p>
           </details>
           <details>
             <summary data-i18n="faq.summary.0">¿Necesito un número de WhatsApp nuevo?</summary>

@@ -71,11 +71,11 @@ for page in $pages; do
   done
 done
 
-# 4b. The waitlist is one block, on the landing page: a dialog, three ways in, a
+# 4b. The waitlist is one block, on the landing page: a dialog, two ways in, a
 #     honeypot and the endpoint. An opener without its dialog is a button that
 #     does nothing.
-[ "$(grep -c 'data-waitlist-open' "$index")" -eq 3 ] \
-  || fail "$index: the waitlist does not open from three places"
+[ "$(grep -c 'data-waitlist-open' "$index")" -eq 2 ] \
+  || fail "$index: the waitlist does not open from the header and final section"
 grep -q 'id="waitlist"' "$index" || fail "$index: no waitlist dialog"
 grep -q 'name="website"' "$index" || fail "$index: no honeypot in the waitlist"
 grep -q 'action="/api/waitlist"' "$index" \

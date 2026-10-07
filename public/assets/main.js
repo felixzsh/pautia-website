@@ -481,39 +481,33 @@ import { linkTerms } from "/assets/terms.js";
     host.replaceWith(details);
   }
 
-  /* The hero examples: four conversations, one on the screen at a time on a
-     wide display. The track snaps, the buttons step it and the count follows
-     the scroll, the same scroll a trackpad or a swipe already drives. A phone
-     stacks them instead, so the page itself walks through the examples and the
-     buttons are not there at all. Without JavaScript the buttons stay hidden
-     and the track still scrolls; the count then says what it was written as. */
+  // Each examples track navigates independently. Phones stack its cards instead.
   function examples() {
-    const host = document.querySelector("[data-mocks]");
-    if (!host) return;
-    const track = host.querySelector(".mocks__track");
-    const count = track.children.length;
-    const step = () => (matchMedia("(prefers-reduced-motion: reduce)").matches
-      ? "auto" : "smooth");
+    document.querySelectorAll("[data-mocks]").forEach((host) => {
+      const track = host.querySelector(".mocks__track");
+      const count = track.children.length;
+      const step = () => (matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto" : "smooth");
 
-    function update() {
-      const index = Math.round(track.scrollLeft / track.clientWidth);
-      prev.disabled = index <= 0;
-      next.disabled = index >= count - 1;
-    }
+      function update() {
+        const index = Math.round(track.scrollLeft / track.clientWidth);
+        prev.disabled = index <= 0;
+        next.disabled = index >= count - 1;
+      }
 
-    const prev = host.querySelector("[data-mock-prev]");
-    const next = host.querySelector("[data-mock-next]");
-    prev.addEventListener("click", () =>
-      track.scrollBy({ left: -track.clientWidth, behavior: step() }));
-    next.addEventListener("click", () =>
-      track.scrollBy({ left: track.clientWidth, behavior: step() }));
-    // A resize turns the stacked phone into the wide track and the other way
-    // round; the buttons' disabled state has to follow the new shape.
-    addEventListener("resize", update);
-    track.addEventListener("scroll", update, { passive: true });
-    prev.hidden = false;
-    next.hidden = false;
-    update();
+      const prev = host.querySelector("[data-mock-prev]");
+      const next = host.querySelector("[data-mock-next]");
+      prev.addEventListener("click", () =>
+        track.scrollBy({ left: -track.clientWidth, behavior: step() }));
+      next.addEventListener("click", () =>
+        track.scrollBy({ left: track.clientWidth, behavior: step() }));
+      // Resizing switches between a scrolling track and the stacked phone layout.
+      addEventListener("resize", update);
+      track.addEventListener("scroll", update, { passive: true });
+      prev.hidden = false;
+      next.hidden = false;
+      update();
+    });
   }
 
   /* An inline journey in the final section, enhanced from the translated fields.
