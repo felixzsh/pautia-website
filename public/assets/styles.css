@@ -707,15 +707,28 @@ ol {
   color: var(--ink-900);
 }
 
-/* Four worked examples, one on the screen at a time on a wide display: a snap
-   track the buttons step through. A phone stacks them, one after another in the
-   page's own scroll, so the buttons have nothing to do there. */
+/* Worked examples: the pitch stays in the hero, with examples beneath it. On
+   desktop each example puts chat and request side by side; phones keep the
+   vertical flow. */
+
+.mocks__layout {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: var(--space-3);
+}
 
 .mocks__track {
   display: flex;
+  min-width: 0;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.mocks__track::-webkit-scrollbar {
+  display: none;
 }
 
 /* A grid column hands its track a min-width of auto, and the slides inflate
@@ -730,28 +743,60 @@ ol {
   scroll-snap-align: start;
 }
 
-.mocks__nav {
+.mock {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  column-gap: var(--space-5);
+}
+
+.mock__head,
+.mock__caption {
+  grid-column: 1 / -1;
+}
+
+.mock__request {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: center;
+}
+
+.mock__handoff {
   display: none;
 }
 
 @media (min-width: 900px) {
-  .mocks__nav:not([hidden]) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
-  }
-
-  .mocks__track {
-    padding-bottom: var(--space-2);
+  .mocks__layout > .mocks__arrow:not([hidden]) {
+    display: grid;
   }
 }
 
 @media (max-width: 899px) {
+  .mocks__layout {
+    display: block;
+  }
+
+  .mocks__layout > .mocks__arrow {
+    display: none !important;
+  }
+
   .mocks__track {
     display: grid;
     gap: var(--space-6);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .mocks__track > .mock {
+    display: block;
+  }
+
+  .mock__request {
+    margin-top: var(--space-3);
+  }
+
+  .mock__handoff {
+    display: block;
   }
 }
 
@@ -776,7 +821,11 @@ ol {
 }
 
 .mocks__arrow--prev svg {
-  transform: scaleX(-1);
+  transform: rotate(180deg);
+}
+
+.mocks__arrow--next svg {
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -102,11 +102,20 @@
             Te avisaremos cuando abra el registro.</p>
         </div>
 
-        <!-- Illustration, not a live demo or a screenshot of an available product.
-             One example per use Pautia covers, one on the screen at a time on a
-             wide display; a phone shows them one after another down the page. -->
+      </div>
+    </section>
+
+    <!-- Worked examples, not a live demo or a screenshot of an available product. -->
+    <section class="section section--sub" id="examples">
+      <div class="wrap">
         <div class="mocks" data-mocks>
-          <div class="mocks__track">
+          <div class="mocks__layout">
+            <button class="mocks__arrow mocks__arrow--prev" type="button" data-mock-prev
+              aria-label="Ejemplo anterior" data-i18n-attrs="aria-label:main.mock-prev" hidden>
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"
+                focusable="false"><use href="#i-chevron" /></svg>
+            </button>
+            <div class="mocks__track">
             <figure class="mock" aria-labelledby="journey-caption">
               <div class="mock__head">
                 <span class="mock__avatar" aria-hidden="true">
@@ -287,16 +296,9 @@
                 información.
               </figcaption>
             </figure>
-          </div>
-          <div class="mocks__nav" hidden>
-            <button class="mocks__arrow mocks__arrow--prev" type="button" data-mock-prev
-              aria-label="Ejemplo anterior" data-i18n-attrs="aria-label:main.mock-prev">
-              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"
-                focusable="false"><use href="#i-chevron" /></svg>
-            </button>
-            <p class="mocks__count"><span data-mock-count>1</span> / 4</p>
-            <button class="mocks__arrow" type="button" data-mock-next
-              aria-label="Ejemplo siguiente" data-i18n-attrs="aria-label:main.mock-next">
+            </div>
+            <button class="mocks__arrow mocks__arrow--next" type="button" data-mock-next
+              aria-label="Ejemplo siguiente" data-i18n-attrs="aria-label:main.mock-next" hidden>
               <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"
                 focusable="false"><use href="#i-chevron" /></svg>
             </button>

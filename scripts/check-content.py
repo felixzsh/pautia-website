@@ -185,7 +185,10 @@ assert 'data-i18n="main.request-status"' in index_html, "the example must show a
 assert 'aria-hidden="true"' not in re.search(
     r'<figure\b[^>]*>', index_html
 ).group(0), "the chat-to-panel example must be readable by assistive technology"
-assert len(re.findall(r'<section\b', index_html)) == 6, "keep the landing compact"
+assert len(re.findall(r'<section\b', index_html)) == 7, "keep the landing compact"
+assert 'id="examples"' in index_html and index_html.index('class="hero"') \
+    < index_html.index('id="examples"'), "examples follow the hero"
+assert len(re.findall(r'<figure class="mock"', index_html)) == 4, "four use examples"
 assert len(re.findall(r'<li class="step">', index_html)) == 3, "three setup steps"
 assert len(re.findall(r'<article class="card">', index_html)) == 3, "three concrete uses"
 

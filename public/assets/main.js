@@ -490,16 +490,13 @@ import { linkTerms } from "/assets/terms.js";
   function examples() {
     const host = document.querySelector("[data-mocks]");
     if (!host) return;
-    const nav = host.querySelector(".mocks__nav");
     const track = host.querySelector(".mocks__track");
-    const shown = host.querySelector("[data-mock-count]");
     const count = track.children.length;
     const step = () => (matchMedia("(prefers-reduced-motion: reduce)").matches
       ? "auto" : "smooth");
 
     function update() {
       const index = Math.round(track.scrollLeft / track.clientWidth);
-      shown.textContent = String(Math.max(0, Math.min(count - 1, index)) + 1);
       prev.disabled = index <= 0;
       next.disabled = index >= count - 1;
     }
@@ -514,7 +511,8 @@ import { linkTerms } from "/assets/terms.js";
     // round; the buttons' disabled state has to follow the new shape.
     addEventListener("resize", update);
     track.addEventListener("scroll", update, { passive: true });
-    nav.hidden = false;
+    prev.hidden = false;
+    next.hidden = false;
     update();
   }
 
