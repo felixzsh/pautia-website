@@ -661,9 +661,10 @@ with sync_playwright() as p:
       }
     }""")
     assert page.locator('#custom-bots').input_value() == '100'
-    assert page.locator('#custom-storage-output').text_content() == '100 GB'
-    assert page.locator('[data-custom-max="storage"]').text_content() == '100 GB'
-    assert estimate.text_content() == '$558.95'
+    assert page.locator('#custom-storage').input_value() == '1000000'
+    assert page.locator('#custom-storage-output').text_content() == '1 TB'
+    assert page.locator('[data-custom-max="storage"]').text_content() == '1 TB'
+    assert estimate.text_content() == '$708.99'
     ctx.close()
 
     ctx = browser.new_context(java_script_enabled=False,

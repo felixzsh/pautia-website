@@ -184,7 +184,7 @@ import { linkTerms } from "/assets/terms.js";
     // Storage beyond the plan adds up in progressive GB tiers: a small history
     // pays only the first tier, a large one keeps a lower rate on the rest, and
     // reaching a new tier never makes the running total cost more than before.
-    const max = { bots: 100, storage: 100000 };
+    const max = { bots: 100, storage: 1000000 };
     const STORAGE_TIERS = [
       { upTo: 10, price: 1 },
       { upTo: 100, price: 0.5 },
