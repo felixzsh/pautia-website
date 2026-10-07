@@ -618,6 +618,10 @@ with sync_playwright() as p:
         problems.append("pricing: the Enterprise card is missing")
     if not page.locator("[data-custom-plan]").count():
         problems.append("pricing: the plan builder is missing")
+    assert page.locator('#custom-storage-output').text_content() == '5 GB'
+    for tier, size in [('professional', '10 GB'), ('standard', '5 GB')]:
+        page.locator(f'input[name="custom-plan-base"][value="{tier}"]').check()
+        assert page.locator('#custom-storage-output').text_content() == size
     credits = page.locator("#ai-credits")
     assert credits.locator("details").count() == 3
     assert credits.locator("input, a").count() == 0
@@ -633,9 +637,10 @@ with sync_playwright() as p:
     builder = page.locator('input[name="custom-plan-base"][value="basic"]')
     builder.evaluate("el => el.scrollIntoView({ block: 'center' })")
     builder.check()
+    assert page.locator('#custom-storage-output').text_content() == '1 GB'
     page.evaluate("""() => {
       for (const [id, value] of [
-         ['custom-bots', 2], ['custom-storage', 1200],
+          ['custom-bots', 2], ['custom-storage', 2100],
       ]) {
         const input = document.getElementById(id);
         input.value = value;
@@ -664,7 +669,7 @@ with sync_playwright() as p:
     assert page.locator('#custom-storage').input_value() == '1000000'
     assert page.locator('#custom-storage-output').text_content() == '1 TB'
     assert page.locator('[data-custom-max="storage"]').text_content() == '1 TB'
-    assert estimate.text_content() == '$708.99'
+    assert estimate.text_content() == '$708.90'
     ctx.close()
 
     ctx = browser.new_context(java_script_enabled=False,

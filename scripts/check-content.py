@@ -249,9 +249,9 @@ for page_html in (index_html, pricing_html):
 # Every language has to sell the same quantity; the thousands mark is a language
 # detail, so only the digits are compared.
 ROWS = (
-    (1, 5, 200, "100 MB"),
-    (5, 50, 1000, "500 MB"),
-    (10, 100, 2000, "1.000 MB"),
+    (1, 5, 200, "1 GB"),
+    (5, 50, 1000, "5 GB"),
+    (10, 100, 2000, "10 GB"),
 )
 
 
@@ -267,7 +267,8 @@ for card, row in zip(cards, ROWS):
         for code, table in strings.items():
             assert digits(table[key]) == digits(expected), \
                 (code, key, table[key], expected)
-    assert f'data-custom-storage="{digits(row[-1]).removesuffix("MB")}"' in card
+    storage_mb = int(row[-1].removesuffix(" GB")) * 1000
+    assert f'data-custom-storage="{storage_mb}"' in card
 
 assert 'class="hero__cta"' not in index_html, "hero has no buttons"
 assert 'href="#examples" data-i18n="faq.management-link"' in index_html
