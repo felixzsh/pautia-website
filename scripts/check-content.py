@@ -82,6 +82,10 @@ for path in PAGES:
     pages.append((path, parsed, html))
 index_html = pages[0][2]
 pricing_html = pages[1][2]
+assert 'id="ai-credits"' in pricing_html
+assert 'id="ai-credits"' not in index_html
+assert pricing_html.index('id="custom-plan-title"') < pricing_html.index('id="ai-credits"')
+assert 'data-i18n="credits.pack-price"' in pricing_html
 
 languages = json.loads(pages[0][1].json["languages"])
 

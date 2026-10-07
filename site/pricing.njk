@@ -99,6 +99,49 @@ permalink: /pricing.html
 {% include "custom-plan.njk" %}
         </div>
 
+        <section class="custom-plan" id="ai-credits" aria-labelledby="ai-credits-title">
+          <div class="section__head">
+            <h2 id="ai-credits-title" data-i18n="credits.title">Créditos de IA adicionales</h2>
+            <p data-i18n="credits.intro">Cada plan incluye créditos mensuales. Si necesitas más,
+              podrás comprar una recarga dentro de Pautia, aparte de tu suscripción.</p>
+          </div>
+          <dl class="facts">
+            <div class="fact">
+              <dt data-i18n="credits.pack-title">Recarga de IA</dt>
+              <dd data-i18n="credits.pack-price">Precio por definir</dd>
+              <dd data-i18n="credits.pack-note">Publicaremos la cantidad de créditos y el precio
+                del paquete antes de habilitar las compras.</dd>
+            </div>
+            <div class="fact">
+              <dt data-i18n="credits.separate-title">Sin cambiar tu plan</dt>
+              <dd data-i18n="credits.separate-note">La recarga añade saldo de IA, no bots ni
+                almacenamiento. No forma parte del precio del configurador.</dd>
+            </div>
+          </dl>
+          <div class="faq">
+            <details>
+              <summary data-i18n="credits.usage-question">¿Qué consume créditos de IA?</summary>
+              <p class="faq__answer" data-i18n="credits.usage-answer">Smart Imports, Smart Routing
+                y la interpretación de audio, imágenes y documentos, según tu plan. Los créditos
+                miden procesamiento de IA, no mensajes enviados. Publicaremos las equivalencias
+                de consumo antes del lanzamiento.</p>
+            </details>
+            <details>
+              <summary data-i18n="credits.expiry-question">¿Las recargas caducan?</summary>
+              <p class="faq__answer" data-i18n="credits.expiry-answer">La vigencia de las recargas
+                está por definir. Se mostrará antes de comprar; los créditos incluidos en el plan
+                son un saldo mensual.</p>
+            </details>
+            <details>
+              <summary data-i18n="credits.empty-question">¿Qué pasa si se agotan los créditos?</summary>
+              <p class="faq__answer" data-i18n="credits.empty-answer">Antes del lanzamiento
+                explicaremos qué funciones se pausan y cómo afecta a los flujos que dependen de
+                IA. No debes asumir que un agente con esos flujos seguirá funcionando igual sin
+                saldo.</p>
+            </details>
+          </div>
+        </section>
+
 {% include "plans-included.njk" %}
 {% include "plans-facts.njk" %}
       </div>

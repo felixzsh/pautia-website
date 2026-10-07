@@ -618,6 +618,11 @@ with sync_playwright() as p:
         problems.append("pricing: the Enterprise card is missing")
     if not page.locator("[data-custom-plan]").count():
         problems.append("pricing: the plan builder is missing")
+    credits = page.locator("#ai-credits")
+    assert credits.locator("details").count() == 3
+    assert credits.locator("input, a").count() == 0
+    credits.locator("summary").first.click()
+    assert credits.locator("details").first.get_attribute("open") is not None
     builder = page.locator('input[name="custom-plan-base"][value="basic"]')
     builder.evaluate("el => el.scrollIntoView({ block: 'center' })")
     builder.check()
