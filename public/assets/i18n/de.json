@@ -1,4 +1,7 @@
 {
+  "credits.routing-purpose": "Routing wählt den nächsten Ablaufschritt, verfasst keine Antwort.",
+  "credits.routing-methods": "Smart Routing nutzt KI; fuzzy routing vergleicht Texte ohne KI.",
+  "credits.routing-replies": "Beide erlauben vorgefertigte oder KI-generierte Antworten.",
   "credits.title": "Zusätzliche KI-Credits",
   "credits.intro": "Jeder Tarif enthält monatliche Credits. Bei Bedarf können Sie in Pautia zusätzliche Credits kaufen, getrennt von Ihrem Abonnement.",
   "credits.pack-title": "KI-Guthaben aufladen",

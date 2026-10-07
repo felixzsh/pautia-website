@@ -14,6 +14,9 @@ const samples = {
 };
 for (const [language, text] of Object.entries(samples)) {
   assert(linkTerms("MCP", language).includes('data-term="mcp"'), `${language}: MCP hint`);
+  for (const term of ["fuzzy routing", "Fuzzy Routing", "fuzzy match"]) {
+    assert(linkTerms(term, language).includes('data-term="fuzzy-routing"'), language);
+  }
   const linked = linkTerms(text, language);
   assert.equal(linked.replace(/<[^>]+>/g, ""), text, language);
   for (const id of ["smart-imports", "flow", "action", "agent"]) {
@@ -23,6 +26,7 @@ for (const [language, text] of Object.entries(samples)) {
   assert(!linked.includes("<a "), `${language}: a term must not be a link`);
 }
 assert.equal(linkTerms("actionable workflow agentless", "en"), "actionable workflow agentless");
+assert.equal(linkTerms("fuzzy matching", "en"), "fuzzy matching");
 assert.equal(linkTerms("<img onerror='x'> &", "en"), "&lt;img onerror=&#39;x&#39;&gt; &amp;");
 
 // Edge and browser translation rebuild the terms for the chosen language.
@@ -35,6 +39,9 @@ assert.equal(translateTexts(source, {}, "en"), source);
 
 // In the built pages a term carries its hint and never sits inside a control.
 for (const path of ["public/index.html", "public/pricing.html"]) {
+  if (path.endsWith("pricing.html")) {
+    assert(readFileSync(path, "utf8").includes('data-term="fuzzy-routing"'));
+  }
   const stack = [];
   let terms = 0;
   const parser = new Parser({

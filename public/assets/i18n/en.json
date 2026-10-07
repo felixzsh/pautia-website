@@ -1,4 +1,7 @@
 {
+  "credits.routing-purpose": "Routing chooses the next flow step, not the reply wording.",
+  "credits.routing-methods": "Smart Routing uses AI; fuzzy routing compares texts without AI.",
+  "credits.routing-replies": "Both allow prewritten replies or optional AI-generated replies.",
   "credits.title": "Additional AI credits",
   "credits.intro": "Each plan includes monthly credits. If you need more, you will be able to buy a top-up inside Pautia, separately from your subscription.",
   "credits.pack-title": "AI top-up",

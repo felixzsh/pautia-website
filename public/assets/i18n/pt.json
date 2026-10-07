@@ -1,4 +1,7 @@
 {
+  "credits.routing-purpose": "O routing escolhe o próximo passo do fluxo, não redige a resposta.",
+  "credits.routing-methods": "Smart Routing usa IA; fuzzy routing compara textos sem IA.",
+  "credits.routing-replies": "Ambos permitem respostas já escritas ou geradas com IA.",
   "credits.title": "Créditos de IA adicionais",
   "credits.intro": "Cada plano inclui créditos mensais. Se precisar de mais, poderá comprar uma recarga dentro da Pautia, separadamente da assinatura.",
   "credits.pack-title": "Saldo adicional de IA",

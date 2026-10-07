@@ -623,6 +623,13 @@ with sync_playwright() as p:
     assert credits.locator("input, a").count() == 0
     credits.locator("summary").first.click()
     assert credits.locator("details").first.get_attribute("open") is not None
+    fuzzy = credits.locator('[data-term="fuzzy-routing"]').first
+    assert "sin IA" in fuzzy.get_attribute("title")
+    fuzzy.click()
+    assert page.locator("#term-help").is_visible()
+    assert page.locator("#term-help").text_content() == fuzzy.get_attribute("title")
+    page.keyboard.press("Escape")
+    assert page.locator("#term-help").is_hidden()
     builder = page.locator('input[name="custom-plan-base"][value="basic"]')
     builder.evaluate("el => el.scrollIntoView({ block: 'center' })")
     builder.check()
