@@ -903,6 +903,14 @@ html:has(.waitlist:not([hidden])) {
 }
 
 @media (min-width: 900px) {
+  /* Room above and below for the card's shadow. The track clips at its own
+     edge, so the shadow has to fit inside it: beside the card it would be cut
+     square and the rounded corner would look broken. */
+  .mocks__track {
+    padding-block: var(--space-3);
+    margin-block: calc(-1 * var(--space-3));
+  }
+
   .mocks__layout {
     position: relative;
     display: block;
@@ -961,6 +969,8 @@ html:has(.waitlist:not([hidden])) {
   flex: 0 0 100%;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  /* Narrow enough to stay inside the card, so the track never cuts it. */
+  box-shadow: 0 8px 16px -10px rgb(11 18 32 / 30%);
 }
 
 .mock {
