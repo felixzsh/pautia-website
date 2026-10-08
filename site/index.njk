@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title data-i18n="page.title.0">Pautia · Gestiona tu negocio con agentes predecibles</title>
   <meta name="description" data-i18n-attrs="content:meta.description"
-    content="Atiende por WhatsApp y gestiona solicitudes en Pautia. Tus reglas, tu agente,
+    content="Atiende por mensajería y gestiona solicitudes en Pautia. Tus reglas, tu agente,
       tu panel.">
   <link rel="canonical" href="https://pautia.app/">
 
@@ -16,7 +16,7 @@
   <meta property="og:title" data-i18n-attrs="content:meta.og-title"
     content="Pautia · Gestiona tu negocio con agentes predecibles">
   <meta property="og:description" data-i18n-attrs="content:meta.og-description"
-    content="Atiende por WhatsApp y gestiona solicitudes en Pautia. Tus reglas, tu agente,
+    content="Atiende por mensajería y gestiona solicitudes en Pautia. Tus reglas, tu agente,
       tu panel.">
   <meta property="og:url" content="https://pautia.app/">
   <meta property="og:image" content="https://pautia.app/assets/og.png">
@@ -69,7 +69,7 @@
     "url": "https://pautia.app/",
     "inLanguage": "es",
     "description":
-      "Atiende por WhatsApp y gestiona solicitudes en Pautia. Tus reglas, tu agente, tu panel.",
+      "Atiende por mensajería y gestiona solicitudes en Pautia. Tus reglas, tu agente, tu panel.",
     "offers": [
       {"@type": "Offer", "name": "Básico", "priceCurrency": "USD", "price": "9"},
       {"@type": "Offer", "name": "Estándar", "priceCurrency": "USD", "price": "39"},
@@ -88,15 +88,16 @@
   <main id="main">
     <section class="hero">
       <div class="wrap hero__grid">
-        <div>
-          <p class="eyebrow" data-i18n="main.eyebrow.0">WhatsApp y gestión, en un solo lugar</p>
+        <div class="hero__pitch">
+          <p class="eyebrow" data-i18n="main.eyebrow.0" data-no-terms>Agentes y gestión,
+            en un solo lugar</p>
           <h1 data-i18n="main.h1.0" data-no-terms>Gestiona tu negocio con agentes predecibles</h1>
-          <p class="hero__sub" data-i18n="main.hero-sub.0">El agente atiende por WhatsApp.
+          <p class="hero__sub" data-i18n="main.hero-sub.0">El agente atiende por mensajería.
             Tu equipo gestiona las solicitudes en Pautia, con tus reglas.</p>
           <p class="hero__note" data-i18n="main.hero-note.0">Estamos preparando la plataforma.
             Te avisaremos cuando abra el registro.</p>
         </div>
-
+{% include "hero-channels.njk" %}
       </div>
     </section>
 
@@ -109,8 +110,8 @@
         </div>
         <ol class="steps">
           <li class="step">
-            <h3 data-i18n="how.h3.0">Conecta WhatsApp</h3>
-            <p><span data-i18n="how.p.0">Vincula tu número de siempre a un agente.</span>
+            <h3 data-i18n="how.h3.0">Conecta tu canal de mensajería</h3>
+            <p><span data-i18n="how.p.0">Vincula tu cuenta habitual a un agente.</span>
               <span data-i18n="how.detail.0">Si quieres, Smart Imports propone un flujo desde
                 tus chats, con tu permiso.</span></p>
           </li>
@@ -138,7 +139,7 @@
           <h2 id="usecases-t" data-i18n="usecases-t.h2.0">Para lo que hoy resuelves entre
             mensajes</h2>
           <p data-i18n="usecases.intro">Para negocios que reciben consultas, citas y cotizaciones
-            por WhatsApp. No automatiza todo.</p>
+            por mensajería. No automatiza todo.</p>
         </div>
         <div class="cards cards--3">
           <article class="card">
@@ -166,7 +167,7 @@
         <div class="section__head">
           <h2 data-i18n="examples.title">Gestión sencilla, dentro de Pautia</h2>
           <p data-i18n="examples.note">Ejemplos ilustrativos, no capturas. El agente atiende por
-            WhatsApp y tu equipo gestiona en Pautia.</p>
+            mensajería y tu equipo gestiona en Pautia.</p>
         </div>
         <div class="mocks" data-mocks>
           <div class="mocks__layout">
@@ -182,12 +183,14 @@
                   <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
                 </span>
                 <span>
-                  <span class="mock__who" data-i18n="main.mock-who.0">WhatsApp · Taller Aurora</span>
+                  <span class="mock__who" data-i18n="main.mock-who.0">Mensajería · Taller
+                    Aurora</span>
                   <br><span class="mock__state" data-i18n="main.mock-state.0">El agente recoge</span>
                 </span>
               </div>
               <div class="mock__conversation">
-                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <p class="mock__label" data-i18n="examples.messaging">Conversación por
+                  mensajería</p>
                 <div class="mock__thread">
                 <p class="bubble bubble--in" data-i18n="main.bubble.0">Quiero agendar una
                   revisión del coche.</p>
@@ -226,13 +229,14 @@
                   <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
                 </span>
                 <span>
-                  <span class="mock__who" data-i18n="main.mock-who.1">WhatsApp · Floristería
+                  <span class="mock__who" data-i18n="main.mock-who.1">Mensajería · Floristería
                     Mora</span>
                   <br><span class="mock__state" data-i18n="main.mock-state.1">El agente recoge</span>
                 </span>
               </div>
               <div class="mock__conversation">
-                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <p class="mock__label" data-i18n="examples.messaging">Conversación por
+                  mensajería</p>
                 <div class="mock__thread">
                 <p class="bubble bubble--in" data-i18n="main.bubble.4">¿Cuánto cuesta un centro
                   de flores para 20 invitados?</p>
@@ -273,13 +277,14 @@
                   <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
                 </span>
                 <span>
-                  <span class="mock__who" data-i18n="main.mock-who.2">WhatsApp · Pizzería
+                  <span class="mock__who" data-i18n="main.mock-who.2">Mensajería · Pizzería
                     Donato</span>
                   <br><span class="mock__state" data-i18n="main.mock-state.2">El agente recoge</span>
                 </span>
               </div>
               <div class="mock__conversation">
-                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <p class="mock__label" data-i18n="examples.messaging">Conversación por
+                  mensajería</p>
                 <div class="mock__thread">
                 <p class="bubble bubble--in" data-i18n="main.bubble.8">Quiero pedir 2 pizzas
                   margarita para llevar.</p>
@@ -320,13 +325,14 @@
                   <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
                 </span>
                 <span>
-                  <span class="mock__who" data-i18n="main.mock-who.3">WhatsApp · Clínica
+                  <span class="mock__who" data-i18n="main.mock-who.3">Mensajería · Clínica
                     Sonrisa</span>
                   <br><span class="mock__state" data-i18n="main.mock-state.3">El agente responde</span>
                 </span>
               </div>
               <div class="mock__conversation">
-                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <p class="mock__label" data-i18n="examples.messaging">Conversación por
+                  mensajería</p>
                 <div class="mock__thread">
                 <p class="bubble bubble--in" data-i18n="main.bubble.12">¿Atienden los sábados?</p>
                 <p class="bubble bubble--out" data-i18n="main.bubble.13">Sábados de 9 a 14. ¿Te
@@ -393,13 +399,14 @@
                   <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
                 </span>
                 <span>
-                  <span class="mock__who" data-i18n="main.mock-who.4">WhatsApp · Repuestos
+                  <span class="mock__who" data-i18n="main.mock-who.4">Mensajería · Repuestos
                     Norte</span>
                   <br><span class="mock__state" data-i18n="main.mock-state.4">Arma el pedido</span>
                 </span>
               </div>
               <div class="mock__conversation">
-                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <p class="mock__label" data-i18n="examples.messaging">Conversación por
+                  mensajería</p>
                 <div class="mock__thread">
                   <p class="bubble bubble--in" data-i18n="main.bubble.16">Quiero dos kits de
                     mantenimiento para un Corolla 2018.</p>
@@ -457,13 +464,14 @@
                   <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
                 </span>
                 <span>
-                  <span class="mock__who" data-i18n="delivery.who">WhatsApp · Envíos Ruta</span>
+                  <span class="mock__who" data-i18n="delivery.who">Mensajería · Envíos Ruta</span>
                   <br><span class="mock__state" data-i18n="delivery.state">Reprograma la
                     entrega</span>
                 </span>
               </div>
               <div class="mock__conversation">
-                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <p class="mock__label" data-i18n="examples.messaging">Conversación por
+                  mensajería</p>
                 <div class="mock__thread">
                   <p class="bubble bubble--in" data-i18n="delivery.bubble.0">Mañana no estaré
                     para recibir mi paquete.</p>
@@ -508,12 +516,13 @@
                   <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
                 </span>
                 <span>
-                  <span class="mock__who" data-i18n="hotel.who">WhatsApp · Hotel Brisa</span>
+                  <span class="mock__who" data-i18n="hotel.who">Mensajería · Hotel Brisa</span>
                   <br><span class="mock__state" data-i18n="hotel.state">Consulta y reserva</span>
                 </span>
               </div>
               <div class="mock__conversation">
-                <p class="mock__label" data-i18n="examples.whatsapp">Conversación por WhatsApp</p>
+                <p class="mock__label" data-i18n="examples.messaging">Conversación por
+                  mensajería</p>
                 <div class="mock__thread">
                   <p class="bubble bubble--in" data-i18n="hotel.bubble.0">¿Tienen habitación
                     para el fin de semana?</p>
@@ -621,14 +630,16 @@
                 mediante una API REST o un servidor MCP compatible.</span></p>
           </details>
           <details>
-            <summary data-i18n="faq.summary.0">¿Necesito un número de WhatsApp nuevo?</summary>
-            <p class="faq__answer" data-i18n="faq.faq-answer.0">No. Usas tu número de siempre;
+            <summary data-i18n="faq.summary.0">¿Puedo usar mi canal de mensajería
+              habitual?</summary>
+            <p class="faq__answer" data-i18n="faq.faq-answer.0">Sí. Conecta tu cuenta habitual;
               tus clientes siguen escribiendo donde ya te conocen.</p>
           </details>
           <details>
-            <summary data-i18n="faq.summary.6">¿Puede WhatsApp restringir mi cuenta?</summary>
-            <p class="faq__answer"><span data-i18n="faq.faq-answer.6" data-no-terms>Sí. Ningún
-              sistema puede garantizar que WhatsApp no restrinja o bloquee tu cuenta.</span>
+            <summary data-i18n="faq.summary.6">¿Puede mi canal de mensajería restringir
+              mi cuenta?</summary>
+            <p class="faq__answer"><span data-i18n="faq.faq-answer.6">Sí. Tu canal de mensajería
+              puede restringir o bloquear tu cuenta. No hay garantías.</span>
               <a href="/seguridad-whatsapp" data-i18n="account-safety.link">Cómo Pautia reduce el
                 riesgo de bloqueo</a></p>
           </details>

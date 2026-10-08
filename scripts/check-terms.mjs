@@ -13,6 +13,15 @@ const samples = {
   it: "Smart Imports, flusso, flussi, azione, azioni, agenti",
 };
 for (const [language, text] of Object.entries(samples)) {
+  const messaging = {
+    es: "canal de mensajería", en: "messaging channel", pt: "canal de mensageria",
+    fr: "canal de messagerie", de: "Messaging-Kanal", it: "canale di messaggistica",
+  };
+  const channelHint = linkTerms(messaging[language], language);
+  assert(channelHint.includes('data-term="messaging"'), `${language}: messaging hint`);
+  for (const brand of ["WhatsApp", "Telegram", "Signal", "SimpleX Chat"]) {
+    assert(channelHint.includes(brand), `${language}: messaging hint must list ${brand}`);
+  }
   assert(linkTerms("MCP", language).includes('data-term="mcp"'), `${language}: MCP hint`);
   for (const term of ["fuzzy routing", "Fuzzy Routing", "fuzzy match"]) {
     assert(linkTerms(term, language).includes('data-term="fuzzy-routing"'), language);

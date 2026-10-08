@@ -607,6 +607,102 @@ ol {
   font-size: var(--step--1);
 }
 
+/* Four branded destinations orbit the same management hub, without JS or motion. */
+.channels {
+  width: min(100%, 440px);
+  min-width: 0;
+  margin: 0 auto;
+}
+
+.channels__map {
+  position: relative;
+  isolation: isolate;
+  padding: var(--space-5) var(--space-3);
+}
+
+.channels__map::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 8%;
+  border: 1px dashed var(--ink-300);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--brand-100), transparent 70%);
+  box-shadow: 0 0 0 24px var(--panel);
+}
+
+.channels__links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 100px clamp(32px, 5vw, 72px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.channels__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  background: var(--bg);
+  box-shadow: var(--shadow-2);
+  color: var(--ink-900);
+  font-size: var(--step--1);
+  font-weight: 650;
+  text-decoration: none;
+  transform: rotate(var(--tilt));
+  transition: transform 160ms ease;
+}
+
+.channels__link img {
+  width: 44px;
+  height: 44px;
+}
+
+.channels__link--whatsapp { --tilt: -7deg; }
+.channels__link--telegram { --tilt: 6deg; }
+.channels__link--signal { --tilt: 5deg; }
+.channels__link--simplex { --tilt: -6deg; }
+
+.channels__link:hover,
+.channels__link:focus-visible {
+  transform: translateY(-4px);
+}
+
+.channels__hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: var(--brand-600);
+  box-shadow: 0 0 0 10px var(--bg);
+  color: var(--on-brand);
+  font-size: var(--step--1);
+  font-weight: 650;
+}
+
+.channels figcaption {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  text-align: center;
+}
+
+.channels figcaption > span {
+  color: var(--ink-500);
+  font-size: var(--step--1);
+}
+
 /* Chat to request: a readable illustration, not a live product screen. */
 
 .mock {

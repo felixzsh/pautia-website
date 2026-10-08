@@ -67,7 +67,7 @@ draw.text(
 )
 draw.text(
     (86, 372),
-    "El agente atiende por WhatsApp, con tus reglas.",
+    "El agente atiende por mensajería, con tus reglas.",
     font=font("LiberationSans-Regular.ttf", 30),
     fill=MUTED,
 )

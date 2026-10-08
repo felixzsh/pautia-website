@@ -1,4 +1,6 @@
 {
+  "main.channels-title": "Unterstützte Messaging-Kanäle",
+  "main.channels-caption": "Für die Betreuung Ihrer Geschäftskunden.",
   "credits.routing-purpose": "Routing wählt den nächsten Ablaufschritt, verfasst keine Antwort.",
   "credits.routing-methods": "Smart Routing nutzt KI; fuzzy routing vergleicht Texte ohne KI.",
   "credits.routing-replies": "Beide erlauben vorgefertigte oder KI-generierte Antworten.",
@@ -32,7 +34,7 @@
   "plans.ai-label": "KI-Credits",
   "plans.ai-tip": "Monatliches Guthaben für Smart Imports, Smart Routing und Medien.",
   "plans.media-tip": "Verstandene Eingabeformate, nicht Antwortformate.",
-  "plans.users-tip": "Teammitglieder mit Panel-Zugang, nicht WhatsApp-Kunden.",
+  "plans.users-tip": "Teammitglieder mit Panel-Zugang, nicht Messaging-Kunden.",
   "plans.ai-basic": "1.000",
   "plans.ai-standard": "5.000",
   "plans.ai-professional": "15.000",
@@ -71,7 +73,7 @@
   "custom-plan.total": "Geschätzter Preis",
   "faq-t.h2.0": "Häufige Fragen",
   "faq.faq-answer.0":
-    "Nein. Sie behalten Ihre Nummer; Kunden schreiben Ihnen weiter dort, wo sie Sie kennen.",
+    "Ja. Verbinden Sie Ihr gewohntes Konto; Kunden schreiben dort, wo sie Sie kennen.",
   "faq.faq-answer.2":
     "Nein. KI deutet Nachrichten und folgt dem Ablauf: nur freigegebene Antworten und Aktionen.",
   "faq.faq-answer.3":
@@ -82,7 +84,7 @@
   "faq.faq-answer.5":
     "Nein. Starten Sie von Grund auf ohne Programmieren. Smart Imports ist optional; Sie prüfen.",
   "faq.faq-answer.6":
-    "Ja. Kein System kann garantieren, dass WhatsApp Ihr Konto nicht einschränkt oder sperrt.",
+    "Ja. Ihr Messaging-Kanal kann Ihr Konto einschränken oder sperren. Es gibt keine Garantie.",
   "faq.faq-answer.8":
     "Nein. Pautia ist nicht für unaufgeforderte Massenkampagnen konzipiert.",
   "campaigns.link": "Grenzen und die Alternative mit mehreren Agenten",
@@ -111,11 +113,11 @@
     "Limits und Pausen pro Kontakt helfen, Nachrichtenschübe und Wiederholungen zu vermeiden.",
   "faq.faq-answer.7":
     "Ein Anwendungsfall. Pautia zur Verwaltung oder Ihr System über REST-API/MCP für komplexe Aufgaben.",
-  "faq.summary.0": "Brauche ich eine neue WhatsApp-Nummer?",
+  "faq.summary.0": "Kann ich meinen gewohnten Messaging-Kanal nutzen?",
   "faq.summary.2": "Kann die KI senden, was sie will?",
   "faq.summary.3": "Brauche ich einen weiteren Kalender oder ein CRM?",
   "faq.summary.5": "Muss ich meine Chats importieren?",
-  "faq.summary.6": "Kann WhatsApp mein Konto einschränken?",
+  "faq.summary.6": "Kann mein Messaging-Kanal mein Konto einschränken?",
   "faq.summary.7": "Sind die Agenten nur zum Antworten da?",
   "faq.summary.8": "Eignet sich Pautia für Massenkampagnen?",
   "footer.a.0": "So funktioniert es",
@@ -134,13 +136,13 @@
   "header.btn.0": "Auf die Warteliste",
   "header.menu__summary.0": "Menü",
   "how-t.h2.0": "Ihre Kundenbetreuung, von Anfang bis Ende",
-  "how.h3.0": "Verbinden Sie WhatsApp",
+  "how.h3.0": "Verbinden Sie Ihren Messaging-Kanal",
   "how.h3.1": "Legen Sie das Verhalten fest",
   "how.h3.2": "Aktivieren und verwalten",
   "how.note.0":
     "Verbinden, festlegen und aktivieren: Kundenbetreuung, die mit Ihrem Geschäft arbeitet.",
   "how.p.0":
-    "Verbinden Sie Ihre gewohnte Nummer mit einem Agenten.",
+    "Verbinden Sie Ihr gewohntes Konto mit einem Agenten.",
   "how.detail.0":
     "Auf Wunsch entwirft Smart Imports einen Ablauf aus Ihren Chats, mit Ihrer Erlaubnis.",
   "how.p.1":
@@ -154,7 +156,7 @@
     "Der Agent folgt dem definierten Ablauf und eskaliert, wenn nötig.",
   "lang.picker-label": "Sprache",
   "examples.note":
-    "Beispiele, keine Screenshots. Der Agent antwortet auf WhatsApp; Ihr Team verwaltet in Pautia.",
+    "Beispiele, keine Screenshots. Messaging für den Agenten; Pautia für Ihr Team.",
   "examples.pautia": "Verwaltung in Pautia",
   "examples.api": "Geschäfts-API",
   "examples.title": "Einfache Verwaltung in Pautia",
@@ -164,7 +166,7 @@
   "examples.api-note":
     "Beispiele mit REST-API oder MCP: Agenten fragen nach Daten und handeln nach Bestätigung.",
   "main.external-items-label": "Bestellung",
-  "delivery.who": "WhatsApp · Ruta Versand",
+  "delivery.who": "Messaging · Ruta Versand",
   "delivery.state": "Ändert den Liefertermin",
   "delivery.bubble.0": "Morgen bin ich nicht zu Hause, um das Paket anzunehmen.",
   "delivery.bubble.1": "Wie lautet Ihre Sendungsnummer?",
@@ -179,7 +181,7 @@
   "delivery.slot": "Neuer Termin",
   "delivery.slot-value": "Freitag · 16:00–18:00",
   "delivery.next": "Die Änderung steht im Versandsystem, nicht als offene Anfrage in Pautia.",
-  "hotel.who": "WhatsApp · Brisa Hotel",
+  "hotel.who": "Messaging · Brisa Hotel",
   "hotel.state": "Prüft und reserviert",
   "hotel.bubble.0": "Haben Sie ein Zimmer fürs Wochenende?",
   "hotel.bubble.1": "Welche Tage und wie viele Personen?",
@@ -195,7 +197,7 @@
   "hotel.stay": "Aufenthalt",
   "hotel.stay-value": "16.–19. Oktober · 2 Erwachsene",
   "hotel.next": "Die API prüft die Verfügbarkeit erneut, bevor sie im Hotelsystem bestätigt.",
-  "examples.whatsapp": "WhatsApp-Gespräch",
+  "examples.messaging": "Messaging-Gespräch",
   "main.btn.2": "Auf die Warteliste",
   "main.bubble.0": "Ich möchte einen Termin zur Autoinspektion.",
   "main.bubble.1": "Auf welchen Namen und für wann?",
@@ -232,26 +234,26 @@
   "main.external-status": "Erstellt",
   "main.external-title": "Repuestos Norte · Bestellung",
   "main.mock-state.4": "Erstellt die Bestellung",
-  "main.mock-who.4": "WhatsApp · Repuestos Norte",
+  "main.mock-who.4": "Messaging · Repuestos Norte",
   "main.bubble.3":
     "Danke, Ana. Ihre Anfrage ist erfasst. Die Werkstatt bestätigt die Verfügbarkeit.",
-  "main.eyebrow.0": "WhatsApp und Verwaltung, an einem Ort",
+  "main.eyebrow.0": "Agenten und Verwaltung, an einem Ort",
   "main.h1.0": "Führen Sie Ihr Geschäft mit vorhersehbaren Agenten",
   "main.h2.0": "Tragen Sie sich in die Warteliste ein",
   "main.hero-note.0":
     "Wir bereiten die Plattform vor. Wir informieren Sie, sobald die Registrierung öffnet.",
   "main.hero-sub.0":
-    "Der Agent antwortet auf WhatsApp. Ihr Team verwaltet Anfragen in Pautia, nach Ihren Regeln.",
+    "Der Agent übernimmt Messaging. Ihr Team verwaltet in Pautia, nach Ihren Regeln.",
   "main.mock-next": "Nächstes Beispiel",
   "main.mock-prev": "Vorheriges Beispiel",
   "main.mock-state.0": "Der Agent erfasst",
   "main.mock-state.1": "Der Agent erfasst",
   "main.mock-state.2": "Der Agent erfasst",
   "main.mock-state.3": "Der Agent antwortet",
-  "main.mock-who.0": "WhatsApp · Werkstatt Aurora",
-  "main.mock-who.1": "WhatsApp · Blumen Mora",
-  "main.mock-who.2": "WhatsApp · Pizzeria Donato",
-  "main.mock-who.3": "WhatsApp · Zahnklinik Sonrisa",
+  "main.mock-who.0": "Messaging · Werkstatt Aurora",
+  "main.mock-who.1": "Messaging · Blumen Mora",
+  "main.mock-who.2": "Messaging · Pizzeria Donato",
+  "main.mock-who.3": "Messaging · Zahnklinik Sonrisa",
   "main.request-title": "Pautia · Anfragen",
   "main.request-title.1": "Pautia · Antworten",
   "main.request-status": "Noch zu bestätigen",
@@ -280,9 +282,9 @@
   "main.p.0":
     "Pautia ist in Vorbereitung. Lassen Sie Ihre E-Mail da; wir melden uns zur Registrierung.",
   "meta.description":
-    "Auf WhatsApp antworten, Anfragen in Pautia verwalten. Ihre Regeln, Ihr Agent, Ihr Panel.",
+    "Messaging und Verwaltung in Pautia. Ihre Regeln, Ihr Agent, Ihr Panel.",
   "meta.og-description":
-    "Auf WhatsApp antworten, Anfragen in Pautia verwalten. Ihre Regeln, Ihr Agent, Ihr Panel.",
+    "Messaging und Verwaltung in Pautia. Ihre Regeln, Ihr Agent, Ihr Panel.",
   "meta.og-locale": "de_DE",
   "meta.og-title": "Pautia · Führen Sie Ihr Geschäft mit vorhersehbaren Agenten",
   "nav.a.0": "So funktioniert es",
@@ -335,7 +337,7 @@
   "plans.sr-only.0": "Abrechnungszeitraum",
   "usecases-t.h2.0": "Für das, was Sie heute über Nachrichten erledigen",
   "usecases.intro":
-    "Für Fragen, Termine und Angebotsanfragen über WhatsApp. Nicht, um alles zu automatisieren.",
+    "Für Fragen, Termine und Angebote per Messaging. Nicht, um alles zu automatisieren.",
   "usecases.h3.0": "Termine und Reservierungen",
   "usecases.h3.1": "Angebote",
   "usecases.h3.5": "Häufige Fragen",

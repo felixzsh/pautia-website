@@ -203,11 +203,29 @@ with sync_playwright() as p:
                     f"{name}-{label}: headline is {page.locator('h1').inner_text()!r}"
                 )
 
-            term = page.locator('.hero__sub .term').first
+            channels = page.locator('.channels')
+            eyebrow = page.locator('.hero .eyebrow')
+            assert eyebrow.locator('.term').count() == 0
+            assert eyebrow.evaluate('el => getComputedStyle(el).textTransform') == 'uppercase'
+            assert channels.locator('a').count() == 4
+            assert channels.locator('img').evaluate_all(
+                'images => images.every(img => img.complete && img.naturalWidth > 0)'
+            )
+            for host in ('whatsapp.com', 'telegram.org', 'signal.org', 'simplex.chat'):
+                assert channels.locator(f'a[href="https://{host}"]').count() == 1
+            pitch_box = page.locator('.hero__pitch').bounding_box()
+            channels_box = channels.bounding_box()
+            if width >= 900:
+                assert channels_box['x'] >= pitch_box['x'] + pitch_box['width']
+            else:
+                assert channels_box['y'] >= pitch_box['y'] + pitch_box['height']
+            term = page.locator('.hero__sub [data-term="messaging"]')
             term.click()
             help_box = page.locator('#term-help')
             if not help_box.is_visible() or help_box.inner_text() != term.get_attribute('title'):
                 problems.append(f"{name}-{label}: clicking a term did not show its help")
+            for brand in ('WhatsApp', 'Telegram', 'Signal', 'SimpleX Chat'):
+                assert brand in help_box.inner_text()
             box = help_box.bounding_box()
             if box and (box['x'] < 0 or box['x'] + box['width'] > width):
                 problems.append(f"{name}-{label}: term help overflows the viewport")
@@ -329,7 +347,8 @@ with sync_playwright() as p:
             print(f"[{name}-{label}] requests={b['requests']} html={b['html']}B")
             for r in b["resources"]:
                 print(f"    {r['size']:>7}B {r['name'].replace(BASE, '')}")
-            if b["requests"] > 5:
+            # HTML, CSS, JS, terms, optional dictionary and four local brand SVGs.
+            if b["requests"] > 9:
                 problems.append(f"{name}-{label}: {b['requests']} requests")
 
             # overflow check: nothing may push the page sideways

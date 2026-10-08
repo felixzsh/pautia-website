@@ -1,4 +1,6 @@
 {
+  "main.channels-title": "Supported messaging channels",
+  "main.channels-caption": "To serve your business's customers.",
   "credits.routing-purpose": "Routing chooses the next flow step, not the reply wording.",
   "credits.routing-methods": "Smart Routing uses AI; fuzzy routing compares texts without AI.",
   "credits.routing-replies": "Both allow prewritten replies or optional AI-generated replies.",
@@ -32,7 +34,7 @@
   "plans.ai-label": "AI credits",
   "plans.ai-tip": "Monthly balance for Smart Imports, Smart Routing and media.",
   "plans.media-tip": "Incoming formats it understands, not reply formats.",
-  "plans.users-tip": "Team members with panel access, not WhatsApp customers.",
+  "plans.users-tip": "Team members with panel access, not messaging customers.",
   "plans.ai-basic": "1,000",
   "plans.ai-standard": "5,000",
   "plans.ai-professional": "15,000",
@@ -71,7 +73,7 @@
   "custom-plan.total": "Estimated price",
   "faq-t.h2.0": "Frequently asked questions",
   "faq.faq-answer.0":
-    "No. Keep your existing number; customers reach you where they already know you.",
+    "Yes. Connect your usual account; customers reach you where they already know you.",
   "faq.faq-answer.2":
     "No. AI interprets and follows the flow: it only uses replies and actions you approved.",
   "faq.faq-answer.3":
@@ -82,7 +84,7 @@
   "faq.faq-answer.5":
     "No. Build from scratch without coding. Smart Imports is optional; you review the draft.",
   "faq.faq-answer.6":
-    "Yes. No system can guarantee that WhatsApp will not restrict or block your account.",
+    "Yes. Your messaging channel can restrict or block your account. There are no guarantees.",
   "faq.faq-answer.8":
     "No. Pautia is not designed for unsolicited mass campaigns.",
   "campaigns.link": "Learn its limits and the alternative of multiple agents",
@@ -111,11 +113,11 @@
     "Sending limits and per-contact pauses help avoid bursts and repeated replies.",
   "faq.faq-answer.7":
     "One use case. Manage in Pautia or connect your system via REST API or MCP for complex tasks.",
-  "faq.summary.0": "Do I need a new WhatsApp number?",
+  "faq.summary.0": "Can I use my usual messaging channel?",
   "faq.summary.2": "Can the AI send whatever it wants?",
   "faq.summary.3": "Do I need another calendar or a CRM?",
   "faq.summary.5": "Do I have to import my chats?",
-  "faq.summary.6": "Can WhatsApp restrict my account?",
+  "faq.summary.6": "Can my messaging channel restrict my account?",
   "faq.summary.7": "Are the agents just for replying?",
   "faq.summary.8": "Can I use Pautia for mass campaigns?",
   "footer.a.0": "How it works",
@@ -134,13 +136,13 @@
   "header.btn.0": "Join the waitlist",
   "header.menu__summary.0": "Menu",
   "how-t.h2.0": "Your customer service, from start to finish",
-  "how.h3.0": "Connect WhatsApp",
+  "how.h3.0": "Connect your messaging channel",
   "how.h3.1": "Define behavior",
   "how.h3.2": "Activate and manage",
   "how.note.0":
     "Connect, define and activate customer service that works with your business.",
   "how.p.0":
-    "Link your existing number to an agent.",
+    "Link your usual account to an agent.",
   "how.detail.0":
     "If you want, Smart Imports drafts a flow from your chats, with your permission.",
   "how.p.1":
@@ -154,7 +156,7 @@
     "The agent follows the defined flow and escalates when it should.",
   "lang.picker-label": "Language",
   "examples.note":
-    "Illustrative examples, not screenshots. The agent answers on WhatsApp; your team uses Pautia.",
+    "Illustrative examples, not screenshots. Messaging for the agent; Pautia for your team.",
   "examples.pautia": "Managed in Pautia",
   "examples.api": "Business API",
   "examples.title": "Simple management, inside Pautia",
@@ -164,7 +166,7 @@
   "examples.api-note":
     "REST API or MCP examples: ask for data, query your system and await confirmation.",
   "main.external-items-label": "Order",
-  "delivery.who": "WhatsApp · Ruta Shipping",
+  "delivery.who": "Messaging · Ruta Shipping",
   "delivery.state": "Reschedules delivery",
   "delivery.bubble.0": "I won't be home to receive my parcel tomorrow.",
   "delivery.bubble.1": "What is your tracking number?",
@@ -179,7 +181,7 @@
   "delivery.slot": "New time slot",
   "delivery.slot-value": "Friday · 16:00–18:00",
   "delivery.next": "The change is saved in the carrier's system, not as a pending Pautia request.",
-  "hotel.who": "WhatsApp · Brisa Hotel",
+  "hotel.who": "Messaging · Brisa Hotel",
   "hotel.state": "Checks and books",
   "hotel.bubble.0": "Do you have a room for the weekend?",
   "hotel.bubble.1": "Which dates and how many guests?",
@@ -195,7 +197,7 @@
   "hotel.stay": "Stay",
   "hotel.stay-value": "October 16–19 · 2 adults",
   "hotel.next": "The API checks availability again before confirming in the hotel's system.",
-  "examples.whatsapp": "WhatsApp conversation",
+  "examples.messaging": "Messaging conversation",
   "main.btn.2": "Join the waitlist",
   "main.bubble.0": "I'd like to book a car inspection.",
   "main.bubble.1": "What name, and for when?",
@@ -234,24 +236,24 @@
   "main.external-status": "Created",
   "main.external-title": "Repuestos Norte · Order",
   "main.mock-state.4": "Builds the order",
-  "main.mock-who.4": "WhatsApp · Repuestos Norte",
-  "main.eyebrow.0": "WhatsApp and management, in one place",
+  "main.mock-who.4": "Messaging · Repuestos Norte",
+  "main.eyebrow.0": "Agents and management, in one place",
   "main.h1.0": "Manage your business with predictable agents",
   "main.h2.0": "Join the waitlist",
   "main.hero-note.0":
     "We're preparing the platform. We'll let you know when registration opens.",
   "main.hero-sub.0":
-    "The agent answers on WhatsApp. Your team manages requests in Pautia, with your rules.",
+    "The agent handles messaging. Your team manages requests in Pautia, with your rules.",
   "main.mock-next": "Next example",
   "main.mock-prev": "Previous example",
   "main.mock-state.0": "The agent collects",
   "main.mock-state.1": "The agent collects",
   "main.mock-state.2": "The agent collects",
   "main.mock-state.3": "The agent answers",
-  "main.mock-who.0": "WhatsApp · Aurora Workshop",
-  "main.mock-who.1": "WhatsApp · Mora Florist",
-  "main.mock-who.2": "WhatsApp · Donato Pizzeria",
-  "main.mock-who.3": "WhatsApp · Sonrisa Clinic",
+  "main.mock-who.0": "Messaging · Aurora Workshop",
+  "main.mock-who.1": "Messaging · Mora Florist",
+  "main.mock-who.2": "Messaging · Donato Pizzeria",
+  "main.mock-who.3": "Messaging · Sonrisa Clinic",
   "main.request-title": "Pautia · Requests",
   "main.request-title.1": "Pautia · Answers",
   "main.request-status": "Awaiting confirmation",
@@ -280,9 +282,9 @@
   "main.p.0":
     "We're preparing Pautia. Leave your email and we'll let you know when registration opens.",
   "meta.description":
-    "Answer on WhatsApp and manage requests in Pautia. Your rules, your agent, your panel.",
+    "Handle messaging and manage requests in Pautia. Your rules, your agent, your panel.",
   "meta.og-description":
-    "Answer on WhatsApp and manage requests in Pautia. Your rules, your agent, your panel.",
+    "Handle messaging and manage requests in Pautia. Your rules, your agent, your panel.",
   "meta.og-locale": "en_US",
   "meta.og-title": "Pautia · Manage your business with predictable agents",
   "nav.a.0": "How it works",
@@ -335,7 +337,7 @@
   "plans.sr-only.0": "Billing period",
   "usecases-t.h2.0": "For the work you handle through messages today",
   "usecases.intro":
-    "For enquiries, bookings and quotes on WhatsApp. Not for automating everything.",
+    "For enquiries, bookings and quotes via messaging. Not for automating everything.",
   "usecases.h3.0": "Appointments and bookings",
   "usecases.h3.1": "Quotes",
   "usecases.h3.5": "Frequent questions",

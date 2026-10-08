@@ -136,7 +136,7 @@ for code, table in strings.items():
         key for key, value in table.items()
         if value == english[key] and len(re.findall(r"[A-Za-z]+", value)) >= 2
         and value not in (
-            "Smart Imports", "Smart Routing", "WhatsApp · Repuestos Norte", "WhatsApp · Hotel Brisa",
+            "Smart Imports", "Smart Routing",
         )
     )
     assert not untranslated, \
@@ -176,8 +176,9 @@ for code, table in strings.items():
 
 # The short landing still explains the complete journey, not just the agent.
 for code, table in strings.items():
-    assert "WhatsApp" in table["main.hero-sub.0"] and "Pautia" in table["main.hero-sub.0"]
-    assert "WhatsApp" in table["how.h3.0"], (code, "missing WhatsApp connection")
+    assert "Pautia" in table["main.hero-sub.0"]
+    assert "WhatsApp" not in table["main.hero-sub.0"]
+    assert "WhatsApp" not in table["how.h3.0"], (code, "connection must be channel-neutral")
     assert "Smart Imports" in table["how.detail.0"], (code, "missing optional starting point")
     assert "Pautia" in table["how.p.2"], (code, "missing integrated request management")
     integrate = {
@@ -194,7 +195,14 @@ for code, table in strings.items():
     assert escalate[code] in table["how.detail.2"].lower(), (code, "missing escalation")
 
 assert 'data-i18n="examples.note"' in index_html
-assert 'data-i18n="examples.whatsapp"' in index_html
+assert 'data-i18n="examples.messaging"' in index_html
+for host in ("whatsapp.com", "telegram.org", "signal.org", "simplex.chat"):
+    assert f'href="https://{host}"' in index_html
+assert 'data-term="messaging"' in index_html
+assert "Agentes y gestión, en un solo lugar" in strings["es"]["main.eyebrow.0"]
+for key in pages[0][1].keys:
+    for code, table in strings.items():
+        assert "WhatsApp" not in table[key], (code, key, "landing copy must be channel-neutral")
 assert 'data-i18n="examples.pautia"' in index_html
 assert 'data-i18n="main.request-status"' in index_html, "the example must show a pending request"
 assert 'aria-hidden="true"' not in re.search(
