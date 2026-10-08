@@ -2257,15 +2257,17 @@ html:has(.waitlist:not([hidden])) {
 
   #plans .plan__pitch {
     min-height: 2.4em;
+    font-size: var(--step-0);
   }
 
   #plans .plan__rows {
     margin-top: var(--space-4);
     padding-top: var(--space-3);
+    font-size: var(--step-0);
   }
 
   #plans .plan__rows .row {
-    padding-block: 0;
+    padding-block: var(--space-1);
   }
 
   #plans .plans__bar,
