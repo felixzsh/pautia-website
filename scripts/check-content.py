@@ -195,7 +195,7 @@ for code, table in strings.items():
     assert escalate[code] in table["how.detail.2"].lower(), (code, "missing escalation")
 
 assert 'data-i18n="examples.note"' in index_html
-assert 'data-i18n="examples.messaging"' in index_html
+assert 'data-i18n="examples.messaging"' not in index_html
 for host in ("whatsapp.com", "telegram.org", "signal.org", "simplex.chat"):
     assert f'href="https://{host}"' in index_html
 assert 'data-term="messaging"' in index_html

@@ -83,7 +83,6 @@
   "examples.api-note": "Ejemplos ilustrativos de integración por API REST o MCP. El agente pide datos, consulta tu sistema y ejecuta acciones al confirmar.",
   "examples.api-title": "Automatización con tu sistema (API REST o MCP)",
   "examples.mcp-note": "Con API REST o MCP, el agente usa solo las acciones que autorizaste en el flujo.",
-  "examples.messaging": "Conversación por mensajería",
   "examples.note": "Ejemplos ilustrativos, no capturas. El agente atiende por mensajería y tu equipo gestiona en Pautia.",
   "examples.pautia": "Gestión en Pautia",
   "examples.title": "Gestión sencilla, dentro de Pautia",
