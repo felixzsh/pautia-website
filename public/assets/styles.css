@@ -892,13 +892,49 @@ html:has(.waitlist:not([hidden])) {
 
 /* Worked examples: the pitch stays in the hero, with examples beneath it. On
    desktop each example puts chat and request side by side; phones keep the
-   vertical flow. */
+   vertical flow. The card takes the whole column so it lines up with the
+   heading above it; the arrows are the only thing allowed outside that line. */
 
 .mocks__layout {
   display: grid;
   grid-template-columns: 40px minmax(0, 1fr) 40px;
   align-items: center;
   gap: var(--space-3);
+}
+
+@media (min-width: 900px) {
+  .mocks__layout {
+    position: relative;
+    display: block;
+  }
+
+  .mocks__layout > .mocks__arrow:not([hidden]) {
+    display: grid;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+
+  /* Just clear of the card, over the section's own margin. */
+  .mocks__arrow--prev {
+    left: calc(-1 * var(--space-5));
+  }
+
+  .mocks__arrow--next {
+    right: calc(-1 * var(--space-5));
+  }
+}
+
+/* A screen wide enough to hold them puts the arrows right off the column. */
+@media (min-width: 1224px) {
+  .mocks__arrow--prev {
+    left: calc(-1 * (40px + var(--space-3)));
+  }
+
+  .mocks__arrow--next {
+    right: calc(-1 * (40px + var(--space-3)));
+  }
 }
 
 .mocks__track {
