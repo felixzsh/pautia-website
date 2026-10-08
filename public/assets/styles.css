@@ -258,6 +258,12 @@ ol {
   scroll-snap-align: end;
 }
 
+/* The waitlist is a journey of its own: while it is open the page scrolls
+   freely, so every step, its buttons and the way out stay reachable. */
+html:has(.waitlist:not([hidden])) {
+  scroll-snap-type: none;
+}
+
 .section--sub {
   --panel: var(--bg);
   background: var(--bg-sub);
@@ -1294,7 +1300,6 @@ ol {
 .plan {
   display: flex;
   flex-direction: column;
-  height: 100%;
   padding: var(--space-6);
   background: var(--panel);
   border: 1px solid var(--line);
@@ -1449,8 +1454,9 @@ ol {
 .plan__rows {
   display: grid;
   /* Tighter than a list: a plan's limits read as one block, not as lines with air
-     between them. */
-  margin-top: var(--space-6);
+     between them. The list carries no margin of its own, so the card ends where
+     the last limit ends. */
+  margin-block: var(--space-6) 0;
   padding-top: var(--space-5);
   border-top: 1px solid var(--line);
   font-size: var(--step-0);
