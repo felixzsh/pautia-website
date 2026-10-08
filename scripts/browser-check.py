@@ -428,6 +428,13 @@ with sync_playwright() as p:
             if not page.locator(".faq details").first.evaluate("d => d.open"):
                 problems.append(f"{name}-{label}: FAQ did not open with the keyboard")
 
+            # One answer at a time: opening a second one closes the first.
+            page.locator('[data-i18n="faq.summary.0"]').click()
+            opened = page.evaluate("""() => [...document.querySelectorAll('#faq details')]
+              .map((one, at) => (one.open ? at : -1)).filter((at) => at >= 0)""")
+            if len(opened) != 1:
+                problems.append(f"{name}-{label}: {len(opened)} answers open at once")
+
             page.locator('[data-i18n="faq.summary.3"]').click()
             page.locator('[data-i18n="faq.management-link"]').click()
             if not page.url.endswith("#examples"):

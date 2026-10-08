@@ -196,6 +196,15 @@ for code, table in strings.items():
 
 assert 'data-i18n="examples.note"' in index_html
 assert 'data-i18n="examples.messaging"' not in index_html
+
+# One answer at a time: every question in the list shares the same group.
+faq = index_html[index_html.index('id="faq"'):index_html.index('id="cta"')
+                 if 'id="cta"' in index_html else len(index_html)]
+answers = re.findall(r"<details([^>]*)>", faq)
+assert len(answers) == 7, answers
+assert all(re.search(r'name="faq"', attrs) for attrs in answers), \
+    "the answers of the FAQ must open one at a time"
+
 for host in ("whatsapp.com", "telegram.org", "signal.org", "simplex.chat"):
     assert f'href="https://{host}"' in index_html
 assert 'data-term="messaging"' in index_html
