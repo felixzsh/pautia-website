@@ -372,10 +372,9 @@
       <div class="wrap">
         <div class="section__head">
           <h2 data-i18n="examples.api-title">Automatización con tu sistema (API REST o MCP)</h2>
-          <p data-i18n="examples.api-note">Ejemplos ilustrativos de integración por API REST o MCP.
-            El agente pide datos, consulta tu sistema y ejecuta acciones al confirmar.</p>
-          <p data-i18n="examples.mcp-note">Con API REST o MCP, el agente usa solo las acciones
-            que autorizaste en el flujo.</p>
+          <p data-i18n="examples.api-note">Ejemplos ilustrativos de integración por API REST o
+            MCP. El agente pide datos, consulta tu sistema y ejecuta acciones al confirmar,
+            solo con lo que autorizaste.</p>
         </div>
         <div class="mocks" data-mocks>
           <div class="mocks__layout">
@@ -385,17 +384,7 @@
                 focusable="false"><use href="#i-chevron" /></svg>
             </button>
             <div class="mocks__track">
-            <figure class="mock">
-              <div class="mock__head">
-                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
-                </span>
-                <span>
-                  <span class="mock__who" data-i18n="main.mock-who.4">Mensajería · Repuestos
-                    Norte</span>
-                  <br><span class="mock__state" data-i18n="main.mock-state.4">Arma el pedido</span>
-                </span>
-              </div>
+            <figure class="mock mock--api">
               <div class="mock__conversation">
                 <div class="mock__thread">
                   <p class="bubble bubble--in" data-i18n="main.bubble.16">Quiero dos kits de
@@ -416,6 +405,16 @@
                 </div>
               </div>
               <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__head">
+                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="main.mock-who.4">Mensajería · Repuestos
+                    Norte</span>
+                  <br><span class="mock__state" data-i18n="main.mock-state.4">Arma el pedido</span>
+                </span>
+              </div>
               <div class="mock__request">
                 <p class="mock__label" data-i18n="examples.api">API REST del negocio</p>
                 <div class="mock__request-head">
@@ -448,17 +447,7 @@
                   API al confirmar.</p>
               </div>
             </figure>
-            <figure class="mock">
-              <div class="mock__head">
-                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
-                </span>
-                <span>
-                  <span class="mock__who" data-i18n="delivery.who">Mensajería · Envíos Ruta</span>
-                  <br><span class="mock__state" data-i18n="delivery.state">Reprograma la
-                    entrega</span>
-                </span>
-              </div>
+            <figure class="mock mock--api">
               <div class="mock__conversation">
                 <div class="mock__thread">
                   <p class="bubble bubble--in" data-i18n="delivery.bubble.0">Mañana no estaré
@@ -475,6 +464,16 @@
                 </div>
               </div>
               <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__head">
+                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="delivery.who">Mensajería · Envíos Ruta</span>
+                  <br><span class="mock__state" data-i18n="delivery.state">Reprograma la
+                    entrega</span>
+                </span>
+              </div>
               <div class="mock__request">
                 <p class="mock__label" data-i18n="examples.api">API REST del negocio</p>
                 <div class="mock__request-head">
@@ -498,16 +497,7 @@
                   sistema de la empresa, no como solicitud pendiente en Pautia.</p>
               </div>
             </figure>
-            <figure class="mock">
-              <div class="mock__head">
-                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
-                </span>
-                <span>
-                  <span class="mock__who" data-i18n="hotel.who">Mensajería · Hotel Brisa</span>
-                  <br><span class="mock__state" data-i18n="hotel.state">Consulta y reserva</span>
-                </span>
-              </div>
+            <figure class="mock mock--api">
               <div class="mock__conversation">
                 <div class="mock__thread">
                   <p class="bubble bubble--in" data-i18n="hotel.bubble.0">¿Tienen habitación
@@ -528,6 +518,15 @@
                 </div>
               </div>
               <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__head">
+                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="hotel.who">Mensajería · Hotel Brisa</span>
+                  <br><span class="mock__state" data-i18n="hotel.state">Consulta y reserva</span>
+                </span>
+              </div>
               <div class="mock__request">
                 <p class="mock__label" data-i18n="examples.api">API REST del negocio</p>
                 <div class="mock__request-head">

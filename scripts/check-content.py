@@ -186,7 +186,7 @@ for code, table in strings.items():
         "fr": "intégrez", "de": "integrieren", "it": "integra",
     }
     assert integrate[code] in table["how.systems"].lower(), (code, "missing own-system option")
-    assert "MCP" in table["how.systems"] and "MCP" in table["examples.mcp-note"]
+    assert "MCP" in table["how.systems"] and "MCP" in table["examples.api-note"]
     assert "MCP" in table["faq.crm-api"] and "MCP" in table["faq.faq-answer.7"]
     escalate = {
         "es": "escala", "en": "escalates", "pt": "escala",
@@ -212,7 +212,12 @@ assert len(re.findall(r'<section\b', index_html)) == 8, "two separate examples s
 assert re.findall(r'<section\b[^>]*\bid="([^"]+)"', index_html) == [
     "how", "usecases", "examples", "api-examples", "plans", "faq",
 ], "examples follow setup and use cases, before pricing"
-assert len(re.findall(r'<figure class="mock"', index_html)) == 7, "four simple and three API examples"
+assert len(re.findall(r'<figure class="mock\b', index_html)) == 7, "four simple and three API examples"
+assert len(re.findall(r'<figure class="mock mock--api"', index_html)) == 3, "the API cards"
+for head_order in re.findall(r'<figure class="mock mock--api".*?</figure>', index_html, re.S):
+    assert head_order.index('mock__conversation') < head_order.index('mock__head') \
+        < head_order.index('mock__request'), \
+        "the API example reads conversation first, then the business card and its panel"
 assert 'data-i18n="examples.api"' in index_html
 assert 'data-i18n="main.external-action"' in index_html
 assert "API REST" in index_html

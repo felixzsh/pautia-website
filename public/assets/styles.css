@@ -42,12 +42,12 @@
   --space-8: 64px;
   --space-9: 96px;
 
-  --step--1: 0.875rem;
-  --step-0: 1rem;
-  --step-1: 1.125rem;
-  --step-2: 1.5rem;
-  --step-3: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
-  --step-4: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  --step--1: 0.8125rem;
+  --step-0: 0.9375rem;
+  --step-1: 1.0625rem;
+  --step-2: 1.375rem;
+  --step-3: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem);
+  --step-4: clamp(1.875rem, 1.35rem + 2.2vw, 2.75rem);
 
   --shadow-1: 0 1px 2px rgb(11 18 32 / 6%), 0 1px 3px rgb(11 18 32 / 4%);
   --shadow-2: 0 8px 24px rgb(11 18 32 / 10%);
@@ -96,6 +96,10 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* Section-by-section reading: every block lines up under the sticky header and
+     nothing is left half seen. The CTA shares one screen with the footer. */
+  scroll-padding-top: var(--header-h);
+  scroll-snap-type: y mandatory;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -225,7 +229,33 @@ ol {
 
 .section {
   padding-block: var(--space-9);
-  scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* A section is one screen: its content is centred so a short block never floats
+   at the top of an empty screen, and a tall one still scrolls inside its turn.
+   The hero is a section here too: without its own anchor the page opened on the
+   second block and the first one was never seen. */
+.landing main > section {
+  display: grid;
+  /* `safe centre`: a block that ends up taller than the screen starts at the
+     top instead of overflowing over the header as well. */
+  align-content: safe center;
+  min-height: calc(100svh - var(--header-h));
+  padding-block: calc(var(--header-h) + var(--space-5)) var(--space-7);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* The closing block and the footer are one screen, read together. */
+.landing main > .cta {
+  scroll-snap-align: none;
+  min-height: 0;
+}
+
+.landing > .footer {
+  scroll-snap-align: end;
 }
 
 .section--sub {
@@ -715,18 +745,19 @@ ol {
 
 .mock {
   margin: 0;
-  padding: var(--space-4);
+  padding: var(--space-3);
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-l);
   box-shadow: var(--shadow-2);
+  font-size: var(--step--1);
 }
 
 .mock__head {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-1) var(--space-2) var(--space-4);
+  padding: var(--space-1) var(--space-2) var(--space-3);
 }
 
 .mock__avatar {
@@ -768,9 +799,9 @@ ol {
 
 .bubble {
   max-width: 85%;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-m);
-  font-size: var(--step-0);
+  font-size: var(--step--1);
   line-height: 1.45;
 }
 
@@ -797,7 +828,7 @@ ol {
 
 .mock__conversation,
 .mock__request {
-  padding: var(--space-4);
+  padding: var(--space-3);
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: var(--radius-m);
@@ -808,7 +839,7 @@ ol {
 }
 
 .mock__label {
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
   color: var(--ink-500);
   font-size: var(--step--1);
   font-weight: 650;
@@ -887,6 +918,7 @@ ol {
 .mocks__track > .mock {
   flex: 0 0 100%;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .mock {
@@ -910,39 +942,68 @@ ol {
   display: none;
 }
 
+/* The API examples carry the business card above the API panel, not above the
+   whole example: the conversation runs down the left, and the right column is
+   read top to bottom as one block. */
 @media (min-width: 900px) {
-  .mocks__layout > .mocks__arrow:not([hidden]) {
-    display: grid;
+  .mock--api .mock__head {
+    grid-column: 2;
+    grid-row: 1;
+    padding-bottom: var(--space-2);
+  }
+
+  .mock--api .mock__conversation {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+
+  .mock--api .mock__request {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
   }
 }
 
+/* The examples own the whole width: their heading is not held to a reading
+   measure, so one sentence covers two lines and the cards below stay wide. */
+#examples .section__head,
+#api-examples .section__head {
+  max-width: none;
+}
+
+#examples .section__head p,
+#api-examples .section__head p {
+  max-width: 96ch;
+}
+
+/* Worked examples: the pitch stays in the hero, with examples beneath it. The
+   heading sits above the card, so the card keeps the whole width and a message
+   reads in one or two lines instead of five. */
+
 @media (max-width: 899px) {
+  /* One example per screen: on a phone the cards stack, so each one is its own
+     anchor and the conversation and its request are read together. */
   .mocks__layout {
     display: block;
   }
 
-  .mocks__layout > .mocks__arrow {
+  .mocks__arrow {
     display: none !important;
   }
 
   .mocks__track {
     display: grid;
-    gap: var(--space-6);
+    gap: var(--space-4);
     overflow: visible;
     scroll-snap-type: none;
   }
 
   .mocks__track > .mock {
     display: block;
-  }
-
-  .mock__request {
-    margin-top: var(--space-3);
-  }
-
-  .mock__handoff {
-    display: block;
-  }
+    scroll-snap-align: start;
+  scroll-snap-stop: always;
+    }
 }
 
 .mocks__count {
@@ -1736,6 +1797,17 @@ ol {
   max-width: 880px;
 }
 
+/* Two columns on a wide screen: the nine answers fit one view instead of a
+   column that runs past the fold. A row aligns to its own items, so opening one
+   answer never stretches the one beside it. */
+@media (min-width: 900px) {
+  .faq {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    max-width: none;
+  }
+}
+
 .faq details {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -2156,4 +2228,426 @@ ol {
 }
 @media (prefers-reduced-motion: reduce) {
   .waitlist__choice:hover { transform: none; }
+}
+
+/* A plan card carries a lot of lines, and the section has to stay one screen on
+   a laptop: the card gives up padding before it gives up a row. */
+@media (min-width: 900px) and (min-height: 720px) {
+  #plans .plan {
+    padding: var(--space-5);
+  }
+
+  #plans .plan__tag {
+    margin-bottom: var(--space-3);
+  }
+
+  #plans .plan__rows {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+  }
+
+  #plans .plan__rows .row {
+    padding-block: 0;
+  }
+
+  #plans .plans__bar {
+    margin-bottom: var(--space-5);
+  }
+
+  #plans .plans__more {
+    margin-top: var(--space-5);
+  }
+}
+
+/* One screen per section on a phone.
+   The header, the heading and the arrows all take room, so a block that has to
+   fit beside them gives up the padding it can spare: the example card keeps the
+   whole conversation and the whole request, only tighter. */
+@media (max-width: 899px) {
+  .section__head {
+    margin-bottom: var(--space-5);
+  }
+
+  .section__head p {
+    margin-top: var(--space-3);
+    font-size: var(--step-0);
+  }
+
+  .section h2 {
+    font-size: var(--step-2);
+  }
+
+  /* One example per screen: on a phone the cards stack, so each one is its own
+     anchor and the conversation and its request are read together. */
+  .mocks__layout {
+    display: block;
+  }
+
+  .mocks__arrow {
+    display: none !important;
+  }
+
+  .mocks__track {
+    display: grid;
+    gap: var(--space-4);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .mocks__track > .mock {
+    display: block;
+    scroll-snap-align: start;
+  scroll-snap-stop: always;
+    }
+
+  #examples,
+  #api-examples {
+    scroll-snap-align: none;
+  }
+
+  #examples .section__head,
+  #api-examples .section__head {
+    scroll-snap-align: start;
+  scroll-snap-stop: always;
+    }
+
+  .mock__request {
+    margin-top: var(--space-2);
+  }
+
+  /* On a phone the card is read in order: conversation, then the business card
+     and its API panel together. */
+  .mock--api .mock__head {
+    padding-top: var(--space-2);
+  }
+
+  .mock__handoff {
+    display: block;
+    padding-block: var(--space-1);
+  }
+
+  /* The hero has to show the pitch and the four channels in one screen. */
+  .hero {
+    padding-block: calc(var(--header-h) + var(--space-4)) var(--space-5);
+  }
+
+  .hero h1 {
+    max-width: 20ch;
+  }
+
+  .hero__sub {
+    margin-top: var(--space-3);
+    font-size: var(--step-0);
+  }
+
+  .hero__note {
+    margin-top: var(--space-3);
+  }
+
+  .hero__grid {
+    gap: var(--space-5);
+  }
+
+  .channels {
+    width: min(100%, 320px);
+  }
+
+  .channels__map {
+    padding: var(--space-4) var(--space-2);
+  }
+
+  .channels__links {
+    gap: 74px clamp(24px, 5vw, 48px);
+  }
+
+  .channels__link {
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-1);
+  }
+
+  .channels__link img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .channels__hub {
+    width: 82px;
+    height: 82px;
+    box-shadow: 0 0 0 8px var(--bg);
+  }
+
+  .channels__hub svg {
+    width: 46px;
+    height: 46px;
+  }
+
+  .channels figcaption {
+    margin-top: var(--space-3);
+  }
+
+  /* Steps, uses and answers: three blocks and a list, each read in one screen. */
+  .steps {
+    gap: var(--space-3);
+  }
+
+  .step::before {
+    width: 30px;
+    height: 30px;
+    margin-bottom: var(--space-2);
+  }
+
+  .step p {
+    margin-top: var(--space-2);
+    font-size: var(--step--1);
+  }
+
+  .step {
+    padding: var(--space-4);
+  }
+
+  .step h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .cards {
+    gap: var(--space-3);
+  }
+
+  .card {
+    padding: var(--space-4);
+  }
+
+  .card h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .faq {
+    gap: var(--space-2);
+  }
+
+  .faq summary {
+    min-height: 44px;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--step-0);
+  }
+
+  .faq summary::after {
+    font-size: var(--step-1);
+  }
+
+  .faq__answer {
+    padding: 0 var(--space-4) var(--space-4);
+    font-size: var(--step--1);
+  }
+
+  /* The plan table is a column of blocks on a phone, and each block is a screen
+     of its own: the section stops being the snap point so the Enterprise card,
+     the builder and the notes are reached too, one turn at a time. */
+  #plans {
+    scroll-snap-align: none;
+  }
+
+  .plans__bar,
+  .plan,
+  .custom-plan,
+  .plans__included,
+  .facts {
+    scroll-snap-align: start;
+  scroll-snap-stop: always;
+    }
+
+  .plans__grid {
+    gap: var(--space-4);
+  }
+
+  .plan {
+    padding: var(--space-5);
+  }
+
+  /* A phone screen is small: the example card keeps every message and the whole
+     request, and gives up the air between them instead. */
+  .landing main > section {
+    padding-block: calc(var(--header-h) + var(--space-3)) var(--space-3);
+  }
+
+  .section__head {
+    margin-bottom: var(--space-3);
+  }
+
+  .section__head p {
+    margin-top: var(--space-2);
+    font-size: var(--step--1);
+  }
+
+  .mocks__layout {
+    gap: var(--space-2);
+  }
+
+  .mocks__arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .mock {
+    padding: var(--space-2);
+  }
+
+  .mock__head {
+    gap: var(--space-2);
+    padding: 0 0 var(--space-2);
+  }
+
+  .mock__avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .mock__avatar--pautia svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mock__who {
+    font-size: var(--step--1);
+  }
+
+  .mock__state,
+  .mock__label,
+  .mock__next,
+  .mock__details dt {
+    font-size: 0.75rem;
+  }
+
+  .mock__conversation,
+  .mock__request {
+    padding: var(--space-2);
+  }
+
+  .mock__label {
+    margin-bottom: var(--space-1);
+  }
+
+  .bubble {
+    max-width: 94%;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+  .mock__thread {
+    gap: 4px;
+  }
+
+  .mock__handoff {
+    padding-block: 0;
+    font-size: 0.75rem;
+  }
+
+  .mock__details {
+    gap: 0;
+    margin-block: var(--space-2);
+  }
+
+  .mock__details div {
+    padding-block: 2px;
+  }
+}
+
+/* A narrow, short phone still reads one block per screen: the type steps down
+   once more rather than the reader losing the end of a card. It comes after the
+   rules above on purpose: same weight, so the later block is the one that wins. */
+@media (max-width: 389px) {
+  .hero {
+    padding-block: calc(var(--header-h) + var(--space-2)) var(--space-3);
+  }
+
+  .hero h1 {
+    font-size: 1.625rem;
+  }
+
+  .hero__sub,
+  .hero__note {
+    font-size: var(--step--1);
+  }
+
+  .channels {
+    width: min(100%, 240px);
+  }
+
+  .channels__map {
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .channels figcaption {
+    margin-top: var(--space-2);
+  }
+
+  .channels__links {
+    gap: 58px clamp(18px, 5vw, 36px);
+  }
+
+  .channels__link img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .channels__hub {
+    width: 64px;
+    height: 64px;
+    box-shadow: 0 0 0 6px var(--bg);
+  }
+
+  .channels__hub svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .step::before {
+    width: 22px;
+    height: 22px;
+  }
+
+  .step h3 {
+    font-size: var(--step-1);
+  }
+
+  .step p,
+  .card p {
+    font-size: 0.6875rem;
+  }
+
+  .mock {
+    padding: 6px;
+  }
+
+  .mock__conversation,
+  .mock__request {
+    padding: 6px;
+  }
+
+  .bubble {
+    padding: 5px 8px;
+    font-size: 0.75rem;
+  }
+
+  .mock__thread {
+    gap: 3px;
+  }
+
+  .mock__state,
+  .mock__label,
+  .mock__next,
+  .mock__details dt,
+  .mock__details dd,
+  .mock__request {
+    font-size: 0.6875rem;
+  }
+
+  .mock__details {
+    margin-block: 6px;
+  }
+
+  .steps {
+    gap: var(--space-2);
+  }
 }

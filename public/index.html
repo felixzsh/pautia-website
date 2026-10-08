@@ -511,10 +511,9 @@
       <div class="wrap">
         <div class="section__head">
           <h2 data-i18n="examples.api-title" data-terms>Automatización con tu <button type="button" class="term" data-term="system" title="El software de gestión de tu negocio: agenda, CRM, inventario o el que uses." aria-expanded="false">sistema</button> (API REST o <button type="button" class="term" data-term="mcp" title="Protocolo para usar herramientas externas como acciones autorizadas del flujo." aria-expanded="false">MCP</button>)</h2>
-          <p data-i18n="examples.api-note" data-terms>Ejemplos ilustrativos de <button type="button" class="term" data-term="integration" title="Conexión con tu sistema mediante una API REST o un servidor MCP compatible." aria-expanded="false">integración</button> por API REST o <button type="button" class="term" data-term="mcp" title="Protocolo para usar herramientas externas como acciones autorizadas del flujo." aria-expanded="false">MCP</button>.
-            El <button type="button" class="term" data-term="agent" title="El que atiende por tu canal de mensajería siguiendo tus reglas." aria-expanded="false">agente</button> pide datos, consulta tu <button type="button" class="term" data-term="system" title="El software de gestión de tu negocio: agenda, CRM, inventario o el que uses." aria-expanded="false">sistema</button> y ejecuta <button type="button" class="term" data-term="action" title="Una tarea del agente además de responder." aria-expanded="false">acciones</button> al confirmar.</p>
-          <p data-i18n="examples.mcp-note" data-terms>Con API REST o <button type="button" class="term" data-term="mcp" title="Protocolo para usar herramientas externas como acciones autorizadas del flujo." aria-expanded="false">MCP</button>, el <button type="button" class="term" data-term="agent" title="El que atiende por tu canal de mensajería siguiendo tus reglas." aria-expanded="false">agente</button> usa solo las <button type="button" class="term" data-term="action" title="Una tarea del agente además de responder." aria-expanded="false">acciones</button>
-            que autorizaste en el <button type="button" class="term" data-term="flow" title="El recorrido que sigue el agente: qué pregunta, responde o hace." aria-expanded="false">flujo</button>.</p>
+          <p data-i18n="examples.api-note" data-terms>Ejemplos ilustrativos de <button type="button" class="term" data-term="integration" title="Conexión con tu sistema mediante una API REST o un servidor MCP compatible." aria-expanded="false">integración</button> por API REST o
+            <button type="button" class="term" data-term="mcp" title="Protocolo para usar herramientas externas como acciones autorizadas del flujo." aria-expanded="false">MCP</button>. El <button type="button" class="term" data-term="agent" title="El que atiende por tu canal de mensajería siguiendo tus reglas." aria-expanded="false">agente</button> pide datos, consulta tu <button type="button" class="term" data-term="system" title="El software de gestión de tu negocio: agenda, CRM, inventario o el que uses." aria-expanded="false">sistema</button> y ejecuta <button type="button" class="term" data-term="action" title="Una tarea del agente además de responder." aria-expanded="false">acciones</button> al confirmar,
+            solo con lo que autorizaste.</p>
         </div>
         <div class="mocks" data-mocks>
           <div class="mocks__layout">
@@ -524,17 +523,7 @@
                 focusable="false"><use href="#i-chevron" /></svg>
             </button>
             <div class="mocks__track">
-            <figure class="mock">
-              <div class="mock__head">
-                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
-                </span>
-                <span>
-                  <span class="mock__who" data-i18n="main.mock-who.4" data-terms><button type="button" class="term" data-term="messaging" title="Canales que conectas a Pautia: WhatsApp, Telegram, Signal y SimpleX Chat." aria-expanded="false">Mensajería</button> · Repuestos
-                    Norte</span>
-                  <br><span class="mock__state" data-i18n="main.mock-state.4" data-terms>Arma el pedido</span>
-                </span>
-              </div>
+            <figure class="mock mock--api">
               <div class="mock__conversation">
                 <div class="mock__thread">
                   <p class="bubble bubble--in" data-i18n="main.bubble.16" data-terms>Quiero dos kits de
@@ -555,6 +544,16 @@
                 </div>
               </div>
               <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__head">
+                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="main.mock-who.4" data-terms><button type="button" class="term" data-term="messaging" title="Canales que conectas a Pautia: WhatsApp, Telegram, Signal y SimpleX Chat." aria-expanded="false">Mensajería</button> · Repuestos
+                    Norte</span>
+                  <br><span class="mock__state" data-i18n="main.mock-state.4" data-terms>Arma el pedido</span>
+                </span>
+              </div>
               <div class="mock__request">
                 <p class="mock__label" data-i18n="examples.api" data-terms>API REST del negocio</p>
                 <div class="mock__request-head">
@@ -587,17 +586,7 @@
                   API al confirmar.</p>
               </div>
             </figure>
-            <figure class="mock">
-              <div class="mock__head">
-                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
-                </span>
-                <span>
-                  <span class="mock__who" data-i18n="delivery.who" data-terms><button type="button" class="term" data-term="messaging" title="Canales que conectas a Pautia: WhatsApp, Telegram, Signal y SimpleX Chat." aria-expanded="false">Mensajería</button> · Envíos Ruta</span>
-                  <br><span class="mock__state" data-i18n="delivery.state" data-terms>Reprograma la
-                    entrega</span>
-                </span>
-              </div>
+            <figure class="mock mock--api">
               <div class="mock__conversation">
                 <div class="mock__thread">
                   <p class="bubble bubble--in" data-i18n="delivery.bubble.0" data-terms>Mañana no estaré
@@ -614,6 +603,16 @@
                 </div>
               </div>
               <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__head">
+                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="delivery.who" data-terms><button type="button" class="term" data-term="messaging" title="Canales que conectas a Pautia: WhatsApp, Telegram, Signal y SimpleX Chat." aria-expanded="false">Mensajería</button> · Envíos Ruta</span>
+                  <br><span class="mock__state" data-i18n="delivery.state" data-terms>Reprograma la
+                    entrega</span>
+                </span>
+              </div>
               <div class="mock__request">
                 <p class="mock__label" data-i18n="examples.api" data-terms>API REST del negocio</p>
                 <div class="mock__request-head">
@@ -637,16 +636,7 @@
                   <button type="button" class="term" data-term="system" title="El software de gestión de tu negocio: agenda, CRM, inventario o el que uses." aria-expanded="false">sistema</button> de la empresa, no como solicitud pendiente en Pautia.</p>
               </div>
             </figure>
-            <figure class="mock">
-              <div class="mock__head">
-                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
-                </span>
-                <span>
-                  <span class="mock__who" data-i18n="hotel.who" data-terms><button type="button" class="term" data-term="messaging" title="Canales que conectas a Pautia: WhatsApp, Telegram, Signal y SimpleX Chat." aria-expanded="false">Mensajería</button> · Hotel Brisa</span>
-                  <br><span class="mock__state" data-i18n="hotel.state" data-terms>Consulta y reserva</span>
-                </span>
-              </div>
+            <figure class="mock mock--api">
               <div class="mock__conversation">
                 <div class="mock__thread">
                   <p class="bubble bubble--in" data-i18n="hotel.bubble.0" data-terms>¿Tienen habitación
@@ -667,6 +657,15 @@
                 </div>
               </div>
               <div class="mock__handoff" aria-hidden="true">↓</div>
+              <div class="mock__head">
+                <span class="mock__avatar mock__avatar--pautia" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24"><use href="#i-pautia" /></svg>
+                </span>
+                <span>
+                  <span class="mock__who" data-i18n="hotel.who" data-terms><button type="button" class="term" data-term="messaging" title="Canales que conectas a Pautia: WhatsApp, Telegram, Signal y SimpleX Chat." aria-expanded="false">Mensajería</button> · Hotel Brisa</span>
+                  <br><span class="mock__state" data-i18n="hotel.state" data-terms>Consulta y reserva</span>
+                </span>
+              </div>
               <div class="mock__request">
                 <p class="mock__label" data-i18n="examples.api" data-terms>API REST del negocio</p>
                 <div class="mock__request-head">

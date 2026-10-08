@@ -161,10 +161,8 @@
   "examples.api": "API do negócio",
   "examples.title": "Gestão simples, dentro da Pautia",
   "examples.api-title": "Automação com seu sistema (API REST ou MCP)",
-  "examples.mcp-note":
-    "Com API REST ou MCP, o agente usa apenas as ações autorizadas no fluxo.",
   "examples.api-note":
-    "Exemplos API REST ou MCP: pedir dados, consultar seu sistema e aguardar confirmação.",
+    "Exemplos API REST ou MCP: pedir dados, consultar seu sistema e aguardar confirmação, só com as ações autorizadas.",
   "main.external-items-label": "Encomenda",
   "delivery.who": "Mensageria · Transportadora Ruta",
   "delivery.state": "Reagenda a entrega",
