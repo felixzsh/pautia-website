@@ -380,8 +380,9 @@ ol {
 }
 
 .brand__mark {
-  width: 28px;
-  height: 28px;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
   color: var(--brand-600);
 }
 
@@ -634,7 +635,7 @@ ol {
 .channels__links {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 100px clamp(32px, 5vw, 72px);
+  gap: 112px clamp(32px, 5vw, 72px);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -681,14 +682,21 @@ ol {
   display: grid;
   justify-items: center;
   align-content: center;
-  width: 92px;
-  height: 92px;
+  width: 104px;
+  height: 104px;
   border-radius: 50%;
-  background: var(--brand-600);
+  background: var(--bg);
+  border: 1px solid var(--line);
   box-shadow: 0 0 0 10px var(--bg);
-  color: var(--on-brand);
+  color: var(--ink-900);
   font-size: var(--step--1);
   font-weight: 650;
+  row-gap: var(--space-1);
+}
+
+.channels__hub svg {
+  width: 58px;
+  height: 58px;
 }
 
 .channels figcaption {
@@ -726,9 +734,19 @@ ol {
   place-items: center;
   width: 36px;
   height: 36px;
-  background: var(--brand-600);
+  background: var(--brand-100);
   border-radius: var(--radius-pill);
-  color: var(--on-brand);
+  color: var(--brand-700);
+}
+
+.mock__avatar--pautia {
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.mock__avatar--pautia svg {
+  width: 30px;
+  height: 30px;
 }
 
 .mock__who {

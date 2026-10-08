@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none">
+  <title>Pautia · Carril simplificado invertido</title>
+  <path d="M22 68V28a10 10 0 0 1 10-10h12M74 28v40a10 10 0 0 1-10 10H52"
+    stroke="#0e7c6b" stroke-width="9" stroke-linecap="round" />
+  <path d="M58 54H48V42H38" stroke="#0e7c6b" stroke-width="12"
+    stroke-linecap="round" stroke-linejoin="round" />
+</svg>
