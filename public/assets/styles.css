@@ -1300,6 +1300,9 @@ html:has(.waitlist:not([hidden])) {
 .plan {
   display: flex;
   flex-direction: column;
+  /* Every card takes the height of the one with the most to say, so the three
+     read as one table instead of three ragged columns. */
+  height: 100%;
   padding: var(--space-6);
   background: var(--panel);
   border: 1px solid var(--line);
@@ -2236,32 +2239,44 @@ html:has(.waitlist:not([hidden])) {
   .waitlist__choice:hover { transform: none; }
 }
 
-/* A plan card carries a lot of lines, and the section has to stay one screen on
-   a laptop: the card gives up padding before it gives up a row. */
-@media (min-width: 900px) and (min-height: 720px) {
+/* A plan card carries a lot of lines, and the table has to stay one view on a
+   laptop: the card gives up padding and the space between its rows, not its
+   type. */
+@media (min-width: 900px) {
+  #plans {
+    padding-block: calc(var(--header-h) + var(--space-2)) var(--space-2);
+  }
+
+  #plans .plans__bar {
+    margin-bottom: var(--space-4);
+  }
+
   #plans .plan {
     padding: var(--space-5);
   }
 
-  #plans .plan__tag {
-    margin-bottom: var(--space-3);
+  #plans .plan__pitch {
+    min-height: 2.4em;
   }
 
   #plans .plan__rows {
-    margin-top: var(--space-5);
-    padding-top: var(--space-4);
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
   }
 
   #plans .plan__rows .row {
     padding-block: 0;
   }
 
-  #plans .plans__bar {
-    margin-bottom: var(--space-5);
+  #plans .plans__bar,
+  #plans .plans__grid,
+  #plans .plans__more {
+    width: min(100%, 960px);
+    margin-inline: auto;
   }
 
   #plans .plans__more {
-    margin-top: var(--space-5);
+    margin-top: var(--space-4);
   }
 }
 
