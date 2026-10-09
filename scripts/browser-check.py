@@ -103,12 +103,12 @@ with sync_playwright() as p:
                 problems.append(f"{name}-{label}: the page did not open in Spanish")
             assert page.locator('.brand__mark use').get_attribute('href') == '#i-pautia'
             favicon_href = page.locator('link[rel="icon"]').get_attribute("href")
-            assert favicon_href == "/assets/favicon-horizontal.svg"
+            assert favicon_href == "/assets/logo-mirror.svg"
             favicon = page.request.get(f"{BASE}{favicon_href}").text()
-            assert 'M38 54h10V42h10' in favicon
-            assert 'rotate(90 48 48)' in favicon
-            assert favicon.count('#0e7c6b') == 2
-            assert '#2fb39c' not in favicon
+            assert 'fill="#06252b"' in favicon
+            assert 'fill-rule="evenodd"' in favicon
+            assert 'translate(24 0) scale(-1 1)' in favicon
+            assert '#ffffff' not in favicon
 
             # The header shows its links or the button that stands in for them,
             # never both and never neither.

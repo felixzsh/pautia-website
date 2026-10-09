@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Pautia · Propuestas de identidad</title>
+  <title>Pautia · Logo de referencia y espejo</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -13,156 +13,80 @@
       color: #0b1220;
       font-family: ui-sans-serif, system-ui, sans-serif;
     }
-    main { max-width: 1160px; margin: auto; padding: 48px 24px; }
-    header { margin-bottom: 32px; }
-    h1 { margin: 8px 0; font-size: clamp(28px, 4vw, 42px); letter-spacing: -.04em; }
-    header p { margin: 0; max-width: 680px; color: #5a6b7f; line-height: 1.6; }
-    .eyebrow { color: #0e7c6b; font-size: 12px; font-weight: 750; letter-spacing: .12em; }
-    .controls { display: flex; align-items: center; gap: 8px; margin-top: 20px; font-size: 14px; }
-    .controls input { width: 16px; height: 16px; accent-color: #0e7c6b; }
-    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+    main { max-width: 1000px; margin: auto; padding: 40px 24px; }
+    header { margin-bottom: 28px; }
+    h1 { margin: 8px 0; font-size: clamp(28px, 4vw, 40px); letter-spacing: -.04em; }
+    header p, .copy p { margin: 0; color: #5a6b7f; line-height: 1.6; }
+    .eyebrow { color: #0e7c6b; font-size: 12px; font-weight: 750; letter-spacing: .1em; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
     article { overflow: hidden; border: 1px solid #e3e8ef; border-radius: 24px; }
-    .light { display: grid; justify-items: center; padding: 40px 16px; background: white; }
-    .large { width: 148px; height: 148px; margin-bottom: 32px; }
-    .lockup { display: flex; align-items: center; gap: 10px; }
-    .lockup img { width: 32px; height: 32px; }
+    .light { display: grid; justify-items: center; padding: 32px; background: #e8eef2; }
+    .large { width: 172px; height: 172px; margin-bottom: 28px; }
+    .lockup { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .lockup img { width: 40px; height: 40px; }
     .lockup span { font-size: 32px; font-weight: 750; letter-spacing: -.045em; }
-    .dark {
-      display: grid;
+    .sizes {
+      display: flex;
+      align-items: center;
       justify-content: center;
       gap: 24px;
       padding: 24px;
-      background: #0b1220;
-      color: white;
+      background: #f6f8fa;
     }
-    body:has(#monochrome:checked) .light img { filter: brightness(0); }
-    body:has(#monochrome:checked) .dark img { filter: brightness(0) invert(1); }
-    .sizes { display: flex; align-items: center; justify-content: center; gap: 16px; }
-    .app {
-      display: grid;
-      place-items: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      border: 1px solid #22303f;
-      background: #10312b;
-    }
-    .app img { width: 34px; height: 34px; }
-    .copy { padding: 24px; background: #ffffff; }
-    h2 { margin: 8px 0; font-size: 21px; letter-spacing: -.02em; }
-    .copy p { min-height: 72px; margin: 0; color: #5a6b7f; font-size: 14px; line-height: 1.6; }
-    .number { color: #0e7c6b; font-size: 12px; font-weight: 750; letter-spacing: .06em; }
-    .note { margin-top: 28px; color: #5a6b7f; font-size: 14px; line-height: 1.6; }
-    @media (max-width: 980px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+    .copy { padding: 24px; background: white; }
+    h2 { margin: 0 0 8px; font-size: 22px; }
+    .copy p { font-size: 14px; }
+    @media (max-width: 650px) { .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <main>
     <header>
-      <span class="eyebrow">CARRIL · VARIACIONES DE RECORRIDO</span>
-      <h1>Un tramo menos. Límites en dos orientaciones.</h1>
-      <p>Carriles más juntos y finos; recorrido interior más compacto y algo más grueso.
-        Todo en un solo verde. Compara límites laterales con horizontales.</p>
-      <label class="controls"><input id="monochrome" type="checkbox">
-        Ver solo la silueta, sin color</label>
+      <span class="eyebrow">PAUTIA · MISMA FIGURA, DOS ORIENTACIONES</span>
+      <h1>El logo de tu imagen.</h1>
+      <p>Sin fondo y sin rellenos blancos: las tres líneas son huecos transparentes.
+        El gris que ves detrás pertenece a esta página, no al logo.</p>
     </header>
     <div class="grid">
       <article>
         <div class="light">
-          <img class="large" src="carril-simple.svg" alt="Carril con un recorrido de tres tramos">
-          <div class="lockup"><img src="carril-simple.svg" alt=""><span>Pautia</span></div>
+          <img class="large" src="../logo.svg"
+            alt="Burbuja verde oscura, tres huecos transparentes y cola abajo a la derecha">
+          <div class="lockup"><img src="../logo.svg" alt=""><span>Pautia</span></div>
         </div>
-        <div class="dark">
-          <div class="lockup"><img src="carril-simple.svg" alt=""><span>Pautia</span></div>
-          <div class="sizes" aria-label="Pruebas a 16, 24 y 32 píxeles e icono de aplicación">
-            <img src="carril-simple.svg" width="16" height="16" alt="">
-            <img src="carril-simple.svg" width="24" height="24" alt="">
-            <img src="carril-simple.svg" width="32" height="32" alt="">
-            <span class="app"><img src="carril-simple.svg" alt=""></span>
-          </div>
+        <div class="sizes" aria-label="Logo a 16, 24, 32 y 48 píxeles">
+          <img src="../logo.svg" width="16" height="16" alt="">
+          <img src="../logo.svg" width="24" height="24" alt="">
+          <img src="../logo.svg" width="32" height="32" alt="">
+          <img src="../logo.svg" width="48" height="48" alt="">
         </div>
         <div class="copy">
-          <span class="number">01 · SIN PUNTA</span>
-          <h2>Simple</h2>
-          <p>Tres tramos, dos giros y extremos redondeados. La versión más limpia: mantiene
-            la idea de recorrido, con menos zigzag y sin añadir otros elementos.</p>
+          <h2>Original</h2>
+          <p>Cola a la derecha. Las dos primeras líneas son iguales y la tercera es más corta,
+            alineada a la izquierda, como en tu referencia.</p>
         </div>
       </article>
       <article>
         <div class="light">
-          <img class="large" src="carril-horizontal-invertido.svg"
-            alt="Límites horizontales y una ruta que empieza arriba y termina abajo">
+          <img class="large mirror" src="../logo-mirror.svg"
+            alt="La misma burbuja reflejada, con cola abajo a la izquierda">
           <div class="lockup">
-            <img src="carril-horizontal-invertido.svg" alt=""><span>Pautia</span>
+            <img class="mirror" src="../logo-mirror.svg" alt=""><span>Pautia</span>
           </div>
         </div>
-        <div class="dark">
-          <div class="lockup">
-            <img src="carril-horizontal-invertido.svg" alt=""><span>Pautia</span>
-          </div>
-          <div class="sizes" aria-label="Pruebas a 16, 24 y 32 píxeles e icono de aplicación">
-            <img src="carril-horizontal-invertido.svg" width="16" height="16" alt="">
-            <img src="carril-horizontal-invertido.svg" width="24" height="24" alt="">
-            <img src="carril-horizontal-invertido.svg" width="32" height="32" alt="">
-            <span class="app"><img src="carril-horizontal-invertido.svg" alt=""></span>
-          </div>
+        <div class="sizes" aria-label="Logo espejo a 16, 24, 32 y 48 píxeles">
+          <img class="mirror" src="../logo-mirror.svg" width="16" height="16" alt="">
+          <img class="mirror" src="../logo-mirror.svg" width="24" height="24" alt="">
+          <img class="mirror" src="../logo-mirror.svg" width="32" height="32" alt="">
+          <img class="mirror" src="../logo-mirror.svg" width="48" height="48" alt="">
         </div>
         <div class="copy">
-          <span class="number">02 · HORIZONTAL, DESCENDENTE</span>
-          <h2>Horizontal invertido</h2>
-          <p>La ruta empieza arriba, baja y termina abajo. Sus dos tramos horizontales son
-            ligeramente más largos; los límites curvos son los mismos del horizontal original.</p>
-        </div>
-      </article>
-      <article>
-        <div class="light">
-          <img class="large" src="carril-invertido.svg"
-            alt="Carril con el recorrido hacia la izquierda">
-          <div class="lockup"><img src="carril-invertido.svg" alt=""><span>Pautia</span></div>
-        </div>
-        <div class="dark">
-          <div class="lockup"><img src="carril-invertido.svg" alt=""><span>Pautia</span></div>
-          <div class="sizes" aria-label="Pruebas a 16, 24 y 32 píxeles e icono de aplicación">
-            <img src="carril-invertido.svg" width="16" height="16" alt="">
-            <img src="carril-invertido.svg" width="24" height="24" alt="">
-            <img src="carril-invertido.svg" width="32" height="32" alt="">
-            <span class="app"><img src="carril-invertido.svg" alt=""></span>
-          </div>
-        </div>
-        <div class="copy">
-          <span class="number">03 · OTRA ORIENTACIÓN</span>
-          <h2>Invertido</h2>
-          <p>Solo se refleja el recorrido interior; los límites no cambian. Sirve para
-            comparar qué orientación se siente más equilibrada junto al nombre Pautia.</p>
-        </div>
-      </article>
-      <article>
-        <div class="light">
-          <img class="large" src="carril-horizontal.svg"
-            alt="Dos límites horizontales y un recorrido interior compacto">
-          <div class="lockup"><img src="carril-horizontal.svg" alt=""><span>Pautia</span></div>
-        </div>
-        <div class="dark">
-          <div class="lockup"><img src="carril-horizontal.svg" alt=""><span>Pautia</span></div>
-          <div class="sizes" aria-label="Pruebas a 16, 24 y 32 píxeles e icono de aplicación">
-            <img src="carril-horizontal.svg" width="16" height="16" alt="">
-            <img src="carril-horizontal.svg" width="24" height="24" alt="">
-            <img src="carril-horizontal.svg" width="32" height="32" alt="">
-            <span class="app"><img src="carril-horizontal.svg" alt=""></span>
-          </div>
-        </div>
-        <div class="copy">
-          <span class="number">04 · HORIZONTAL</span>
-          <h2>Límites arriba y abajo</h2>
-          <p>Los mismos límites curvos, girados arriba y abajo. La ruta interior es exactamente
-            la de Simple: no gira, no cambia de forma ni añade un tramo.</p>
+          <h2>Espejo · elegido y aplicado en la web</h2>
+          <p>La misma burbuja reflejada, con la cola a la izquierda. Los tres huecos empiezan
+            alineados a la izquierda; la línea corta conserva su tamaño.</p>
         </div>
       </article>
     </div>
-    <p class="note">SVG originales, un solo color plano y fondo transparente. El control
-      de silueta permite comprobar si la forma funciona sola. Antes de adoptar uno, hay que
-      revisar similitudes con otras marcas; estas propuestas no garantizan exclusividad.</p>
   </main>
 </body>
 </html>

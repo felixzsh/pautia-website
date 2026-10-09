@@ -1,14 +1,16 @@
 """Draw the social card once, from the same tokens the page uses, and write
 public/assets/og.png. It is a one-time generator, not part of serving or
 checking: the served site has no dependency of its own for reading it. Re-run it
-only when the brand colour or the tagline changes.
+only when the logo, brand colour or tagline changes.
 
     python3 scripts/og.py
 """
 
 import pathlib
+from io import BytesIO
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from playwright.sync_api import sync_playwright
 
 W, H = 1200, 630
 INK = "#0b1220"
@@ -23,28 +25,22 @@ def font(name, size):
     return ImageFont.truetype(f"{FONT_DIR}/{name}", size)
 
 
-def mark(draw, x, y, scale, color):
-    """The brand mark: a script, in order, decided in advance. Same geometry as
-    the inline SVG: three lines of decreasing width."""
-    width = int(2.6 * scale)
-    for dy, length in ((6.6, 16.0), (12.0, 11.5), (17.4, 7.0)):
-        draw.line(
-            (
-                x + 4 * scale,
-                y + dy * scale,
-                x + (4 + length) * scale,
-                y + dy * scale,
-            ),
-            fill=color,
-            width=width,
+def mark(image, x, y, size):
+    """Rasterize the same SVG as the page, rather than redrawing the brand."""
+    svg = (OUT.parent / "logo-mirror.svg").read_text()
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page(viewport={"width": size, "height": size},
+                                device_scale_factor=3)
+        page.set_content(
+            f"<style>body{{margin:0}}svg{{display:block;width:{size}px;"
+            f"height:{size}px}}</style>" + svg
         )
-        # Round the caps the same way stroke-linecap="round" does in the SVG.
-        for cx in (x + 4 * scale, x + (4 + length) * scale):
-            draw.ellipse(
-                (cx - width / 2, y + dy * scale - width / 2,
-                 cx + width / 2, y + dy * scale + width / 2),
-                fill=color,
-            )
+        raster = page.screenshot(omit_background=True)
+        browser.close()
+    logo = Image.open(BytesIO(raster)).convert("RGBA")
+    logo = logo.resize((size, size), Image.Resampling.LANCZOS)
+    image.paste(logo, (x, y), logo)
 
 
 image = Image.new("RGB", (W, H), INK)
@@ -57,7 +53,7 @@ image = Image.alpha_composite(image.convert("RGBA"), glow).convert("RGB")
 
 draw = ImageDraw.Draw(image)
 
-mark(draw, 80, 70, 2.6, TEAL)
+mark(image, 80, 64, 72)
 draw.text((80, 155), "Pautia", font=font("LiberationSans-Bold.ttf", 104), fill=WHITE)
 draw.text(
     (86, 300),

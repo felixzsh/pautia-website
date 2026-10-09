@@ -1,92 +1,96 @@
-"""Check the logo preview: python3 scripts/check-logo-preview.py (needs make serve)."""
+"""Check the reference logo and its mirrored preview; needs make serve."""
 
 import os
-import re
+from io import BytesIO
 from pathlib import Path
 from xml.etree import ElementTree
+
 from playwright.sync_api import sync_playwright
+from PIL import Image
 
-for svg in Path("public/assets/logo-concepts").glob("carril-*.svg"):
-    source = svg.read_text()
-    assert "Gradient" not in source, f"{svg}: logo colors must be flat"
-    colors = set(re.findall(r"#[0-9a-fA-F]{6}", source))
-    assert colors <= {"#0e7c6b"}, f"{svg}: logo must use one brand color"
 
-folder = Path("public/assets/logo-concepts")
+def shapes(root):
+    result = []
+    for node in root:
+        tag = node.tag.split("}")[-1]
+        if tag not in ("path", "rect"):
+            continue
+        attrs = {key: " ".join(value.split()) for key, value in node.attrib.items()}
+        result.append((tag, attrs))
+    return result
+
+
+source = ElementTree.parse("public/assets/logo.svg").getroot()
+approved = shapes(source)
+assert source.attrib["viewBox"] == "0 0 24 24"
+assert len(approved) == 1
+assert approved[0][1]["fill"] == "#06252b"
+assert approved[0][1]["fill-rule"] == "evenodd"
+assert approved[0][1]["d"].count("h6.96") == 2
+assert approved[0][1]["d"].count("h2.64") == 1
+
 ns = "{http://www.w3.org/2000/svg}"
-frame = ElementTree.parse(folder / "pauta.svg").find(f"{ns}path").attrib
-
-
-def paths_of(name):
-    return ElementTree.parse(folder / f"carril-{name}.svg").findall(f"{ns}path")
-
-
-simple = paths_of("simple")
-chosen = paths_of("horizontal")
-descending = paths_of("horizontal-invertido")
-
-# The chosen mark is the approved frame turned above and below, over the Simple route.
-rotated = chosen[0].attrib.copy()
-assert rotated.pop("transform") == "rotate(90 48 48)", "rotate the frame, do not redraw it"
-assert rotated == simple[0].attrib
-assert chosen[1].attrib == simple[1].attrib, "keep the Simple route unchanged"
-assert descending[0].attrib == chosen[0].attrib, "same limits in both horizontal marks"
-assert descending[1].attrib["d"] == "M36 42h12V54h12", "the descending route is longer"
-
-# A hand-redrawn icon once squeezed the gaps on the real site. The shared icon, the
-# favicon and the preview must all be the exact chosen geometry, only scaled.
+chosen = ElementTree.parse("public/assets/logo-mirror.svg").getroot().find(f"{ns}g")
+assert chosen.attrib["transform"] == "translate(24 0) scale(-1 1)"
 icons = ElementTree.fromstring(Path("site/_includes/icons.njk").read_text())
 mark = icons.find(".//*[@id='i-pautia']")
-assert mark.attrib["transform"] == "scale(.25)"
-assert [path.attrib for path in mark.findall("path")] == [path.attrib for path in chosen]
-for favicon in ("favicon.svg", "favicon-horizontal.svg"):
-    served = ElementTree.parse(Path("public/assets") / favicon).findall(f"{ns}path")
-    assert [path.attrib for path in served] == [path.attrib for path in chosen]
-
-for name in ("simple", "invertido"):
-    paths = paths_of(name)
-    assert paths[0].attrib == frame, f"{name}: preserve Carril's original frame"
-    assert len(paths) == 2
-    assert paths[1].attrib["stroke"] == "#0e7c6b"
-    assert len(re.findall(r"[hHvV]", paths[1].attrib["d"])) == 3, "one less route segment"
+assert shapes(mark) == shapes(chosen), "the page must use the chosen artwork without redrawing"
+assert mark.attrib["transform"] == chosen.attrib["transform"]
+favicon = ElementTree.parse("public/assets/favicon.svg").getroot().find(f"{ns}g")
+assert shapes(favicon) == shapes(chosen)
+assert favicon.attrib["transform"] == chosen.attrib["transform"]
 
 with sync_playwright() as p:
     browser = p.chromium.launch()
     page = browser.new_page(java_script_enabled=False)
     base = os.environ.get("PAUTIA_BASE", "http://127.0.0.1:8080")
-    page.goto(f"{base}/assets/logo-concepts/preview.html", wait_until="networkidle")
-    assert page.locator("article").count() == 4
+    # The preview must work as a local file too, not only behind a running server.
+    preview = Path("public/assets/logo-concepts/preview.html").resolve().as_uri()
+    page.goto(preview, wait_until="load")
+    assert page.locator("article").count() == 2
     assert page.locator("img").evaluate_all(
         "images => images.every(img => img.complete && img.naturalWidth > 0)"
+    )
+    assert page.locator("article").first.locator("img").evaluate_all(
+        "images => images.every(img => img.getAttribute('src') === '../logo.svg')"
+    )
+    assert page.locator("article").last.locator("img").evaluate_all(
+        "images => images.every(img => img.getAttribute('src') === '../logo-mirror.svg')"
     )
     for width in (1200, 390, 320):
         page.set_viewport_size({"width": width, "height": 900})
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
-    page.locator("#monochrome").check()
-    light = page.locator(".light img").first
-    dark = page.locator(".dark img").first
-    assert light.evaluate("el => getComputedStyle(el).filter") == "brightness(0)"
-    assert "invert(1)" in dark.evaluate("el => getComputedStyle(el).filter")
-    page.locator("#monochrome").uncheck()
-    assert light.evaluate("el => getComputedStyle(el).filter") == "none"
 
-    page.goto(f"{base}/", wait_until="networkidle")
-    for width in (1200, 390, 320):
-        page.set_viewport_size({"width": width, "height": 900})
-        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
-        for selector, size in ((".brand__mark", 46), (".channels__hub svg", 58)):
-            logo = page.locator(selector)
-            box = logo.bounding_box()
-            assert box["width"] == size and box["height"] == size, "do not shrink the logo"
-            geometry = logo.locator("use").evaluate("""el => {
-                const box = el.getBBox();
-                return [box.x, box.y, box.width, box.height];
-            }""")
-            assert geometry == [4.5, 5.5, 15, 13], "preserve the chosen mark's proportions"
-            left, top, mark_w, mark_h = geometry
-            assert round(left - (24 - left - mark_w), 6) == 0, "keep the mark centered"
-            assert left >= 4 and top >= 4, "keep a gap between the limits and the route"
-    assert page.locator(".brand__mark").evaluate("el => getComputedStyle(el).flexShrink") == "0"
+    # Check actual pixels: no white paint, neither outside the bubble nor inside its bars.
+    page.set_viewport_size({"width": 240, "height": 240})
+    page.set_content(
+        "<style>body{margin:0}svg{display:block;width:240px;height:240px}</style>"
+        + Path("public/assets/logo.svg").read_text()
+    )
+    raster = Image.open(BytesIO(page.screenshot(omit_background=True))).convert("RGBA")
+    assert raster.getpixel((40, 100)) == (6, 37, 43, 255)
+    for point in ((5, 5), (120, 65), (120, 109), (98, 154)):
+        assert raster.getpixel(point)[3] == 0, f"{point}: logo must be transparent"
+
+    page.set_content(
+        "<style>body{margin:0}svg{display:block;width:240px;height:240px}</style>"
+        + Path("public/assets/logo-mirror.svg").read_text()
+    )
+    mirror = Image.open(BytesIO(page.screenshot(omit_background=True))).convert("RGBA")
+    # The three cutouts share their left edge after mirroring the bubble.
+    starts = []
+    for y in (65, 109, 154):
+        starts.append(next(x for x in range(40, 180) if mirror.getpixel((x, y))[3] == 0))
+    assert len(set(starts)) == 1, "all three mirrored cutouts must be left-aligned"
+    assert mirror.getpixel((40, 100))[3] == 255
+    assert mirror.getpixel((5, 5))[3] == 0
+
+    page.set_viewport_size({"width": 390, "height": 900})
+    for route in ("/", "/pricing", "/seguridad-whatsapp", "/campanas-masivas"):
+        page.goto(f"{base}{route}", wait_until="networkidle")
+        favicon_href = page.locator('link[rel="icon"]').get_attribute("href")
+        assert favicon_href == "/assets/logo-mirror.svg"
+        assert page.locator(".brand__mark use").get_attribute("href") == "#i-pautia"
     browser.close()
 
-print("Logo previews, responsive layout and native monochrome toggle: OK")
+print("Reference logo, shared icon, favicon and exact mirrored preview: OK")
