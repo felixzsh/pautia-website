@@ -149,7 +149,7 @@ import { linkTerms } from "/assets/terms.js";
     if (!data) return;
     try {
       const schema = JSON.parse(data.textContent);
-      const monthly = document.querySelectorAll(".price--monthly .price__amount");
+      const monthly = document.querySelectorAll(".price__amount--monthly");
       for (const [index, offer] of (schema.offers || []).entries()) {
         const base = monthly[index] && Number(monthly[index].dataset.usd);
         if (!base) continue;
