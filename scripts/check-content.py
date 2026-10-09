@@ -252,11 +252,17 @@ assert len(landing_cards) == 3, f"landing plan cards: {len(landing_cards)}"
 for card, offer, monthly in zip(cards, offers, (9, 39, 69)):
     annual = Decimal(monthly) * Decimal("0.80")
     assert offer["priceCurrency"] == "USD" and offer["price"] == str(monthly)
-    # The annual price shows the monthly one it discounts, crossed out above it,
-    # so the saving is visible without a sentence explaining it.
-    assert f'class="price__was" data-money data-usd="{monthly}">${monthly}<' in card
-    assert f'data-money data-usd="{monthly}">${monthly}<' in card
-    assert f'data-money data-usd="{annual:.2f}">${annual:.2f}<' in card
+    # One price block, three figures: the monthly it shows, the annual it offers
+    # and the monthly it crosses out. The line the crossed figure needs is
+    # reserved in both periods, so the two figures are the same slot.
+    for css, value in (
+        ("price__was", f"{monthly}"),
+        ("price__amount price__amount--monthly", f"{monthly}"),
+        ("price__amount price__amount--yearly", f"{annual:.2f}"),
+    ):
+        pattern = (f'class="{re.escape(css)}"\\s+data-money\\s+'
+                   f'data-usd="{value}">\\${value}<')
+        assert re.search(pattern, card), (css, card[:80])
 
 # Every figure carries the dollars it starts from, and the number it shows is
 # that same figure: a conversion that drifted from what was written would price

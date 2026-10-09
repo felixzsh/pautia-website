@@ -367,18 +367,39 @@ with sync_playwright() as p:
             if overflow > 0:
                 problems.append(f"{name}-{label}: horizontal overflow {overflow}px")
 
-            # the price switch, without script
+            # the price switch, without script. The figure changes and the
+            # crossed-out one appears, but nothing on the card may move: the line
+            # it needs is reserved in both periods.
+            shape = """() => {
+              const card = document.querySelector('#plans .plan');
+              const box = card.getBoundingClientRect();
+              const rows = card.querySelector('.plan__rows').getBoundingClientRect();
+              return [Math.round(box.height), Math.round(rows.top - box.top)];
+            }"""
+            before = page.evaluate(shape)
             page.locator("label[for=period-yearly]").first.click()
-            yearly = page.locator(".price--yearly").first.is_visible()
-            monthly = page.locator(".price--monthly").first.is_visible()
-            if not yearly or monthly:
+            yearly = page.evaluate("""() => {
+              const card = document.querySelector('#plans .plan');
+              return {
+                was: getComputedStyle(card.querySelector('.price__was')).visibility,
+                monthly: getComputedStyle(
+                  card.querySelector('.price__amount--monthly')).display,
+                annual: getComputedStyle(
+                  card.querySelector('.price__amount--yearly')).display,
+              };
+            }""")
+            if (yearly["was"] != "visible" or yearly["monthly"] != "none"
+                    or yearly["annual"] == "none"):
+                problems.append(f"{name}-{label}: the annual view is wrong: {yearly}")
+            after = page.evaluate(shape)
+            if before != after:
                 problems.append(
-                    f"{name}-{label}: switch yearly={yearly} monthly={monthly}"
+                    f"{name}-{label}: the period switch moves the card: {before} {after}"
                 )
             # The annual price shows the monthly one it discounts, crossed out,
             # and the line is drawn at an angle: a flat one hides the figure.
             was = page.evaluate("""() => {
-              const node = document.querySelector('.price--yearly .price__was');
+              const node = document.querySelector('#plans .price__was');
               if (!node) return null;
               return {
                 text: node.textContent,
@@ -391,7 +412,8 @@ with sync_playwright() as p:
                 problems.append(f"{name}-{label}: the crossed price is not crossed")
 
             page.locator("label[for=period-monthly]").first.click()
-            if not page.locator(".price--monthly").first.is_visible():
+            if page.evaluate("""() => getComputedStyle(document.querySelector(
+                    '#plans .price__amount--monthly')).display""") == "none":
                 problems.append(f"{name}-{label}: switch does not go back to monthly")
 
             # The waitlist: a real mail client handoff for a visitor without a
@@ -534,7 +556,7 @@ with sync_playwright() as p:
     )
     # Only the figures that carry a base convert: the quoted plan says "Custom
     # price" and has no number to convert.
-    shown = page.evaluate("""() => [...document.querySelectorAll('.price--monthly [data-money]')]
+    shown = page.evaluate("""() => [...document.querySelectorAll('#plans .price [data-money]')]
       .map((node) => node.textContent)""")
     if not shown or not all(price.startswith("MX$") for price in shown):
         problems.append(f"currency: the prices did not take the symbol: {shown}")
@@ -548,7 +570,7 @@ with sync_playwright() as p:
     # line, and the three cards stay level with each other.
     converted = page.evaluate("""() => {
       const cards = [...document.querySelectorAll('.plans__grid .plan:not(.plan--wide)')];
-      const shown = cards.map((card) => card.querySelector('.price--monthly .price__amount'));
+      const shown = cards.map((card) => card.querySelector('.price__amount--monthly'));
       return {
         texts: shown.map((node) => node.textContent),
         lines: shown.map((node) => {
@@ -612,7 +634,7 @@ with sync_playwright() as p:
     # arithmetic of multiplying by one: "$9", never "$9,00".
     back = page.evaluate("""() => ({
       prices: [...document.querySelectorAll('.plans__grid .plan:not(.plan--wide)')]
-        .map((card) => card.querySelector('.price--monthly .price__amount').textContent),
+        .map((card) => card.querySelector('.price__amount--monthly').textContent),
     })""")
     if back["prices"] != ["$9", "$39", "$69"]:
         problems.append(f"currency: the dollar prices came back as {back['prices']}")
@@ -631,7 +653,7 @@ with sync_playwright() as p:
     page.reload(wait_until="networkidle")
     forgotten = page.evaluate("""() => ({
       prices: [...document.querySelectorAll('.plans__grid .plan:not(.plan--wide)')]
-        .map((card) => card.querySelector('.price--monthly .price__amount').textContent),
+        .map((card) => card.querySelector('.price__amount--monthly').textContent),
       kept: [localStorage.getItem('pautia:currency'), localStorage.getItem('pautia:lang')],
     })""")
     if forgotten["prices"] != ["$9", "$39", "$69"]:

@@ -1423,7 +1423,9 @@ html:has(.waitlist:not([hidden])) {
 
 .plan__pitch {
   margin-top: var(--space-2);
-  min-height: 3em;
+  /* Slightly more than one line: the pitch is short, and the room the crossed
+     price needs now comes from the price block itself. */
+  min-height: 1.5em;
   color: var(--ink-500);
   font-size: var(--step-0);
 }
@@ -1459,12 +1461,33 @@ html:has(.waitlist:not([hidden])) {
 /* What the annual price saves is shown by what it used to be, crossed out above
    it. The line runs at a slight angle on purpose: a flat rule cuts the figures
    in half and hides them, and the point of showing this price is that it can be
-   read. */
+   read. The line is reserved in the monthly period too, so switching period
+   never moves the limits below it. */
 .price__was {
   position: relative;
   display: inline-block;
   color: var(--ink-500);
   font-size: var(--step-1);
+  visibility: hidden;
+}
+
+.price__amount--yearly,
+.price__unit--yearly {
+  display: none;
+}
+
+.plans:has(#period-yearly:checked) .price__was {
+  visibility: visible;
+}
+
+.plans:has(#period-yearly:checked) .price__amount--monthly,
+.plans:has(#period-yearly:checked) .price__unit--monthly {
+  display: none;
+}
+
+.plans:has(#period-yearly:checked) .price__amount--yearly,
+.plans:has(#period-yearly:checked) .price__unit--yearly {
+  display: block;
 }
 
 .price__was::after {
@@ -1480,21 +1503,9 @@ html:has(.waitlist:not([hidden])) {
   font-size: var(--step--1);
 }
 
-/* The monthly and the annual price are both in the HTML for the crawler, and
+/* The monthly and the annual figure are both in the HTML for the crawler, and
    the switch between them is CSS: two radios and no script. The ids are the
    same in both languages so this rule is written once. */
-
-.price--yearly {
-  display: none;
-}
-
-.plans:has(#period-yearly:checked) .price--monthly {
-  display: none;
-}
-
-.plans:has(#period-yearly:checked) .price--yearly {
-  display: flex;
-}
 
 .plan__cta {
   margin-top: var(--space-5);
@@ -2302,8 +2313,12 @@ html:has(.waitlist:not([hidden])) {
   }
 
   #plans .plan__pitch {
-    min-height: 2.4em;
+    min-height: 1.4em;
     font-size: var(--step-0);
+  }
+
+  #plans .price {
+    margin-top: var(--space-4);
   }
 
   #plans .plan__rows {

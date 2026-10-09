@@ -202,14 +202,19 @@
               data-custom-storage="1000" data-no-terms>
               <h3 class="plan__name" data-i18n="plans.plan-name.0">Básico</h3>
               <p class="plan__pitch" data-i18n="plans.plan-pitch.0">Para organizar tu atención.</p>
-              <p class="price price--monthly">
-                <span class="price__amount" data-money data-usd="9">$9</span>
-                <span class="price__unit" data-i18n="plans.price-unit.0">al mes</span>
-              </p>
-              <p class="price price--yearly">
+              <!-- One block, three lines tall in either period: the line the
+                   crossed-out price needs is reserved even in the monthly view,
+                   so switching moves nothing below it. -->
+              <p class="price">
                 <span class="price__was" data-money data-usd="9">$9</span>
-                <span class="price__amount" data-money data-usd="7.20">$7.20</span>
-                <span class="price__unit" data-i18n="plans.price-unit.1">al mes</span>
+                <span class="price__amount price__amount--monthly" data-money
+                  data-usd="9">$9</span>
+                <span class="price__amount price__amount--yearly" data-money
+                  data-usd="7.20">$7.20</span>
+                <span class="price__unit price__unit--monthly"
+                  data-i18n="plans.price-unit.0">al mes</span>
+                <span class="price__unit price__unit--yearly"
+                  data-i18n="plans.price-unit.1">al mes</span>
               </p>
               <!-- Buy button: uncomment when checkout exists and point
                    it at the plan. Until then the header carries the
@@ -285,14 +290,19 @@
               <h3 class="plan__name" data-i18n="plans.plan-name.1">Estándar</h3>
               <p class="plan__pitch" data-i18n="plans.plan-pitch.1">Para más consultas y
                 solicitudes.</p>
-              <p class="price price--monthly">
-                <span class="price__amount" data-money data-usd="39">$39</span>
-                <span class="price__unit" data-i18n="plans.price-unit.2">al mes</span>
-              </p>
-              <p class="price price--yearly">
+              <!-- One block, three lines tall in either period: the line the
+                   crossed-out price needs is reserved even in the monthly view,
+                   so switching moves nothing below it. -->
+              <p class="price">
                 <span class="price__was" data-money data-usd="39">$39</span>
-                <span class="price__amount" data-money data-usd="31.20">$31.20</span>
-                <span class="price__unit" data-i18n="plans.price-unit.3">al mes</span>
+                <span class="price__amount price__amount--monthly" data-money
+                  data-usd="39">$39</span>
+                <span class="price__amount price__amount--yearly" data-money
+                  data-usd="31.20">$31.20</span>
+                <span class="price__unit price__unit--monthly"
+                  data-i18n="plans.price-unit.2">al mes</span>
+                <span class="price__unit price__unit--yearly"
+                  data-i18n="plans.price-unit.3">al mes</span>
               </p>
               <!-- Buy button: uncomment when checkout exists and point
                    it at the plan. Until then the header carries the
@@ -367,14 +377,19 @@
               data-custom-storage="10000" data-no-terms>
               <h3 class="plan__name" data-i18n="plans.plan-name.2">Profesional</h3>
               <p class="plan__pitch" data-i18n="plans.plan-pitch.2">Para varios locales o equipos.</p>
-              <p class="price price--monthly">
-                <span class="price__amount" data-money data-usd="69">$69</span>
-                <span class="price__unit" data-i18n="plans.price-unit.4">al mes</span>
-              </p>
-              <p class="price price--yearly">
+              <!-- One block, three lines tall in either period: the line the
+                   crossed-out price needs is reserved even in the monthly view,
+                   so switching moves nothing below it. -->
+              <p class="price">
                 <span class="price__was" data-money data-usd="69">$69</span>
-                <span class="price__amount" data-money data-usd="55.20">$55.20</span>
-                <span class="price__unit" data-i18n="plans.price-unit.5">al mes</span>
+                <span class="price__amount price__amount--monthly" data-money
+                  data-usd="69">$69</span>
+                <span class="price__amount price__amount--yearly" data-money
+                  data-usd="55.20">$55.20</span>
+                <span class="price__unit price__unit--monthly"
+                  data-i18n="plans.price-unit.4">al mes</span>
+                <span class="price__unit price__unit--yearly"
+                  data-i18n="plans.price-unit.5">al mes</span>
               </p>
               <!-- Buy button: uncomment when checkout exists and point
                    it at the plan. Until then the header carries the
