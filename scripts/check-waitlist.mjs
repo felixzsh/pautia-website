@@ -9,7 +9,8 @@ globalThis.fetch = async (url, options) => {
 const env = { BREVO_API_KEY: "test", BREVO_LIST_ID: "5" };
 const answers = {
   email: "test@example.com", rubro: "__other", rubro_other: "Un taller",
-  objetivo: "Agendar citas o reservas", atencion: "Una persona dedicada", lang: "es",
+  objetivo: ["Agendar citas o reservas", "Recibir pedidos o cotizaciones"],
+  atencion: "Una persona dedicada", lang: "es",
 };
 async function post(body) {
   return handleWaitlist(new Request("https://pautia.app/api/waitlist", {
@@ -19,10 +20,13 @@ async function post(body) {
 assert.equal((await post({ ...answers, rubro_other: "x".repeat(101) })).status, 400);
 assert.equal((await post({ ...answers, rubro_other: " " })).status, 400);
 assert.equal((await post({ ...answers, objetivo: "" })).status, 400);
+assert.equal((await post({ ...answers, objetivo: [] })).status, 400);
 assert.equal(calls.length, 0);
 const result = await (await post(answers)).json();
 assert.equal(result.ok, true);
 assert.equal(result.confirmationSent, false);
 assert.equal(calls[0].body.attributes.RUBRO, "Otro: Un taller");
+assert.equal(calls[0].body.attributes.OBJETIVO,
+  "Agendar citas o reservas, Recibir pedidos o cotizaciones");
 assert.equal(calls.length, 2);
 console.log("Waitlist validation and confirmation status: OK (no real emails)");

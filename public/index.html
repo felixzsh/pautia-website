@@ -1097,7 +1097,9 @@
 
         <label class="field">
           <span class="field__label" data-i18n="waitlist.objetivo.label.0">¿Qué quieres resolver?</span>
-          <select class="field__input" name="objetivo" required>
+          <!-- A business may want more than one of these, so the question takes
+               several answers. The script turns it into a group of checkboxes. -->
+          <select class="field__input" name="objetivo" multiple required>
             <option value="" data-i18n="waitlist.choose.1">Elige una opción</option>
             <option value="Responder preguntas sobre productos o servicios" data-i18n="waitlist.objetivo.opt.0">Responder preguntas sobre productos o servicios</option>
             <option value="Agendar citas o reservas" data-i18n="waitlist.objetivo.opt.1">Agendar citas o reservas</option>

@@ -44,6 +44,12 @@ with sync_playwright() as p:
         assert 0 < gap < 40, (label, gap)
         assert wizard.locator(".waitlist__step:visible").count() == 1
         for name in ("rubro", "objetivo", "atencion"):
+            if name == "objetivo":
+                # The question a business answers in more than one way is a group
+                # of checkboxes: the chosen answers travel together.
+                boxes = wizard.locator('input[name="objetivo"][type="checkbox"]')
+                assert boxes.count() > 1, "the multi-select question is not a group"
+                boxes.nth(1).check()
             wizard.locator(f'input[name="{name}"][value="__other"]').check()
             detail = wizard.locator(f'input[name="{name}_other"]')
             assert detail.is_visible()
@@ -69,6 +75,11 @@ with sync_playwright() as p:
         assert last["y"] + last["height"] <= page.viewport_size["height"], (label, last)
         assert len(attempts) == 2
         assert attempts[1]["rubro_other"] == "Respuesta de prueba"
+        # Only the question that takes several answers arrives as a list.
+        assert isinstance(attempts[1]["objetivo"], list)
+        assert len(attempts[1]["objetivo"]) == 2
+        assert isinstance(attempts[1]["rubro"], str)
+        assert isinstance(attempts[1]["atencion"], str)
         assert page.evaluate("localStorage.getItem('pautia:waitlist-email')") == "test@example.com"
         page.reload()
         page.locator(".cta [data-waitlist-open]").click()

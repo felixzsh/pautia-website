@@ -143,18 +143,25 @@ export async function handleWaitlist(request, env) {
 
   const attributes = {};
   for (const [field, name] of Object.entries(ATTRIBUTES)) {
-    let answer = text(body[field]);
-    if (answer === "__other") {
+    const raw = body[field];
+    // One question may take several answers, so a field can arrive as a list.
+    const picked = (Array.isArray(raw) ? raw : [raw]).map(text).filter(Boolean);
+    const answer = picked.filter((value) => value !== "__other");
+    if (picked.includes("__other")) {
       const detail = text(body[`${field}_other`]);
       if (!detail || detail.length > 100) {
         return json({ ok: false, error: "answer" }, 400);
       }
-      answer = `Otro: ${detail}`;
+      answer.push(`Otro: ${detail}`);
     }
-    if (!answer || answer.length > 120) {
+    const joined = answer.join(", ");
+    // A list of answers is longer than a single one; the limit is what keeps a
+    // form from carrying a page of prose into an attribute.
+    const limit = Array.isArray(raw) ? 300 : 120;
+    if (!joined || joined.length > limit) {
       return json({ ok: false, error: "answer" }, 400);
     }
-    attributes[name] = answer;
+    attributes[name] = joined;
   }
 
   if (!(await save(key, list, email, attributes))) {

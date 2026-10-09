@@ -609,12 +609,18 @@ import { linkTerms } from "/assets/terms.js";
     section.append(dialog);
     form.noValidate = true;
     const words = {
-      es: ["Volver", "Continuar", "Otro", "Cuéntanos brevemente", "Anotando…"],
-      en: ["Back", "Continue", "Other", "Tell us briefly", "Joining…"],
-      pt: ["Voltar", "Continuar", "Outro", "Conte brevemente", "Inscrevendo…"],
-      fr: ["Retour", "Continuer", "Autre", "Dites-nous en quelques mots", "Inscription…"],
-      de: ["Zurück", "Weiter", "Andere", "Erzählen Sie uns kurz", "Eintragen…"],
-      it: ["Indietro", "Continua", "Altro", "Raccontaci brevemente", "Iscrizione…"],
+      es: ["Volver", "Continuar", "Otro", "Cuéntanos brevemente", "Anotando…",
+        "Elige al menos una opción"],
+      en: ["Back", "Continue", "Other", "Tell us briefly", "Joining…",
+        "Choose at least one option"],
+      pt: ["Voltar", "Continuar", "Outro", "Conte brevemente", "Inscrevendo…",
+        "Escolha pelo menos uma opção"],
+      fr: ["Retour", "Continuer", "Autre", "Dites-nous en quelques mots", "Inscription…",
+        "Choisissez au moins une option"],
+      de: ["Zurück", "Weiter", "Andere", "Erzählen Sie uns kurz", "Eintragen…",
+        "Wählen Sie mindestens eine Option"],
+      it: ["Indietro", "Continua", "Altro", "Raccontaci brevemente", "Iscrizione…",
+        "Scegli almeno un'opzione"],
     };
     const ui = (index) => (words[page.lang] || words.en)[index];
     const steps = [];
@@ -627,33 +633,37 @@ import { linkTerms } from "/assets/terms.js";
       field.append(legend);
       const choices = document.createElement("div");
       choices.className = "waitlist__choices";
+      // A question a business answers in more than one way becomes a group of
+      // checkboxes; the rest take one answer, and a radio says so by itself.
+      const many = select.multiple;
       const options = [...select.options].filter((option) => option.value);
       if (select.name === "rubro") options.pop(); // Replace the existing Other with free text.
       for (const option of options) {
         const label = document.createElement("label");
         label.className = "waitlist__choice";
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = select.name;
-        radio.value = option.value;
-        radio.required = true;
+        const box = document.createElement("input");
+        box.type = many ? "checkbox" : "radio";
+        box.name = select.name;
+        box.value = option.value;
+        box.required = !many;
         const caption = document.createElement("span");
         caption.textContent = option.textContent;
         caption.dataset.i18n = option.dataset.i18n;
-        label.append(radio, caption);
+        label.append(box, caption);
         choices.append(label);
       }
       const other = document.createElement("label");
       other.className = "waitlist__choice";
-      const radio = document.createElement("input");
-      radio.type = "radio";
-      radio.name = select.name;
-      radio.value = "__other";
-      radio.required = true;
+      const box = document.createElement("input");
+      box.type = many ? "checkbox" : "radio";
+      box.name = select.name;
+      box.value = "__other";
+      box.required = !many;
       const caption = document.createElement("span");
       caption.textContent = ui(2);
-      other.append(radio, caption);
+      other.append(box, caption);
       choices.append(other);
+      if (many) field.dataset.group = "true";
       const detail = document.createElement("label");
       detail.className = "field waitlist__other";
       detail.hidden = true;
@@ -669,8 +679,9 @@ import { linkTerms } from "/assets/terms.js";
       detail.append(prompt, input, count);
       field.append(choices, detail);
       field.addEventListener("change", () => {
-        const selected = field.querySelector('input[type="radio"]:checked');
-        detail.hidden = selected?.value !== "__other";
+        const picked = field.querySelector(
+          'input[type="radio"]:checked, input[value="__other"]:checked');
+        detail.hidden = picked?.value !== "__other";
         input.required = !detail.hidden;
         input.disabled = detail.hidden;
         if (!detail.hidden) input.focus();
@@ -697,8 +708,18 @@ import { linkTerms } from "/assets/terms.js";
     form.append(navigation);
     let current = 0;
     let busy = false;
-    const valid = () => [...steps[current].querySelectorAll("input")]
-      .filter((input) => !input.disabled).every((input) => input.reportValidity());
+    const valid = () => {
+      const step = steps[current];
+      const inputs = [...step.querySelectorAll("input")].filter((input) => !input.disabled);
+      if (step.dataset.group) {
+        // A group of checkboxes has no native "at least one": the first box
+        // carries the message until the group holds an answer.
+        const boxes = inputs.filter((input) => input.type === "checkbox");
+        boxes[0].setCustomValidity(
+          boxes.some((input) => input.checked) ? "" : ui(5));
+      }
+      return inputs.every((input) => input.reportValidity());
+    };
     function show(index) {
       current = index;
       steps.forEach((step, i) => { step.hidden = i !== index; });
@@ -816,7 +837,12 @@ import { linkTerms } from "/assets/terms.js";
       const original = submit.textContent;
       submit.textContent = ui(4);
 
-      const answers = Object.fromEntries(new FormData(form));
+      // Every answer of a group travels, not only the last one: a question that
+      // takes several answers arrives as a list.
+      const answers = {};
+      for (const [key, value] of new FormData(form)) {
+        answers[key] = key in answers ? [].concat(answers[key], value) : value;
+      }
       fetch("/api/waitlist", {
         method: "POST",
         headers: { "content-type": "application/json" },
