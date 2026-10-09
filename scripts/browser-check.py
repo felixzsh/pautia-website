@@ -215,12 +215,28 @@ with sync_playwright() as p:
             eyebrow = page.locator('.hero .eyebrow')
             assert eyebrow.locator('.term').count() == 0
             assert eyebrow.evaluate('el => getComputedStyle(el).textTransform') == 'uppercase'
-            assert channels.locator('a').count() == 4
+            assert channels.locator('a').count() == 3
             assert channels.locator('img').evaluate_all(
                 'images => images.every(img => img.complete && img.naturalWidth > 0)'
             )
-            for host in ('whatsapp.com', 'telegram.org', 'signal.org', 'simplex.chat'):
+            for host in ('whatsapp.com', 'telegram.org', 'signal.org'):
                 assert channels.locator(f'a[href="https://{host}"]').count() == 1
+            # One channel on top and two below, the same distance from the hub,
+            # so the three land on an equilateral triangle inside the circle.
+            # offsetLeft/Top ignore the hover and focus transforms, so the resting
+            # geometry is measured even if the pointer happens to sit on a card.
+            geometry = page.evaluate(
+                """() => {
+                  const hub = document.querySelector('.channels__hub');
+                  const links = [...document.querySelectorAll('.channels__link')];
+                  return {hub: [hub.offsetLeft, hub.offsetTop],
+                          links: links.map(el => [el.offsetLeft, el.offsetTop])};
+                }"""
+            )
+            hx, hy = geometry['hub']
+            radii = [((x - hx) ** 2 + (y - hy) ** 2) ** 0.5
+                     for x, y in geometry['links']]
+            assert max(radii) - min(radii) < 2, f"{name}-{label}: channels {radii}"
             pitch_box = page.locator('.hero__pitch').bounding_box()
             channels_box = channels.bounding_box()
             if width >= 900:
@@ -232,7 +248,7 @@ with sync_playwright() as p:
             help_box = page.locator('#term-help')
             if not help_box.is_visible() or help_box.inner_text() != term.get_attribute('title'):
                 problems.append(f"{name}-{label}: clicking a term did not show its help")
-            for brand in ('WhatsApp', 'Telegram', 'Signal', 'SimpleX Chat'):
+            for brand in ('WhatsApp', 'Telegram', 'Signal'):
                 assert brand in help_box.inner_text()
             box = help_box.bounding_box()
             if box and (box['x'] < 0 or box['x'] + box['width'] > width):

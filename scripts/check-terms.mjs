@@ -19,7 +19,7 @@ for (const [language, text] of Object.entries(samples)) {
   };
   const channelHint = linkTerms(messaging[language], language);
   assert(channelHint.includes('data-term="messaging"'), `${language}: messaging hint`);
-  for (const brand of ["WhatsApp", "Telegram", "Signal", "SimpleX Chat"]) {
+  for (const brand of ["WhatsApp", "Telegram", "Signal"]) {
     assert(channelHint.includes(brand), `${language}: messaging hint must list ${brand}`);
   }
   assert(linkTerms("MCP", language).includes('data-term="mcp"'), `${language}: MCP hint`);

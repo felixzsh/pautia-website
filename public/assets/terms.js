@@ -4,7 +4,7 @@
 const terms = {
   es: {
     messaging: ["(?:canal(?:es)?\\s+de\\s+)?mensajería",
-      "Canales que conectas a Pautia: WhatsApp, Telegram, Signal y SimpleX Chat."],
+      "Canales que conectas a Pautia: WhatsApp, Telegram y Signal."],
     "smart-imports": ["Smart\\s+Imports?",
       "Propone un borrador del flujo a partir de tus chats, si lo autorizas."],
     "smart-routing": ["Smart\\s+Routing",
@@ -29,7 +29,7 @@ const terms = {
   },
   en: {
     messaging: ["messaging(?:[ -]+channels?)?",
-      "Channels you connect to Pautia: WhatsApp, Telegram, Signal and SimpleX Chat."],
+      "Channels you connect to Pautia: WhatsApp, Telegram and Signal."],
     "smart-imports": ["Smart\\s+Imports?",
       "Suggests a flow draft from your chats, if you authorize it."],
     "smart-routing": ["Smart\\s+Routing",
@@ -53,7 +53,7 @@ const terms = {
   },
   pt: {
     messaging: ["(?:cana(?:l|is)\\s+de\\s+)?mensageria",
-      "Canais que você conecta à Pautia: WhatsApp, Telegram, Signal e SimpleX Chat."],
+      "Canais que você conecta à Pautia: WhatsApp, Telegram e Signal."],
     "smart-imports": ["Smart\\s+Imports?",
       "Propõe um rascunho do fluxo a partir dos seus chats, se você autorizar."],
     "smart-routing": ["Smart\\s+Routing",
@@ -76,7 +76,7 @@ const terms = {
   },
   fr: {
     messaging: ["(?:cana(?:l|ux)\\s+de\\s+)?messagerie",
-      "Canaux reliés à Pautia : WhatsApp, Telegram, Signal et SimpleX Chat."],
+      "Canaux reliés à Pautia : WhatsApp, Telegram et Signal."],
     "smart-imports": ["Smart\\s+Imports?",
       "Propose une ébauche du flux depuis vos conversations, si vous l'autorisez."],
     "smart-routing": ["Smart\\s+Routing",
@@ -98,7 +98,7 @@ const terms = {
   },
   de: {
     messaging: ["Messaging(?:-Kan(?:al|äle))?",
-      "Kanäle für Pautia: WhatsApp, Telegram, Signal und SimpleX Chat."],
+      "Kanäle für Pautia: WhatsApp, Telegram und Signal."],
     "smart-imports": ["Smart\\s+Imports?",
       "Schlägt einen Ablaufentwurf aus Ihren Chats vor, wenn Sie es erlauben."],
     "smart-routing": ["Smart\\s+Routing",
@@ -122,7 +122,7 @@ const terms = {
   },
   it: {
     messaging: ["(?:canal(?:e|i)\\s+di\\s+)?messaggistica",
-      "Canali collegati a Pautia: WhatsApp, Telegram, Signal e SimpleX Chat."],
+      "Canali collegati a Pautia: WhatsApp, Telegram e Signal."],
     "smart-imports": ["Smart\\s+Imports?",
       "Propone una bozza del flusso dalle tue chat, se lo autorizzi."],
     "smart-routing": ["Smart\\s+Routing",

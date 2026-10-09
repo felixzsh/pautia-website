@@ -205,7 +205,7 @@ assert len(answers) == 7, answers
 assert all(re.search(r'name="faq"', attrs) for attrs in answers), \
     "the answers of the FAQ must open one at a time"
 
-for host in ("whatsapp.com", "telegram.org", "signal.org", "simplex.chat"):
+for host in ("whatsapp.com", "telegram.org", "signal.org"):
     assert f'href="https://{host}"' in index_html
 assert 'data-term="messaging"' in index_html
 assert "Agentes y gestión, en un solo lugar" in strings["es"]["main.eyebrow.0"]

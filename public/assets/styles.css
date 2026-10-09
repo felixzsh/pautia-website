@@ -654,7 +654,10 @@ html:has(.waitlist:not([hidden])) {
 .channels__map {
   position: relative;
   isolation: isolate;
-  padding: var(--space-5) var(--space-3);
+  aspect-ratio: 1 / 1;
+  /* One orbit radius for the three channels: the same distance in every
+     direction, so they land on an equilateral triangle around the hub. */
+  --orbit: 34%;
 }
 
 .channels__map::before {
@@ -669,15 +672,18 @@ html:has(.waitlist:not([hidden])) {
 }
 
 .channels__links {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 112px clamp(32px, 5vw, 72px);
+  position: absolute;
+  inset: 0;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .channels__link {
+  position: absolute;
+  /* One width for the three: they take the size of the widest name instead of
+     shrinking to their own, so the triangle stays symmetrical. */
+  width: clamp(76px, 24%, 96px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -690,8 +696,9 @@ html:has(.waitlist:not([hidden])) {
   color: var(--ink-900);
   font-size: var(--step--1);
   font-weight: 650;
+  white-space: nowrap;
   text-decoration: none;
-  transform: rotate(var(--tilt));
+  transform: translate(-50%, -50%) rotate(var(--tilt));
   transition: transform 160ms ease;
 }
 
@@ -700,14 +707,32 @@ html:has(.waitlist:not([hidden])) {
   height: 44px;
 }
 
-.channels__link--whatsapp { --tilt: -7deg; }
-.channels__link--telegram { --tilt: 6deg; }
-.channels__link--signal { --tilt: 5deg; }
+/* Top vertex, then the two base vertices 120 degrees apart. */
+.channels__link--whatsapp {
+  top: calc(50% - var(--orbit));
+  left: 50%;
+  --tilt: 5deg;
+}
+
+.channels__link--signal {
+  top: calc(50% + var(--orbit) / 2);
+  left: calc(50% - var(--orbit) * .8660254);
+  --tilt: 5deg;
+}
+
+.channels__link--telegram {
+  top: calc(50% + var(--orbit) / 2);
+  left: calc(50% + var(--orbit) * .8660254);
+  --tilt: 6deg;
+}
+
+/* Kept for when SimpleX Chat comes back: its markup sits commented out in
+   hero-channels.njk. With four channels the orbit needs a new arrangement. */
 .channels__link--simplex { --tilt: -6deg; }
 
 .channels__link:hover,
 .channels__link:focus-visible {
-  transform: translateY(-4px);
+  transform: translate(-50%, -50%) translateY(-4px);
 }
 
 .channels__hub {
@@ -2436,14 +2461,6 @@ html:has(.waitlist:not([hidden])) {
     width: min(100%, 320px);
   }
 
-  .channels__map {
-    padding: var(--space-4) var(--space-2);
-  }
-
-  .channels__links {
-    gap: 74px clamp(24px, 5vw, 48px);
-  }
-
   .channels__link {
     gap: var(--space-2);
     padding: var(--space-2) var(--space-1);
@@ -2658,16 +2675,8 @@ html:has(.waitlist:not([hidden])) {
     width: min(100%, 240px);
   }
 
-  .channels__map {
-    padding: var(--space-3) var(--space-2);
-  }
-
   .channels figcaption {
     margin-top: var(--space-2);
-  }
-
-  .channels__links {
-    gap: 58px clamp(18px, 5vw, 36px);
   }
 
   .channels__link img {
