@@ -1,4 +1,4 @@
-"""Check the reference logo and its mirrored preview; needs make serve."""
+"""Check the chosen logo and color preview; use an already running website server."""
 
 import os
 from io import BytesIO
@@ -47,16 +47,32 @@ with sync_playwright() as p:
     # The preview must work as a local file too, not only behind a running server.
     preview = Path("public/assets/logo-concepts/preview.html").resolve().as_uri()
     page.goto(preview, wait_until="load")
-    assert page.locator("article").count() == 2
-    assert page.locator("img").evaluate_all(
-        "images => images.every(img => img.complete && img.naturalWidth > 0)"
+    assert page.locator("article").count() == 6
+    assert page.locator("use").count() == 36
+    assert page.locator("use").evaluate_all(
+        "nodes => nodes.every(node => node.getAttribute('href') === '#logo-mirror')"
     )
-    assert page.locator("article").first.locator("img").evaluate_all(
-        "images => images.every(img => img.getAttribute('src') === '../logo.svg')"
+    preview_mark = page.locator("#logo-mirror")
+    assert preview_mark.get_attribute("transform") == chosen.attrib["transform"]
+    preview_path = preview_mark.locator("path")
+    assert " ".join(preview_path.get_attribute("d").split()) == shapes(chosen)[0][1]["d"]
+    assert preview_path.get_attribute("fill-rule") == "evenodd"
+    assert preview_path.get_attribute("fill") == "currentColor"
+    colors = page.locator(".large").evaluate_all(
+        "nodes => nodes.map(node => getComputedStyle(node).color)"
     )
-    assert page.locator("article").last.locator("img").evaluate_all(
-        "images => images.every(img => img.getAttribute('src') === '../logo-mirror.svg')"
-    )
+    assert len(set(colors)) == 6
+    stylesheet = Path("public/assets/styles.css").read_text()
+    for selector, token, expected in (
+        (".sample", "--bg", "#0b1220"),
+        (".sizes", "--bg-sub", "#101a28"),
+    ):
+        assert f"{token}: {expected};" in stylesheet
+        rgb = tuple(bytes.fromhex(expected[1:]))
+        backgrounds = page.locator(selector).evaluate_all(
+            "nodes => nodes.map(node => getComputedStyle(node).backgroundColor)"
+        )
+        assert all(color == f"rgb{rgb}" for color in backgrounds)
     for width in (1200, 390, 320):
         page.set_viewport_size({"width": width, "height": 900})
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
@@ -93,4 +109,4 @@ with sync_playwright() as p:
         assert page.locator(".brand__mark use").get_attribute("href") == "#i-pautia"
     browser.close()
 
-print("Reference logo, shared icon, favicon and exact mirrored preview: OK")
+print("Chosen logo, favicon, six colors and real website backgrounds: OK")

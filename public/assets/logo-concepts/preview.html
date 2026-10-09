@@ -4,86 +4,198 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Pautia · Logo de referencia y espejo</title>
+  <title>Pautia · Colores del logo espejo</title>
   <style>
+    :root {
+      color-scheme: dark;
+      /* Same dark backgrounds as the website's --bg and --bg-sub. */
+      --bg: #0b1220;
+      --bg-sub: #101a28;
+    }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: #f6f8fa;
-      color: #0b1220;
+      background: var(--bg);
+      color: #eef2f7;
       font-family: ui-sans-serif, system-ui, sans-serif;
     }
-    main { max-width: 1000px; margin: auto; padding: 40px 24px; }
+    main { max-width: 1200px; margin: auto; padding: 40px 24px; }
     header { margin-bottom: 28px; }
     h1 { margin: 8px 0; font-size: clamp(28px, 4vw, 40px); letter-spacing: -.04em; }
-    header p, .copy p { margin: 0; color: #5a6b7f; line-height: 1.6; }
-    .eyebrow { color: #0e7c6b; font-size: 12px; font-weight: 750; letter-spacing: .1em; }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-    article { overflow: hidden; border: 1px solid #e3e8ef; border-radius: 24px; }
-    .light { display: grid; justify-items: center; padding: 32px; background: #e8eef2; }
-    .large { width: 172px; height: 172px; margin-bottom: 28px; }
+    header p { margin: 0; color: #93a3b5; line-height: 1.6; }
+    .eyebrow { color: #57c9b4; font-size: 12px; font-weight: 750; letter-spacing: .1em; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+    article { overflow: hidden; border: 1px solid #22303f; border-radius: 20px; }
+    .sample {
+      display: grid;
+      justify-items: center;
+      gap: 20px;
+      padding: 24px;
+      background: var(--bg);
+      color: var(--logo);
+    }
+    svg { display: block; width: 40px; height: 40px; }
+    .large { width: 140px; height: 140px; }
     .lockup { display: flex; align-items: center; justify-content: center; gap: 12px; }
-    .lockup img { width: 40px; height: 40px; }
-    .lockup span { font-size: 32px; font-weight: 750; letter-spacing: -.045em; }
+    .lockup span { color: #eef2f7; font-size: 30px; font-weight: 750; }
+    small { color: #93a3b5; font-size: 12px; }
     .sizes {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 24px;
       padding: 24px;
-      background: #f6f8fa;
+      background: var(--bg-sub);
+      color: var(--logo);
     }
-    .copy { padding: 24px; background: white; }
-    h2 { margin: 0 0 8px; font-size: 22px; }
-    .copy p { font-size: 14px; }
+    .sizes svg { width: var(--size); height: var(--size); }
+    .copy { padding: 20px 24px; background: var(--bg-sub); }
+    h2 { margin: 0 0 8px; font-size: 20px; }
+    code { color: var(--logo); font-size: 14px; }
+    .copy p { margin: 10px 0 0; color: #93a3b5; font-size: 14px; line-height: 1.5; }
+    @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 650px) { .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="logo-mirror" transform="translate(24 0) scale(-1 1)">
+        <path fill="currentColor" fill-rule="evenodd" d="M7.3 .8h9.4a4.8 4.8 0 0 1 4.8 4.8v16.96
+          c0 .72-.52 .95-1.05 .45l-2.21-2.09H7.3a4.8 4.8 0 0 1-4.8-4.8V5.6
+          A4.8 4.8 0 0 1 7.3 .8Z
+          M8.54 5h6.96a1.52 1.52 0 0 1 0 3.04H8.54a1.52 1.52 0 0 1 0-3.04Z
+          M8.54 9.4h6.96a1.52 1.52 0 0 1 0 3.04H8.54a1.52 1.52 0 0 1 0-3.04Z
+          M12.86 13.84h2.64a1.52 1.52 0 0 1 0 3.04H12.86a1.52 1.52 0 0 1 0-3.04Z" />
+      </g>
+    </defs>
+  </svg>
   <main>
     <header>
-      <span class="eyebrow">PAUTIA · MISMA FIGURA, DOS ORIENTACIONES</span>
-      <h1>El logo de tu imagen.</h1>
-      <p>Sin fondo y sin rellenos blancos: las tres líneas son huecos transparentes.
-        El gris que ves detrás pertenece a esta página, no al logo.</p>
+      <span class="eyebrow">PAUTIA · ESPEJO · PROPUESTAS DE COLOR</span>
+      <h1>El mismo logo, más luz.</h1>
+      <p>Todos sobre el fondo oscuro real de la web (#0b1220) y sus paneles (#101a28).
+        Sin fondo propio y con los tres huecos transparentes. Solo cambia el color.</p>
     </header>
     <div class="grid">
-      <article>
-        <div class="light">
-          <img class="large" src="../logo.svg"
-            alt="Burbuja verde oscura, tres huecos transparentes y cola abajo a la derecha">
-          <div class="lockup"><img src="../logo.svg" alt=""><span>Pautia</span></div>
+      <article style="--logo: #57c9b4">
+        <div class="sample">
+          <svg class="large" viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+          <div class="lockup">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+            <span>Pautia</span>
+          </div>
+          <small>Fondo de la web · #0b1220</small>
         </div>
-        <div class="sizes" aria-label="Logo a 16, 24, 32 y 48 píxeles">
-          <img src="../logo.svg" width="16" height="16" alt="">
-          <img src="../logo.svg" width="24" height="24" alt="">
-          <img src="../logo.svg" width="32" height="32" alt="">
-          <img src="../logo.svg" width="48" height="48" alt="">
+        <div class="sizes" aria-label="Sobre panel #101a28, a 16, 24, 32 y 48 píxeles">
+          <svg style="--size:16px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:24px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:32px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:48px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
         </div>
         <div class="copy">
-          <h2>Original</h2>
-          <p>Cola a la derecha. Las dos primeras líneas son iguales y la tercera es más corta,
-            alineada a la izquierda, como en tu referencia.</p>
+          <h2>1 · Turquesa claro</h2><code>#57c9b4</code>
+          <p>Mi propuesta: ya forma parte de la paleta de la web, con más claridad.</p>
         </div>
       </article>
-      <article>
-        <div class="light">
-          <img class="large mirror" src="../logo-mirror.svg"
-            alt="La misma burbuja reflejada, con cola abajo a la izquierda">
+      <article style="--logo: #2fb39c">
+        <div class="sample">
+          <svg class="large" viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
           <div class="lockup">
-            <img class="mirror" src="../logo-mirror.svg" alt=""><span>Pautia</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+            <span>Pautia</span>
           </div>
+          <small>Fondo de la web · #0b1220</small>
         </div>
-        <div class="sizes" aria-label="Logo espejo a 16, 24, 32 y 48 píxeles">
-          <img class="mirror" src="../logo-mirror.svg" width="16" height="16" alt="">
-          <img class="mirror" src="../logo-mirror.svg" width="24" height="24" alt="">
-          <img class="mirror" src="../logo-mirror.svg" width="32" height="32" alt="">
-          <img class="mirror" src="../logo-mirror.svg" width="48" height="48" alt="">
+        <div class="sizes" aria-label="Sobre panel #101a28, a 16, 24, 32 y 48 píxeles">
+          <svg style="--size:16px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:24px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:32px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:48px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
         </div>
         <div class="copy">
-          <h2>Espejo · elegido y aplicado en la web</h2>
-          <p>La misma burbuja reflejada, con la cola a la izquierda. Los tres huecos empiezan
-            alineados a la izquierda; la línea corta conserva su tamaño.</p>
+          <h2>2 · Verde de la web</h2><code>#2fb39c</code>
+          <p>El mismo verde que los botones y enlaces del tema oscuro.</p>
+        </div>
+      </article>
+      <article style="--logo: #6ee7b7">
+        <div class="sample">
+          <svg class="large" viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+          <div class="lockup">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+            <span>Pautia</span>
+          </div>
+          <small>Fondo de la web · #0b1220</small>
+        </div>
+        <div class="sizes" aria-label="Sobre panel #101a28, a 16, 24, 32 y 48 píxeles">
+          <svg style="--size:16px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:24px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:32px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:48px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+        </div>
+        <div class="copy">
+          <h2>3 · Menta</h2><code>#6ee7b7</code>
+          <p>Más luminoso y suave, sin abandonar la familia verde.</p>
+        </div>
+      </article>
+      <article style="--logo: #7dd3fc">
+        <div class="sample">
+          <svg class="large" viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+          <div class="lockup">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+            <span>Pautia</span>
+          </div>
+          <small>Fondo de la web · #0b1220</small>
+        </div>
+        <div class="sizes" aria-label="Sobre panel #101a28, a 16, 24, 32 y 48 píxeles">
+          <svg style="--size:16px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:24px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:32px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:48px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+        </div>
+        <div class="copy">
+          <h2>4 · Azul cielo</h2><code>#7dd3fc</code>
+          <p>Un tono frío y limpio, con mucha separación del fondo.</p>
+        </div>
+      </article>
+      <article style="--logo: #a5b4fc">
+        <div class="sample">
+          <svg class="large" viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+          <div class="lockup">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+            <span>Pautia</span>
+          </div>
+          <small>Fondo de la web · #0b1220</small>
+        </div>
+        <div class="sizes" aria-label="Sobre panel #101a28, a 16, 24, 32 y 48 píxeles">
+          <svg style="--size:16px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:24px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:32px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:48px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+        </div>
+        <div class="copy">
+          <h2>5 · Lavanda</h2><code>#a5b4fc</code>
+          <p>Una alternativa suave, más cercana al azul que al violeta.</p>
+        </div>
+      </article>
+      <article style="--logo: #fbbf24">
+        <div class="sample">
+          <svg class="large" viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+          <div class="lockup">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-mirror"/></svg>
+            <span>Pautia</span>
+          </div>
+          <small>Fondo de la web · #0b1220</small>
+        </div>
+        <div class="sizes" aria-label="Sobre panel #101a28, a 16, 24, 32 y 48 píxeles">
+          <svg style="--size:16px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:24px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:32px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+          <svg style="--size:48px" viewBox="0 0 24 24"><use href="#logo-mirror"/></svg>
+        </div>
+        <div class="copy">
+          <h2>6 · Ámbar</h2><code>#fbbf24</code>
+          <p>Más cálido y llamativo; también está presente en la paleta actual.</p>
         </div>
       </article>
     </div>
