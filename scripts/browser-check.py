@@ -103,9 +103,9 @@ with sync_playwright() as p:
                 problems.append(f"{name}-{label}: the page did not open in Spanish")
             assert page.locator('.brand__mark use').get_attribute('href') == '#i-pautia'
             favicon_href = page.locator('link[rel="icon"]').get_attribute("href")
-            assert favicon_href == "/assets/logo-mirror.svg"
+            assert favicon_href == "/assets/logo-mirror.svg?v=turquoise"
             favicon = page.request.get(f"{BASE}{favicon_href}").text()
-            assert 'fill="#06252b"' in favicon
+            assert 'fill="#57c9b4"' in favicon
             assert 'fill-rule="evenodd"' in favicon
             assert 'translate(24 0) scale(-1 1)' in favicon
             assert '#ffffff' not in favicon

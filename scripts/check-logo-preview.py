@@ -32,6 +32,7 @@ assert approved[0][1]["d"].count("h2.64") == 1
 ns = "{http://www.w3.org/2000/svg}"
 chosen = ElementTree.parse("public/assets/logo-mirror.svg").getroot().find(f"{ns}g")
 assert chosen.attrib["transform"] == "translate(24 0) scale(-1 1)"
+assert shapes(chosen)[0][1]["fill"] == "#57c9b4"
 icons = ElementTree.fromstring(Path("site/_includes/icons.njk").read_text())
 mark = icons.find(".//*[@id='i-pautia']")
 assert shapes(mark) == shapes(chosen), "the page must use the chosen artwork without redrawing"
@@ -98,14 +99,14 @@ with sync_playwright() as p:
     for y in (65, 109, 154):
         starts.append(next(x for x in range(40, 180) if mirror.getpixel((x, y))[3] == 0))
     assert len(set(starts)) == 1, "all three mirrored cutouts must be left-aligned"
-    assert mirror.getpixel((40, 100))[3] == 255
+    assert mirror.getpixel((40, 100)) == (87, 201, 180, 255)
     assert mirror.getpixel((5, 5))[3] == 0
 
     page.set_viewport_size({"width": 390, "height": 900})
     for route in ("/", "/pricing", "/seguridad-whatsapp", "/campanas-masivas"):
         page.goto(f"{base}{route}", wait_until="networkidle")
         favicon_href = page.locator('link[rel="icon"]').get_attribute("href")
-        assert favicon_href == "/assets/logo-mirror.svg"
+        assert favicon_href == "/assets/logo-mirror.svg?v=turquoise"
         assert page.locator(".brand__mark use").get_attribute("href") == "#i-pautia"
     browser.close()
 

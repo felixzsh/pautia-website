@@ -8,7 +8,7 @@
   "theme_color": "#0e7c6b",
   "icons": [
     {
-      "src": "/assets/logo-mirror.svg",
+      "src": "/assets/logo-mirror.svg?v=turquoise",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

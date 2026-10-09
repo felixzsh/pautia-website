@@ -58,6 +58,7 @@ for page in $pages; do
       /assets/i18n/*) continue ;;   # a language file, checked by check-content.py
     esac
     target=${link%%#*}
+    target=${target%%\?*}
     file="public$target"
     [ ! -d "$file" ] || file="$file/index.html"
     [ -f "$file" ] || file="public$target.html"
